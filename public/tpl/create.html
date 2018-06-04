@@ -1,0 +1,15 @@
+<div class="c" ng-controller="mainController">
+    <div style="padding: 50px;">
+        <div>
+            <div class="lt">生成钱包</div>
+            <div style="text-align: center;height: 80px;"> <span style="line-height: 80px;font-size:24px;">输入一个强密码（至少9位）</span></div>
+            <div class="dt">
+                <input class="in" type="password" placeholder="请输入你的钱包密码" ng-model="password">
+            </div>
+            <div class="st">
+                <input class="bt" type="button" value="生成钱包" ng-click="makefile();">
+                <div style="margin-top:18px;font-size:14px;color: #ff0000;">(生成的秘钥文件，请保存好，不能转发他人，否则后果自负)</div>
+            </div>
+        </div>
+    </div>
+</div>

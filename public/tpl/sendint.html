@@ -1,0 +1,87 @@
+<div class="c" ng-app="sendintController">
+    <div class="ct">
+        <div>
+            <div class="i">选择你的钱包文件</div>
+            <!-- <div class="is">选择钱包文件</div> -->
+            <div file-uploader url="url" password="model.password" file="file"></div>
+            <div class="lb" ng-click="unlock()">解锁</div>
+        </div>
+        <div class="tb">
+            <ul>
+                <li>
+                    <div class="item">
+                        <div class="t">
+                            <span>来自地址</span>
+                        </div>
+                        <div class="ci">
+                            <input type="text" disabled="disabled" ng-model="model.sourceAddress">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item">
+                        <div class="t">
+                            <span>余额</span>
+                        </div>
+                        <div class="ci">
+                            <input type="text" disabled="disabled" ng-model="model.sourceAmount">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item">
+                        <div class="t">
+                            <span>目的地址</span>
+                        </div>
+                        <div class="ci">
+                            <input type="text" ng-model="model.targetAddress">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item">
+                        <div class="t">
+                            <span>要发送的价值 / 金额</span>
+                        </div>
+                        <div class="ci">
+                            <input type="text" ng-model="model.targetAmount">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item">
+                        <div class="t">
+                            <span>Gas 限制</span>
+                        </div>
+                        <div class="ci">
+                            <input type="text" ng-model="model.gesLimit">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item">
+                        <div class="t">
+                            <span>Gas 价格 </span><span class="i1">( 1 NAS = 1EWei = 10 <span class="i2">18</span> Wei )</span>
+                        </div>
+                        <div class="ci">
+                            <input type="text" ng-model="model.gesPrice">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item">
+                        <div class="t">
+                            <span>Nonce</span>
+                        </div>
+                        <div class="ci">
+                            <input type="text" ng-model="model.nonce">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div style="height:150px;">
+            <div class="lb" ng-click="makeTransation()">生成交易</div>
+        </div>
+    </div>
+</div>

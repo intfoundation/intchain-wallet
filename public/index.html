@@ -1,0 +1,92 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>int wallet</title>
+    <link rel="stylesheet" href="/css/index.css" />
+    <script src="./js/plugins/jquery/jquery-1.9.1.min.js"></script>
+    <script src="./js/plugins/jquery/jquery.json-2.3.min.js"></script>
+    <link href="./js/plugins/layer/skin/default/layer.css" rel="stylesheet">
+    <script src="./js/plugins/layer/layer.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-animate.min.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-route.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-file-upload.min.js"></script>
+    <script type="text/javascript" src="./js/app/ngapp.js"></script>
+    <script type="text/javascript" src="./js/app/directives/uploaddirectives.js"></script>
+    <script type="text/javascript" src="./js/app/app-route.js"></script>
+    <script type="text/javascript" src="./js/page/common.js"></script>
+    <script type="text/javascript" src="./js/page/create.js"></script>
+    <script type="text/javascript" src="./js/page/sendint.js"></script>
+    <script type="text/javascript" src="./js/page/sendoffline.js"></script>
+    <script type="text/javascript" src="./js/page/walletinfo.js"></script>
+</head>
+
+<body ng-app="myApp">
+    <div id="content">
+        <div id="warpper">
+            <div class="tabs">
+                <ul>
+                    <li>
+                        <div class="i">
+                            <a class="c" href="#/index">新建钱包</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="i">
+                            <a class="c" href="#/sendint">发送INT</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="i">
+                            <a class="c" href="#/sendoffline">离线发送</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="i">
+                            <a class="c" href="#/viewWalletInfo">钱包信息</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="i">
+                            <a class="c">交易状态</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="pc" ng-view>
+
+        </div>
+        <script type="text/javascript">
+            $(function() {
+                setCurUrlTab();
+                bindClick();
+            });
+
+            function setCurUrlTab() {
+                var url = window.location.hash;
+                var tag = ".tabs .i .c";
+                var tags = $(tag);
+                $.each(tags, function(i, item) {
+                    if ($(item).attr('href') === url) {
+                        $(item).addClass("cu");
+                    } else {
+                        $(item).removeClass("cu");
+                    }
+                });
+            };
+
+            function bindClick() {
+                var tabs = $(".tabs .i .c");
+                $(tabs).on('click', function() {
+                    $(tabs).removeClass("cu");
+                    $(this).addClass("cu");
+                });
+            };
+        </script>
+    </div>
+</body>
+
+</html>

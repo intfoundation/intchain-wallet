@@ -1,0 +1,276 @@
+body {
+    margin: 0;
+    background-color: #eee;
+}
+
+#content {
+    width: 60%;
+    margin: 0 auto;
+    /* background: #fff; */
+}
+
+#warpper {
+    height: 80px;
+    background: #fff;
+}
+
+#warpper .tabs {
+    padding-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 50px;
+    /* border-bottom: solid 1px #ddd; */
+}
+
+#warpper ul {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+}
+
+#warpper ul li {
+    float: left;
+    width: 100px;
+    text-align: center;
+}
+
+#warpper ul li .i {
+    border-bottom: none;
+}
+
+#warpper ul li .i .c {
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+    height: 30px;
+    padding: 5px;
+    display: inline-block;
+}
+
+#warpper ul li .i .c:hover {
+    border-bottom: solid 2px #333;
+}
+
+#warpper ul li .i .cu {
+    border-bottom: solid 2px #333 !important;
+}
+
+#content .pc {
+    margin-top: 20px;
+    background: #fff;
+}
+
+#content .pc .c {
+    min-height: 400px;
+}
+
+#content .pc .c .lt {
+    font-family: 'microsoft yahei';
+    text-align: center;
+    height: 100px;
+    font-size: 30px;
+    line-height: 100px;
+}
+
+#content .pc .c .st {
+    font-family: 'microsoft yahei';
+    text-align: center;
+    height: 100px;
+}
+
+#content .pc .c .st .bt {
+    background: #0E97C0;
+    border: solid 1px #0E97C0;
+    height: 40px;
+    font-size: 15px;
+    cursor: pointer;
+    color: #fff;
+    width: 120px;
+    border-radius: 3px;
+}
+
+#content .pc .c .st .bt:hover {
+    background: #26B8E3;
+    border: solid 1px #26B8E3;
+}
+
+#content .pc .c .dt {
+    font-family: 'microsoft yahei';
+    text-align: center;
+    height: 80px;
+    font-size: 20px;
+    line-height: 80px;
+    padding: 25px 0;
+}
+
+#content .pc .c .dt .in {
+    padding: 8px;
+    font-size: 18px;
+    width: 80%;
+    background: #f1f1f1;
+    border: solid 1px #ddd;
+}
+
+#content .pc .c .ct {
+    margin: 20px 50px;
+}
+
+#content .pc .c .t1 {
+    clear: both;
+    font-family: 'microsoft yahei';
+    font-size: 20px;
+    color: #333;
+    padding-top: 20px;
+}
+
+#content .pc .c .i {
+    clear: both;
+    font-family: 'microsoft yahei';
+    font-size: 18px;
+    color: #999;
+    padding-top: 20px;
+}
+
+.pc .c .lb {
+    margin-top: 20px;
+    height: 50px;
+    border-radius: 3px;
+    line-height: 50px;
+    text-align: center;
+    background: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
+.pc .c .lb:hover {
+    background: #333;
+}
+
+.pc .c .is {
+    color: #333;
+    margin-top: 20px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.is .lt1 {
+    width: 100%;
+    cursor: pointer;
+    border: solid 1px #eee;
+    background: #eee;
+    border-radius: 3px;
+    /* float: left; */
+}
+
+.is .lt1:hover {
+    border: solid 1px #D52424;
+}
+
+.is .ip {
+    width: 100%;
+    height: 100%;
+    background: #eee;
+    font-size: 20px;
+    padding: 7px 10px;
+    border: solid 1px #eee;
+}
+
+.is .lt2 {
+    display: none;
+    position: relative;
+    width: 10%;
+    float: left;
+}
+
+.is .lt2 a {
+    position: absolute;
+    right: 0;
+    width: 80px;
+    height: 48px;
+    background: #f7f7f7;
+    display: inline-block;
+    border-radius: 0 3px 0 0;
+    border: solid 1px #ccc;
+    color: #000;
+    text-decoration: none;
+}
+
+.is .lt2 a input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+
+/* .pc .c .is:hover {
+    border: solid 1px #D65050;
+} */
+
+#content .pc .c .tb {
+    height: 320px;
+    margin-top: 20px;
+}
+
+#content .pc .c .tb ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.tb ul li {
+    float: left;
+    width: 50%;
+}
+
+.tb ul li:nth-child(odd) {
+    text-align: left;
+}
+
+.tb ul li:nth-child(even) {
+    text-align: right;
+}
+
+.tb ul li .item {
+    height: 80px;
+    /* border: solid 1px #ddd; */
+    font-family: 'microsoft yahei';
+}
+
+.tb ul li .item .t {
+    height: 35px;
+}
+
+.tb ul li .item .t .i1 {
+    font-style: italic;
+    font-size: 12px;
+}
+
+.tb ul li .item .t .i2 {
+    font-size: 12px !important;
+    position: relative;
+    top: -8px;
+}
+
+.tb ul li .item .t span {
+    line-height: 35px;
+    font-size: 16px;
+    color: #666;
+}
+
+.tb ul li .item .ci {
+    height: 45px;
+}
+
+.tb ul li .item .ci input {
+    border: solid 1px #ddd;
+    height: 40px;
+    padding: 8px;
+    background: #eee;
+    width: 90%;
+    border-radius: 2px;
+}
