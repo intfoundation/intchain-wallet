@@ -235,6 +235,10 @@ body {
     text-align: right;
 }
 
+.tb ul li:nth-child(even) input[type=text] {
+    text-align: right;
+}
+
 .tb ul li .item {
     height: 80px;
     /* border: solid 1px #ddd; */

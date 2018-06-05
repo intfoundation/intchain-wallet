@@ -1,6 +1,7 @@
 app.controller('mainController', function($scope, $http) {
     $scope.password = '';
     $scope.makefile = function() {
+        //正则表达式
         var password = $.trim($scope.password);
         if ($.trim($scope.password).length == 0) {
             util.alert('请输入密码');

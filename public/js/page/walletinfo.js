@@ -29,6 +29,7 @@ app.controller('walletinfoController', function($scope, $http) {
                         $scope.model.sourceAddress = data.address;
                         $scope.model.encryptCode = data.crypto.wif;
                         $scope.model.cryptCode = data.crypto.ciphertext;
+                        $scope.getbalance();
                         $scope.getqrcodeimg();
                     } else {
                         util.alert('密码错误');
@@ -43,7 +44,16 @@ app.controller('walletinfoController', function($scope, $http) {
 
     $scope.getqrcodeimg = function() {
         if ($scope.model.encryptCode.length > 0) {
-            $scope.model.addressQrcode = 'http://localhost:8081/qrcode/' + $scope.model.encryptCode;
+            $scope.model.addressQrcode = '/qrcode/' + $scope.model.encryptCode;
         }
     };
+
+    $scope.getbalance = function() {
+        //var url = "/wallet/account/query/" + $scope.model.sourceAddress;
+        var url = "/wallet/account/query/181XvoNT9m3FRMH98kLSno9wnKWj7QEYLK";
+        $http.post(url).success(function(data) {
+            $scope.model.sourceAmount = data.balance;
+        });
+    };
+
 });

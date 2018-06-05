@@ -42,17 +42,11 @@ app.controller('sendintController', function($scope, $http, FileUploader) {
 
 
     $scope.getbalance = function() {
-        // var url = "https://explorer.intchain.io/balance/" + $scope.model.sourceAddress;
-        // $http.jsonp(url).success(function(data) {
-        //     console.log(data);
-        // });
-
-
-        var url = "http://localhost:3001/balance/1EZ2m5fherUjHWRWrEgodjoJsFNdnADnCT";
-        $http.jsonp(url).success(function(data) {
+        //var url = "/wallet/account/query/" + $scope.model.sourceAddress;
+        var url = "/wallet/account/query/181XvoNT9m3FRMH98kLSno9wnKWj7QEYLK";
+        $http.post(url).success(function(data) {
             console.log(data);
-            var balance = data.balance;
-            console.log(toLocaleString(balance));
+            $scope.model.sourceAmount = data.balance;
         });
     };
 
@@ -68,7 +62,7 @@ app.controller('sendintController', function($scope, $http, FileUploader) {
         if ($.trim($scope.model.targetAddress).length == 0) {
             errmsg += '请输入目的地址<br>';
         }
-        if ($scope.model.sourceAmount > 0) {
+        if ($scope.model.sourceAmount == 0) {
             errmsg += '余额必须大于0<br>';
         }
         if ($.trim($scope.model.targetAmount).length == 0) {
@@ -92,13 +86,16 @@ app.controller('sendintController', function($scope, $http, FileUploader) {
                 errmsg += 'Gas价格大于0<br>';
             }
         }
-        if ($.trim($scope.model.nonce).length == 0) {
-            errmsg += '请输入Nonce<br>';
-        } else {
-            if (!util.isDouble($scope.model.nonce)) {
-                errmsg += 'Nonce必须大于0<br>';
-            }
+        if ($scope.model.sourceAmount <= $scope.model.targetAmount) {
+
         }
+        // if ($.trim($scope.model.nonce).length == 0) {
+        //     errmsg += '请输入Nonce<br>';
+        // } else {
+        //     if (!util.isDouble($scope.model.nonce)) {
+        //         errmsg += 'Nonce必须大于0<br>';
+        //     }
+        // }
         if (errmsg.length > 0) {
             util.alert(errmsg);
             return;

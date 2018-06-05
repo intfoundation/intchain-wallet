@@ -13,6 +13,11 @@ const KeyRing = require('../chainlib/Account/keyring');
 const aesUtil = require("../chainlib/Crypto/aesutil");
 const util = require("./util");
 const assert = require("assert");
+const HttpsUtil = require("../httputils").HttpsUtil;
+const httpsutil = new HttpsUtil();
+const HttpUtil = require("../httputils").HttpUtil;
+const httpUtil = new HttpUtil();
+
 
 class WalletAccount {
 
@@ -105,6 +110,14 @@ class WalletAccount {
             }
         };
         return json;
+    }
+
+    async getaccount(address) {
+        var url = "https://explorer.intchain.io/api/balance/" + address;
+        let data = await httpsutil.sendGet(url);
+        // var url = 'http://localhost:3001/balance/' + address;
+        // let data = await httpUtil.sendGet(url);
+        return data;
     }
 }
 
