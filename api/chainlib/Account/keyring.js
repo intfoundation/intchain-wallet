@@ -782,7 +782,7 @@ class KeyRing {
             publicKey: this.publicKey.toString('hex'),
             script: this.script ? this.script.toRaw().toString('hex') : null,
             program: this.witness ? this.getProgram().toRaw().toString('hex') : null,
-            //type: Address.typesByVal[this.getType()].toLowerCase(),
+            type: Address.typesByVal[this.getType()].toLowerCase(),
             address: this.getAddress('string')
         }
     }

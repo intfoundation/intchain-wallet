@@ -545,38 +545,41 @@ class TX {
 
         // Serialize outputs.
         switch (type & 0x1f) {
-            case hashType.NONE: {
-                // No outputs if NONE.
-                bw.writeVarint(0);
-                break;
-            }
-            case hashType.SINGLE: {
-                const output = this.outputs[index];
-
-                // Drop all outputs after the
-                // current input index if SINGLE.
-                bw.writeVarint(index + 1);
-
-                for (let i = 0; i < index; i++) {
-                    // Null all outputs not at
-                    // current input index.
-                    bw.writeI64(-1);
+            case hashType.NONE:
+                {
+                    // No outputs if NONE.
                     bw.writeVarint(0);
+                    break;
                 }
+            case hashType.SINGLE:
+                {
+                    const output = this.outputs[index];
 
-                // Regular serialization
-                // at current input index.
-                output.toWriter(bw);
+                    // Drop all outputs after the
+                    // current input index if SINGLE.
+                    bw.writeVarint(index + 1);
 
-                break;
-            }
-            default: {
-                // Regular output serialization if ALL.
-                bw.writeVarint(this.outputs.length);
-                for (const output of this.outputs)
+                    for (let i = 0; i < index; i++) {
+                        // Null all outputs not at
+                        // current input index.
+                        bw.writeI64(-1);
+                        bw.writeVarint(0);
+                    }
+
+                    // Regular serialization
+                    // at current input index.
                     output.toWriter(bw);
-                break;
-            }
+
+                    break;
+                }
+            default:
+                {
+                    // Regular output serialization if ALL.
+                    bw.writeVarint(this.outputs.length);
+                    for (const output of this.outputs)
+                        output.toWriter(bw);
+                    break;
+                }
         }
 
         bw.writeU32(this.locktime);
@@ -667,9 +670,9 @@ class TX {
             }
         }
 
-        if (!(type & hashType.ANYONECANPAY)
-            && (type & 0x1f) !== hashType.SINGLE
-            && (type & 0x1f) !== hashType.NONE) {
+        if (!(type & hashType.ANYONECANPAY) &&
+            (type & 0x1f) !== hashType.SINGLE &&
+            (type & 0x1f) !== hashType.NONE) {
             if (this._hashSequence) {
                 sequences = this._hashSequence;
             } else {
@@ -685,8 +688,8 @@ class TX {
             }
         }
 
-        if ((type & 0x1f) !== hashType.SINGLE
-            && (type & 0x1f) !== hashType.NONE) {
+        if ((type & 0x1f) !== hashType.SINGLE &&
+            (type & 0x1f) !== hashType.NONE) {
             if (this._hashOutputs) {
                 outputs = this._hashOutputs;
             } else {
@@ -812,12 +815,12 @@ class TX {
                 this._datapubkey = this.inputs[0].script.getData(0);
                 this._datasig = this.inputs[0].script.getData(1);
             }
-            
+
             let account = KeyRing.fromPublic(this._datapubkey);
             if (!account) {
                 throw new ScriptError('UNKNOWN_ERROR', 'invalid dataPubkey');
             }
-            
+
             if (!account.verifyHash(this.extData, this._datasig)) {
                 throw new ScriptError('UNKNOWN_ERROR', 'check data sig failed');
             }
@@ -956,7 +959,8 @@ class TX {
     getInputValue(view) {
         let total = 0;
 
-        for (const { prevout } of this.inputs) {
+        for (const { prevout }
+            of this.inputs) {
             const coin = view.getOutput(prevout);
 
             if (!coin)
@@ -1169,7 +1173,8 @@ class TX {
         if (this.inputs.length === 0)
             return false;
 
-        for (const { prevout } of this.inputs) {
+        for (const { prevout }
+            of this.inputs) {
             if (!view.hasEntry(prevout))
                 return false;
         }
@@ -1722,7 +1727,8 @@ class TX {
 
         let total = 0;
 
-        for (const { prevout } of this.inputs) {
+        for (const { prevout }
+            of this.inputs) {
             const entry = view.getEntry(prevout);
 
             if (!entry)
@@ -1803,7 +1809,8 @@ class TX {
 
         let sum = 0;
 
-        for (const { prevout } of this.inputs) {
+        for (const { prevout }
+            of this.inputs) {
             const coin = view.getOutput(prevout);
 
             if (!coin)
@@ -1835,7 +1842,8 @@ class TX {
 
         let value = 0;
 
-        for (const { prevout } of this.inputs) {
+        for (const { prevout }
+            of this.inputs) {
             const coin = view.getOutput(prevout);
 
             if (!coin)
@@ -2548,8 +2556,8 @@ function hasWitnessBytes(br) {
     if (br.left() < 6)
         return false;
 
-    return br.data[br.offset + 4] === 0
-        && br.data[br.offset + 5] !== 0;
+    return br.data[br.offset + 4] === 0 &&
+        br.data[br.offset + 5] !== 0;
 }
 
 function RawTX(size, witness) {

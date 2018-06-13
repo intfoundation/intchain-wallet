@@ -10,7 +10,8 @@ const KeyRing = require('../Account/keyring');
 const assert = require('assert');
 const {Info, MetaInfo} = require('../Infos/Info');
 const TX = require('../Transcation/tx');
-const EventEmitter = require('events')
+const EventEmitter = require('events');
+const LockSimple = require('../Utils/LockSimple');
 
 class BlockChain  extends EventEmitter{
     constructor(params){
@@ -21,6 +22,10 @@ class BlockChain  extends EventEmitter{
         this.config = params.config;
         this.m_orphanBlocks = new Map();
         this.m_bUpdateBlockList = [];
+        this.m_requestingBlock = new Map();
+        this.m_updateTimeout = 3*60*1000;
+        this.m_addBlockLock = new LockSimple();
+        this.m_addHeaderLock = new LockSimple();
     }
 
     async create() {
@@ -80,9 +85,10 @@ class BlockChain  extends EventEmitter{
 
     //一旦检测到某个header的index比链里面的大就触发更新header
     async addHeaders(headers){
+        await this.m_addHeaderLock.enter();
         let updateBlockHashList = [];
         for(let header of headers){
-            console.log('[addHeaders]header.hegith='+header.height.toString()+' now='+this.getNowHeight().toString());
+            console.log('[blockchain.js addHeaders]header.hegith='+header.height.toString()+' now='+this.getNowHeight().toString());
             if(header.height > this.getNowHeight()+1) {
                 this.emit("OnUpdateHeader",this,this.getNowHeight()+1);
                 //不更新block
@@ -106,7 +112,7 @@ class BlockChain  extends EventEmitter{
                     let prevBlock = this.getBlock(block.prevBlock);
                     if (prevBlock) {
                         this.m_orphanBlocks.delete(header.height);
-                        console.log('[addHeaders] storageBlock 1,height=' + block.height.toString());
+                        console.log('[blockchain.js addHeaders] storageBlock 1,height=' + block.height.toString());
                         await this.storageBlock(block);
                     }
                 } else {
@@ -119,14 +125,16 @@ class BlockChain  extends EventEmitter{
         if (updateBlockHashList.length > 0) {
             this._doUpdateBlock(updateBlockHashList);
         }
+        await this.m_addHeaderLock.leave();
     }
 
     _doUpdateBlock(list) {
-        if (list.length >0) {
-            this.m_bUpdateBlockList = this.m_bUpdateBlockList.concat(list);
+        for (let hash of list) {
+            if (!this.isRequesting(hash)) {
+                this.m_bUpdateBlockList.push(hash);
+            }
         }
-        console.log('[_doUpdateBlock] this.m_bUpdateBlockList.length='+this.m_bUpdateBlockList.length);
-        //let updateList = this.m_bUpdateBlockList.splice(0,1000);
+        console.log('[blockchain.js _doUpdateBlock] this.m_bUpdateBlockList.length='+this.m_bUpdateBlockList.length);
         if (this.m_bUpdateBlockList.length > 0) {
             this.emit("OnUpdateBlock",this);
         }
@@ -137,18 +145,47 @@ class BlockChain  extends EventEmitter{
         return this.m_bUpdateBlockList.length;
     }
 
+    isRequesting(hash) {
+        for (let h of this.m_bUpdateBlockList) {
+            if (h === hash) {
+                return true;
+            }
+        }
+
+        if (!this.m_requestingBlock.has(hash)) {
+            return false;
+        }
+
+        if (Date.now() > this.m_requestingBlock.get(hash) + this.m_updateTimeout) {
+            console.log(`[blockchain.js isRequesting] timeout hash=${hash}`);
+            this.m_requestingBlock.delete(hash);
+            return false;
+        }
+
+        return true;
+    }
+
     getUpdateBlockList(nCount) {
         if (nCount < 1) {
             nCount = 1000
         }
         let updateList = this.m_bUpdateBlockList.splice(0,nCount);
+        for (let hash of updateList) {
+            this.m_requestingBlock.set(hash, Date.now());
+        }
         return updateList;
     }
 
     async addBlocks(blocks) {
+        await this.m_addBlockLock.enter();
         for (let block of blocks){
             if (!block.verify()) {
                 continue;
+            }
+
+            let hash = block.hash('hex');
+            if (this.m_requestingBlock.has(hash)) {
+                this.m_requestingBlock.delete(hash);
             }
 
             if (block.height > this.getNowHeight() +1) {
@@ -158,10 +195,10 @@ class BlockChain  extends EventEmitter{
             else {
                 let prevBlock = this.getBlock(block.prevBlock);
                 if (block.height > 0 && !prevBlock) {
-                    console.log('[addBlocks] add to m_orphanBlocks,height='+block.height.toString());
+                    console.log('[blockchain.js addBlocks] add to m_orphanBlocks,height='+block.height.toString());
                     this.m_orphanBlocks.set(block.height,block);
                 } else {
-                    console.log('[addBlocks] storageBlock 2,height='+block.height.toString());
+                    console.log('[blockchain.js addBlocks] storageBlock 2,height='+block.height.toString());
                     await this.storageBlock(block);
                 }
             }
@@ -182,9 +219,29 @@ class BlockChain  extends EventEmitter{
                 }
                 return 1
             });
+            console.log('============================'+JSON.stringify(keys));
             let block = this.m_orphanBlocks.get(keys[0]);
+            if (this.isRequesting(block.prevBlock)) {
+                break;
+            }
             let prevBlock = this.getBlock(block.prevBlock);
             if (!prevBlock) {
+                let list = [];
+                list.push(block.prevBlock);
+                //再检查更前面得
+                let bHeight = block.height - 2;
+                while(bHeight > 1) {
+                    let header = await this.getHeaderByHeight(bHeight);
+                    let prevBlock = this.getBlock(header.hash('hex'));
+                    if (prevBlock || this.isRequesting(header.hash('hex')) || list.length >= 50) {
+                        break;
+                    }
+                    list.push(header.hash('hex'));
+                    list1.push(bHeight);
+                    bHeight--;
+                }
+                console.log(`[blockchain.js addBlocks] download prevblock,height=${keys[0]},prevblock hash=${block.prevBlock}`);
+                this._doUpdateBlock(list);
                 break;
             }
             let prevIndex = prevBlock.height;
@@ -199,13 +256,14 @@ class BlockChain  extends EventEmitter{
                     break;
                 }
             }
-            console.log('[addBlocks] this.m_orphanBlocks,length=' + this.m_orphanBlocks.size.toString() + JSON.stringify([...this.m_orphanBlocks.keys()]));
+            console.log('[blockchain.js addBlocks] this.m_orphanBlocks,length=' + this.m_orphanBlocks.size.toString() + JSON.stringify([...this.m_orphanBlocks.keys()]));
             for (let block of blocklist) {
-                console.log('[addBlocks] storageBlock 3,height=' + block.height.toString());
+                console.log('[blockchain.js addBlocks] storageBlock 3,height=' + block.height.toString());
                 await this.storageBlock(block);
             }
         }
         //this._doUpdateBlock([]);
+        await this.m_addBlockLock.leave();
     }
 
     async getHeadersRaw(start, len) {

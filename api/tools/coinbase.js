@@ -91,18 +91,15 @@ function _createCoinbase(targets, creatorAccount) {
     return cb;
 }
 
-// process.on('unhandledRejection', error => {
-//     console.error('unhandledRejection', error);
-//     process.exit(1)
-// });
+process.on('unhandledRejection', error => {
+    console.error('unhandledRejection', error);
+    process.exit(1)
+});
 
-// if (process.argv.length < 5) {
-//     console.log('Usage: node coinbase.js <minerAccountWIF> <amount> <ip> <port>');
-// }
+if (process.argv.length < 5) {
+    console.log('Usage: node coinbase.js <minerAccountWIF> <amount> <ip> <port>');
+}
 
-// let ring =  KeyRing.fromSecret(process.argv[2]);//"Kx1vvQLVhSpRprKLBY9TU5CygfbCCT4aPZPvCW6AKrtUuqqibweU");
-// let address = ring.getAddress();
-// createCoinBase([{address:address, amount:parseInt(process.argv[3])}],process.argv[4],process.argv[5]);
-
-
-module.exports = createCoinBase;
+let ring = KeyRing.fromSecret(process.argv[2]); //"Kx1vvQLVhSpRprKLBY9TU5CygfbCCT4aPZPvCW6AKrtUuqqibweU");
+let address = ring.getAddress();
+createCoinBase([{ address: address, amount: parseInt(process.argv[3]) }], process.argv[4], process.argv[5]);

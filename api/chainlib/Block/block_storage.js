@@ -38,6 +38,7 @@ class BlockStorage {
                 this.cache.set(blockHash, block);
                 return block;
             } catch (error) {
+                console.log(`[block_storage get] error=${error}`);
                 return null;
             }
         }

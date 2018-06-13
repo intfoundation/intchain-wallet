@@ -50,7 +50,7 @@ class NewBlockDriver extends EventEmitter {
     }
 
     getCurrNodeID() {
-        return this.m_currNode;
+        return this.currNode;
     }
 
     //
@@ -115,6 +115,7 @@ class NewBlockDriver extends EventEmitter {
             return;
         }
         if (bNow) {
+            this.prevNode = this.m_id;
             this.emit("OnNewBlock", this, this.nodeTurns);
         }
         else {
@@ -122,6 +123,7 @@ class NewBlockDriver extends EventEmitter {
                 if (this.newBlockTimer !== 0) {
                     this._endNewBlockTimer();
                 }
+                this.prevNode = this.m_id;
                 this.emit("OnNewBlock", this, this.nodeTurns);
             }, this.intervalTime);
         }

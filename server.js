@@ -76,6 +76,17 @@ app.post('/wallet/account/query/:address', async(req, res) => {
 })
 
 
+app.post('/wallet/spend/:from/:to/:amount', async(req, res) => {
+    let from = req.params.from;
+    let to = req.params.to;
+    let amount = req.params.amount;
+    var outarray = [{ address: to, amount: amount }];
+    let result = await walletAccount.spendByAddress(from, outarray);
+    res.send(result);
+    res.end();
+})
+
+
 app.get('/', function(req, res) {
     res.send('Hello POST');
 });

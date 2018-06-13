@@ -441,6 +441,7 @@ class Block extends AbstractBlock {
         if (this.txs.length === 0
             || this.txs.length > consensus.MAX_BLOCK_SIZE
             || this.getBaseSize() > consensus.MAX_BLOCK_SIZE) {
+            console.log(`[block checkBody], failed ,txs.length=${this.txs.length}, basesize=${this.getBaseSize()}`);
             return [false, 'bad-blk-length', 100];
         }
 

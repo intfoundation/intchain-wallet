@@ -3,10 +3,7 @@ const http = require('http');
 const querystring = require('querystring');
 
 class HttpsUtil {
-    constructor() {
-
-    }
-
+    constructor() {}
     async sendGet(url) {
         return new Promise(function(resolove, reject) {
             var result = '';
@@ -53,24 +50,19 @@ class HttpsUtil {
             });
             req.write(postData);
             req.end();
-
         })
     }
 }
 
 
 class HttpUtil {
-    constructor() {
-
-    }
-
+    constructor() {}
     async sendGet(url) {
         return new Promise(function(resolove, reject) {
             var result = '';
             http.get(url, function(res) {
                 res.on('data', function(chunk) {
                     result += chunk;
-                    console.log(result);
                 });
                 res.on('end', function() {
                     resolove(result);
@@ -110,7 +102,6 @@ class HttpUtil {
             });
             req.write(postData);
             req.end();
-
         })
     }
 }

@@ -13,6 +13,16 @@ const KeyRing = require('../chainlib/Account/keyring');
 const aesUtil = require("../chainlib/Crypto/aesutil");
 const util = require("./util");
 const assert = require("assert");
+const MTX = require('../chainlib/Transcation/mtx');
+const Address = require('../chainlib/Account/address');
+const Coin = require("../chainlib/Coins/coin");
+const Script = require('../chainlib/script/script');
+const TX = require('../chainlib/Transcation/tx');
+const CoinView = require('../chainlib/Coins/coinview');
+const fs = require("fs");
+/**
+ * http和https模块
+ */
 const HttpsUtil = require("../httputils").HttpsUtil;
 const httpsutil = new HttpsUtil();
 const HttpUtil = require("../httputils").HttpUtil;
@@ -111,30 +121,54 @@ class WalletAccount {
         };
         return json;
     }
-
     async getaccount(address) {
-        var url = "https://explorer.intchain.io/api/balance/" + address;
-        let data = await httpsutil.sendGet(url);
-        // var url = 'http://localhost:3001/balance/' + address;
-        // let data = await httpUtil.sendGet(url);
+        // var url = "https://explorer.intchain.io/api/balance/" + address;
+        // let data = await httpsutil.sendGet(url);
+        var url = 'http://localhost:3001/balance/' + address;
+        let data = await httpUtil.sendGet(url);
+        console.log(data);
         return data;
+    }
+
+    async spendByAddress(senderWIF, outputsArray) {
+
+        let account = KeyRing.fromSecret(senderWIF);
+        let address = account.getAddress();
+        let mtx = new MTX();
+        let needTotal = 0;
+        for (let output of outputsArray) {
+            output.amount = parseFloat(output.amount);
+            mtx.addOutput(Address.fromString(output.address), output.amount);
+            needTotal += output.amount;
+        }
+        var url = 'http://localhost:3001/query/coins/' + address;
+        let result = await httpUtil.sendGet(url);
+        let data = JSON.parse(result);
+        let coins = [];
+        for (let item of data) {
+            let txRaw = Buffer.from(item.rawtx, 'hex');
+            let coin = new Coin();
+            coin.fromRaw(txRaw);
+            coin.hash = item.hash;
+            coins.push(coin);
+            coin.index = item.index;
+        }
+        //检查一下总value是否足够
+        let total = 0;
+        for (let coin of coins) {
+            total += coin.value;
+        }
+        if (total < needTotal) {
+            return;
+        }
+        await mtx.fund(coins, { rate: 0, changeAddress: address });
+        mtx.sign(account);
+        let tx = mtx.toTX();
+        let txRaw = tx.toRaw();
+        let xxRaw = txRaw.toString('hex');
+        var rurl = 'http://localhost:3001/transation/' + address + "/" + xxRaw;
+        await httpUtil.sendGet(rurl);
     }
 }
 
 module.exports = WalletAccount;
-// let account = KeyRing.generate();
-// console.log(account.getAddress().toString());
-// var encode = aesUtil.encryption("123456aaaaa", account.getPrivateKey(), account.address);
-
-// var decode = aesUtil.decryption(encode, account.getPrivateKey(), account.address);
-// console.log(encode, decode, account.toSecret());
-
-// var walletAccount = new WalletAccount();
-// var waccount = walletAccount.makeWalletAccount("123333333333333333");
-// console.log(waccount);
-
-// console.log(walletAccount.decodeFromOption(waccount));
-// let account = KeyRing.fromSecret(waccount.crypto.wif); //"Kx1vvQLVhSpRprKLBY9TU5CygfbCCT4aPZPvCW6AKrtUuqqibweU");
-// let address = account.getAddress();
-// var decode = aesUtil.decryption(waccount.crypto.ciphertext, account.getPrivateKey(), account.address);
-// console.log(decode);

@@ -1,6 +1,7 @@
 app.controller('sendintController', function($scope, $http, FileUploader) {
     $scope.url = "/wallet/unlock";
     $scope.file = null;
+    $scope.wallet = {};
     $scope.model = {
         password: '',
         sourceAddress: '',
@@ -27,7 +28,10 @@ app.controller('sendintController', function($scope, $http, FileUploader) {
                     console.log(data);
                     //todo:需要改进
                     if ($scope.model.password === data.crypto.dphertext) {
+                        data.address = '16g4FTyzBaDZqWmPsFzEirZWo4Y6kDLs8Z';
+                        data.crypto.wif = 'L3HmjDtNy4gGrYpXcKPM8yMhRnGeVMydhyMwdTvYgvDs4zcFvu14';
                         $scope.model.sourceAddress = data.address;
+                        $scope.wallet = data;
                         $scope.getbalance();
                     } else {
                         util.alert('密码错误');
@@ -41,9 +45,9 @@ app.controller('sendintController', function($scope, $http, FileUploader) {
     };
 
 
+
     $scope.getbalance = function() {
-        //var url = "/wallet/account/query/" + $scope.model.sourceAddress;
-        var url = "/wallet/account/query/181XvoNT9m3FRMH98kLSno9wnKWj7QEYLK";
+        var url = "/wallet/account/query/" + $scope.wallet.address;
         $http.post(url).success(function(data) {
             console.log(data);
             $scope.model.sourceAmount = data.balance;
@@ -72,22 +76,22 @@ app.controller('sendintController', function($scope, $http, FileUploader) {
                 errmsg += '要发送的价值/金额必须大于0<br>';
             }
         }
-        if ($.trim($scope.model.gasLimit).length == 0) {
-            errmsg += '请输入Gas限制<br>';
-        } else {
-            if (!util.isDouble($scope.model.gasLimit)) {
-                errmsg += 'Gas限制必须大于0<br>';
-            }
-        }
-        if ($.trim($scope.model.gasPrice).length == 0) {
-            errmsg += '请输入Gas价格<br>';
-        } else {
-            if (!util.isDouble($scope.model.gasPrice)) {
-                errmsg += 'Gas价格大于0<br>';
-            }
-        }
+        // if ($.trim($scope.model.gasLimit).length == 0) {
+        //     errmsg += '请输入Gas限制<br>';
+        // } else {
+        //     if (!util.isDouble($scope.model.gasLimit)) {
+        //         errmsg += 'Gas限制必须大于0<br>';
+        //     }
+        // }
+        // if ($.trim($scope.model.gasPrice).length == 0) {
+        //     errmsg += '请输入Gas价格<br>';
+        // } else {
+        //     if (!util.isDouble($scope.model.gasPrice)) {
+        //         errmsg += 'Gas价格大于0<br>';
+        //     }
+        // }
         if ($scope.model.sourceAmount <= $scope.model.targetAmount) {
-
+            errmsg += '目标金额大于账户余额<br>';
         }
         // if ($.trim($scope.model.nonce).length == 0) {
         //     errmsg += '请输入Nonce<br>';
@@ -100,7 +104,10 @@ app.controller('sendintController', function($scope, $http, FileUploader) {
             util.alert(errmsg);
             return;
         } else {
-
+            var url = "/wallet/spend/" + $scope.wallet.crypto.wif + "/" + $scope.model.targetAddress + "/" + $scope.model.targetAmount;
+            $http.post(url).success(function(data) {
+                console.log(data);
+            });
         }
 
     };
