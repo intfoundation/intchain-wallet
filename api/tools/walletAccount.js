@@ -29,8 +29,12 @@ const HttpUtil = require("../httputils").HttpUtil;
 const httpUtil = new HttpUtil();
 
 
-class WalletAccount {
+const GETACCOUNT_URL = 'http://localhost:3001/balance/';
+const GETCOINSBYADDRESS_URL = 'http://localhost:3001/query/coins/';
+const TRANSATION_URL = 'http://localhost:3001/transation/';
+const GETTXBYADDRESS_URL = 'https://explorer.intchain.io/api/query/4/';
 
+class WalletAccount {
     constructor() {
         this.id = util.uuidv4();
         this.version = 1.0;
@@ -121,17 +125,38 @@ class WalletAccount {
         };
         return json;
     }
-    async getaccount(address) {
-        // var url = "https://explorer.intchain.io/api/balance/" + address;
-        // let data = await httpsutil.sendGet(url);
-        var url = 'http://localhost:3001/balance/' + address;
-        let data = await httpUtil.sendGet(url);
-        console.log(data);
+
+
+
+    /**
+     * 
+     * @param {地址} address 
+     * @param {页} page 
+     */
+    async getTxByAddress(address, page) {
+        var url = GETTXBYADDRESS_URL + address + "/" + page.size + "/" + page.num;
+        let data = await httpUtil.sendGet(url, true);
         return data;
     }
 
-    async spendByAddress(senderWIF, outputsArray) {
+    /**
+     * 
+     * @param {账户地址公钥} address 
+     */
+    async getaccount(address) {
+        // var url = "https://explorer.intchain.io/api/balance/" + address;
+        // let data = await httpsutil.sendGet(url);
+        var url = GETACCOUNT_URL + address;
+        let data = await httpUtil.sendGet(url);
+        return data;
+    }
 
+    /**
+     * 
+     * @param {*} senderWIF 
+     * @param {*} outputsArray 
+     */
+    async spendByAddress(senderWIF, outputsArray) {
         let account = KeyRing.fromSecret(senderWIF);
         let address = account.getAddress();
         let mtx = new MTX();
@@ -141,7 +166,7 @@ class WalletAccount {
             mtx.addOutput(Address.fromString(output.address), output.amount);
             needTotal += output.amount;
         }
-        var url = 'http://localhost:3001/query/coins/' + address;
+        var url = GETCOINSBYADDRESS_URL + address;
         let result = await httpUtil.sendGet(url);
         let data = JSON.parse(result);
         let coins = [];
@@ -166,7 +191,7 @@ class WalletAccount {
         let tx = mtx.toTX();
         let txRaw = tx.toRaw();
         let xxRaw = txRaw.toString('hex');
-        var rurl = 'http://localhost:3001/transation/' + address + "/" + xxRaw;
+        var rurl = TRANSATION_URL + address + "/" + xxRaw;
         await httpUtil.sendGet(rurl);
     }
 }

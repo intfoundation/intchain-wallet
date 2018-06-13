@@ -62,7 +62,6 @@ app.post('/wallet/make', async(req, res) => {
  * 解锁文件
  */
 app.post('/wallet/unlock', async(req, res) => {
-    console.log(req.body);
     let tag = req.body;
     var result = walletAccount.decodeFromOption(tag);
     res.send(result);
@@ -82,6 +81,14 @@ app.post('/wallet/spend/:from/:to/:amount', async(req, res) => {
     let amount = req.params.amount;
     var outarray = [{ address: to, amount: amount }];
     let result = await walletAccount.spendByAddress(from, outarray);
+    res.send(result);
+    res.end();
+})
+
+app.post('/wallet/transation/:address/:size/:num', async(req, res) => {
+    let address = req.params.address;
+    var page = { size: req.params.size, num: req.params.num };
+    let result = await walletAccount.getTxByAddress(address, page);
     res.send(result);
     res.end();
 })

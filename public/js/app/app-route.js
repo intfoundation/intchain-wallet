@@ -14,5 +14,8 @@ app.config(function($routeProvider, $controllerProvider) {
     }).when('/viewWalletInfo', {
         templateUrl: 'tpl/viewWalletInfo.html',
         controller: 'walletinfoController'
+    }).when('/viewtxinfo', {
+        templateUrl: 'tpl/viewtxinfo.html',
+        controller: 'txinfoController'
     });
 });

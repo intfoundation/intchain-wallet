@@ -1,0 +1,120 @@
+<style type="text/css">
+    .tx {
+        border: solid 1px #f0f0f0;
+        margin-bottom: 20px;
+        border-radius: 2px;
+    }
+    
+    .tx:hover {
+        border: solid 1px #499EE6;
+    }
+    
+    .tx .h {
+        height: 35px;
+        background: #f0f0f0;
+    }
+    
+    .tx .h span {
+        line-height: 35px;
+        font-size: 14px;
+    }
+    
+    .tx .cx {
+        font-size: 12px;
+        margin: 20px;
+    }
+    
+    .tx .t {
+        width: 100%;
+        font-size: 14px;
+    }
+    
+    .tx .t .rc {
+        height: 32px;
+    }
+    
+    .tx .t .rc .l {
+        float: left;
+    }
+    
+    .tx .t .rc .l span {
+        line-height: 32px;
+    }
+</style>
+
+
+<div class="c" ng-controller="txinfoController">
+    <div class="ct">
+        <div>
+            <div class="i">选择你的钱包文件</div>
+            <div file-uploader url="url" password="model.password" file="file"></div>
+            <div class="lb" ng-click="query()">查询信息</div>
+        </div>
+        <div class="tb" style="height: 100px;">
+            <ul>
+                <li>
+                    <div class="item">
+                        <div class="t">
+                            <span>你的地址</span>
+                        </div>
+                        <div class="ci">
+                            <input type="text" ng-model="model.sourceAddress" disabled="disabled">
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="item">
+                        <div class="t">
+                            <span>钱包余额</span>
+                        </div>
+                        <div class="ci">
+                            <input type="text" ng-model="model.sourceAmount" disabled="disabled">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="i" ng-show="txlst.length>0">交易记录</div>
+        <div ng-repeat="item in txlst" class="tx">
+            <div class="h">
+                <span style="float:left;margin-left:20px;color:#428bca;">{{item.txs.hash}}</span>
+                <span style=" float:right;margin-right:20px;">2018/6/13/ 9:55:32</span>
+            </div>
+            <div class="cx">
+                <table class="t">
+                    <tr>
+                        <td style="width:40%">
+                            <div>
+                                <div style="float: left;width:70%;">{{item.incomaddress}}</div>
+                                <div style="float: right;width:30%;text-align:right;">
+                                    {{item.incomvalue}}
+                                </div>
+                            </div>
+                        </td>
+                        <td style="width:20%;">
+                            <div style="background: #D75C33;border-radius: 50%;padding:5px;width:20px;height: 20px;margin:0 auto;">
+                                <p style="width: 6px;margin-top:5px; height: 6px;margin-left:4px;
+                                    border-top: 3px solid #ffffff;
+                                    border-right: 3px solid #ffffff;
+                                    transform: rotate(45deg);">
+                                </p>
+                            </div>
+                        </td>
+                        <td style="width:40%">
+                            <div class="rc" ng-repeat="sitem in item.txs.outputs">
+                                <div class="l" style="width:70%;">
+                                    <span>{{sitem.address}}</span>
+                                </div>
+                                <div class="l" style="width:30%;text-align:right;">
+                                    <span>{{sitem.value}}</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div page-footer searchcontidion="condition" search="queryTx()"></div>
+        <div style="clear: both;height: 50px;"></div>
+    </div>
+</div>

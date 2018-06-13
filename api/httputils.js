@@ -57,21 +57,27 @@ class HttpsUtil {
 
 class HttpUtil {
     constructor() {}
-    async sendGet(url) {
-        return new Promise(function(resolove, reject) {
-            var result = '';
-            http.get(url, function(res) {
-                res.on('data', function(chunk) {
-                    result += chunk;
-                });
-                res.on('end', function() {
-                    resolove(result);
+    async sendGet(url, ishttps) {
+        if (ishttps) {
+            var httpsUtil = new HttpsUtil();
+            let result = await httpsUtil.sendGet(url);
+            return result;
+        } else {
+            return new Promise(function(resolove, reject) {
+                var result = '';
+                http.get(url, function(res) {
+                    res.on('data', function(chunk) {
+                        result += chunk;
+                    });
+                    res.on('end', function() {
+                        resolove(result);
+                    });
                 });
             });
-        });
+        }
     }
 
-    async sendPost(data, hostname, port, path) {
+    async sendPost(data, hostname, port, path, ishttps) {
         //发送 http Post 请求  
         var postData = querystring.stringify(data);
         var options = {
@@ -105,7 +111,6 @@ class HttpUtil {
         })
     }
 }
-
 
 module.exports.HttpsUtil = HttpsUtil;
 module.exports.HttpUtil = HttpUtil;

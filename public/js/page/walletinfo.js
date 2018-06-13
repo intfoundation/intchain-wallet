@@ -50,7 +50,6 @@ app.controller('walletinfoController', function($scope, $http) {
 
     $scope.getbalance = function() {
         var url = "/wallet/account/query/" + $scope.model.sourceAddress;
-        //var url = "/wallet/account/query/181XvoNT9m3FRMH98kLSno9wnKWj7QEYLK";
         $http.post(url).success(function(data) {
             $scope.model.sourceAmount = data.balance;
             if (data.balance == null) {

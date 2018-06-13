@@ -278,3 +278,37 @@ body {
     width: 90%;
     border-radius: 2px;
 }
+
+.pagefooter {
+    margin: 10px 50px;
+    color: #000;
+    padding: 10px;
+    text-align: center;
+}
+
+.pagefooter .p {
+    border: solid 1px #ddd;
+    padding: 6px;
+    background: #fff;
+    color: #333;
+    height: 20px;
+    font-size: 14px;
+    text-decoration: none;
+    min-width: 20px;
+    text-align: center;
+    display: inline-block;
+    margin-left: 2px;
+    cursor: pointer;
+}
+
+.pagefooter .p:hover {
+    background: #fff;
+    color: #23C6C8;
+    border: solid 1px #23C6C8;
+}
+
+.pagefooter .active {
+    background: #23C6C8;
+    color: #fff;
+    border: solid 1px #23C6C8;
+}
