@@ -44,7 +44,7 @@ app.controller('walletinfoController', function($scope, $http) {
 
     $scope.getqrcodeimg = function() {
         if ($scope.model.encryptCode.length > 0) {
-            $scope.model.addressQrcode = '/qrcode/' + $scope.model.encryptCode;
+            $scope.model.addressQrcode = '/wallet/qrcode/' + $scope.model.sourceAddress;
         }
     };
 

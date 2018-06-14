@@ -26,15 +26,14 @@ app.controller('sendintController', function($scope, $http, FileUploader) {
                 contentType: false,
                 success: function(data) {
                     console.log(data);
-                    //todo:需要改进
+                    //todo:需要改进（解锁次数限制）
                     if ($scope.model.password === data.crypto.dphertext) {
-                        data.address = '16g4FTyzBaDZqWmPsFzEirZWo4Y6kDLs8Z';
-                        data.crypto.wif = 'L3HmjDtNy4gGrYpXcKPM8yMhRnGeVMydhyMwdTvYgvDs4zcFvu14';
+                        util.alert('解锁成功');
                         $scope.model.sourceAddress = data.address;
                         $scope.wallet = data;
                         $scope.getbalance();
                     } else {
-                        util.alert('密码错误');
+                        util.alert('密码错误，解锁失败');
                     }
                     $scope.$apply();
                 }

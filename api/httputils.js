@@ -10,7 +10,6 @@ class HttpsUtil {
             https.get(url, function(res) {
                 res.on('data', function(chunk) {
                     result += chunk;
-                    console.log(result);
                 });
                 res.on('end', function() {
                     resolove(result);

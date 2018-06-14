@@ -552,3 +552,13 @@ util.compareDate = function(d1, d2) {
         return false;
     }
 }
+
+Date.prototype.toLocaleString = function() {
+    var y = this.getFullYear();
+    var mo = (this.getMonth() + 1) > 10 ? (this.getMonth() + 1) : '0' + (this.getMonth() + 1);
+    var d = this.getDate() > 10 ? this.getDate() : '0' + this.getDate();
+    var h = this.getHours() > 10 ? this.getHours() : '0' + this.getHours();
+    var mi = this.getMinutes() > 10 ? this.getMinutes() : '0' + this.getMinutes();
+    var s = this.getSeconds() > 10 ? this.getSeconds() : '0' + this.getSeconds();
+    return y + '/' + mo + '/' + d + ' ' + h + ':' + mi + ':' + s;
+};

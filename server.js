@@ -19,7 +19,7 @@ var multer = require('multer');
 
 
 var qr_image = require('qr-image');
-app.get('/qrcode/:address', function(req, res) {
+app.get('/wallet/qrcode/:address', function(req, res) {
     if (req.params) {
         var temp_qrcode = qr_image.image(req.params.address);
         res.type('png');

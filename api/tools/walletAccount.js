@@ -161,8 +161,9 @@ class WalletAccount {
         let address = account.getAddress();
         let mtx = new MTX();
         let needTotal = 0;
+        let unit = Math.pow(10, 6);
         for (let output of outputsArray) {
-            output.amount = parseFloat(output.amount);
+            output.amount = parseFloat(output.amount) * unit;
             mtx.addOutput(Address.fromString(output.address), output.amount);
             needTotal += output.amount;
         }
