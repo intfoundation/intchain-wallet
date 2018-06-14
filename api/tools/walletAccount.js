@@ -42,7 +42,6 @@ class WalletAccount {
         this.crypto = {
             dphertext: '',
             ciphertext: '',
-            cipher: 'aes-256-ctr',
             wif: ''
         };
     }
@@ -56,7 +55,6 @@ class WalletAccount {
         assert(pwd, 'pwd must not empty');
         let account = KeyRing.generate();
         let privatekey = account.getPrivateKey();
-        //console.log(privatekey);
         let encode = aesUtil.encryption(pwd, privatekey, account.address);
         this.address = account.getAddress().toString();
         this.crypto.ciphertext = encode;
@@ -81,7 +79,6 @@ class WalletAccount {
         this.crypto = {
             dphertext: decode,
             ciphertext: pwd,
-            cipher: 'aes-256-ctr',
             wif: wif
         };
         return this.toJson();
@@ -95,6 +92,7 @@ class WalletAccount {
      * @param {option 对象} option 
      */
     decodeFromOption(option) {
+        //TODO：需要改进，验证地址等等
         assert(option, "option must be not null");
         let account = KeyRing.fromSecret(option.crypto.wif);
         let address = account.getAddress();
@@ -104,10 +102,11 @@ class WalletAccount {
         this.crypto = {
             dphertext: decode,
             ciphertext: option.crypto.ciphertext,
-            cipher: 'aes-256-ctr',
             wif: option.crypto.wif
         };
-        return this.toJson();
+        let json = this.toJson();
+        json.crypto.dphertext = this.crypto.dphertext;
+        return json;
     }
 
 
@@ -117,9 +116,7 @@ class WalletAccount {
             version: this.version,
             address: this.address,
             crypto: {
-                dphertext: this.crypto.dphertext,
                 ciphertext: this.crypto.ciphertext,
-                cipher: 'aes-256-ctr',
                 wif: this.crypto.wif
             }
         };
