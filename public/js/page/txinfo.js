@@ -19,6 +19,21 @@ app.controller('txinfoController', function($scope, $http) {
     }
     $scope.query = function() {
         if ($scope.file) {
+            $scope.getinfo();
+        } else {
+            var data = angular.fromJson($cookies.wallet);
+            $scope.model.sourceAddress = data.address;
+            $scope.model.encryptCode = data.crypto.wif;
+            $scope.model.cryptCode = data.crypto.ciphertext;
+            $scope.getbalance();
+            $scope.queryTx();
+        }
+    };
+
+
+
+    $scope.getinfo = function() {
+        if ($scope.file) {
             if ($.trim($scope.model.password).length == 0) {
                 util.alert('请输入你的密码');
                 return;
@@ -48,12 +63,13 @@ app.controller('txinfoController', function($scope, $http) {
         } else {
             util.alert('请选择钱包文件');
         }
-    };
+    }
+
+
 
     $scope.getbalance = function() {
         var url = "/wallet/account/query/" + $scope.model.sourceAddress;
         $http.post(url).success(function(data) {
-            console.log(data);
             $scope.model.sourceAmount = data.balance;
             if (data.balance == null) {
                 $scope.model.sourceAmount = 0;
@@ -84,5 +100,4 @@ app.controller('txinfoController', function($scope, $http) {
 
         });
     }
-
 });
