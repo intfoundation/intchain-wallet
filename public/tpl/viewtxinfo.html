@@ -7,6 +7,7 @@
     
     .tx:hover {
         border: solid 1px #499EE6;
+        cursor: pointer;
     }
     
     .tx .h {
@@ -44,6 +45,33 @@
     
     .tx .t .rc .l span {
         line-height: 28px;
+    }
+    
+    .coinbase {
+        margin-left: 20px;
+        color: #ffffff;
+        background: #428bca;
+        padding: 2px 5px;
+        border-radius: 2px;
+    }
+    
+    .arrow {
+        background: #D75C33;
+        border-radius: 50%;
+        padding: 5px;
+        width: 20px;
+        height: 20px;
+        margin: 0 auto;
+    }
+    
+    .arrow .pl {
+        width: 6px;
+        margin-top: 5px;
+        height: 6px;
+        margin-left: 4px;
+        border-top: 3px solid #ffffff;
+        border-right: 3px solid #ffffff;
+        transform: rotate(45deg);
     }
 </style>
 
@@ -93,7 +121,7 @@
                                 <div>
                                     <div class="in" ng-repeat="inputitem in item.txs.inputs">
                                         <span ng-show="item.incomaddress">{{inputitem.address}}</span>
-                                        <span ng-show="item.incomaddress==null" style="margin-left:20px;color:#ffffff;background:#428bca;padding: 2px 5px;border-radius: 2px;">coinbase</span>
+                                        <span ng-show="item.incomaddress==null" class="coinbase">coinbase</span>
                                     </div>
 
                                 </div>
@@ -104,12 +132,8 @@
                                 </div>
                             </td>
                             <td style="width:20%;">
-                                <div style="background: #D75C33;border-radius: 50%;padding:5px;width:20px;height: 20px;margin:0 auto;">
-                                    <p style="width: 6px;margin-top:5px; height: 6px;margin-left:4px;
-                                    border-top: 3px solid #ffffff;
-                                    border-right: 3px solid #ffffff;
-                                    transform: rotate(45deg);">
-                                    </p>
+                                <div class="arrow">
+                                    <p class="pl"></p>
                                 </div>
                             </td>
                             <td style="width:40%">

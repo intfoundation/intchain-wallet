@@ -18,15 +18,6 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 var multer = require('multer');
 
 
-var qr_image = require('qr-image');
-app.get('/wallet/qrcode/:address', function(req, res) {
-    if (req.params) {
-        var temp_qrcode = qr_image.image(req.params.address);
-        res.type('png');
-        temp_qrcode.pipe(res);
-    }
-})
-
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/public/' + "index.html");
 });
@@ -93,10 +84,6 @@ app.post('/wallet/transation/:address/:size/:num', async(req, res) => {
     res.end();
 })
 
-
-app.get('/', function(req, res) {
-    res.send('Hello POST');
-});
 
 var server = app.listen(8081, function() {
     var host = server.address().address

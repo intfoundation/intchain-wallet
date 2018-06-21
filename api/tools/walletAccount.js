@@ -29,9 +29,9 @@ const HttpUtil = require("../httputils").HttpUtil;
 const httpUtil = new HttpUtil();
 
 
-const GETACCOUNT_URL = 'http://localhost:3001/balance/';
-const GETCOINSBYADDRESS_URL = 'http://localhost:3001/query/coins/';
-const TRANSATION_URL = 'http://localhost:3001/transation/';
+const GETACCOUNT_URL = 'https://explorer.intchain.io/balance/';
+const GETCOINSBYADDRESS_URL = 'https://explorer.intchain.io/query/coins/';
+const TRANSATION_URL = 'https://explorer.intchain.io/transation/';
 const GETTXBYADDRESS_URL = 'https://explorer.intchain.io/api/query/4/';
 
 class WalletAccount {
@@ -144,7 +144,7 @@ class WalletAccount {
         // var url = "https://explorer.intchain.io/api/balance/" + address;
         // let data = await httpsutil.sendGet(url);
         var url = GETACCOUNT_URL + address;
-        let data = await httpUtil.sendGet(url);
+        let data = await httpUtil.sendGet(url, true);
         return data;
     }
 
@@ -165,7 +165,7 @@ class WalletAccount {
             needTotal += output.amount;
         }
         var url = GETCOINSBYADDRESS_URL + address;
-        let result = await httpUtil.sendGet(url);
+        let result = await httpUtil.sendGet(url, true);
         let data = JSON.parse(result);
         let coins = [];
         for (let item of data) {
@@ -190,7 +190,7 @@ class WalletAccount {
         let txRaw = tx.toRaw();
         let xxRaw = txRaw.toString('hex');
         var rurl = TRANSATION_URL + address + "/" + xxRaw;
-        await httpUtil.sendGet(rurl);
+        await httpUtil.sendGet(rurl, true);
     }
 }
 

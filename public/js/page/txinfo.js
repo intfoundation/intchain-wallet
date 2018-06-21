@@ -45,7 +45,6 @@ app.controller('txinfoController', function($scope, $http) {
                 processData: false,
                 contentType: false,
                 success: function(data) {
-                    console.log(data);
                     $scope.model.encryptCode = '';
                     //todo:需要改进
                     if ($scope.model.password === data.crypto.dphertext) {
@@ -81,7 +80,6 @@ app.controller('txinfoController', function($scope, $http) {
     $scope.queryTx = function() {
         var url = "/wallet/transation/" + $scope.model.sourceAddress + "/" + $scope.condition.page.pagesize + "/" + $scope.condition.page.page;
         $http.post(url).success(function(data) {
-            console.log(data);
             if (data != null) {
                 if (data.data.length > 0) {
                     $scope.condition.page.size = data.page.all;

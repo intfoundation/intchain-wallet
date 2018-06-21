@@ -1,3 +1,12 @@
+<script src="./js/plugins/jquery/jquery.qrcode.min.js"></script>
+<style type="text/css">
+    #addressqrcode {
+        background: #ddd;
+        height: 230px;
+        width: 230px;
+        margin-top: 20px;
+    }
+</style>
 <div class="c" ng-controller="walletinfoController">
     <div class="ct">
         <div>
@@ -50,8 +59,7 @@
                             <span>你的地址(二维码)</span>
                         </div>
                         <div class="ci" align="center">
-                            <div style="background: #ddd;height: 230px;width:230px; margin-top:20px;">
-                                <img ng-src="{{model.addressQrcode}}" style="width: 100%;height: 100%;">
+                            <div id="addressqrcode">
                             </div>
                         </div>
                     </div>
