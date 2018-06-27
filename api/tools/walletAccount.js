@@ -145,7 +145,7 @@ class WalletAccount {
     }
 
     /**
-     * 
+     *
      * @param {*} senderWIF 
      * @param {*} outputsArray 
      */

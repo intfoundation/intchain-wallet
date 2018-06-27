@@ -95,7 +95,6 @@ app.controller('txinfoController', function($scope, $http) {
                     })
                 }
             }
-
         });
     }
 });
