@@ -16,10 +16,6 @@ const assert = require("assert");
 const MTX = require('../chainlib/Transcation/mtx');
 const Address = require('../chainlib/Account/address');
 const Coin = require("../chainlib/Coins/coin");
-const Script = require('../chainlib/script/script');
-const TX = require('../chainlib/Transcation/tx');
-const CoinView = require('../chainlib/Coins/coinview');
-const fs = require("fs");
 /**
  * http和https模块
  */
@@ -29,9 +25,9 @@ const HttpUtil = require("../httputils").HttpUtil;
 const httpUtil = new HttpUtil();
 
 
-const GETACCOUNT_URL = 'https://explorer.intchain.io/balance/';
-const GETCOINSBYADDRESS_URL = 'https://explorer.intchain.io/query/coins/';
-const TRANSATION_URL = 'https://explorer.intchain.io/transation/';
+const GETACCOUNT_URL = 'https://explorer.intchain.io/api/balance/';
+const GETCOINSBYADDRESS_URL = 'https://explorer.intchain.io/api/query/coins/';
+const TRANSATION_URL = 'https://explorer.intchain.io/api/transation/';
 const GETTXBYADDRESS_URL = 'https://explorer.intchain.io/api/query/4/';
 
 class WalletAccount {
@@ -149,7 +145,7 @@ class WalletAccount {
     }
 
     /**
-     * 
+     *
      * @param {*} senderWIF 
      * @param {*} outputsArray 
      */

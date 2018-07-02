@@ -65,7 +65,11 @@ app.post('/wallet/account/query/:address', async(req, res) => {
     res.end();
 })
 
-
+/**
+ * from 为发送端的秘钥
+ * to为接收端的地址
+ * amount为数量
+ */
 app.post('/wallet/spend/:from/:to/:amount', async(req, res) => {
     let from = req.params.from;
     let to = req.params.to;
@@ -76,6 +80,12 @@ app.post('/wallet/spend/:from/:to/:amount', async(req, res) => {
     res.end();
 })
 
+/**
+ * 获取交易
+ * address：地址
+ * size：页大小
+ * num：页码
+ */
 app.post('/wallet/transation/:address/:size/:num', async(req, res) => {
     let address = req.params.address;
     var page = { size: req.params.size, num: req.params.num };

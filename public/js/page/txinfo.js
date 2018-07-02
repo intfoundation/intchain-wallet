@@ -125,5 +125,3 @@ var tidySize = function () {
     $('#txinfo').css('min-width', '934px');
   }
 }
-
-
