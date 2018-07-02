@@ -103,7 +103,12 @@ util.confirmMsg = function(msg, item, fn) {
  * @param {} msg 
  */
 util.alert = function(msg) {
+    layer.config({
+      skin: 'demo-class'
+    })
     layer.alert(msg, {
+        title: 'Tip Message',
+        btn: ['Certain'],
         time: 0,
         closeBtn: 0,
         offset: '100px',

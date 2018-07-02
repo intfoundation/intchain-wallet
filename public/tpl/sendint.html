@@ -1,70 +1,116 @@
+<style>
+  .c {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+  }
+  .common-float {
+    width: 50%;
+    margin-bottom: 3px;
+  }
+
+  .left-float {
+    float: left;
+  }
+  .right-float {
+    float: right;
+    text-align: right;
+  }
+</style>
 <div class="c" ng-app="sendintController">
     <div class="ct">
         <div>
-            <div class="i">选择你的钱包文件</div>
+            <div class="i">Please select your wallet file</div>
             <!-- <div class="is">选择钱包文件</div> -->
             <div file-uploader url="url" password="model.password" file="file"></div>
-            <div class="lb" ng-click="unlock()">解锁</div>
+            <div class="unlock-text">
+              <button class="lb lz" ng-click="unlock()">Unlock</button>
+            </div>
         </div>
         <div class="tb">
             <ul>
-                <li>
+                <li class="left-float common-float">
                     <div class="item">
                         <div class="t">
-                            <span>来自地址</span>
+                            <span class="hint-text">From address</span>
                         </div>
                         <div class="ci">
-                            <input type="text" disabled="disabled" ng-model="model.sourceAddress">
+                            <input
+                            type="text"
+                            disabled="disabled"
+                            ng-model="model.sourceAddress"
+                            placeholder="From Address"
+                            class="bind-input">
                         </div>
                     </div>
                 </li>
-                <li>
+                <li class="right-float common-float">
                     <div class="item">
                         <div class="t">
-                            <span>余额</span>
+                            <span class="hint-text">Balance</span>
                         </div>
                         <div class="ci">
-                            <input type="text" disabled="disabled" ng-model="model.sourceAmount">
+                            <input
+                            type="text"
+                            disabled="disabled"
+                            ng-model="model.sourceAmount"
+                            placeholder="Balance"
+                            class="bind-input">
                         </div>
                     </div>
                 </li>
-                <li>
+                <li class="left-float common-float">
                     <div class="item">
                         <div class="t">
-                            <span>目的地址</span>
+                            <span class="hint-text">Destination address</span>
                         </div>
                         <div class="ci">
-                            <input type="text" ng-model="model.targetAddress">
+                            <input
+                            type="text"
+                            ng-model="model.targetAddress"
+                            placeholder="Destination address">
                         </div>
                     </div>
                 </li>
-                <li>
+                <li class="right-float common-float">
                     <div class="item">
                         <div class="t">
-                            <span>要发送的价值 / 金额</span>
+                            <span class="hint-text">Value/Amount to send</span>
                         </div>
                         <div class="ci">
-                            <input type="text" ng-model="model.targetAmount">
+                            <input
+                            type="text"
+                            ng-model="model.targetAmount"
+                            placeholder="Value/Amount to send"
+                            >
                         </div>
                     </div>
                 </li>
-                <li>
+                <li class="left-float common-float">
                     <div class="item">
                         <div class="t">
-                            <span>Gas 限制</span>
+                            <span class="hint-text">Gas limit</span>
                         </div>
                         <div class="ci">
-                            <input type="text" ng-model="model.gesLimit">
+                            <input
+                            type="text"
+                            ng-model="model.gesLimit"
+                            placeholder="Gas limit">
                         </div>
                     </div>
                 </li>
-                <li>
+                <li class="right-float common-float">
                     <div class="item">
                         <div class="t">
-                            <span>Gas 价格 </span><span class="i1">( 1 INT = 1EWei = 10 <span class="i2">6</span> Wei )</span>
+                            <span class="hint-text">Gas price( 1 INT = 1EWei = 10 <span class="i2">6</span> Wei )</span></span>
                         </div>
                         <div class="ci">
-                            <input type="text" ng-model="model.gesPrice">
+                            <input
+                            type="text"
+                            ng-model="model.gesPrice"
+                            placeholder="Gas price">
                         </div>
                     </div>
                 </li>
@@ -80,8 +126,8 @@
                 </li> -->
             </ul>
         </div>
-        <div style="height:150px;">
-            <div class="lb" ng-click="makeTransation()">生成交易</div>
+        <div class="middle" style="margin-top: 20px;">
+          <button class="ln lb" ng-click="makeTransation()">Generate transactions</button>
         </div>
     </div>
 </div>

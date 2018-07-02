@@ -11,7 +11,7 @@
             '<a ng-show="SearchContidion.page.page-1>0" ng-repeat="item in ppages" class="p" ng-click="PageClick(item)"><span>{{item}}</span></a>' +
             '<a ng-show="SearchContidion.page.size>0" class="p active" ><span>{{SearchContidion.page.page}}</span></a>' +
             '<a ng-repeat="item in npages" class="p" ng-click="PageClick(item)"><span>{{item}}</span></a>' +
-            '<a ng-show="SearchContidion.page.page+1<=SearchContidion.page.size" class="p" ng-click="PageNext()">下一页></a>' +
+            '<a ng-show="SearchContidion.page.page+1<=SearchContidion.page.size" class="p" ng-click="PageNext()">下一页</a>' +
             '<span style="margin-left:10px;color:#666;">共{{SearchContidion.page.size}}页,{{SearchContidion.page.max}}条</span>' +
             '</div>',
         link: function(scope, element, attributes) {
@@ -128,7 +128,7 @@ app.directive('spageFooter', function() {
             '<a ng-repeat="item in ppages" class="p" ng-click="PageClick(item)"><span>{{item}}</span></a>' +
             '<a ng-show="SearchContidion.page.max>0" class="p iactive" ><span>{{SearchContidion.page.page}}</span></a>' +
             '<a ng-repeat="item in npages" class="p" ng-click="PageClick(item)"><span>{{item}}</span></a>' +
-            '<a ng-show="SearchContidion.page.page+1<=SearchContidion.page.size" class="p" ng-click="PageNext()"><span>下一页></span></a>' +
+            '<a ng-show="SearchContidion.page.page+1<=SearchContidion.page.size" class="p" ng-click="PageNext()"><span>下一页</span></a>' +
             '<span style="margin-left:10px;color:#666;">共{{SearchContidion.page.size}}页,{{SearchContidion.page.max}}条</span>' +
             '</div>',
         link: function(scope, element, attributes) {

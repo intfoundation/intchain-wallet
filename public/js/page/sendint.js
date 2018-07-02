@@ -15,7 +15,7 @@ app.controller('sendintController', function($scope, $http, FileUploader) {
     $scope.unlock = function() {
         if ($scope.file) {
             if ($.trim($scope.model.password).length == 0) {
-                util.alert('请输入你的密码   ');
+                util.alert('Please input your password');
                 return;
             }
             $.ajax({
@@ -28,18 +28,18 @@ app.controller('sendintController', function($scope, $http, FileUploader) {
                     console.log(data);
                     //todo:需要改进（解锁次数限制）
                     if ($scope.model.password === data.crypto.dphertext) {
-                        util.alert('解锁成功');
+                        util.alert('Unlock Successfully');
                         $scope.model.sourceAddress = data.address;
                         $scope.wallet = data;
                         $scope.getbalance();
                     } else {
-                        util.alert('密码错误，解锁失败');
+                        util.alert('Password error, unlock fail');
                     }
                     $scope.$apply();
                 }
             });
         } else {
-            util.alert('请选择钱包文件');
+            util.alert('Please select wallet file');
         }
     };
 
@@ -48,7 +48,6 @@ app.controller('sendintController', function($scope, $http, FileUploader) {
     $scope.getbalance = function() {
         var url = "/wallet/account/query/" + $scope.wallet.address;
         $http.post(url).success(function(data) {
-            console.log(data);
             $scope.model.sourceAmount = data.balance;
         });
     };
@@ -56,23 +55,42 @@ app.controller('sendintController', function($scope, $http, FileUploader) {
     $scope.makeTransation = function() {
         var errmsg = '';
         if ($.trim($scope.model.sourceAddress).length == 0) {
-            errmsg += '请先选择你的密钥文件解锁你的账户<br>';
-        }
-        if (errmsg.length > 0) {
+            errmsg += 'Please select your key file to unlock your account<br>';
             util.alert(errmsg);
+            errmsg = '';
             return;
         }
+        // if (errmsg.length > 0) {
+        //     util.alert(errmsg);
+        //     return;
+        // }
         if ($.trim($scope.model.targetAddress).length == 0) {
-            errmsg += '请输入目的地址<br>';
+            errmsg += 'Please enter the destination address<br>';
+            util.alert(errmsg);
+            errmsg = '';
+            return;
         }
+        // if (errmsg.length > 0) {
+        //   util.alert(errmsg);
+        //   return;
+        // }
         if ($scope.model.sourceAmount == 0) {
-            errmsg += '余额必须大于0<br>';
+            errmsg += 'The balance must be more than 0<br>';
+            util.alert(errmsg);
+            errmsg = '';
+            return;
         }
         if ($.trim($scope.model.targetAmount).length == 0) {
-            errmsg += '请输入要发送的价值/金额<br>';
+            errmsg += 'Please enter the value / amount to be sent.<br>';
+            util.alert(errmsg);
+            errmsg = '';
+            return;
         } else {
             if (!util.isDouble($scope.model.targetAmount)) {
-                errmsg += '要发送的价值/金额必须大于0<br>';
+                errmsg += 'The value / amount to be sent must be more than 0<br>';
+                util.alert(errmsg);
+                errmsg = '';
+                return;
             }
         }
         // if ($.trim($scope.model.gasLimit).length == 0) {
@@ -90,7 +108,10 @@ app.controller('sendintController', function($scope, $http, FileUploader) {
         //     }
         // }
         if ($scope.model.sourceAmount <= $scope.model.targetAmount) {
-            errmsg += '目标金额大于账户余额<br>';
+            errmsg += 'The target amount is greater than the balance of the account<br>';
+            util.alert(errmsg);
+            errmsg = '';
+            return;
         }
         // if ($.trim($scope.model.nonce).length == 0) {
         //     errmsg += '请输入Nonce<br>';
@@ -99,12 +120,10 @@ app.controller('sendintController', function($scope, $http, FileUploader) {
         //         errmsg += 'Nonce必须大于0<br>';
         //     }
         // }
-        if (errmsg.length > 0) {
-            util.alert(errmsg);
-            return;
-        } else {
+        else {
             var url = "/wallet/spend/" + $scope.wallet.crypto.wif + "/" + $scope.model.targetAddress + "/" + $scope.model.targetAmount;
             $http.post(url).success(function(data) {
+                console.log('111')
                 console.log(data);
             });
         }

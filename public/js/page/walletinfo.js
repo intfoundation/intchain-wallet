@@ -12,7 +12,7 @@ app.controller('walletinfoController', function($scope, $http) {
     $scope.query = function() {
         if ($scope.file) {
             if ($.trim($scope.model.password).length == 0) {
-                util.alert('请输入你的密码');
+                util.alert('Please type your password');
                 return;
             }
             $.ajax({
@@ -32,13 +32,13 @@ app.controller('walletinfoController', function($scope, $http) {
                         $scope.getbalance();
                         $scope.getqrcodeimg();
                     } else {
-                        util.alert('密码错误');
+                        util.alert('Password Error');
                     }
                     $scope.$apply();
                 }
             });
         } else {
-            util.alert('请选择钱包文件');
+            util.alert('Please select wallet file');
         }
     };
 
@@ -46,8 +46,11 @@ app.controller('walletinfoController', function($scope, $http) {
         if ($scope.model.sourceAddress.length > 0) {
             $('#addressqrcode').qrcode({
                 render: "canvas",
+                width: 150,
+                height: 150,
                 text: $scope.model.sourceAddress
             });
+            $('#addressqrcode').css('border', 'none');
         }
     };
 

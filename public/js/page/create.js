@@ -4,8 +4,8 @@ app.controller('mainController', function($scope, $http) {
         //正则表达式
         var password = $.trim($scope.password);
         if ($.trim($scope.password).length == 0) {
-            util.alert('请输入密码');
-        } else if (password.length <= 9) {
+            util.alert('Please input the password');
+        } else if (password.length < 9) {
             util.alert('密码格式不对，请重新输入');
         } else {
             makefile($scope);

@@ -1,157 +1,180 @@
 <style type="text/css">
-    .tx {
-        border: solid 1px #f0f0f0;
-        margin-bottom: 20px;
-        border-radius: 2px;
-    }
-    
-    .tx:hover {
-        border: solid 1px #499EE6;
-        cursor: pointer;
-    }
-    
-    .tx .h {
-        height: 35px;
-        background: #f0f0f0;
-    }
-    
-    .tx .h span {
-        line-height: 35px;
-        font-size: 14px;
-    }
-    
-    .tx .cx {
-        font-size: 12px;
-        margin: 20px;
-    }
-    
-    .tx .t {
-        width: 100%;
-        font-size: 14px;
-    }
-    
-    .tx .in {
-        height: 28px;
-        text-align: left;
-    }
-    
-    .tx .t .rc {
-        height: 28px;
-    }
-    
-    .tx .t .rc .l {
-        float: left;
-    }
-    
-    .tx .t .rc .l span {
-        line-height: 28px;
-    }
-    
-    .coinbase {
-        margin-left: 20px;
-        color: #ffffff;
-        background: #428bca;
-        padding: 2px 5px;
-        border-radius: 2px;
-    }
-    
-    .arrow {
-        background: #D75C33;
-        border-radius: 50%;
-        padding: 5px;
-        width: 20px;
-        height: 20px;
-        margin: 0 auto;
-    }
-    
-    .arrow .pl {
-        width: 6px;
-        margin-top: 5px;
-        height: 6px;
-        margin-left: 4px;
-        border-top: 3px solid #ffffff;
-        border-right: 3px solid #ffffff;
-        transform: rotate(45deg);
-    }
+  .c {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .trading-status-input {
+    border: 2px solid #7b4589;
+    width: 377px;
+    height: 45px;
+    border-radius: 3px;
+  }
+
+  .tx {
+    border: solid 1px rgba(34, 36, 38, .1);
+    margin-bottom: 20px;
+    border-radius: 2px;
+  }
+
+  .tx .h {
+    height: 35px;
+    /* background: #f0f0f0; */
+  }
+
+  .tx .h span {
+    line-height: 35px;
+    font-size: 14px;
+  }
+
+  .tx .cx {
+    font-size: 12px;
+    margin: 20px;
+  }
+
+  .tx .t {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .tx .in {
+    height: 28px;
+    text-align: left;
+  }
+
+  .tx .t .rc {
+    height: 28px;
+  }
+
+  .tx .t .rc .l {
+    float: left;
+  }
+
+  .tx .t .rc .l span {
+    line-height: 28px;
+  }
+
+  .coinbase {
+    margin-left: 20px;
+    color: #ffffff;
+    background: #7b4589;
+    padding: 2px 5px;
+    border-radius: 2px;
+  }
+
+  .arrow {
+    background: #7b4589;
+    border-radius: 50%;
+    padding: 5px;
+    width: 20px;
+    height: 20px;
+    margin: 0 auto;
+  }
+
+  .arrow .pl {
+    width: 6px;
+    margin-top: 5px;
+    height: 6px;
+    margin-left: 4px;
+    border-top: 3px solid #fff;
+    border-right: 3px solid #fff;
+    transform: rotate(45deg);
+  }
+
+  .exchange-record {
+    color: #7b4589;
+    font-size: 22px;
+    margin-bottom: 10px;
+  }
+
+  .purple-square {
+    display: inline-block;
+    background-image: url('../images/purple-square.png');
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+  }
+
+  .record-text {
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: 2px;
+  }
+
 </style>
 
-
 <div class="c" ng-controller="txinfoController">
-    <div class="ct">
-        <div>
-            <div class="i">选择你的钱包文件</div>
-            <div file-uploader url="url" password="model.password" file="file"></div>
-            <div class="lb" ng-click="query()">查询信息</div>
+  <div class="ct">
+    <div>
+      <div class="mi middle">Please select your wallet file</div>
+      <div file-uploader url="url" password="model.password" file="file"></div>
+      <div class="middle" style="margin-top: 20px;">
+        <button class="lb ln" ng-click="query()">Search Information</button>
+      </div>
+    </div>
+    <div class="tb middle">
+      <div class="item">
+        <div class="ci" style="margin-bottom: 35px">
+          <input type="text" ng-model="model.sourceAddress" disabled="disabled" placeholder="Your address" class="trading-status-input middle">
         </div>
-        <div class="tb" style="height: 100px;">
-            <ul>
-                <li>
-                    <div class="item">
-                        <div class="t">
-                            <span>你的地址</span>
-                        </div>
-                        <div class="ci">
-                            <input type="text" ng-model="model.sourceAddress" disabled="disabled">
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="item">
-                        <div class="t">
-                            <span>钱包余额</span>
-                        </div>
-                        <div class="ci">
-                            <input type="text" ng-model="model.sourceAmount" disabled="disabled">
-                        </div>
-                    </div>
-                </li>
-            </ul>
+      </div>
+      <div class="item">
+        <div class="ci">
+          <input type="text" ng-model="model.sourceAmount" disabled="disabled" placeholder="Wallet balance" class="trading-status-input middle">
         </div>
+      </div>
+    </div>
+    <div>
+    </div>
+    <div id="txinfo">
         <div ng-if="txlst.length>0">
-            <div class="i">交易记录</div>
+            <div class="exchange-record"><i class="purple-square"></i><span class="record-text">Transaction Records</span></div>
             <div ng-repeat="item in txlst" class="tx">
-                <div class="h">
-                    <span style="float:left;margin-left:20px;color:#428bca;">{{item.txs.hash}}</span>
-                    <span style=" float:right;margin-right:20px;">{{item.time}}</span>
-                </div>
-                <div class="cx">
-                    <table class="t">
-                        <tr>
-                            <td style="width:30%">
-                                <div>
-                                    <div class="in" ng-repeat="inputitem in item.txs.inputs">
-                                        <span ng-show="item.incomaddress">{{inputitem.address}}</span>
-                                        <span ng-show="item.incomaddress==null" class="coinbase">coinbase</span>
-                                    </div>
-
-                                </div>
-                            </td>
-                            <td style="width:10%">
-                                <div style="text-align:right;">
-                                    {{item.incomvalue}}
-                                </div>
-                            </td>
-                            <td style="width:20%;">
-                                <div class="arrow">
-                                    <p class="pl"></p>
-                                </div>
-                            </td>
-                            <td style="width:40%">
-                                <div class="rc" ng-repeat="sitem in item.txs.outputs">
-                                    <div class="l" style="width:70%;">
-                                        <span>{{sitem.address}}</span>
-                                    </div>
-                                    <div class="l" style="width:30%;text-align:right;">
-                                        <span>{{sitem.value}}</span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+              <div class="h">
+                <span style="float:left;margin-left:20px;color:#333;">{{item.txs.hash}}</span>
+                <span style=" float:right;margin-right:20px;color: #aaa">{{item.time}}</span>
+              </div>
+              <div class="cx">
+                <table class="t">
+                  <tr>
+                    <td style="width:30%">
+                      <div>
+                        <div class="in" ng-repeat="inputitem in item.txs.inputs">
+                          <span ng-show="item.incomaddress">{{inputitem.address}}</span>
+                          <span ng-show="item.incomaddress==null" class="coinbase">coinbase</span>
+                        </div>
+      
+                      </div>
+                    </td>
+                    <td style="width:10%">
+                      <div style="text-align:right;">
+                        {{item.incomvalue}}
+                      </div>
+                    </td>
+                    <td style="width:20%;">
+                      <div class="arrow">
+                        <p class="pl"></p>
+                      </div>
+                    </td>
+                    <td style="width:40%">
+                      <div class="rc" ng-repeat="sitem in item.txs.outputs">
+                        <div class="l" style="width:70%;">
+                          <span>{{sitem.address}}</span>
+                        </div>
+                        <div class="l" style="width:30%;text-align:right;">
+                          <span>{{sitem.value}}</span>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </div>
             </div>
             <div page-footer searchcontidion="condition" search="queryTx()"></div>
-        </div>
-        <div style="clear: both;height: 50px;"></div>
+          </div>
     </div>
+    <div style="clear: both;height: 50px;"></div>
+  </div>
 </div>

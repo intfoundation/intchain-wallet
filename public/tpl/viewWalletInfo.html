@@ -1,70 +1,115 @@
 <script src="./js/plugins/jquery/jquery.qrcode.min.js"></script>
 <style type="text/css">
+    .c {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+    }
+
     #addressqrcode {
-        background: #ddd;
-        height: 230px;
-        width: 230px;
+        border: 2px solid #7b4589;
+        height: 150px;
+        width: 150px;
         margin-top: 20px;
+    }
+
+    .qr-position {
+      text-align: left !important;
+    }
+
+    .wallet-li {
+      width: 60%;
+      margin-bottom: 10px;
+    }
+
+    .qr-position {
+      position: absolute;
+      text-align: center;
+      top: 25%;
+      right: 0;
     }
 </style>
 <div class="c" ng-controller="walletinfoController">
     <div class="ct">
         <div>
-            <div class="i">选择你的钱包文件</div>
+            <div class="mi middle">Please select your wallet file</div>
             <div file-uploader url="url" password="model.password" file="file"></div>
-            <div class="lb" ng-click="query()">查询信息</div>
+            <div class="middle" style="margin-top: 20px;">
+              <button class="lb ln" ng-click="query()">Search information</button>
+            </div>
+            
         </div>
-        <div class="tb" style="height: 450px;">
+        <div class="tb">
             <ul>
-                <li>
+                <li class="wallet-li">
                     <div class="item">
                         <div class="t">
-                            <span>你的地址</span>
+                            <span class="hint-text">Your Address</span>
                         </div>
                         <div class="ci">
-                            <input type="text" ng-model="model.sourceAddress" disabled="disabled">
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="t">
-                            <span>钱包余额</span>
-                        </div>
-                        <div class="ci">
-                            <input type="text" ng-model="model.sourceAmount" disabled="disabled">
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="t">
-                            <span>密码 (JSON/Recommended/Encrypted)</span>
-                        </div>
-                        <div class="ci">
-                            <input type="text" disabled="disabled" ng-model="model.cryptCode">
-                        </div>
-                    </div>
-
-                    <div class="item">
-                        <div class="t">
-                            <span>私钥（未加密）</span>
-                        </div>
-                        <div class="ci">
-                            <input type="text" disabled="disabled" ng-model="model.encryptCode">
-                        </div>
-                    </div>
-
-                </li>
-                <li>
-                    <div class="item" style="text-align: center;">
-                        <div class="t">
-                            <span>你的地址(二维码)</span>
-                        </div>
-                        <div class="ci" align="center">
-                            <div id="addressqrcode">
-                            </div>
+                            <input
+                            type="text"
+                            ng-model="model.sourceAddress"
+                            disabled="disabled"
+                            placeholder="Your address">
                         </div>
                     </div>
                 </li>
-            </ul>
+                <li class="wallet-li">
+                  <div class="item">
+                      <div class="t">
+                          <span class="hint-text">Wallet Balance</span>
+                      </div>
+                    <div class="ci">
+                        <input
+                        type="text"
+                        ng-model="model.sourceAmount"
+                        disabled="disabled"
+                        placeholder="Wallet balance"
+                        >
+                    </div>
+                  </div>
+                </li>
+                <li class="wallet-li">
+                  <div class="item">
+                      <div class="t">
+                          <span class="hint-text">Password(JSON/Recommended/Encrypted)</span>
+                      </div>
+                    <div class="ci">
+                        <input
+                        type="text"
+                        disabled="disabled"
+                        ng-model="model.cryptCode"
+                        placeholder="password">
+                    </div>
+                  </div>
+                </li>
+                <li class="wallet-li">
+                  <div class="item">
+                      <div class="t">
+                          <span class="hint-text">Private key(unencrypted)</span>
+                      </div>
+                    <div class="ci">
+                        <input
+                        type="text"
+                        disabled="disabled"
+                        ng-model="model.encryptCode"
+                        placeholder="Private key(unencrypted)">
+                    </div>
+                </div>
+                </li>
+              </ul>
+              <div class="item qr-position">
+                  <div class="t">
+                      <span style="color: #7b4589; font-size: 15px;">Your address(QR code)</span>
+                  </div>
+                  <div class="ci" align="center">
+                      <div id="addressqrcode">
+                      </div>
+                  </div>
+              </div>
         </div>
     </div>
 </div>
