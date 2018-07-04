@@ -187,6 +187,7 @@ class WalletAccount {
         let xxRaw = txRaw.toString('hex');
         var rurl = TRANSATION_URL + address + "/" + xxRaw;
         await httpUtil.sendGet(rurl, true);
+        return tx.hash('hex');
     }
 }
 
