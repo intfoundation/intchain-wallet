@@ -22,8 +22,8 @@ class HttpsUtil {
         //发送 http Post 请求  
         var postData = querystring.stringify(data);
         var options = {
-            hostname: data,
-            port: hostname,
+            hostname: hostname,
+            port: port,
             path: path,
             method: 'POST',
             headers: {
@@ -34,7 +34,7 @@ class HttpsUtil {
         return new Promise(function(resolove, reject) {
             var req = https.request(options, function(res) {
                 console.log('Status:', res.statusCode);
-                console.log('headers:', JSON.stringify(res.headers));
+                //console.log('headers:', JSON.stringify(res.headers));
                 res.setEncoding('utf-8');
                 var result = '';
                 res.on('data', function(chun) {
@@ -77,37 +77,43 @@ class HttpUtil {
     }
 
     async sendPost(data, hostname, port, path, ishttps) {
-        //发送 http Post 请求  
-        var postData = querystring.stringify(data);
-        var options = {
-            hostname: data,
-            port: hostname,
-            path: path,
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                'Content-Length': Buffer.byteLength(postData)
+        if (ishttps) {
+            var httpsUtil = new HttpsUtil();
+            let result = await httpsUtil.sendPost(data, hostname, port, path);
+            return result;
+        } else {
+            //发送 http Post 请求  
+            var postData = querystring.stringify(data);
+            var options = {
+                hostname: hostname,
+                port: port,
+                path: path,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                    'Content-Length': Buffer.byteLength(postData)
+                }
             }
+            return new Promise(function(resolove, reject) {
+                var req = http.request(options, function(res) {
+                    console.log('Status:', res.statusCode);
+                    console.log('headers:', JSON.stringify(res.headers));
+                    res.setEncoding('utf-8');
+                    var result = '';
+                    res.on('data', function(chun) {
+                        result += chun;
+                    });
+                    res.on('end', function() {
+                        resolove(result);
+                    });
+                });
+                req.on('error', function(err) {
+                    console.error(err);
+                });
+                req.write(postData);
+                req.end();
+            })
         }
-        return new Promise(function(resolove, reject) {
-            var req = http.request(options, function(res) {
-                console.log('Status:', res.statusCode);
-                console.log('headers:', JSON.stringify(res.headers));
-                res.setEncoding('utf-8');
-                var result = '';
-                res.on('data', function(chun) {
-                    result += chun;
-                });
-                res.on('end', function() {
-                    resolove(result);
-                });
-            });
-            req.on('error', function(err) {
-                console.error(err);
-            });
-            req.write(postData);
-            req.end();
-        })
     }
 }
 
