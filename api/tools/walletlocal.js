@@ -20,7 +20,6 @@ const Coin = require("../chainlib/Coins/coin");
  * http和https模块
  */
 const HttpsUtil = require("../httputils").HttpsUtil;
-const httpsutil = new HttpsUtil();
 const HttpUtil = require("../httputils").HttpUtil;
 const httpUtil = new HttpUtil();
 
@@ -188,7 +187,6 @@ class WalletAccount {
         var rurl = TRANSATION_URL + address + "/" + xxRaw;
         await httpUtil.sendGet(rurl, true);
         return tx.hash('hex');
-
     }
 }
 
