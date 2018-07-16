@@ -15,9 +15,11 @@ app.controller('mainController', function($scope, $http) {
         console.log($scope.password);
         var wal = require("int");
         var data = new wal().makeWalletAccount($scope.password);
-        var blob = new Blob([data], { type: "application/octet-stream" });
+        var filename = data.address + ".json";
+        var fdata = JSON.stringify(data);
+        var blob = new Blob([fdata], { type: "application/octet-stream" });
         var objectUrl = URL.createObjectURL(blob);
-        var aForExcel = $("<a><span class='forjson'>下载excel</span></a>").attr("download", data.address).attr("href", objectUrl);
+        var aForExcel = $("<a><span class='forjson'>下载excel</span></a>").attr("download", filename).attr("href", objectUrl);
         $("body").append(aForExcel);
         $(".forjson").click();
         aForExcel.remove();
