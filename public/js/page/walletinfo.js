@@ -57,6 +57,9 @@ app.controller('walletinfoController', function($scope, $http) {
         new wal().getaccount($scope.model.sourceAddress).then(data => {
             console.log(data);
             $scope.model.sourceAmount = JSON.parse(data).balance;
+            if ($scope.model.sourceAmount == null) {
+                $scope.model.sourceAmount = 0;
+            }
             $scope.$apply();
         });
     };
