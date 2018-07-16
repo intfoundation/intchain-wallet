@@ -11,6 +11,7 @@ app.controller('sendofflineController', function($scope, $http, FileUploader) {
         gesPrice: '',
         nonce: ''
     };
+
     $scope.query = function() {
         if ($scope.file) {
             if ($.trim($scope.model.password).length == 0) {

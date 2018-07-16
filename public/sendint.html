@@ -1,0 +1,181 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>int wallet</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <script src="./js/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <link href="./js/plugins/layer/skin/default/layer.css" rel="stylesheet">
+    <script src="./js/plugins/layer/layer.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-animate.min.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-route.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-file-upload.min.js"></script>
+    <script type="text/javascript" src="./js/app/ngapp.js"></script>
+    <script type="text/javascript" src="./js/app/directives/uploaddirectives.js"></script>
+    <script type="text/javascript" src="./js/page/common.js"></script>
+    <script type="text/javascript" src="./js/page/sendint.js"></script>
+    <script type="text/javascript" src="./js/page/int.js"></script>
+    <style type="text/css">
+        .c {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+        }
+        
+        .common-float {
+            width: 50%;
+            margin-bottom: 3px;
+        }
+        
+        .left-float {
+            float: left;
+        }
+        
+        .right-float {
+            float: right;
+            text-align: right;
+        }
+    </style>
+
+    <body ng-app="myApp">
+        <div class="container">
+            <div id="content">
+                <div class="wrapper">
+                    <!-- int logo -->
+                    <div class="logo">
+                        <img src="./images/logo-int-red.png" alt="int logo" class="img-logo">
+                        <span class="int-text">INT</span>
+                    </div>
+
+                    <!-- 创建钱包 -->
+                    <div class="common-interval">
+                        <a href="./create.html" class="common-link">
+                            <img src="./images/wallet.png" alt="wallet icon" class="create-wallet">
+                            <span class="common-font">A New Purse</span>
+                        </a>
+                    </div>
+
+                    <div class="common-interval">
+                        <a href="./sendint.html" class="common-link">
+                            <img src="./images/send-int.png" alt="" class="send-int">
+                            <span class="common-font">Send INT</span>
+                        </a>
+                    </div>
+
+                    <div class="common-interval">
+                        <a href="./viewWalletInfo.html" class="common-link">
+                            <img src="./images/wallet-information.png" alt="" class="wallet-information">
+                            <span class="common-font">Wallet Information</span>
+                        </a>
+                    </div>
+
+                    <div class="common-interval">
+                        <a href="./viewtxinfo.html" class="common-link">
+                            <img src="./images/trading-status.png" alt="" class="trading-status">
+                            <span class="common-font">Trading Status</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="pc">
+                    <div class="c" ng-controller="sendintController">
+                        <div class="ct">
+                            <div>
+                                <div class="i">Please select your wallet file</div>
+                                <!-- <div class="is">选择钱包文件</div> -->
+                                <div file-uploader url="url" password="model.password" file="file"></div>
+                                <div class="unlock-text">
+                                    <button class="lb lz" ng-click="unlock()">Unlock</button>
+                                </div>
+                            </div>
+                            <div class="tb">
+                                <ul>
+                                    <li class="left-float common-float">
+                                        <div class="item">
+                                            <div class="t">
+                                                <span class="hint-text">From address</span>
+                                            </div>
+                                            <div class="ci">
+                                                <input type="text" disabled="disabled" ng-model="model.sourceAddress" placeholder="From Address" class="bind-input">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="right-float common-float">
+                                        <div class="item">
+                                            <div class="t">
+                                                <span class="hint-text">Balance</span>
+                                            </div>
+                                            <div class="ci">
+                                                <input type="text" disabled="disabled" ng-model="model.sourceAmount" placeholder="Balance" class="bind-input">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="left-float common-float">
+                                        <div class="item">
+                                            <div class="t">
+                                                <span class="hint-text">Destination address</span>
+                                            </div>
+                                            <div class="ci">
+                                                <input type="text" ng-model="model.targetAddress" placeholder="Destination address">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="right-float common-float">
+                                        <div class="item">
+                                            <div class="t">
+                                                <span class="hint-text">Value/Amount to send</span>
+                                            </div>
+                                            <div class="ci">
+                                                <input type="text" ng-model="model.targetAmount" placeholder="Value/Amount to send">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="left-float common-float">
+                                        <div class="item">
+                                            <div class="t">
+                                                <span class="hint-text">Gas limit</span>
+                                            </div>
+                                            <div class="ci">
+                                                <input type="text" ng-model="model.gesLimit" placeholder="Gas limit">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="right-float common-float">
+                                        <div class="item">
+                                            <div class="t">
+                                                <span class="hint-text">Gas price( 1 INT = 1EWei = 10 <span class="i2">6</span> Wei )</span>
+                                                </span>
+                                            </div>
+                                            <div class="ci">
+                                                <input type="text" ng-model="model.gesPrice" placeholder="Gas price">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- <li>
+                    <div class="item">
+                        <div class="t">
+                            <span>Nonce</span>
+                        </div>
+                        <div class="ci">
+                            <input type="text" ng-model="model.nonce">
+                        </div>
+                    </div>
+                </li> -->
+                                </ul>
+                            </div>
+                            <div class="middle" style="margin-top: 20px;">
+                                <button class="ln lb" ng-click="makeTransation()">Generate transactions</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

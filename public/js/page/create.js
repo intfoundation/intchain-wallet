@@ -13,21 +13,14 @@ app.controller('mainController', function($scope, $http) {
     }
     var makefile = function($scope) {
         console.log($scope.password);
-        var data = new WalletAccount().makeWalletAccount($scope.password);
-        console.log(data);
-        // var url = 'wallet/make';
-        // $http.post(url, { pwd: $scope.password }, { responseType: 'arraybuffer' }).success(function(data, status, headers) {
-        //     console.log(headers());
-        //     var headers = headers();
-        //     var blob = new Blob([data], { type: "application/octet-stream" });
-        //     var objectUrl = URL.createObjectURL(blob);
-        //     var aForExcel = $("<a><span class='forjson'>下载excel</span></a>").attr("download", headers.jsonfilename).attr("href", objectUrl);
-        //     $("body").append(aForExcel);
-        //     $(".forjson").click();
-        //     aForExcel.remove();
-        //     $scope.password = '';
-        // }).error(function() {
-
-        // });
+        var wal = require("int");
+        var data = new wal().makeWalletAccount($scope.password);
+        var blob = new Blob([data], { type: "application/octet-stream" });
+        var objectUrl = URL.createObjectURL(blob);
+        var aForExcel = $("<a><span class='forjson'>下载excel</span></a>").attr("download", data.address).attr("href", objectUrl);
+        $("body").append(aForExcel);
+        $(".forjson").click();
+        aForExcel.remove();
+        $scope.password = '';
     }
 });

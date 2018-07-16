@@ -1,25 +1,28 @@
 body {
     margin: 0;
 }
+
 .layui-layer-btn0 {
-  background-color: #6d317c !important;
-  border: none !important;
-  font-size: 13px;
-  border-radius: 3px !important;
-  height: 30px !important;
-  line-height: 30px !important;
+    background-color: #6d317c !important;
+    border: none !important;
+    font-size: 13px;
+    border-radius: 3px !important;
+    height: 30px !important;
+    line-height: 30px !important;
 }
+
+
 /* .demo-class {
   background-color: #333 !important;
 } */
 
 .container {
-  /* position: fixed; */
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #fff;
+    /* position: fixed; */
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #fff;
 }
 
 #content {
@@ -46,57 +49,58 @@ body {
 }
 
 .wrapper .common-link {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .wrapper .logo {
-  margin-top: 20%;
+    margin-top: 20%;
 }
 
 .wrapper .img-logo {
-  width: 65px;
-  height: 65px;
+    width: 65px;
+    height: 65px;
 }
 
 .wrapper .int-text {
-  color: rgb(219, 53, 62);
-  display: inline-block;
-  margin-left: -20px;
-  font-size: 24px;
-  /* margin-top: -20px为什么不管用呢 */
-  transform: translateY(-5px);
+    color: rgb(219, 53, 62);
+    display: inline-block;
+    margin-left: -20px;
+    font-size: 24px;
+    /* margin-top: -20px为什么不管用呢 */
+    transform: translateY(-5px);
 }
+
 .wrapper .common-interval {
-  margin-top: 21%;
+    margin-top: 21%;
 }
 
 .wrapper .create-wallet {
-  width: 40px;
-  height: 34px;
-} 
+    width: 40px;
+    height: 34px;
+}
 
 .wrapper .common-interval .common-font {
-  font-size: 12px;
-  color: rgb(101, 42, 117);
-  margin-top: 3px;
-  display: block;
-  text-decoration: none;
+    font-size: 12px;
+    color: rgb(101, 42, 117);
+    margin-top: 3px;
+    display: block;
+    text-decoration: none;
 }
 
 .wrapper .send-int {
-  width: 35px;
-  height: 35px;
-} 
+    width: 35px;
+    height: 35px;
+}
 
 .wrapper .wallet-information {
-  width: 39px;
-  height: 38px;
-} 
+    width: 39px;
+    height: 38px;
+}
 
 .wrapper .trading-status {
-  width: 25px;
-  height: 45px;
-} 
+    width: 25px;
+    height: 45px;
+}
 
 #warpper .tabs {
     padding-top: 20px;
@@ -140,10 +144,10 @@ body {
 }
 
 #content .pc {
-  width: 74%;
-  height: 100%;
-  float: right;
-  position: relative;
+    width: 74%;
+    height: 100%;
+    float: right;
+    position: relative;
 }
 
 #content .pc .c {
@@ -151,7 +155,7 @@ body {
 }
 
 .middle {
-  text-align: center;
+    text-align: center;
 }
 
 #content .pc .c .lt {
@@ -161,12 +165,12 @@ body {
 }
 
 #content .pc .c .lg {
-  font-size: 24px;
-  margin-top: 12px;
+    font-size: 24px;
+    margin-top: 12px;
 }
 
 #content .pc .c .lp {
-  color: #7b4589;
+    color: #7b4589;
 }
 
 #content .pc .c .st {
@@ -187,11 +191,12 @@ body {
 }
 
 #content .pc .c .st .lm {
-  font-size: 14px;
-  color: rgb(255, 0, 3);
-  margin-top: 18px;
-  line-height: 24px;
+    font-size: 14px;
+    color: rgb(255, 0, 3);
+    margin-top: 18px;
+    line-height: 24px;
 }
+
 #content .pc .c .dt {
     font-family: 'microsoft yahei';
     text-align: center;
@@ -200,12 +205,13 @@ body {
 }
 
 #content .pc .c .dt .in {
-    padding: 8px 8px 8px 46px;
+    padding: 8px 8px 8px 8px;
     font-size: 14px;
     width: 80%;
     border: solid 2px #7b4589;
     border-radius: 4px;
 }
+
 
 /* #content .pc .c .ct {
     margin: 20px 50px;
@@ -232,6 +238,7 @@ body {
 .pc .c .lz {
     width: 93px;
 }
+
 .pc .c .lb {
     margin-top: 20px;
     height: 32px;
@@ -244,13 +251,14 @@ body {
     font-weight: 300;
     outline: none !important;
 }
+
 .ln {
-  width: 226px;
-  margin-top: 0 !important;
+    width: 226px;
+    margin-top: 0 !important;
 }
 
 .pc .c .ct .unlock-text {
-  text-align: center;
+    text-align: center;
 }
 
 .pc .c .is {
@@ -333,6 +341,7 @@ body {
     list-style: none;
 }
 
+
 /* .tb ul li {
     float: left;
     width: 50%;
@@ -341,6 +350,7 @@ body {
 .tb ul li:nth-child(odd) {
     text-align: left;
 }
+
 
 /* .tb ul li:nth-child(even) {
     text-align: right;
@@ -428,16 +438,16 @@ body {
 }
 
 .lv {
-  font-size: 18px;
-  color: #6d317c;
+    font-size: 18px;
+    color: #6d317c;
 }
 
 .hint-text {
-  font-size: 14px !important;
+    font-size: 14px !important;
 }
 
 .mi {
-  font-size: 18px;
-  color: #7b4589;
-  margin: 14px 0;
+    font-size: 18px;
+    color: #7b4589;
+    margin: 14px 0;
 }

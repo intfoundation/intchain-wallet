@@ -12,31 +12,29 @@ app.controller('walletinfoController', function($scope, $http) {
     $scope.query = function() {
         if ($scope.file) {
             if ($.trim($scope.model.password).length == 0) {
-                util.alert('Please type your password');
+                util.alert('Please input your password');
                 return;
             }
-            $.ajax({
-                type: "POST",
-                url: $scope.url,
-                data: $scope.file,
-                processData: false,
-                contentType: false,
-                success: function(data) {
-                    console.log(data);
-                    $scope.model.encryptCode = '';
-                    //todo:需要改进
-                    if ($scope.model.password === data.crypto.dphertext) {
-                        $scope.model.sourceAddress = data.address;
-                        $scope.model.encryptCode = data.crypto.wif;
-                        $scope.model.cryptCode = data.crypto.ciphertext;
-                        $scope.getbalance();
-                        $scope.getqrcodeimg();
-                    } else {
-                        util.alert('Password Error');
-                    }
-                    $scope.$apply();
+
+            var file = $scope.file;
+            var reader = new FileReader(); //new一个FileReader实例
+            // if (/text+/.test(file.type)) { //判断文件类型，是不是text类型
+            reader.onload = function() {
+                var filedata = JSON.parse(this.result);
+                var wal = require("int");
+                var data = new wal().decodeFromOption(filedata);
+                if (data.crypto.dphertext == $scope.model.password) {
+                    util.alert('Unlock Successfully');
+                    $scope.model.sourceAddress = data.address;
+                    $scope.model.encryptCode = data.crypto.wif;
+                    $scope.model.cryptCode = data.crypto.ciphertext;
+                    $scope.getbalance();
+                    $scope.getqrcodeimg();
+                } else {
+                    util.alert('Password error, unlock fail');
                 }
-            });
+            }
+            reader.readAsText(file);
         } else {
             util.alert('Please select wallet file');
         }
@@ -55,13 +53,11 @@ app.controller('walletinfoController', function($scope, $http) {
     };
 
     $scope.getbalance = function() {
-        var url = "/wallet/account/query/" + $scope.model.sourceAddress;
-        $http.post(url).success(function(data) {
-            $scope.model.sourceAmount = data.balance;
-            if (data.balance == null) {
-                $scope.model.sourceAmount = 0;
-            }
+        var wal = require("int");
+        new wal().getaccount($scope.model.sourceAddress).then(data => {
+            console.log(data);
+            $scope.model.sourceAmount = JSON.parse(data).balance;
+            $scope.$apply();
         });
     };
-
 });

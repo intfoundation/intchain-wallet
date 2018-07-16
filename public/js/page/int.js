@@ -1,4 +1,4 @@
-(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 var asn1 = exports;
 
 asn1.bignum = require('bn.js');
@@ -34104,7 +34104,7 @@ ec.isLowS = function isLowS(sig) {
 };
 
 }).call(this,require("buffer").Buffer)
-},{"./random":188,"assert":15,"buffer":51,"secp256k1":265}],190:[function(require,module,exports){
+},{"./random":188,"assert":15,"buffer":51,"secp256k1":264}],190:[function(require,module,exports){
 /*!
  * consensus.js - consensus constants and helpers for bcoin
  * Copyright (c) 2014-2015, Fedor Indutny (MIT License)
@@ -54285,203 +54285,7 @@ class Util {
     }
 }
 module.exports = Util;
-},{"node-uuid":262}],222:[function(require,module,exports){
-(function (Buffer){
-/**
- * 钱包账户类：包含其中的加密解密等操作，加密流程由系统生成公钥和秘钥，然后使用秘钥对称算法加密了用户密码
- * 优点：1，随机生成的公钥和秘钥对，其它用户无法获取；
- *      2，使用秘钥再次对用户的密码进行加密，双重保证。
- * 
- * 时间：2018-5-21
- * 作者：黄龙浩
- */
-
-'use strict'
-
-const KeyRing = require('../chainlib/Account/keyring');
-const aesUtil = require("../chainlib/Crypto/aesutil");
-const util = require("./util");
-const assert = require("assert");
-const MTX = require('../chainlib/Transcation/mtx');
-const Address = require('../chainlib/Account/address');
-const Coin = require("../chainlib/Coins/coin");
-/**
- * http和https模块
- */
-const HttpsUtil = require("../httputils").HttpsUtil;
-const HttpUtil = require("../httputils").HttpUtil;
-const httpUtil = new HttpUtil();
-
-
-const GETACCOUNT_URL = 'https://explorer.intchain.io/api/balance/';
-const GETCOINSBYADDRESS_URL = 'https://explorer.intchain.io/api/query/coins/';
-const TRANSATION_URL = 'https://explorer.intchain.io/api/transation/';
-const GETTXBYADDRESS_URL = 'https://explorer.intchain.io/api/query/4/';
-
-class WalletAccount {
-    constructor() {
-        this.id = util.uuidv4();
-        this.version = 1.0;
-        this.address = "";
-        this.crypto = {
-            dphertext: '',
-            ciphertext: '',
-            wif: ''
-        };
-    }
-
-    /**
-     * 通过用户密码生成钱包地址信息
-     * 
-     * @param {密码} pwd 
-     */
-    makeWalletAccount(pwd) {
-        assert(pwd, 'pwd must not empty');
-        let account = KeyRing.generate();
-        let privatekey = account.getPrivateKey();
-        let encode = aesUtil.encryption(pwd, privatekey, account.address);
-        this.address = account.getAddress().toString();
-        this.crypto.ciphertext = encode;
-        this.crypto.wif = account.toSecret();
-        return this.toJson();
-    }
-
-    /**
-     * 通过用户密码生成用户密码和私钥解密钱包
-     * 
-     * @param {密码} pwd 
-     * @param {私钥} wif 
-     */
-    decodeFromPwdAndWif(pwd, wif) {
-        assert(pwd, "pwd must be not empty");
-        assert(wif, "wif must be not empty")
-        let account = KeyRing.fromSecret(wif); //"Kx1vvQLVhSpRprKLBY9TU5CygfbCCT4aPZPvCW6AKrtUuqqibweU");
-        let address = account.getAddress();
-        let decode = aesUtil.decryption(pwd, account.getPrivateKey(), account.address);
-        this.version = 1.0;
-        this.address = account.getAddress().toString();
-        this.crypto = {
-            dphertext: decode,
-            ciphertext: pwd,
-            wif: wif
-        };
-        return this.toJson();
-    }
-
-
-
-    /**
-     * 通过option对象解密文件
-     * 
-     * @param {option 对象} option 
-     */
-    decodeFromOption(option) {
-        //TODO：需要改进，验证地址等等
-        assert(option, "option must be not null");
-        let account = KeyRing.fromSecret(option.crypto.wif);
-        let address = account.getAddress();
-        let decode = aesUtil.decryption(option.crypto.ciphertext, account.getPrivateKey(), account.address);
-        this.version = 1.0;
-        this.address = account.getAddress().toString();
-        this.crypto = {
-            dphertext: decode,
-            ciphertext: option.crypto.ciphertext,
-            wif: option.crypto.wif
-        };
-        let json = this.toJson();
-        json.crypto.dphertext = this.crypto.dphertext;
-        return json;
-    }
-
-
-    toJson() {
-        var json = {
-            id: this.id,
-            version: this.version,
-            address: this.address,
-            crypto: {
-                ciphertext: this.crypto.ciphertext,
-                wif: this.crypto.wif
-            }
-        };
-        return json;
-    }
-
-
-
-    /**
-     * 
-     * @param {地址} address 
-     * @param {页} page 
-     */
-    async getTxByAddress(address, page) {
-        var url = GETTXBYADDRESS_URL + address + "/" + page.size + "/" + page.num;
-        let data = await httpUtil.sendGet(url, true);
-        return data;
-    }
-
-    /**
-     * 
-     * @param {账户地址公钥} address 
-     */
-    async getaccount(address) {
-        // var url = "https://explorer.intchain.io/api/balance/" + address;
-        // let data = await httpsutil.sendGet(url);
-        var url = GETACCOUNT_URL + address;
-        let data = await httpUtil.sendGet(url, true);
-        return data;
-    }
-
-    /**
-     *
-     * @param {*} senderWIF 
-     * @param {*} outputsArray 
-     */
-    async spendByAddress(senderWIF, outputsArray) {
-        let account = KeyRing.fromSecret(senderWIF);
-        let address = account.getAddress();
-        let mtx = new MTX();
-        let needTotal = 0;
-        let unit = Math.pow(10, 6);
-        for (let output of outputsArray) {
-            output.amount = parseFloat(output.amount) * unit;
-            mtx.addOutput(Address.fromString(output.address), output.amount);
-            needTotal += output.amount;
-        }
-        var url = GETCOINSBYADDRESS_URL + address;
-        let result = await httpUtil.sendGet(url, true);
-        let data = JSON.parse(result);
-        let coins = [];
-        for (let item of data) {
-            let txRaw = Buffer.from(item.rawtx, 'hex');
-            let coin = new Coin();
-            coin.fromRaw(txRaw);
-            coin.hash = item.hash;
-            coins.push(coin);
-            coin.index = item.index;
-        }
-        //检查一下总value是否足够
-        let total = 0;
-        for (let coin of coins) {
-            total += coin.value;
-        }
-        if (total < needTotal) {
-            return;
-        }
-        await mtx.fund(coins, { rate: 0, changeAddress: address });
-        mtx.sign(account);
-        let tx = mtx.toTX();
-        let txRaw = tx.toRaw();
-        let xxRaw = txRaw.toString('hex');
-        var rurl = TRANSATION_URL + address + "/" + xxRaw;
-        await httpUtil.sendGet(rurl, true);
-        return tx.hash('hex');
-    }
-}
-
-module.exports = WalletAccount;
-}).call(this,require("buffer").Buffer)
-},{"../chainlib/Account/address":175,"../chainlib/Account/keyring":176,"../chainlib/Coins/coin":178,"../chainlib/Crypto/aesutil":184,"../chainlib/Transcation/mtx":197,"../httputils":220,"./util":221,"assert":15,"buffer":51}],223:[function(require,module,exports){
+},{"node-uuid":261}],222:[function(require,module,exports){
 // Reference https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki
 // Format: 0x30 [total-length] 0x02 [R-length] [R] 0x02 [S-length] [S]
 // NOTE: SIGHASH byte ignored AND restricted, truncate before use
@@ -54596,45 +54400,45 @@ module.exports = {
   encode: encode
 }
 
-},{"safe-buffer":264}],224:[function(require,module,exports){
+},{"safe-buffer":263}],223:[function(require,module,exports){
 arguments[4][20][0].apply(exports,arguments)
-},{"buffer":22,"dup":20}],225:[function(require,module,exports){
+},{"buffer":22,"dup":20}],224:[function(require,module,exports){
 arguments[4][21][0].apply(exports,arguments)
-},{"crypto":22,"dup":21}],226:[function(require,module,exports){
+},{"crypto":22,"dup":21}],225:[function(require,module,exports){
 arguments[4][53][0].apply(exports,arguments)
-},{"dup":53,"inherits":258,"safe-buffer":264,"stream":160,"string_decoder":165}],227:[function(require,module,exports){
+},{"dup":53,"inherits":257,"safe-buffer":263,"stream":160,"string_decoder":165}],226:[function(require,module,exports){
 arguments[4][56][0].apply(exports,arguments)
-},{"cipher-base":226,"dup":56,"inherits":258,"md5.js":259,"ripemd160":263,"sha.js":272}],228:[function(require,module,exports){
+},{"cipher-base":225,"dup":56,"inherits":257,"md5.js":258,"ripemd160":262,"sha.js":271}],227:[function(require,module,exports){
 arguments[4][71][0].apply(exports,arguments)
-},{"../package.json":243,"./elliptic/curve":231,"./elliptic/curves":234,"./elliptic/ec":235,"./elliptic/eddsa":238,"./elliptic/utils":242,"brorand":225,"dup":71}],229:[function(require,module,exports){
+},{"../package.json":242,"./elliptic/curve":230,"./elliptic/curves":233,"./elliptic/ec":234,"./elliptic/eddsa":237,"./elliptic/utils":241,"brorand":224,"dup":71}],228:[function(require,module,exports){
 arguments[4][72][0].apply(exports,arguments)
-},{"../../elliptic":228,"bn.js":224,"dup":72}],230:[function(require,module,exports){
+},{"../../elliptic":227,"bn.js":223,"dup":72}],229:[function(require,module,exports){
 arguments[4][73][0].apply(exports,arguments)
-},{"../../elliptic":228,"../curve":231,"bn.js":224,"dup":73,"inherits":258}],231:[function(require,module,exports){
+},{"../../elliptic":227,"../curve":230,"bn.js":223,"dup":73,"inherits":257}],230:[function(require,module,exports){
 arguments[4][74][0].apply(exports,arguments)
-},{"./base":229,"./edwards":230,"./mont":232,"./short":233,"dup":74}],232:[function(require,module,exports){
+},{"./base":228,"./edwards":229,"./mont":231,"./short":232,"dup":74}],231:[function(require,module,exports){
 arguments[4][75][0].apply(exports,arguments)
-},{"../../elliptic":228,"../curve":231,"bn.js":224,"dup":75,"inherits":258}],233:[function(require,module,exports){
+},{"../../elliptic":227,"../curve":230,"bn.js":223,"dup":75,"inherits":257}],232:[function(require,module,exports){
 arguments[4][76][0].apply(exports,arguments)
-},{"../../elliptic":228,"../curve":231,"bn.js":224,"dup":76,"inherits":258}],234:[function(require,module,exports){
+},{"../../elliptic":227,"../curve":230,"bn.js":223,"dup":76,"inherits":257}],233:[function(require,module,exports){
 arguments[4][77][0].apply(exports,arguments)
-},{"../elliptic":228,"./precomputed/secp256k1":241,"dup":77,"hash.js":245}],235:[function(require,module,exports){
+},{"../elliptic":227,"./precomputed/secp256k1":240,"dup":77,"hash.js":244}],234:[function(require,module,exports){
 arguments[4][78][0].apply(exports,arguments)
-},{"../../elliptic":228,"./key":236,"./signature":237,"bn.js":224,"dup":78,"hmac-drbg":257}],236:[function(require,module,exports){
+},{"../../elliptic":227,"./key":235,"./signature":236,"bn.js":223,"dup":78,"hmac-drbg":256}],235:[function(require,module,exports){
 arguments[4][79][0].apply(exports,arguments)
-},{"../../elliptic":228,"bn.js":224,"dup":79}],237:[function(require,module,exports){
+},{"../../elliptic":227,"bn.js":223,"dup":79}],236:[function(require,module,exports){
 arguments[4][80][0].apply(exports,arguments)
-},{"../../elliptic":228,"bn.js":224,"dup":80}],238:[function(require,module,exports){
+},{"../../elliptic":227,"bn.js":223,"dup":80}],237:[function(require,module,exports){
 arguments[4][81][0].apply(exports,arguments)
-},{"../../elliptic":228,"./key":239,"./signature":240,"dup":81,"hash.js":245}],239:[function(require,module,exports){
+},{"../../elliptic":227,"./key":238,"./signature":239,"dup":81,"hash.js":244}],238:[function(require,module,exports){
 arguments[4][82][0].apply(exports,arguments)
-},{"../../elliptic":228,"dup":82}],240:[function(require,module,exports){
+},{"../../elliptic":227,"dup":82}],239:[function(require,module,exports){
 arguments[4][83][0].apply(exports,arguments)
-},{"../../elliptic":228,"bn.js":224,"dup":83}],241:[function(require,module,exports){
+},{"../../elliptic":227,"bn.js":223,"dup":83}],240:[function(require,module,exports){
 arguments[4][84][0].apply(exports,arguments)
-},{"dup":84}],242:[function(require,module,exports){
+},{"dup":84}],241:[function(require,module,exports){
 arguments[4][85][0].apply(exports,arguments)
-},{"bn.js":224,"dup":85,"minimalistic-assert":260,"minimalistic-crypto-utils":261}],243:[function(require,module,exports){
+},{"bn.js":223,"dup":85,"minimalistic-assert":259,"minimalistic-crypto-utils":260}],242:[function(require,module,exports){
 module.exports={
   "_from": "elliptic@^6.2.3",
   "_id": "elliptic@6.4.0",
@@ -54722,43 +54526,43 @@ module.exports={
   "version": "6.4.0"
 }
 
-},{}],244:[function(require,module,exports){
+},{}],243:[function(require,module,exports){
 arguments[4][89][0].apply(exports,arguments)
-},{"dup":89,"inherits":258,"safe-buffer":264,"stream":160}],245:[function(require,module,exports){
+},{"dup":89,"inherits":257,"safe-buffer":263,"stream":160}],244:[function(require,module,exports){
 arguments[4][90][0].apply(exports,arguments)
-},{"./hash/common":246,"./hash/hmac":247,"./hash/ripemd":248,"./hash/sha":249,"./hash/utils":256,"dup":90}],246:[function(require,module,exports){
+},{"./hash/common":245,"./hash/hmac":246,"./hash/ripemd":247,"./hash/sha":248,"./hash/utils":255,"dup":90}],245:[function(require,module,exports){
 arguments[4][91][0].apply(exports,arguments)
-},{"./utils":256,"dup":91,"minimalistic-assert":260}],247:[function(require,module,exports){
+},{"./utils":255,"dup":91,"minimalistic-assert":259}],246:[function(require,module,exports){
 arguments[4][92][0].apply(exports,arguments)
-},{"./utils":256,"dup":92,"minimalistic-assert":260}],248:[function(require,module,exports){
+},{"./utils":255,"dup":92,"minimalistic-assert":259}],247:[function(require,module,exports){
 arguments[4][93][0].apply(exports,arguments)
-},{"./common":246,"./utils":256,"dup":93}],249:[function(require,module,exports){
+},{"./common":245,"./utils":255,"dup":93}],248:[function(require,module,exports){
 arguments[4][94][0].apply(exports,arguments)
-},{"./sha/1":250,"./sha/224":251,"./sha/256":252,"./sha/384":253,"./sha/512":254,"dup":94}],250:[function(require,module,exports){
+},{"./sha/1":249,"./sha/224":250,"./sha/256":251,"./sha/384":252,"./sha/512":253,"dup":94}],249:[function(require,module,exports){
 arguments[4][95][0].apply(exports,arguments)
-},{"../common":246,"../utils":256,"./common":255,"dup":95}],251:[function(require,module,exports){
+},{"../common":245,"../utils":255,"./common":254,"dup":95}],250:[function(require,module,exports){
 arguments[4][96][0].apply(exports,arguments)
-},{"../utils":256,"./256":252,"dup":96}],252:[function(require,module,exports){
+},{"../utils":255,"./256":251,"dup":96}],251:[function(require,module,exports){
 arguments[4][97][0].apply(exports,arguments)
-},{"../common":246,"../utils":256,"./common":255,"dup":97,"minimalistic-assert":260}],253:[function(require,module,exports){
+},{"../common":245,"../utils":255,"./common":254,"dup":97,"minimalistic-assert":259}],252:[function(require,module,exports){
 arguments[4][98][0].apply(exports,arguments)
-},{"../utils":256,"./512":254,"dup":98}],254:[function(require,module,exports){
+},{"../utils":255,"./512":253,"dup":98}],253:[function(require,module,exports){
 arguments[4][99][0].apply(exports,arguments)
-},{"../common":246,"../utils":256,"dup":99,"minimalistic-assert":260}],255:[function(require,module,exports){
+},{"../common":245,"../utils":255,"dup":99,"minimalistic-assert":259}],254:[function(require,module,exports){
 arguments[4][100][0].apply(exports,arguments)
-},{"../utils":256,"dup":100}],256:[function(require,module,exports){
+},{"../utils":255,"dup":100}],255:[function(require,module,exports){
 arguments[4][101][0].apply(exports,arguments)
-},{"dup":101,"inherits":258,"minimalistic-assert":260}],257:[function(require,module,exports){
+},{"dup":101,"inherits":257,"minimalistic-assert":259}],256:[function(require,module,exports){
 arguments[4][102][0].apply(exports,arguments)
-},{"dup":102,"hash.js":245,"minimalistic-assert":260,"minimalistic-crypto-utils":261}],258:[function(require,module,exports){
+},{"dup":102,"hash.js":244,"minimalistic-assert":259,"minimalistic-crypto-utils":260}],257:[function(require,module,exports){
 arguments[4][16][0].apply(exports,arguments)
-},{"dup":16}],259:[function(require,module,exports){
+},{"dup":16}],258:[function(require,module,exports){
 arguments[4][108][0].apply(exports,arguments)
-},{"buffer":51,"dup":108,"hash-base":244,"inherits":258}],260:[function(require,module,exports){
+},{"buffer":51,"dup":108,"hash-base":243,"inherits":257}],259:[function(require,module,exports){
 arguments[4][110][0].apply(exports,arguments)
-},{"dup":110}],261:[function(require,module,exports){
+},{"dup":110}],260:[function(require,module,exports){
 arguments[4][111][0].apply(exports,arguments)
-},{"dup":111}],262:[function(require,module,exports){
+},{"dup":111}],261:[function(require,module,exports){
 (function (Buffer){
 //     uuid.js
 //
@@ -55034,15 +54838,15 @@ arguments[4][111][0].apply(exports,arguments)
 })('undefined' !== typeof window ? window : null);
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":51,"crypto":60}],263:[function(require,module,exports){
+},{"buffer":51,"crypto":60}],262:[function(require,module,exports){
 arguments[4][150][0].apply(exports,arguments)
-},{"buffer":51,"dup":150,"hash-base":244,"inherits":258}],264:[function(require,module,exports){
+},{"buffer":51,"dup":150,"hash-base":243,"inherits":257}],263:[function(require,module,exports){
 arguments[4][151][0].apply(exports,arguments)
-},{"buffer":51,"dup":151}],265:[function(require,module,exports){
+},{"buffer":51,"dup":151}],264:[function(require,module,exports){
 'use strict'
 module.exports = require('./lib')(require('./lib/elliptic'))
 
-},{"./lib":269,"./lib/elliptic":268}],266:[function(require,module,exports){
+},{"./lib":268,"./lib/elliptic":267}],265:[function(require,module,exports){
 (function (Buffer){
 'use strict'
 var toString = Object.prototype.toString
@@ -55090,7 +54894,7 @@ exports.isNumberInInterval = function (number, x, y, message) {
 }
 
 }).call(this,{"isBuffer":require("C:/Users/ailianlu2/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js")})
-},{"C:/Users/ailianlu2/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js":106}],267:[function(require,module,exports){
+},{"C:/Users/ailianlu2/AppData/Roaming/npm/node_modules/browserify/node_modules/is-buffer/index.js":106}],266:[function(require,module,exports){
 'use strict'
 var Buffer = require('safe-buffer').Buffer
 var bip66 = require('bip66')
@@ -55285,7 +55089,7 @@ exports.signatureImportLax = function (sig) {
   return { r: r, s: s }
 }
 
-},{"bip66":223,"safe-buffer":264}],268:[function(require,module,exports){
+},{"bip66":222,"safe-buffer":263}],267:[function(require,module,exports){
 'use strict'
 var Buffer = require('safe-buffer').Buffer
 var createHash = require('create-hash')
@@ -55547,7 +55351,7 @@ exports.ecdhUnsafe = function (publicKey, privateKey, compressed) {
   return Buffer.from(pair.pub.mul(scalar).encode(true, compressed))
 }
 
-},{"../messages.json":270,"bn.js":224,"create-hash":227,"elliptic":228,"safe-buffer":264}],269:[function(require,module,exports){
+},{"../messages.json":269,"bn.js":223,"create-hash":226,"elliptic":227,"safe-buffer":263}],268:[function(require,module,exports){
 'use strict'
 var assert = require('./assert')
 var der = require('./der')
@@ -55794,7 +55598,7 @@ module.exports = function (secp256k1) {
   }
 }
 
-},{"./assert":266,"./der":267,"./messages.json":270}],270:[function(require,module,exports){
+},{"./assert":265,"./der":266,"./messages.json":269}],269:[function(require,module,exports){
 module.exports={
   "COMPRESSED_TYPE_INVALID": "compressed should be a boolean",
   "EC_PRIVATE_KEY_TYPE_INVALID": "private key should be a Buffer",
@@ -55833,20 +55637,222 @@ module.exports={
   "TWEAK_LENGTH_INVALID": "tweak length is invalid"
 }
 
-},{}],271:[function(require,module,exports){
+},{}],270:[function(require,module,exports){
 arguments[4][152][0].apply(exports,arguments)
-},{"dup":152,"safe-buffer":264}],272:[function(require,module,exports){
+},{"dup":152,"safe-buffer":263}],271:[function(require,module,exports){
 arguments[4][153][0].apply(exports,arguments)
-},{"./sha":273,"./sha1":274,"./sha224":275,"./sha256":276,"./sha384":277,"./sha512":278,"dup":153}],273:[function(require,module,exports){
+},{"./sha":272,"./sha1":273,"./sha224":274,"./sha256":275,"./sha384":276,"./sha512":277,"dup":153}],272:[function(require,module,exports){
 arguments[4][154][0].apply(exports,arguments)
-},{"./hash":271,"dup":154,"inherits":258,"safe-buffer":264}],274:[function(require,module,exports){
+},{"./hash":270,"dup":154,"inherits":257,"safe-buffer":263}],273:[function(require,module,exports){
 arguments[4][155][0].apply(exports,arguments)
-},{"./hash":271,"dup":155,"inherits":258,"safe-buffer":264}],275:[function(require,module,exports){
+},{"./hash":270,"dup":155,"inherits":257,"safe-buffer":263}],274:[function(require,module,exports){
 arguments[4][156][0].apply(exports,arguments)
-},{"./hash":271,"./sha256":276,"dup":156,"inherits":258,"safe-buffer":264}],276:[function(require,module,exports){
+},{"./hash":270,"./sha256":275,"dup":156,"inherits":257,"safe-buffer":263}],275:[function(require,module,exports){
 arguments[4][157][0].apply(exports,arguments)
-},{"./hash":271,"dup":157,"inherits":258,"safe-buffer":264}],277:[function(require,module,exports){
+},{"./hash":270,"dup":157,"inherits":257,"safe-buffer":263}],276:[function(require,module,exports){
 arguments[4][158][0].apply(exports,arguments)
-},{"./hash":271,"./sha512":278,"dup":158,"inherits":258,"safe-buffer":264}],278:[function(require,module,exports){
+},{"./hash":270,"./sha512":277,"dup":158,"inherits":257,"safe-buffer":263}],277:[function(require,module,exports){
 arguments[4][159][0].apply(exports,arguments)
-},{"./hash":271,"dup":159,"inherits":258,"safe-buffer":264}]},{},[222]);
+},{"./hash":270,"dup":159,"inherits":257,"safe-buffer":263}],"int":[function(require,module,exports){
+(function (Buffer){
+/**
+ * 钱包账户类：包含其中的加密解密等操作，加密流程由系统生成公钥和秘钥，然后使用秘钥对称算法加密了用户密码
+ * 优点：1，随机生成的公钥和秘钥对，其它用户无法获取；
+ *      2，使用秘钥再次对用户的密码进行加密，双重保证。
+ * 
+ * 时间：2018-5-21
+ * 作者：黄龙浩
+ */
+
+'use strict'
+
+const KeyRing = require('../chainlib/Account/keyring');
+const aesUtil = require("../chainlib/Crypto/aesutil");
+const util = require("./util");
+const assert = require("assert");
+const MTX = require('../chainlib/Transcation/mtx');
+const Address = require('../chainlib/Account/address');
+const Coin = require("../chainlib/Coins/coin");
+/**
+ * http和https模块
+ */
+const HttpsUtil = require("../httputils").HttpsUtil;
+const httpsutil = new HttpsUtil();
+const HttpUtil = require("../httputils").HttpUtil;
+const httpUtil = new HttpUtil();
+
+
+const GETACCOUNT_URL = 'https://explorer.intchain.io/api/balance/';
+//const GETCOINSBYADDRESS_URL = 'https://explorer.intchain.io/api/query/coins/';
+const GETCOINSBYADDRESS_URL = 'http://localhost:3001/query/coins/';
+//const TRANSATION_URL = 'https://explorer.intchain.io/api/transation/';
+const TRANSATION_URL = 'http://localhost:3001/transation/';
+const GETTXBYADDRESS_URL = 'https://explorer.intchain.io/api/query/4/';
+
+class WalletAccount {
+    constructor() {
+        this.id = util.uuidv4();
+        this.version = 1.0;
+        this.address = "";
+        this.crypto = {
+            dphertext: '',
+            ciphertext: '',
+            wif: ''
+        };
+    }
+
+    /**
+     * 通过用户密码生成钱包地址信息
+     * 
+     * @param {密码} pwd 
+     */
+    makeWalletAccount(pwd) {
+        assert(pwd, 'pwd must not empty');
+        let account = KeyRing.generate();
+        let privatekey = account.getPrivateKey();
+        let encode = aesUtil.encryption(pwd, privatekey, account.address);
+        this.address = account.getAddress().toString();
+        this.crypto.ciphertext = encode;
+        this.crypto.wif = account.toSecret();
+        return this.toJson();
+    }
+
+    /**
+     * 通过用户密码生成用户密码和私钥解密钱包
+     * 
+     * @param {密码} pwd 
+     * @param {私钥} wif 
+     */
+    decodeFromPwdAndWif(pwd, wif) {
+        assert(pwd, "pwd must be not empty");
+        assert(wif, "wif must be not empty")
+        let account = KeyRing.fromSecret(wif); //"Kx1vvQLVhSpRprKLBY9TU5CygfbCCT4aPZPvCW6AKrtUuqqibweU");
+        let address = account.getAddress();
+        let decode = aesUtil.decryption(pwd, account.getPrivateKey(), account.address);
+        this.version = 1.0;
+        this.address = account.getAddress().toString();
+        this.crypto = {
+            dphertext: decode,
+            ciphertext: pwd,
+            wif: wif
+        };
+        return this.toJson();
+    }
+
+
+
+    /**
+     * 通过option对象解密文件
+     * 
+     * @param {option 对象} option 
+     */
+    decodeFromOption(option) {
+        //TODO：需要改进，验证地址等等
+        assert(option, "option must be not null");
+        let account = KeyRing.fromSecret(option.crypto.wif);
+        let address = account.getAddress();
+        let decode = aesUtil.decryption(option.crypto.ciphertext, account.getPrivateKey(), account.address);
+        this.version = 1.0;
+        this.address = account.getAddress().toString();
+        this.crypto = {
+            dphertext: decode,
+            ciphertext: option.crypto.ciphertext,
+            wif: option.crypto.wif
+        };
+        let json = this.toJson();
+        json.crypto.dphertext = this.crypto.dphertext;
+        return json;
+    }
+
+
+    toJson() {
+        var json = {
+            id: this.id,
+            version: this.version,
+            address: this.address,
+            crypto: {
+                ciphertext: this.crypto.ciphertext,
+                wif: this.crypto.wif
+            }
+        };
+        return json;
+    }
+
+
+
+    /**
+     * 
+     * @param {地址} address 
+     * @param {页} page 
+     */
+    async getTxByAddress(address, page) {
+        var url = GETTXBYADDRESS_URL + address + "/" + page.size + "/" + page.num;
+        let data = await httpUtil.sendGet(url, true);
+        return data;
+    }
+
+    /**
+     * 
+     * @param {账户地址公钥} address 
+     */
+    async getaccount(address) {
+        var url = "http://localhost:3001/balance/" + address;
+        let data = await httpUtil.sendGet(url, false);
+        // var url = GETACCOUNT_URL + address;
+        // let data = await httpUtil.sendGet(url, true);
+        return data;
+    }
+
+    /**
+     *
+     * @param {*} senderWIF 
+     * @param {*} outputsArray 
+     */
+    async spendByAddress(senderWIF, outputsArray) {
+        let account = KeyRing.fromSecret(senderWIF);
+        let address = account.getAddress();
+        let mtx = new MTX();
+        let needTotal = 0;
+        let unit = Math.pow(10, 6);
+        for (let output of outputsArray) {
+            output.amount = parseFloat(output.amount) * unit;
+            mtx.addOutput(Address.fromString(output.address), output.amount);
+            needTotal += output.amount;
+        }
+        // var url = GETCOINSBYADDRESS_URL + address;
+        // let result = await httpUtil.sendGet(url, true);
+        var url = GETCOINSBYADDRESS_URL + address;
+        let result = await httpUtil.sendGet(url, false);
+        let data = JSON.parse(result);
+        let coins = [];
+        for (let item of data) {
+            let txRaw = Buffer.from(item.rawtx, 'hex');
+            let coin = new Coin();
+            coin.fromRaw(txRaw);
+            coin.hash = item.hash;
+            coins.push(coin);
+            coin.index = item.index;
+        }
+        //检查一下总value是否足够
+        let total = 0;
+        for (let coin of coins) {
+            total += coin.value;
+        }
+        if (total < needTotal) {
+            return;
+        }
+        await mtx.fund(coins, { rate: 0, changeAddress: address });
+        mtx.sign(account);
+        let tx = mtx.toTX();
+        let txRaw = tx.toRaw();
+        let xxRaw = txRaw.toString('hex');
+        var rurl = TRANSATION_URL + address + "/" + xxRaw;
+        //await httpUtil.sendGet(rurl, true);
+        await httpUtil.sendGet(rurl, false);
+        return tx.hash('hex');
+    }
+}
+
+module.exports = WalletAccount;
+}).call(this,require("buffer").Buffer)
+},{"../chainlib/Account/address":175,"../chainlib/Account/keyring":176,"../chainlib/Coins/coin":178,"../chainlib/Crypto/aesutil":184,"../chainlib/Transcation/mtx":197,"../httputils":220,"./util":221,"assert":15,"buffer":51}]},{},["int"]);

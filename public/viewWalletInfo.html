@@ -1,0 +1,198 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>int wallet</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <script src="./js/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <link href="./js/plugins/layer/skin/default/layer.css" rel="stylesheet">
+    <script src="./js/plugins/layer/layer.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-animate.min.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-route.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-file-upload.min.js"></script>
+    <script type="text/javascript" src="./js/plugins/moment.js"></script>
+    <script type="text/javascript" src="./js/app/ngapp.js"></script>
+    <script type="text/javascript" src="./js/app/directives/uploaddirectives.js"></script>
+    <script type="text/javascript" src="./js/app/app-route.js"></script>
+    <script type="text/javascript" src="./js/page/common.js"></script>
+    <script type="text/javascript" src="./js/page/create.js"></script>
+    <script type="text/javascript" src="./js/page/sendint.js"></script>
+    <script type="text/javascript" src="./js/page/sendoffline.js"></script>
+    <script type="text/javascript" src="./js/page/walletinfo.js"></script>
+    <script type="text/javascript" src="./js/page/txinfo.js"></script>
+    <script type="text/javascript" src="./js/app/directives/pagedirectives.js"></script>
+    <script type="text/javascript" src="./js/page/int.js"></script>
+
+    <body ng-app="myApp">
+        <div class="container">
+            <div id="content">
+                <div class="wrapper">
+                    <!-- int logo -->
+                    <div class="logo">
+                        <img src="./images/logo-int-red.png" alt="int logo" class="img-logo">
+                        <span class="int-text">INT</span>
+                    </div>
+
+                    <!-- 创建钱包 -->
+                    <div class="common-interval">
+                        <a href="./create.html" class="common-link">
+                            <img src="./images/wallet.png" alt="wallet icon" class="create-wallet">
+                            <span class="common-font">A New Purse</span>
+                        </a>
+                    </div>
+
+                    <div class="common-interval">
+                        <a href="./sendint.html" class="common-link">
+                            <img src="./images/send-int.png" alt="" class="send-int">
+                            <span class="common-font">Send INT</span>
+                        </a>
+                    </div>
+
+                    <div class="common-interval">
+                        <a href="./viewWalletInfo.html" class="common-link">
+                            <img src="./images/wallet-information.png" alt="" class="wallet-information">
+                            <span class="common-font">Wallet Information</span>
+                        </a>
+                    </div>
+
+                    <div class="common-interval">
+                        <a href="./viewtxinfo.html" class="common-link">
+                            <img src="./images/trading-status.png" alt="" class="trading-status">
+                            <span class="common-font">Trading Status</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="pc">
+                    <script src="./js/plugins/jquery/jquery.qrcode.min.js"></script>
+                    <style type="text/css">
+                        .c {
+                            position: absolute;
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                            width: 80%;
+                        }
+                        
+                        #addressqrcode {
+                            border: 2px solid #7b4589;
+                            height: 150px;
+                            width: 150px;
+                            margin-top: 20px;
+                        }
+                        
+                        .qr-position {
+                            text-align: left !important;
+                        }
+                        
+                        .wallet-li {
+                            width: 60%;
+                            margin-bottom: 10px;
+                        }
+                        
+                        .qr-position {
+                            position: absolute;
+                            text-align: center;
+                            top: 25%;
+                            right: 0;
+                        }
+                    </style>
+                    <div class="c" ng-controller="walletinfoController">
+                        <div class="ct">
+                            <div>
+                                <div class="mi middle">Please select your wallet file</div>
+                                <div file-uploader url="url" password="model.password" file="file"></div>
+                                <div class="middle" style="margin-top: 20px;">
+                                    <button class="lb ln" ng-click="query()">Search information</button>
+                                </div>
+
+                            </div>
+                            <div class="tb">
+                                <ul>
+                                    <li class="wallet-li">
+                                        <div class="item">
+                                            <div class="t">
+                                                <span class="hint-text">Your Address</span>
+                                            </div>
+                                            <div class="ci">
+                                                <input type="text" ng-model="model.sourceAddress" disabled="disabled" placeholder="Your address">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="wallet-li">
+                                        <div class="item">
+                                            <div class="t">
+                                                <span class="hint-text">Wallet Balance</span>
+                                            </div>
+                                            <div class="ci">
+                                                <input type="text" ng-model="model.sourceAmount" disabled="disabled" placeholder="Wallet balance">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="wallet-li">
+                                        <div class="item">
+                                            <div class="t">
+                                                <span class="hint-text">Password(JSON/Recommended/Encrypted)</span>
+                                            </div>
+                                            <div class="ci">
+                                                <input type="text" disabled="disabled" ng-model="model.cryptCode" placeholder="password">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="wallet-li">
+                                        <div class="item">
+                                            <div class="t">
+                                                <span class="hint-text">Private key(unencrypted)</span>
+                                            </div>
+                                            <div class="ci">
+                                                <input type="text" disabled="disabled" ng-model="model.encryptCode" placeholder="Private key(unencrypted)">
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="item qr-position">
+                                    <div class="t">
+                                        <span style="color: #7b4589; font-size: 15px;">Your address(QR code)</span>
+                                    </div>
+                                    <div class="ci" align="center">
+                                        <div id="addressqrcode">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(function() {
+                        setCurUrlTab();
+                        bindClick();
+                    })
+
+                    function setCurUrlTab() {
+                        var url = window.location.hash;
+                        var tag = ".tabs .i .c";
+                        var tags = $(tag);
+                        $.each(tags, function(i, item) {
+                            if ($(item).attr('href') === url) {
+                                $(item).addClass("cu");
+                            } else {
+                                $(item).removeClass("cu");
+                            }
+                        });
+                    };
+
+                    function bindClick() {
+                        var tabs = $(".tabs .i .c");
+                        $(tabs).on('click', function() {
+                            $(tabs).removeClass("cu");
+                            $(this).addClass("cu");
+                        });
+                    };
+                </script>
+            </div>
+        </div>
+    </body>
+
+</html>
