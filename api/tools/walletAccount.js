@@ -16,6 +16,7 @@ const assert = require("assert");
 const MTX = require('../chainlib/Transcation/mtx');
 const Address = require('../chainlib/Account/address');
 const Coin = require("../chainlib/Coins/coin");
+const Mapping = require("./mapping");
 /**
  * http和https模块
  */
@@ -31,6 +32,13 @@ const GETCOINSBYADDRESS_URL = 'http://localhost:3001/query/coins/';
 //const TRANSATION_URL = 'https://explorer.intchain.io/api/transation/';
 const TRANSATION_URL = 'http://localhost:3001/transation/';
 const GETTXBYADDRESS_URL = 'https://explorer.intchain.io/api/query/4/';
+
+
+const QUERYINTONETH_URL = "http://localhost:3001/mapping/queryEthIntBalance/";
+const BURNINTONETH_URL = "/mapping/sendSignedTransaction";
+const HOST = "localhost";
+const PORT = "3001";
+
 
 class WalletAccount {
     constructor() {
@@ -194,6 +202,23 @@ class WalletAccount {
         await httpUtil.sendGet(rurl, false);
         return tx.hash('hex');
     }
+	async burnIntOnEth(options){
+		let data = await Mapping.getSerializedTx(options);
+		options.serializedTx = data.serializedTx;
+		if(data){
+			if(data.status==="success"){
+				let result = await httpUtil.sendPost(options,HOST,PORT,BURNINTONETH_URL);
+				return JSON.parse(result);
+			}else{
+				return data;
+			}
+		}
+	}
+	async queryBalance(address){
+		let url = QUERYINTONETH_URL+address;
+		let result = await httpUtil.sendGet(url);
+		return JSON.parse(result);
+	}
 }
 
 module.exports = WalletAccount;
