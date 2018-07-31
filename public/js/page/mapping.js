@@ -14,7 +14,7 @@ app.controller('mappingController', function($scope, $http) {
 	$scope.queryBalance = async function() {
 		var Wal = require("int");
 		var wal = new Wal;
-		var data =  await wal.queryBalance($scope.model.fromAddress,$scope);
+		var data =  await wal.queryBalance($scope.model.fromAddress);
 		if(data){
 			if(data.status==="success"){
 				$scope.model.decimalAmount = data.balance;
