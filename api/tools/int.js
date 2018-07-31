@@ -79222,7 +79222,7 @@ const Mapping = require("./mapping");
  * http和https模块
  */
 const HttpsUtil = require("../httputils").HttpsUtil;
-const httpsutil = new HttpsUtil();
+const httpsUtil = new HttpsUtil();
 const HttpUtil = require("../httputils").HttpUtil;
 const httpUtil = new HttpUtil();
 
@@ -79235,10 +79235,12 @@ const TRANSATION_URL = 'http://localhost:3001/transation/';
 const GETTXBYADDRESS_URL = 'https://explorer.intchain.io/api/query/4/';
 
 
-const QUERYINTONETH_URL = "http://localhost:3001/mapping/queryEthIntBalance/";
-const BURNINTONETH_URL = "/mapping/sendSignedTransaction";
-const HOST = "localhost";
-const PORT = "3001";
+//const QUERYINTONETH_URL = "http://localhost:3001/mapping/queryEthIntBalance/";
+const QUERYINTONETH_URL = "https://explorer.intchain.io/api/mapping/queryEthIntBalance/";
+const BURNINTONETH_URL = "/api/mapping/sendSignedTransaction";
+//const HOST = "localhost";
+const HOST = "explorer.intchain.io";
+const PORT = "";
 
 
 class WalletAccount {
@@ -79408,7 +79410,7 @@ class WalletAccount {
 		options.serializedTx = data.serializedTx;
 		if(data){
 			if(data.status==="success"){
-				let result = await httpUtil.sendPost(options,HOST,PORT,BURNINTONETH_URL);
+				let result = await httpsUtil.sendPost(options,HOST,PORT,BURNINTONETH_URL);
 				return JSON.parse(result);
 			}else{
 				return data;
@@ -79417,7 +79419,7 @@ class WalletAccount {
 	}
 	async queryBalance(address){
 		let url = QUERYINTONETH_URL+address;
-		let result = await httpUtil.sendGet(url);
+		let result = await httpsUtil.sendGet(url);
 		return JSON.parse(result);
 	}
 }
