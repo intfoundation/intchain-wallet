@@ -79405,23 +79405,23 @@ class WalletAccount {
         await httpUtil.sendGet(rurl, false);
         return tx.hash('hex');
     }
-	// async burnIntOnEth(options){
-	// 	let data = await Mapping.getSerializedTx(options);
-	// 	options.serializedTx = data.serializedTx;
-	// 	if(data){
-	// 		if(data.status==="success"){
-	// 			let result = await httpsUtil.sendPost(options,HOST,PORT,BURNINTONETH_URL);
-	// 			return JSON.parse(result);
-	// 		}else{
-	// 			return data;
-	// 		}
-	// 	}
-	// }
-	// async queryBalance(address){
-	// 	let url = QUERYINTONETH_URL+address;
-	// 	let result = await httpsUtil.sendGet(url);
-	// 	return JSON.parse(result);
-	// }
+	async burnIntOnEth(options){
+		let data = await Mapping.getSerializedTx(options);
+		options.serializedTx = data.serializedTx;
+		if(data){
+			if(data.status==="success"){
+				let result = await httpsUtil.sendPost(options,HOST,PORT,BURNINTONETH_URL);
+				return JSON.parse(result);
+			}else{
+				return data;
+			}
+		}
+	}
+	async queryBalance(address){
+		let url = QUERYINTONETH_URL+address;
+		let result = await httpsUtil.sendGet(url);
+		return JSON.parse(result);
+	}
 }
 
 module.exports = WalletAccount;
