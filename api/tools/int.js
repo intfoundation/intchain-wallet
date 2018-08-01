@@ -79237,11 +79237,11 @@ const GETTXBYADDRESS_URL = 'https://explorer.intchain.io/api/query/4/';
 
 //const QUERYINTONETH_URL = "http://localhost:3001/mapping/queryEthIntBalance/";
 const QUERYINTONETH_URL = "https://explorer.intchain.io/api/mapping/queryEthIntBalance/";
-const GETMYDATA_URL = "http://localhost:3001/mapping/getMydata/";
-const BURNINTONETH_URL = "/mapping/sendSignedTransaction";
-const HOST = "localhost";
-//const HOST = "explorer.intchain.io";
-const PORT = "3001";
+const GETMYDATA_URL = "https://explorer.intchain.io/api/mapping/getMydata/";
+const BURNINTONETH_URL = "/api/mapping/sendSignedTransaction";
+//const HOST = "localhost";
+const HOST = "explorer.intchain.io";
+const PORT = "";
 
 
 class WalletAccount {
@@ -79408,7 +79408,7 @@ class WalletAccount {
     }
     async burnIntOnEth(options) {
         let url = GETMYDATA_URL + options.decimalAmount + "/" + options.fromAddress
-        let result = await httpUtil.sendGet(url);
+        let result = await httpsUtil.sendGet(url);
         let parseResult = JSON.parse(result);
         options.mydata = parseResult.mydata
         options.mynonce = parseResult.mynonce
@@ -79416,7 +79416,7 @@ class WalletAccount {
         options.serializedTx = data.serializedTx;
         if (data) {
             if (data.status === "success") {
-                let result = await httpUtil.sendPost(options, HOST, PORT, BURNINTONETH_URL);
+                let result = await httpsUtil.sendPost(options, HOST, PORT, BURNINTONETH_URL);
                 return JSON.parse(result);
             } else {
                 return data;
@@ -79432,6 +79432,6 @@ class WalletAccount {
 
 window.wal = new WalletAccount();
 module.exports = WalletAccount;
-//browserify --require  ./walletAccount.js:int ./walletAccount.js > int.jsssss
+//browserify --require  ./walletAccount.js:int ./walletAccount.js > int.jssssss
 }).call(this,require("buffer").Buffer)
 },{"../chainlib/Account/address":1,"../chainlib/Account/keyring":2,"../chainlib/Coins/coin":4,"../chainlib/Crypto/aesutil":10,"../chainlib/Transcation/mtx":23,"../httputils":46,"./mapping":47,"./util":48,"assert":313,"buffer":349}]},{},["int"]);
