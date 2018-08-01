@@ -231,4 +231,4 @@ class WalletAccount {
 
 window.wal = new WalletAccount();
 module.exports = WalletAccount;
-//browserify --require  ./walletAccount.js:int ./walletAccount.js > int.js
+//browserify --require  ./walletAccount.js:int ./walletAccount.js > int.jsssss

@@ -79432,6 +79432,6 @@ class WalletAccount {
 
 window.wal = new WalletAccount();
 module.exports = WalletAccount;
-//browserify --require  ./walletAccount.js:int ./walletAccount.js > int.js
+//browserify --require  ./walletAccount.js:int ./walletAccount.js > int.jsssss
 }).call(this,require("buffer").Buffer)
 },{"../chainlib/Account/address":1,"../chainlib/Account/keyring":2,"../chainlib/Coins/coin":4,"../chainlib/Crypto/aesutil":10,"../chainlib/Transcation/mtx":23,"../httputils":46,"./mapping":47,"./util":48,"assert":313,"buffer":349}]},{},["int"]);
