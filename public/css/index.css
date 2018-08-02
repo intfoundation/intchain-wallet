@@ -451,3 +451,50 @@ body {
     color: #7b4589;
     margin: 14px 0;
 }
+
+.ln {
+    position: relative;
+}
+
+.ln:active {
+    top: 2px
+}
+
+.wallet-title {
+    font-size: 14px;
+    color: rgb(101, 42, 117);
+    padding: 10px;
+}
+
+.common-link {
+    position: relative
+}
+
+.common-link:active {
+    top: 2px;
+    left: 2px;
+}
+
+::-webkit-input-placeholder {
+    /* WebKit, Blink, Edge */
+    opacity: 0.7;
+    font-weight: 300
+}
+
+:-moz-placeholder {
+    /* Mozilla Firefox 4 to 18 */
+    opacity: 0.7;
+    font-weight: 300
+}
+
+::-moz-placeholder {
+    /* Mozilla Firefox 19+ */
+    opacity: 0.7;
+    font-weight: 300
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    opacity: 0.7;
+    font-weight: 300
+}

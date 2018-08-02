@@ -39,6 +39,14 @@
             float: right;
             text-align: right;
         }
+        
+        .lb {
+            position: relative
+        }
+        
+        .lb:active {
+            top: 2px
+        }
     </style>
 
     <body ng-app="myApp">
@@ -88,6 +96,7 @@
                     </div>
                 </div>
                 <div class="pc">
+                    <div class="wallet-title">Send INT</div>
                     <div class="c" ng-controller="sendintController">
                         <div class="ct">
                             <div>

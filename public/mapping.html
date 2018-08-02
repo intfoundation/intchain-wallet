@@ -39,6 +39,15 @@
             float: right;
             text-align: right;
         }
+        
+        .common-link {
+            position: relative
+        }
+        
+        .common-link:active {
+            top: 2px;
+            left: 2px;
+        }
     </style>
 
     <body ng-app="myApp">
@@ -88,6 +97,7 @@
                     </div>
                 </div>
                 <div class="pc">
+                    <div class="wallet-title">Mapping</div>
                     <div class="c" ng-controller="mappingController">
                         <div class="tb">
                             <ul>
