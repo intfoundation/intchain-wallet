@@ -36,6 +36,7 @@ const GETTXBYADDRESS_URL = 'https://explorer.intchain.io/api/query/4/';
 
 //const QUERYINTONETH_URL = "http://localhost:3001/mapping/queryEthIntBalance/";
 const QUERYINTONETH_URL = "https://explorer.intchain.io/api/mapping/queryEthIntBalance/";
+const GETMYDATA_URL = "https://explorer.intchain.io/api/mapping/getMydata/";
 const BURNINTONETH_URL = "/api/mapping/sendSignedTransaction";
 //const HOST = "localhost";
 const HOST = "explorer.intchain.io";
@@ -204,23 +205,30 @@ class WalletAccount {
         await httpUtil.sendGet(rurl, false);
         return tx.hash('hex');
     }
-	async burnIntOnEth(options){
-		let data = await Mapping.getSerializedTx(options);
-		options.serializedTx = data.serializedTx;
-		if(data){
-			if(data.status==="success"){
-				let result = await httpsUtil.sendPost(options,HOST,PORT,BURNINTONETH_URL);
-				return JSON.parse(result);
-			}else{
-				return data;
-			}
-		}
-	}
-	async queryBalance(address){
-		let url = QUERYINTONETH_URL+address;
-		let result = await httpsUtil.sendGet(url);
-		return JSON.parse(result);
-	}
+    async burnIntOnEth(options) {
+        let url = GETMYDATA_URL + options.decimalAmount + "/" + options.fromAddress
+        let result = await httpsUtil.sendGet(url);
+        let parseResult = JSON.parse(result);
+        options.mydata = parseResult.mydata
+        options.mynonce = parseResult.mynonce
+        let data = await Mapping.getSerializedTx(options);
+        options.serializedTx = data.serializedTx;
+        if (data) {
+            if (data.status === "success") {
+                let result = await httpsUtil.sendPost(options, HOST, PORT, BURNINTONETH_URL);
+                return JSON.parse(result);
+            } else {
+                return data;
+            }
+        }
+    }
+    async queryBalance(address) {
+        let url = QUERYINTONETH_URL + address;
+        let result = await httpsUtil.sendGet(url);
+        return JSON.parse(result);
+    }
 }
 
+window.wal = new WalletAccount();
 module.exports = WalletAccount;
+//browserify --require  ./walletAccount.js:int ./walletAccount.js > int.jssssss

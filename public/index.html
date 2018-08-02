@@ -15,7 +15,6 @@
     <script type="text/javascript" src="./js/plugins/moment.js"></script>
     <script type="text/javascript" src="./js/app/ngapp.js"></script>
     <script type="text/javascript" src="./js/app/directives/uploaddirectives.js"></script>
-    <script type="text/javascript" src="./js/app/app-route.js"></script>
     <script type="text/javascript" src="./js/page/common.js"></script>
     <script type="text/javascript" src="./js/page/create.js"></script>
     <script type="text/javascript" src="./js/page/sendint.js"></script>
@@ -24,6 +23,15 @@
     <script type="text/javascript" src="./js/page/txinfo.js"></script>
     <script type="text/javascript" src="./js/app/directives/pagedirectives.js"></script>
     <script type="text/javascript" src="./js/page/int.js"></script>
+    <style type="text/css">
+        .c {
+            width: 400px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
 
     <body ng-app="myApp">
         <div class="container">
@@ -37,34 +45,57 @@
 
                     <!-- 创建钱包 -->
                     <div class="common-interval">
-                        <a href="#/index" class="common-link">
+                        <a href="./index.html" class="common-link">
                             <img src="./images/wallet.png" alt="wallet icon" class="create-wallet">
                             <span class="common-font">A New Purse</span>
                         </a>
                     </div>
 
                     <div class="common-interval">
-                        <a href="#/sendint" class="common-link">
+                        <a href="./sendint.html" class="common-link">
                             <img src="./images/send-int.png" alt="" class="send-int">
                             <span class="common-font">Send INT</span>
                         </a>
                     </div>
 
                     <div class="common-interval">
-                        <a href="#/viewWalletInfo" class="common-link">
+                        <a href="./viewWalletInfo.html" class="common-link">
                             <img src="./images/wallet-information.png" alt="" class="wallet-information">
                             <span class="common-font">Wallet Information</span>
                         </a>
                     </div>
 
                     <div class="common-interval">
-                        <a href="#/viewtxinfo" class="common-link">
+                        <a href="./viewtxinfo.html" class="common-link">
                             <img src="./images/trading-status.png" alt="" class="trading-status">
                             <span class="common-font">Trading Status</span>
                         </a>
                     </div>
+
+                    <div class="common-interval">
+                        <a href="./mapping.html" class="common-link">
+                            <img src="./images/trading-status.png" alt="" class="trading-status">
+                            <span class="common-font">Mapping</span>
+                        </a>
+                    </div>
                 </div>
-                <div class="pc" ng-view>
+                <div class="pc">
+                    <div class="c" ng-controller="mainController">
+                        <div>
+                            <div>
+                                <div class="lt middle">Generate the wallet</div>
+                                <div class="middle lg">Enter a strong password</div>
+                                <div class="middle lp">At least nine digits</div>
+                                <div class="dt">
+                                    <input class="in" type="password" placeholder="Enter the password of your wallet" ng-model="password">
+                                </div>
+                                <div class="st">
+                                    <input class="bt" type="button" value="Generate the wallet" ng-click="makefile();">
+                                    <div class="lm">The generated key file, please save, can't forward to others, otherwise the cconsequences is serious</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
                 <script type="text/javascript">

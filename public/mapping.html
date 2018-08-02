@@ -25,141 +25,124 @@
             transform: translate(-50%, -50%);
             width: 80%;
         }
-
+        
         .common-float {
             width: 50%;
             margin-bottom: 3px;
         }
-
+        
         .left-float {
             float: left;
         }
-
+        
         .right-float {
             float: right;
             text-align: right;
         }
     </style>
 
-<body ng-app="myApp">
-<div class="container">
-    <div id="content">
-        <div class="wrapper">
-            <!-- int logo -->
-            <div class="logo">
-                <img src="./images/logo-int-red.png" alt="int logo" class="img-logo">
-                <span class="int-text">INT</span>
-            </div>
+    <body ng-app="myApp">
+        <div class="container">
+            <div id="content">
+                <div class="wrapper">
+                    <!-- int logo -->
+                    <div class="logo">
+                        <img src="./images/logo-int-red.png" alt="int logo" class="img-logo">
+                        <span class="int-text">INT</span>
+                    </div>
 
-            <!-- 创建钱包 -->
-            <div class="common-interval">
-                <a href="./create.html" class="common-link">
-                    <img src="./images/wallet.png" alt="wallet icon" class="create-wallet">
-                    <span class="common-font">A New Purse</span>
-                </a>
-            </div>
+                    <!-- 创建钱包 -->
+                    <div class="common-interval">
+                        <a href="./index.html" class="common-link">
+                            <img src="./images/wallet.png" alt="wallet icon" class="create-wallet">
+                            <span class="common-font">A New Purse</span>
+                        </a>
+                    </div>
 
-            <div class="common-interval">
-                <a href="./sendint.html" class="common-link">
-                    <img src="./images/send-int.png" alt="" class="send-int">
-                    <span class="common-font">Send INT</span>
-                </a>
-            </div>
+                    <div class="common-interval">
+                        <a href="./sendint.html" class="common-link">
+                            <img src="./images/send-int.png" alt="" class="send-int">
+                            <span class="common-font">Send INT</span>
+                        </a>
+                    </div>
 
-            <div class="common-interval">
-                <a href="./viewWalletInfo.html" class="common-link">
-                    <img src="./images/wallet-information.png" alt="" class="wallet-information">
-                    <span class="common-font">Wallet Information</span>
-                </a>
-            </div>
+                    <div class="common-interval">
+                        <a href="./viewWalletInfo.html" class="common-link">
+                            <img src="./images/wallet-information.png" alt="" class="wallet-information">
+                            <span class="common-font">Wallet Information</span>
+                        </a>
+                    </div>
 
-            <div class="common-interval">
-                <a href="./viewtxinfo.html" class="common-link">
-                    <img src="./images/trading-status.png" alt="" class="trading-status">
-                    <span class="common-font">Trading Status</span>
-                </a>
-            </div>
+                    <div class="common-interval">
+                        <a href="./viewtxinfo.html" class="common-link">
+                            <img src="./images/trading-status.png" alt="" class="trading-status">
+                            <span class="common-font">Trading Status</span>
+                        </a>
+                    </div>
 
-            <div class="common-interval">
-                <a href="./mapping.html" class="common-link">
-                    <img src="./images/trading-status.png" alt="" class="trading-status">
-                    <span class="common-font">Mapping</span>
-                </a>
-            </div>
-        </div>
-        <div class="pc">
-            <div class="c" ng-controller="mappingController">
-                    <div class="tb">
-                        <ul>
-                            <li class="left-float common-float">
-                                <div class="item">
-                                    <div class="t">
-                                        <span class="hint-text">The address of your ETH</span>
+                    <div class="common-interval">
+                        <a href="./mapping.html" class="common-link">
+                            <img src="./images/trading-status.png" alt="" class="trading-status">
+                            <span class="common-font">Mapping</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="pc">
+                    <div class="c" ng-controller="mappingController">
+                        <div class="tb">
+                            <ul>
+                                <li class="left-float common-float">
+                                    <div class="item">
+                                        <div class="t">
+                                            <span class="hint-text">The address of your ETH</span>
+                                        </div>
+                                        <div class="ci">
+                                            <input type="text" id="fromAddress" ng-model="model.fromAddress" ng-blur="queryBalance()" placeholder="The address of your ETH" class="bind-input">
+                                        </div>
                                     </div>
-                                    <div class="ci">
-                                        <input type="text"
-                                               id="fromAddress"
-                                               ng-model="model.fromAddress"
-                                               ng-blur="queryBalance()"
-                                               placeholder="The address of your ETH"
-                                               class="bind-input">
+                                </li>
+                                <li class="right-float common-float">
+                                    <div class="item">
+                                        <div class="t">
+                                            <span class="hint-text">The address of your INT</span>
+                                        </div>
+                                        <div class="ci">
+                                            <input type="text" ng-blur="queryBalance()" ng-model="model.toAddress" placeholder="The address of your INT" class="bind-input">
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="right-float common-float">
-                                <div class="item">
-                                    <div class="t">
-                                        <span class="hint-text">The address of your INT</span>
+                                </li>
+                                <li class="left-float common-float">
+                                    <div class="item">
+                                        <div class="t">
+                                            <span class="hint-text">Balance</span>
+                                        </div>
+                                        <div class="ci">
+                                            <input type="text" id="decimalAmount" ng-model="model.decimalAmount" placeholder="Balance" class="bind-input">
+                                        </div>
                                     </div>
-                                    <div class="ci">
-                                        <input type="text"
-                                               ng-blur="queryBalance()"
-                                               ng-model="model.toAddress"
-                                               placeholder="The address of your INT"
-                                               class="bind-input">
+                                </li>
+                                <li class="right-float common-float">
+                                    <div class="item">
+                                        <div class="t">
+                                            <span class="hint-text">The private key of yuor ETH</span>
+                                        </div>
+                                        <div class="ci">
+                                            <input type="text" ng-model="model.fromAddressPrivateKey" placeholder="The private key of yuor ETH">
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                            <li class="left-float common-float">
-                                <div class="item">
-                                    <div class="t">
-                                        <span class="hint-text">Balance</span>
+                                </li>
+                                <li class="left-float common-float">
+                                    <div class="item">
+                                        <div class="t">
+                                            <span class="hint-text">Gas price( 1 INT = 1EWei = 10 <span class="i2">6</span> Wei )</span>
+                                            </span>
+                                        </div>
+                                        <div class="ci">
+                                            <input type="text" ng-model="model.decimalGas" placeholder="Gas price">
+                                        </div>
                                     </div>
-                                    <div class="ci">
-                                        <input type="text"
-                                               id="decimalAmount"
-                                               ng-model="model.decimalAmount"
-                                               placeholder="Balance"
-                                               class="bind-input">
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="right-float common-float">
-                                <div class="item">
-                                    <div class="t">
-                                        <span class="hint-text">The private key of yuor ETH</span>
-                                    </div>
-                                    <div class="ci">
-                                        <input type="text"
-                                               ng-model="model.fromAddressPrivateKey"
-                                               placeholder="The private key of yuor ETH">
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="left-float common-float">
-                                <div class="item">
-                                    <div class="t">
-                                        <span class="hint-text">Gas price( 1 INT = 1EWei = 10 <span class="i2">6</span> Wei )</span>
-                                        </span>
-                                    </div>
-                                    <div class="ci">
-                                        <input type="text"
-                                               ng-model="model.decimalGas"
-                                               placeholder="Gas price">
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- <li>
+                                </li>
+                                <!-- <li>
             <div class="item">
                 <div class="t">
                     <span>Nonce</span>
@@ -169,18 +152,18 @@
                 </div>
             </div>
         </li> -->
-                        </ul>
-                    </div>
-                    <div class="middle" style="margin-top: 20px;">
-                        <button class="ln lb" ng-click="toMapping()">Generate transactions</button>
+                            </ul>
+                        </div>
+                        <div class="middle" style="margin-top: 20px;">
+                            <button class="ln lb" ng-click="toMapping()">Generate transactions</button>
+                        </div>
                     </div>
                 </div>
+
+
             </div>
-
-
         </div>
-    </div>
-</div>
-</body>
+        </div>
+    </body>
 
 </html>
