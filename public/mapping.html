@@ -48,6 +48,20 @@
             top: 2px;
             left: 2px;
         }
+        
+        .mp-result {
+            display: none;
+            width: 100%;
+            margin-top: 100px;
+            color: #7a4589;
+        }
+        
+        .mp-url {
+            cursor: pointer;
+            width: 100%;
+            word-wrap: break-word;
+            word-break: normal;
+        }
     </style>
 
     <body ng-app="myApp">
@@ -166,6 +180,11 @@
                         </div>
                         <div class="middle" style="margin-top: 20px;">
                             <button class="ln lb" ng-click="toMapping()">Generate transactions</button>
+                        </div>
+                        <div id="mp-result" class="mp-result">
+                            <span>The operation is successful, click the following URL to see the results</span>
+                            <div style="height: 10px"></div>
+                            <div class="mp-url" ng-click="toResult()">https://etherscan.io/tx/{{hash}}</div>
                         </div>
                     </div>
                 </div>

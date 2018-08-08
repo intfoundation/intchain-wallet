@@ -1,7 +1,7 @@
 app.controller('mappingController', function($scope, $http) {
     $scope.ethAddress = '';
     //0x04fa4d66a673cBf91F7cf48dfF236482495Fd49e  ng-blur="queryBalance()"
-    $scope.balance = '';
+    $scope.hash = '';
     $scope.model = {
         fromAddress: '',
         toAddress: '',
@@ -40,11 +40,16 @@ app.controller('mappingController', function($scope, $http) {
         var data = await wal.burnIntOnEth($scope.model);
         if (data) {
             if (data.status === "success") {
+                document.getElementById("mp-result").style.display = "block"
+                $scope.hash = data.hash
                 util.alert("success")
             } else {
                 util.alert(data.message)
             }
         }
+    }
+    $scope.toResult = function() {
+        window.open(`https://etherscan.io/tx/${$scope.hash}`)
     }
     let timer = setInterval(function() {
         if ($scope.model.decimalAmount || $scope.model.decimalAmount === 0) {
