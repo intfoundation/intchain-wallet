@@ -41,6 +41,7 @@ app.controller('mappingController', function($scope, $http) {
         if (data) {
             if (data.status === "success") {
                 document.getElementById("mp-result").style.display = "block"
+                document.getElementById("mpUrl").innerHTML = `https://etherscan.io/tx/${data.hash}`
                 $scope.hash = data.hash
                 util.alert("success")
             } else {
