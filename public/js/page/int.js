@@ -79256,14 +79256,14 @@ const TRANSATION_URL = 'http://localhost:3001/transation/';
 const GETTXBYADDRESS_URL = 'https://explorer.intchain.io/api/query/4/';
 
 
-const QUERYINTONETH_URL = "http://localhost:3001/mapping/queryEthIntBalance/";
-const GETMYDATA_URL = "http://localhost:3001/mapping/getMydata/";
-//const QUERYINTONETH_URL = "https://explorer.intchain.io/api/mapping/queryEthIntBalance/";
-//const GETMYDATA_URL = "https://explorer.intchain.io/api/mapping/getMydata/";
-const BURNINTONETH_URL = "/mapping/sendSignedTransaction";
-const HOST = "localhost";
-//const HOST = "explorer.intchain.io";
-const PORT = "3001";
+//const QUERYINTONETH_URL = "http://localhost:3001/mapping/queryEthIntBalance/";
+//const GETMYDATA_URL = "http://localhost:3001/mapping/getMydata/";
+const QUERYINTONETH_URL = "https://explorer.intchain.io/api/mapping/queryEthIntBalance/";
+const GETMYDATA_URL = "https://explorer.intchain.io/api/mapping/getMydata/";
+const BURNINTONETH_URL = "/api/mapping/sendSignedTransaction";
+//const HOST = "localhost";
+const HOST = "explorer.intchain.io";
+const PORT = "";
 
 
 class WalletAccount {
@@ -79430,7 +79430,7 @@ class WalletAccount {
     }
     async burnIntOnEth(options) {
         let url = GETMYDATA_URL + options.decimalAmount + "/" + options.fromAddress
-        let result = await httpUtil.sendGet(url);
+        let result = await httpsUtil.sendGet(url);
         let parseResult = JSON.parse(result);
         options.mydata = parseResult.mydata
         options.mynonce = parseResult.mynonce;
@@ -79439,7 +79439,7 @@ class WalletAccount {
         let data = await Mapping.getSerializedTx(options);
         if (data) {
             if (data.status === "success") {
-                let result = await httpUtil.sendPost(data.data, HOST, PORT, BURNINTONETH_URL);
+                let result = await httpsUtil.sendPost(data.data, HOST, PORT, BURNINTONETH_URL);
                 return JSON.parse(result);
             } else {
                 return data;
@@ -79448,7 +79448,7 @@ class WalletAccount {
     }
     async queryBalance(address) {
         let url = QUERYINTONETH_URL + address;
-        let result = await httpUtil.sendGet(url);
+        let result = await httpsUtil.sendGet(url);
         return JSON.parse(result);
     }
 }
