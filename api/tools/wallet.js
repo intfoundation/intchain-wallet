@@ -113,22 +113,16 @@ class WalletAccount {
      * 
      * @param {option 对象} option 
      */
-    decodeFromOption(option) {
+    decodeFromOption(option, pwd) {
         //TODO：需要改进，验证地址等等
         assert(option, "option must be not null");
-        let account = KeyRing.fromSecret(option.crypto.wif);
-        let address = account.getAddress();
-        let decode = aesUtil.decryption(option.crypto.ciphertext, account.getPrivateKey(), account.address);
-        this.version = 1.0;
-        this.address = account.getAddress().toString();
-        this.crypto = {
-            dphertext: decode,
-            ciphertext: option.crypto.ciphertext,
-            wif: option.crypto.wif
-        };
-        let json = this.toJson();
-        json.crypto.dphertext = this.crypto.dphertext;
-        return json;
+        try {
+            let privatekey = decrypt(option, pwd)
+            console.log(privatekey)
+            return privatekey;
+        } catch (e) {
+            return "";
+        }
     }
 
     toJson() {
