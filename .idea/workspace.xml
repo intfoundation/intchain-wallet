@@ -3,14 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="60853709-092b-49fd-bc57-59f0a16d8f40" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/tools/int.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/tools/int.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/tools/mapping.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/tools/mapping.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/tools/walletAccount.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/tools/walletAccount.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/page/int.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/page/int.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/page/mapping.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/page/mapping.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/mapping.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/mapping.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/viewWalletInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/viewWalletInfo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn-error.log" beforeDir="false" afterPath="$PROJECT_DIR$/yarn-error.log" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -34,11 +29,47 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mapping.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="mapping.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/tools/mapping.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="689">
-              <caret line="109" column="2" selection-start-line="109" selection-start-column="2" selection-end-line="109" selection-end-column="2" />
+            <state relative-caret-position="217">
+              <caret line="89" column="2" selection-start-line="89" selection-start-column="2" selection-end-line="89" selection-end-column="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="452">
+              <caret line="23" column="27" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="yarn-error.log" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/yarn-error.log">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="326">
+              <caret line="42" column="29" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package-lock.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package-lock.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="222">
+              <caret line="2340" column="6" selection-start-line="2340" selection-start-column="6" selection-end-line="2340" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="viewWalletInfo.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/viewWalletInfo.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="142">
+              <caret line="25" column="67" selection-start-line="25" selection-start-column="67" selection-end-line="25" selection-end-column="67" />
             </state>
           </provider>
         </entry>
@@ -79,42 +110,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/ethereumjs-tx/README.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="704">
-              <caret line="32" column="6" selection-start-line="32" selection-start-column="6" selection-end-line="32" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="stringify_test.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/json-stringify-safe/test/stringify_test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4598">
-              <caret line="209" column="16" selection-start-line="209" selection-start-column="16" selection-end-line="209" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="transactions.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/ethereumjs-tx/examples/transactions.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/node_modules/ethereumjs-tx/docs/index.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="8" column="115" selection-start-line="8" selection-start-column="115" selection-end-line="8" selection-end-column="115" />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -135,6 +130,7 @@
       <find>serialize</find>
       <find>ecsign</find>
       <find>sign</find>
+      <find>node-serialize</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -142,6 +138,8 @@
     <dirStrings>
       <dir>$PROJECT_DIR$/node_modules/ethereumjs-tx</dir>
       <dir>$PROJECT_DIR$/node_modules</dir>
+      <dir>$PROJECT_DIR$/api/tools</dir>
+      <dir>$PROJECT_DIR$</dir>
     </dirStrings>
   </component>
   <component name="GOROOT" path="C:/Go" />
@@ -155,6 +153,10 @@
         <option value="$PROJECT_DIR$/webpack.config.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/api/tools/mapping.js" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/yarn-error.log" />
+        <option value="$PROJECT_DIR$/package-lock.json" />
+        <option value="$PROJECT_DIR$/public/viewWalletInfo.html" />
       </list>
     </option>
   </component>
@@ -183,7 +185,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -196,10 +197,28 @@
               <item name="intchain-wallet" type="462c0819:PsiDirectoryNode" />
               <item name="api" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="intchain-wallet" type="b2602c69:ProjectViewProjectNode" />
+              <item name="intchain-wallet" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
+              <item name="tools" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="intchain-wallet" type="b2602c69:ProjectViewProjectNode" />
+              <item name="intchain-wallet" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="intchain-wallet" type="b2602c69:ProjectViewProjectNode" />
+              <item name="intchain-wallet" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="js" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -256,25 +275,27 @@
       <workItem from="1533365435935" duration="14000" />
       <workItem from="1533525153204" duration="4615000" />
       <workItem from="1533565955401" duration="995000" />
+      <workItem from="1535079494055" duration="315000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13621000" />
+    <option name="totallyTimeSpent" value="13936000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1734375" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1734375" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.44919786" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32960895" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.19664805" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32960895" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.54010695" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.44652405" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -283,7 +304,6 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.44919786" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -294,38 +314,18 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="8" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/api/tools/mapping.js</url>
+          <line>84</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="9" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node_modules/ethereumjs-tx/examples/transactions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/ethereumjs-tx/docs/index.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="115" selection-start-line="8" selection-start-column="115" selection-end-line="8" selection-end-column="115" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/tools/mapping.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2024">
-          <caret line="92" lean-forward="true" selection-start-line="92" selection-end-line="92" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/page/txinfo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1540">
-          <caret line="70" column="13" selection-start-line="70" selection-start-column="13" selection-end-line="70" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/tools/walletAccount.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4884">
@@ -574,8 +574,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api/tools/mapping.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="689">
-          <caret line="109" column="2" selection-start-line="109" selection-start-column="2" selection-end-line="109" selection-end-column="2" />
+        <state relative-caret-position="217">
+          <caret line="89" column="2" selection-start-line="89" selection-start-column="2" selection-end-line="89" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="452">
+          <caret line="23" column="27" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yarn-error.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="42" column="29" selection-start-line="42" selection-start-column="29" selection-end-line="42" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="2340" column="6" selection-start-line="2340" selection-start-column="6" selection-end-line="2340" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/viewWalletInfo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="25" column="67" selection-start-line="25" selection-start-column="67" selection-end-line="25" selection-end-column="67" />
         </state>
       </provider>
     </entry>
