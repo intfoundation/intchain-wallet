@@ -102,7 +102,7 @@ util.confirmMsg = function(msg, item, fn) {
  * 
  * @param {} msg 
  */
-util.alert = function(msg) {
+util.alert = function(msg, fn) {
     layer.config({
         skin: 'demo-class'
     })
@@ -112,6 +112,12 @@ util.alert = function(msg) {
         time: 0,
         closeBtn: 0,
         offset: '100px',
+        yes: function() {
+            if (fn) {
+                fn();
+            }
+            layer.closeAll();
+        },
     });
 };
 /**

@@ -13,8 +13,8 @@ app.controller('mainController', function($scope, $http) {
     }
     var makefile = function($scope) {
         console.log($scope.password);
-        var wal = require("int");
-        var data = new wal().makeWalletAccount($scope.password);
+        var wal = require("wal");
+        var data = wal.makeWalletAccount($scope.password);
         var filename = data.address + ".json";
         var fdata = JSON.stringify(data);
         var blob = new Blob([fdata], { type: "application/octet-stream" });

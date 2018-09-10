@@ -52,16 +52,17 @@ app.controller('sendintController', function($scope) {
             // if (/text+/.test(file.type)) { //判断文件类型，是不是text类型
             reader.onload = function() {
                 var filedata = JSON.parse(this.result);
-                var wal = require("int");
-                var data = new wal().decodeFromOption(filedata, $scope.model.password);
-                if (data) {
-                    util.alert('Unlock Successfully');
-                    $scope.model.sourceAddress = filedata.address;
-                    $scope.wallet.privateKey = data;
-                    $scope.getbalance();
-                } else {
-                    util.alert('Password error, unlock fail');
-                }
+                var wal = require("wal");
+                wal.decodeFromOption(filedata, $scope.model.password).then(data => {
+                    if (data) {
+                        $scope.model.sourceAddress = filedata.address;
+                        $scope.wallet.privateKey = data;
+                        $scope.getbalance();
+                    } else {
+                        util.alert('Password error, unlock fail');
+                    }
+                })
+
             }
             reader.readAsText(file);
         } else {
@@ -70,13 +71,20 @@ app.controller('sendintController', function($scope) {
     };
 
     $scope.getbalance = function() {
-        var wal = require("int");
-        new wal().getaccount($scope.model.sourceAddress).then(data => {
-            console.log(data)
-            $scope.model.sourceAmount = JSON.parse(data).balance;
+        var wal = require("wal");
+        wal.getBalance($scope.model.sourceAddress).then(data => {
+            if (typeof data === 'string') {
+                data = JSON.parse(data)
+            }
+            if (data.err) {
+                util.alert(data.err)
+                return;
+            }
+            $scope.model.sourceAmount = data.balance;
             if ($scope.model.sourceAmount == null) {
                 $scope.model.sourceAmount = 0.0;
             }
+            util.alert('Unlock Successfully');
             $scope.$apply();
         });
     };
@@ -122,6 +130,12 @@ app.controller('sendintController', function($scope) {
                 return;
             }
         }
+        if ($scope.model.gasPrice == 0) {
+            errmsg += 'The gas price must be more than 0<br>';
+            util.alert(errmsg);
+            errmsg = '';
+            return;
+        }
         // if ($.trim($scope.model.gasLimit).length == 0) {
         //     errmsg += '请输入Gas限制<br>';
         // } else {
@@ -150,11 +164,18 @@ app.controller('sendintController', function($scope) {
         //     }
         // }
         else {
-            var wal = require("int");
+            var wal = require("wal");
             var outarray = [{ address: $scope.model.targetAddress, amount: $scope.model.targetAmount }];
-            new wal().spendByAddress($scope.wallet.crypto.wif, outarray).then(
+            wal.transfer($scope.model.targetAmount, $scope.model.gasPrice, $scope.model.targetAddress, $scope.wallet.privateKey).then(
                 data => {
-                    util.alertwithtile("Transaction Hash", "Transaction Hash:" + data + "<br\> You can use your hash in explorer to search your transaction");
+                    if (typeof data === 'string') {
+                        data = JSON.parse(data)
+                    }
+                    if (data.err) {
+                        util.alert(data.err)
+                    } else {
+                        util.alertwithtile("Transaction Hash", "Transaction Hash:" + data.hash + "<br\> You can use your hash in explorer to search your transaction");
+                    }
                 });
         }
     };

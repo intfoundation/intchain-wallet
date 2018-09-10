@@ -10,13 +10,9 @@
 'use strict'
 const { createKeyPair, addressFromSecretKey } = require('./account')
 const { encrypt, decrypt } = require('./crypt')
-const KeyRing = require('../chainlib/Account/keyring');
-const aesUtil = require("../chainlib/Crypto/aesutil");
+
 const util = require("./util");
 const assert = require("assert");
-const MTX = require('../chainlib/Transcation/mtx');
-const Address = require('../chainlib/Account/address');
-const Coin = require("../chainlib/Coins/coin");
 const Mapping = require("./mapping");
 /**
  * http和https模块
@@ -84,27 +80,7 @@ class WalletAccount {
         return json;
     }
 
-    /**
-     * 通过用户密码生成用户密码和私钥解密钱包
-     * 
-     * @param {密码} pwd 
-     * @param {私钥} wif 
-     */
-    decodeFromPwdAndWif(pwd, wif) {
-        assert(pwd, "pwd must be not empty");
-        assert(wif, "wif must be not empty")
-        let account = KeyRing.fromSecret(wif); //"Kx1vvQLVhSpRprKLBY9TU5CygfbCCT4aPZPvCW6AKrtUuqqibweU");
-        let address = account.getAddress();
-        let decode = aesUtil.decryption(pwd, account.getPrivateKey(), account.address);
-        this.version = 1.0;
-        this.address = account.getAddress().toString();
-        this.crypto = {
-            dphertext: decode,
-            ciphertext: pwd,
-            wif: wif
-        };
-        return this.toJson();
-    }
+
 
 
 
@@ -118,7 +94,6 @@ class WalletAccount {
         assert(option, "option must be not null");
         try {
             let privatekey = decrypt(option, pwd)
-            console.log(privatekey)
             return privatekey;
         } catch (e) {
             return "";
@@ -138,80 +113,6 @@ class WalletAccount {
         return json;
     }
 
-
-
-    /**
-     * 
-     * @param {地址} address 
-     * @param {页} page 
-     */
-    async getTxByAddress(address, page) {
-        var url = GETTXBYADDRESS_URL + address + "/" + page.size + "/" + page.num;
-        let data = await httpUtil.sendGet(url, true);
-        return data;
-    }
-
-    /**
-     * 
-     * @param {账户地址公钥} address 
-     */
-    async getaccount(address) {
-        // var url = "http://localhost:3001/balance/" + address;
-        var url = GETACCOUNT_URL + address
-        let data = await httpUtil.sendGet(url, false);
-        // var url = GETACCOUNT_URL + address;
-        // let data = await httpUtil.sendGet(url, true);
-        return data;
-    }
-
-    /**
-     *
-     * @param {*} senderWIF 
-     * @param {*} outputsArray 
-     */
-    async spendByAddress(senderWIF, outputsArray) {
-        let account = KeyRing.fromSecret(senderWIF);
-        let address = account.getAddress();
-        let mtx = new MTX();
-        let needTotal = 0;
-        let unit = Math.pow(10, 6);
-        for (let output of outputsArray) {
-            output.amount = parseFloat(output.amount) * unit;
-            mtx.addOutput(Address.fromString(output.address), output.amount);
-            needTotal += output.amount;
-        }
-        // var url = GETCOINSBYADDRESS_URL + address;
-        // let result = await httpUtil.sendGet(url, true);
-        var url = GETCOINSBYADDRESS_URL + address;
-        let result = await httpUtil.sendGet(url, false);
-        let data = JSON.parse(result);
-        let coins = [];
-        for (let item of data) {
-            let txRaw = Buffer.from(item.rawtx, 'hex');
-            let coin = new Coin();
-            coin.fromRaw(txRaw);
-            coin.hash = item.hash;
-            coins.push(coin);
-            coin.index = item.index;
-        }
-        //检查一下总value是否足够
-        let total = 0;
-        for (let coin of coins) {
-            total += coin.value;
-        }
-        if (total < needTotal) {
-            return;
-        }
-        await mtx.fund(coins, { rate: 0, changeAddress: address });
-        mtx.sign(account);
-        let tx = mtx.toTX();
-        let txRaw = tx.toRaw();
-        let xxRaw = txRaw.toString('hex');
-        var rurl = TRANSATION_URL + address + "/" + xxRaw;
-        //await httpUtil.sendGet(rurl, true);
-        await httpUtil.sendGet(rurl, false);
-        return tx.hash('hex');
-    }
     async burnIntOnEth(options) {
         let url = GETMYDATA_URL + options.decimalAmount + "/" + options.fromAddress
         let result = await httpsUtil.sendGet(url);
@@ -236,8 +137,5 @@ class WalletAccount {
         return JSON.parse(result);
     }
 }
-
-console.log(new WalletAccount().makeWalletAccount('qqqwwweee'))
-
 module.exports = WalletAccount;
 //browserify --require  ./walletAccount.js:int ./walletAccount.js > int.js

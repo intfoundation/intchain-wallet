@@ -11,7 +11,7 @@ body {
     line-height: 30px !important;
 }
 
-
+trading-status
 /* .demo-class {
   background-color: #333 !important;
 } */
@@ -100,6 +100,11 @@ body {
 .wrapper .trading-status {
     width: 25px;
     height: 45px;
+}
+
+.mapping {
+    width: 40px;
+    height: 40px;
 }
 
 #warpper .tabs {
@@ -497,4 +502,21 @@ body {
     /* Internet Explorer 10-11 */
     opacity: 0.7;
     font-weight: 300
+}
+
+.tab-box {
+    font-size: 20px;
+    float: right;
+    margin-top: 40%;
+}
+
+.tab-box .item {
+    display: inline-block;
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.tab-box .active {
+    border-bottom: 1px solid rgb(101, 42, 117);
+    color: rgb(101, 42, 117);
 }

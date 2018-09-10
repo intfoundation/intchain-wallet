@@ -52,17 +52,19 @@ app.controller('walletinfoController', function($scope, $http) {
             // if (/text+/.test(file.type)) { //判断文件类型，是不是text类型
             reader.onload = function() {
                 var filedata = JSON.parse(this.result);
-                var wal = require("int");
-                var data = new wal().decodeFromOption(filedata, $scope.model.password);
-                if (data) {
-                    util.alert('Unlock Successfully');
-                    $scope.model.sourceAddress = filedata.address;
-                    $scope.model.encryptCode = data;
-                    $scope.getbalance();
-                    $scope.getqrcodeimg();
-                } else {
-                    util.alert('Password error, unlock fail');
-                }
+                var wal = require("wal");
+                wal.decodeFromOption(filedata, $scope.model.password).then(data => {
+                    if (data) {
+                        util.alert('Unlock Successfully');
+                        $scope.model.sourceAddress = filedata.address;
+                        $scope.model.encryptCode = data;
+                        $scope.getbalance();
+                        $scope.getqrcodeimg();
+                    } else {
+                        util.alert('Password error, unlock fail');
+                    }
+                })
+
             }
             reader.readAsText(file);
         } else {
@@ -85,8 +87,8 @@ app.controller('walletinfoController', function($scope, $http) {
     };
 
     $scope.getbalance = function() {
-        var wal = require("int");
-        new wal().getaccount($scope.model.sourceAddress).then(data => {
+        var wal = require("wal");
+        wal.getBalance($scope.model.sourceAddress).then(data => {
             console.log(data);
             $scope.model.sourceAmount = JSON.parse(data).balance;
             if ($scope.model.sourceAmount == null) {
