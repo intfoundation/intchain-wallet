@@ -150,7 +150,7 @@ app.controller('sendintController', function($scope) {
         //         errmsg += 'Gas价格大于0<br>';
         //     }
         // }
-        if ($scope.model.sourceAmount <= $scope.model.targetAmount) {
+        if (+$scope.model.sourceAmount <= +$scope.model.targetAmount) {
             errmsg += 'The target amount is greater than the balance of the account<br>';
             util.alert(errmsg);
             errmsg = '';

@@ -22819,7 +22819,15 @@ let development = {
 }
 
 let production = {
-    http: httpsUtil
+    http: httpsUtil,
+    getBalanceUrl: 'https://explorer.intchain.io/api/wallet/getBalance/',
+    getNonceUrl: 'https://explorer.intchain.io/api/wallet/getNonce/',
+    getVotesUrl: 'https://explorer.intchain.io/api/wallet/getVotes/',
+    getCandiesUrl: 'https://explorer.intchain.io/api/wallet/candies',
+    getVoteCandiesUrl: 'https://explorer.intchain.io/api/wallet/voteCandies',
+    host: 'explorer.intchain.io',
+    port: "",
+    transferUrl: '/api/wallet/transfer'
 }
 
 let cfg = pro ? production : development
@@ -23210,8 +23218,6 @@ var ErrorCode;
     ErrorCode[ErrorCode["RESULT_CANCELED"] = 29] = "RESULT_CANCELED";
     ErrorCode[ErrorCode["RESULT_FEE_TOO_SMALL"] = 30] = "RESULT_FEE_TOO_SMALL";
     ErrorCode[ErrorCode["RESULT_READ_ONLY"] = 31] = "RESULT_READ_ONLY";
-    ErrorCode[ErrorCode["RESULT_BALANCE_LOCK_EXIST"] = 32] = "RESULT_BALANCE_LOCK_EXIST";
-    ErrorCode[ErrorCode["RESULT_BALANCE_LOCK_NOT_EXIST"] = 33] = "RESULT_BALANCE_LOCK_NOT_EXIST";
     ErrorCode[ErrorCode["RESULT_TX_EXIST"] = 34] = "RESULT_TX_EXIST";
     ErrorCode[ErrorCode["RESULT_VER_NOT_SUPPORT"] = 35] = "RESULT_VER_NOT_SUPPORT";
     ErrorCode[ErrorCode["RESULT_EXECUTE_ERROR"] = 36] = "RESULT_EXECUTE_ERROR";
@@ -23219,6 +23225,123 @@ var ErrorCode;
     ErrorCode[ErrorCode["RESULT_SKIPPED"] = 40] = "RESULT_SKIPPED";
     ErrorCode[ErrorCode["RESULT_FORK_DETECTED"] = 50] = "RESULT_FORK_DETECTED";
 })(ErrorCode = exports.ErrorCode || (exports.ErrorCode = {}));
+function stringifyErrorCode(err) {
+    if (err === ErrorCode.RESULT_OK) {
+        return 'ok';
+    }
+    else if (err === ErrorCode.RESULT_FAILED) {
+        return 'failed';
+    }
+    else if (err === ErrorCode.RESULT_WAIT_INIT) {
+        return 'wait init';
+    }
+    else if (err === ErrorCode.RESULT_ERROR_STATE) {
+        return 'error state';
+    }
+    else if (err === ErrorCode.RESULT_INVALID_TYPE) {
+        return 'invalid type';
+    }
+    else if (err === ErrorCode.RESULT_SCRIPT_ERROR) {
+        return 'script error';
+    }
+    else if (err === ErrorCode.RESULT_NO_IMP) {
+        return 'no implemention';
+    }
+    else if (err === ErrorCode.RESULT_ALREADY_EXIST) {
+        return 'already exists';
+    }
+    else if (err === ErrorCode.RESULT_NEED_SYNC) {
+        return 'need sync';
+    }
+    else if (err === ErrorCode.RESULT_NOT_FOUND) {
+        return 'not found';
+    }
+    else if (err === ErrorCode.RESULT_EXPIRED) {
+        return 'expired';
+    }
+    else if (err === ErrorCode.RESULT_INVALID_PARAM) {
+        return 'invalid param';
+    }
+    else if (err === ErrorCode.RESULT_PARSE_ERROR) {
+        return 'parse error';
+    }
+    else if (err === ErrorCode.RESULT_REQUEST_ERROR) {
+        return 'request error';
+    }
+    else if (err === ErrorCode.RESULT_NOT_SUPPORT) {
+        return 'not support';
+    }
+    else if (err === ErrorCode.RESULT_TIMEOUT) {
+        return 'timeout';
+    }
+    else if (err === ErrorCode.RESULT_EXCEPTION) {
+        return 'exception';
+    }
+    else if (err === ErrorCode.RESULT_INVALID_FORMAT) {
+        return 'invalid format';
+    }
+    else if (err === ErrorCode.RESULT_UNKNOWN_VALUE) {
+        return 'unknown value';
+    }
+    else if (err === ErrorCode.RESULT_INVALID_TOKEN) {
+        return 'invalid token';
+    }
+    else if (err === ErrorCode.RESULT_INVALID_SESSION) {
+        return 'invalid session';
+    }
+    else if (err === ErrorCode.RESULT_OUT_OF_LIMIT) {
+        return 'out of limit';
+    }
+    else if (err === ErrorCode.RESULT_PERMISSION_DENIED) {
+        return 'permission denied';
+    }
+    else if (err === ErrorCode.RESULT_OUT_OF_MEMORY) {
+        return 'out of memory';
+    }
+    else if (err === ErrorCode.RESULT_INVALID_STATE) {
+        return 'invalid state';
+    }
+    else if (err === ErrorCode.RESULT_NOT_ENOUGH) {
+        return 'not enough';
+    }
+    else if (err === ErrorCode.RESULT_ERROR_NONCE_IN_TX) {
+        return 'transaction nonce error';
+    }
+    else if (err === ErrorCode.RESULT_INVALID_BLOCK) {
+        return 'invalid block';
+    }
+    else if (err === ErrorCode.RESULT_CANCELED) {
+        return 'canceled';
+    }
+    else if (err === ErrorCode.RESULT_FEE_TOO_SMALL) {
+        return 'to small fee';
+    }
+    else if (err === ErrorCode.RESULT_READ_ONLY) {
+        return 'readonly';
+    }
+    else if (err === ErrorCode.RESULT_TX_EXIST) {
+        return 'transaction exists';
+    }
+    else if (err === ErrorCode.RESULT_VER_NOT_SUPPORT) {
+        return 'version not support';
+    }
+    else if (err === ErrorCode.RESULT_EXECUTE_ERROR) {
+        return 'execute error';
+    }
+    else if (err === ErrorCode.RESULT_VERIFY_NOT_MATCH) {
+        return 'verify as invalid';
+    }
+    else if (err === ErrorCode.RESULT_SKIPPED) {
+        return 'skipped';
+    }
+    else if (err === ErrorCode.RESULT_FORK_DETECTED) {
+        return 'fork detected';
+    }
+    else {
+        return 'unknown';
+    }
+}
+exports.stringifyErrorCode = stringifyErrorCode;
 
 },{}],148:[function(require,module,exports){
 (function (Buffer){
@@ -25203,6 +25326,96 @@ const encoding_1 = require("./lib/encoding");
 const digest = require("./lib/digest");
 const bignumber_js_1 = require("bignumber.js");
 const util_1 = require("util");
+function MapToObject(input) {
+    if (!(input instanceof Map)) {
+        throw new Error('input MUST be a Map');
+    }
+    let ret = {};
+    for (const [k, v] of input) {
+        if (!util_1.isString(k)) {
+            throw new Error('input Map`s key MUST be string');
+        }
+        ret[k] = v;
+    }
+    return ret;
+}
+exports.MapToObject = MapToObject;
+function SetToArray(input) {
+    if (!(input instanceof Set)) {
+        throw new Error('input MUST be a Set');
+    }
+    let ret = new Array();
+    for (const item of input) {
+        ret.push(item);
+    }
+    return ret;
+}
+exports.SetToArray = SetToArray;
+function SetFromObject(input) {
+    if (!util_1.isObject(input)) {
+        throw new Error('input MUST be a Object');
+    }
+    let ret = new Set();
+    do {
+        const item = input.shift();
+        ret.add(item);
+    } while (input.length > 0);
+    return ret;
+}
+exports.SetFromObject = SetFromObject;
+function MapFromObject(input) {
+    if (!util_1.isObject(input)) {
+        throw new Error('input MUST be a Object');
+    }
+    let ret = new Map();
+    for (const k of Object.keys(input)) {
+        ret.set(k, input[k]);
+    }
+    return ret;
+}
+exports.MapFromObject = MapFromObject;
+function deepCopy(o) {
+    if (util_1.isUndefined(o) || util_1.isNull(o)) {
+        return o;
+    }
+    else if (util_1.isNumber(o) || util_1.isBoolean(o)) {
+        return o;
+    }
+    else if (util_1.isString(o)) {
+        return o;
+    }
+    else if (o instanceof bignumber_js_1.BigNumber) {
+        return new bignumber_js_1.BigNumber(o);
+    }
+    else if (util_1.isBuffer(o)) {
+        return Buffer.from(o);
+    }
+    else if (util_1.isArray(o) || o instanceof Array) {
+        let s = [];
+        for (let e of o) {
+            s.push(deepCopy(e));
+        }
+        return s;
+    }
+    else if (o instanceof Map) {
+        let s = new Map();
+        for (let k of o.keys()) {
+            s.set(k, deepCopy(o.get(k)));
+        }
+        return s;
+    }
+    else if (util_1.isObject(o)) {
+        let s = Object.create(null);
+        for (let k of Object.keys(o)) {
+            s[k] = deepCopy(o[k]);
+        }
+        return s;
+    }
+    else {
+        throw new Error('not JSONable');
+    }
+}
+exports.deepCopy = deepCopy;
 function toStringifiable(o, parsable = false) {
     if (util_1.isUndefined(o) || util_1.isNull(o)) {
         return o;
@@ -25226,17 +25439,16 @@ function toStringifiable(o, parsable = false) {
         }
         return s;
     }
+    else if (o instanceof Map) {
+        throw new Error(`use MapToObject before toStringifiable`);
+    }
+    else if (o instanceof Set) {
+        throw new Error(`use SetToArray before toStringifiable`);
+    }
     else if (util_1.isObject(o)) {
         let s = Object.create(null);
         for (let k of Object.keys(o)) {
             s[k] = toStringifiable(o[k], parsable);
-        }
-        return s;
-    }
-    else if (o instanceof Map) {
-        let s = Object.create(null);
-        for (let k of o.keys()) {
-            s[k] = toStringifiable(o.get(k), parsable);
         }
         return s;
     }
@@ -25669,7 +25881,7 @@ arguments[4][150][0].apply(exports,arguments)
 },{"buffer":213,"dup":150}],160:[function(require,module,exports){
 arguments[4][152][0].apply(exports,arguments)
 },{"./digest":158,"./encoding":159,"assert":177,"buffer":213,"dup":152}],161:[function(require,module,exports){
-module.exports = false
+module.exports = true
 },{}],162:[function(require,module,exports){
 (function (Buffer){
 const https = require("https");

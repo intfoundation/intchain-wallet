@@ -12,7 +12,7 @@ app.controller('voteController', function($scope) {
         toVoteFee: '',
         toIntAmount: '',
         toIntFee: '',
-        nodes: [{ "node": "12nD5LgUnLZDbyncFnoFB43YxhSFsERcgQ", "num": 0 }, { "node": "13CS9dBwmaboedj2hPWx6Dgzt4cowWWoNZ", "num": 0 }, { "node": "1EYLLvMtXGeiBJ7AZ6KJRP2BdAQ2Bof79", "num": 0 }, { "node": "1LuwjNj8wkqo237N7Gh8nZSSvUa6TZ5ds4", "num": 0 }],
+        nodes: [],
         chooseNodes: [],
         voteFee: ''
     };
@@ -36,8 +36,6 @@ app.controller('voteController', function($scope) {
                         $scope.model.privateKey = data;
                         $scope.getbalance(true);
                         $scope.getVotes(true);
-                        $scope.step = 2;
-                        $scope.tabChange(2)
                         $scope.getNodes();
                     } else {
                         util.alert('Password error, unlock fail');
@@ -217,6 +215,7 @@ app.controller('voteController', function($scope) {
         var wal = require("wal");
         wal.getNodes().then(nodes => {
             $scope.model.nodes = nodes
+            $scope.tabChange(2)
         })
     }
     $scope.chooseNode = function(n) {

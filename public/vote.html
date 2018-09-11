@@ -96,6 +96,7 @@
             clear: both;
             width: 100%;
             text-align: center;
+            padding-top: 40px;
         }
         
         .btn {
@@ -227,7 +228,7 @@
                                 <!-- <div class="is">选择钱包文件</div> -->
                                 <div file-uploader url="url" password="model.password" file="file"></div>
                                 <div class="btn-box">
-                                    <button class="btn" ng-click="unlock()">Unlock</button>
+                                    <button class="bt ln" ng-click="unlock()">Unlock</button>
                                 </div>
                             </div>
                         </div>
@@ -255,15 +256,15 @@
                                 <input type="text" disabled="disabled" ng-model="n.num" class="bind-input node-num" placeholder="Your votes">
                                 <img ng-show="model.chooseNodes.indexOf(n.node)>=0" class="ch" src="./images/chose.png" alt="">
                             </div>
-                            <div class="in in-fee">
-                                <div class="hr-box">
+                            <div class="in">
+                                <div class="hr-box" style="margin-right: 44.5%">
                                     <span class="hint-text" style="display:block">Gas price( 1 INT = 1EWei = 10 6 Wei )</span>
                                     <input type="text" ng-model="model.voteFee" class="bind-input node-hr" placeholder="Gas price">
                                 </div>
                             </div>
 
                             <li class="btn-box">
-                                <button class="btn" ng-click="vote()">vote</button>
+                                <button class="bt ln" ng-click="vote()">vote</button>
                             </li>
                         </div>
                         <div class="mortgage" ng-show='step==3'>

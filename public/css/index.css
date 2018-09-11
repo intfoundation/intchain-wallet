@@ -264,6 +264,7 @@ trading-status
 
 .pc .c .ct .unlock-text {
     text-align: center;
+    padding-top: 43px
 }
 
 .pc .c .is {
@@ -468,7 +469,8 @@ trading-status
 .wallet-title {
     font-size: 14px;
     color: rgb(101, 42, 117);
-    padding: 10px;
+    padding-top: 40px;
+    padding-left: 28px
 }
 
 .common-link {
@@ -519,4 +521,15 @@ trading-status
 .tab-box .active {
     border-bottom: 1px solid rgb(101, 42, 117);
     color: rgb(101, 42, 117);
+}
+
+.bt {
+    background: #6d317c;
+    border: none;
+    height: 40px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #fff;
+    width: 180px;
+    border-radius: 4px;
 }
