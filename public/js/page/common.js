@@ -107,8 +107,8 @@ util.alert = function(msg, fn) {
         skin: 'demo-class'
     })
     layer.alert(msg, {
-        title: 'Tip Message',
-        btn: ['Certain'],
+        title: 'Notice',
+        btn: ['confirm'],
         time: 0,
         closeBtn: 0,
         offset: '100px',

@@ -15,7 +15,7 @@
     <script type="text/javascript" src="./js/app/ngapp.js"></script>
     <script type="text/javascript" src="./js/app/directives/uploaddirectives.js"></script>
     <script type="text/javascript" src="./js/page/common.js"></script>
-    <script type="text/javascript" src="./js/page/int.js"></script>
+    <script type="text/javascript" src="./js/page/wal.js"></script>
     <script type="text/javascript" src="./js/page/mapping.js"></script>
     <style type="text/css">
         .c {
@@ -78,7 +78,7 @@
                     <div class="common-interval">
                         <a href="./index.html" class="common-link">
                             <img src="./images/wallet.png" alt="wallet icon" class="create-wallet">
-                            <span class="common-font">A New Purse</span>
+                            <span class="common-font">New wallet</span>
                         </a>
                     </div>
 
@@ -101,7 +101,7 @@
                     <div class="common-interval">
                         <a href="./viewWalletInfo.html" class="common-link">
                             <img src="./images/wallet-information.png" alt="" class="wallet-information">
-                            <span class="common-font">Wallet Information</span>
+                            <span class="common-font">View wallet info</span>
                         </a>
                     </div>
 
@@ -127,20 +127,20 @@
                                 <li class="left-float common-float">
                                     <div class="item">
                                         <div class="t">
-                                            <span class="hint-text">The address of your ETH</span>
+                                            <span class="hint-text">ETH wallet address</span>
                                         </div>
                                         <div class="ci">
-                                            <input type="text" id="fromAddress" ng-model="model.fromAddress" ng-blur="queryBalance()" placeholder="The address of your ETH" class="bind-input">
+                                            <input type="text" id="fromAddress" ng-model="model.fromAddress" ng-blur="queryBalance()" placeholder="ETH wallet address" class="bind-input">
                                         </div>
                                     </div>
                                 </li>
                                 <li class="right-float common-float">
                                     <div class="item">
                                         <div class="t">
-                                            <span class="hint-text">The address of your INT</span>
+                                            <span class="hint-text">INT wallet address</span>
                                         </div>
                                         <div class="ci">
-                                            <input type="text" ng-model="model.toAddress" placeholder="The address of your INT" class="bind-input">
+                                            <input type="text" ng-model="model.toAddress" placeholder="INT wallet address" class="bind-input">
                                         </div>
                                     </div>
                                 </li>
@@ -157,17 +157,17 @@
                                 <li class="right-float common-float">
                                     <div class="item">
                                         <div class="t">
-                                            <span class="hint-text">The private key of yuor ETH</span>
+                                            <span class="hint-text">ETH wallet private key</span>
                                         </div>
                                         <div class="ci">
-                                            <input type="text" ng-model="model.fromAddressPrivateKey" placeholder="The private key of yuor ETH">
+                                            <input type="text" ng-model="model.fromAddressPrivateKey" placeholder="ETH wallet private key">
                                         </div>
                                     </div>
                                 </li>
                                 <li class="left-float common-float">
                                     <div class="item">
                                         <div class="t">
-                                            <span class="hint-text">Gas price( 1 INT = 1EWei = 10 <span class="i2">6</span> Wei )</span>
+                                            <span class="hint-text">Gas price( 1 ETH = 10<span class="i2">9</span> GWei = 10 <span class="i2">18</span> Wei )</span>
                                             </span>
                                         </div>
                                         <div class="ci">
@@ -191,7 +191,7 @@
                             <button class="ln bt" ng-click="toMapping()">Generate transactions</button>
                         </div>
                         <div id="mp-result" class="mp-result">
-                            <span>The operation is successful, click the following URL to see the results</span>
+                            <span>Operation success, click the URL below to view the results</span>
                             <div style="height: 10px"></div>
                             <div id="mpUrl" class="mp-url" ng-click="toResult()">https://etherscan.io/tx/{{hash}}</div>
                         </div>

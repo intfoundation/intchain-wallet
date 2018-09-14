@@ -16,9 +16,8 @@ app.controller('mappingController', function($scope, $http) {
         if (!$scope.model.fromAddress) {
             return;
         }
-        var Wal = require("int");
-        var wal = new Wal;
-        var data = await wal.queryBalance($scope.model.fromAddress, $scope);
+        var wal = require("wal");
+        var data = await wal.queryBalance($scope.model.fromAddress, $scope)
         if (data) {
             if (data.status === "success") {
                 $scope.model.decimalAmount = data.balance;
@@ -31,11 +30,10 @@ app.controller('mappingController', function($scope, $http) {
     }
     $scope.toMapping = async function() {
         if (!$scope.model.fromAddress) {
-            util.alert("fromAddress must be not empty")
+            util.alert("From Address should not be empty")
             return;
         }
-        var Wal = require("int");
-        var wal = new Wal;
+        var wal = require("wal");
         $scope.model
         var data = await wal.burnIntOnEth($scope.model);
         if (data) {

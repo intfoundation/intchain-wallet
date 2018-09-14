@@ -174,7 +174,7 @@ app.controller('sendintController', function($scope) {
                     if (data.err) {
                         util.alert(data.err)
                     } else {
-                        util.alertwithtile("Transaction Hash", "Transaction Hash:" + data.hash + "<br\> You can use your hash in explorer to search your transaction");
+                        util.alertwithtile("Transaction Hash", "Transaction Hash:" + data.hash + "<br\> You can use the transaction hash to query the transaction in the explorer.");
                     }
                 });
         }

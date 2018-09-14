@@ -6,15 +6,14 @@ app.controller('mainController', function($scope, $http) {
         if ($.trim($scope.password).length == 0) {
             util.alert('Please input the password');
         } else if (password.length < 9) {
-            util.alert('密码格式不对，请重新输入');
+            util.alert('Invalid password,please try again.');
         } else {
             makefile($scope);
         }
     }
     var makefile = function($scope) {
-        console.log($scope.password);
         var wal = require("wal");
-        var data = wal.makeWalletAccount($scope.password);
+        var data = wal.makeWalletAccount($.trim($scope.password));
         var filename = data.address + ".json";
         var fdata = JSON.stringify(data);
         var blob = new Blob([fdata], { type: "application/octet-stream" });

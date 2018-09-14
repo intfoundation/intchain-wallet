@@ -55,7 +55,7 @@
         .mortgage {
             clear: both;
             width: 100%;
-            margin-top: 70.8%;
+            margin-top: 82%;
         }
         
         .in {
@@ -158,10 +158,18 @@
         
         .in-nodes {
             position: relative;
+            padding-bottom: 20px;
+            padding-top: 0
         }
         
         .vote {
             margin-top: 40%;
+        }
+        
+        .nodes-box {
+            height: 240px;
+            overflow-y: auto;
+            margin-top: 20px;
         }
     </style>
 
@@ -179,7 +187,7 @@
                     <div class="common-interval">
                         <a href="./index.html" class="common-link">
                             <img src="./images/wallet.png" alt="wallet icon" class="create-wallet">
-                            <span class="common-font">A New Purse</span>
+                            <span class="common-font">New wallet</span>
                         </a>
                     </div>
 
@@ -201,7 +209,7 @@
                     <div class="common-interval">
                         <a href="./viewWalletInfo.html" class="common-link">
                             <img src="./images/wallet-information.png" alt="" class="wallet-information">
-                            <span class="common-font">Wallet Information</span>
+                            <span class="common-font">View wallet info</span>
                         </a>
                     </div>
 
@@ -251,14 +259,16 @@
 
                                 </div>
                             </div>
-                            <div class="in in-nodes" ng-repeat="n in model.nodes" ng-click="chooseNode(n.node)">
-                                <input type="text" disabled="disabled" ng-model="n.node" class="bind-input node-name" placeholder="Your votes">
-                                <input type="text" disabled="disabled" ng-model="n.num" class="bind-input node-num" placeholder="Your votes">
-                                <img ng-show="model.chooseNodes.indexOf(n.node)>=0" class="ch" src="./images/chose.png" alt="">
+                            <div class="nodes-box">
+                                <div class="in in-nodes" ng-repeat="n in model.nodes" ng-click="chooseNode(n.node)">
+                                    <input type="text" disabled="disabled" ng-model="n.node" class="bind-input node-name" placeholder="Your votes">
+                                    <input type="text" disabled="disabled" ng-model="n.num" class="bind-input node-num" placeholder="Your votes">
+                                    <img ng-show="model.chooseNodes.indexOf(n.node)>=0" class="ch" src="./images/chose.png" alt="">
+                                </div>
                             </div>
-                            <div class="in">
+                            <div class="in" style="padding-top: 0">
                                 <div class="hr-box" style="margin-right: 44.5%">
-                                    <span class="hint-text" style="display:block">Gas price( 1 INT = 1EWei = 10 6 Wei )</span>
+                                    <span class="hint-text" style="display:block;padding-top: 0">Fee</span>
                                     <input type="text" ng-model="model.voteFee" class="bind-input node-hr" placeholder="Gas price">
                                 </div>
                             </div>
@@ -297,7 +307,7 @@
                             <li class="left-float common-float">
                                 <div class="item">
                                     <div class="t">
-                                        <span class="hint-text">Gas price( 1 INT = 1EWei = 10 6 Wei )</span>
+                                        <span class="hint-text">Fee</span>
                                     </div>
                                     <div class="ci">
                                         <input type="text" ng-model="model.toVoteFee" placeholder="Gas price" class="bind-input input-item">
@@ -340,7 +350,7 @@
                             <li class="left-float common-float">
                                 <div class="item">
                                     <div class="t">
-                                        <span class="hint-text">Gas price( 1 INT = 1EWei = 10 6 Wei )</span>
+                                        <span class="hint-text">Fee</span>
                                     </div>
                                     <div class="ci">
                                         <input type="text" ng-model="model.toIntFee" placeholder="Gas price" class="bind-input input-item">

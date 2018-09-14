@@ -12,7 +12,7 @@ app.controller('voteController', function($scope) {
         toVoteFee: '',
         toIntAmount: '',
         toIntFee: '',
-        nodes: [],
+        nodes: [{ node: '2222' }, { node: '2222' }, { node: '2222' }, { node: '2222' }, { node: '2222' }, { node: '2222' }, ],
         chooseNodes: [],
         voteFee: ''
     };
@@ -110,8 +110,8 @@ app.controller('voteController', function($scope) {
             return;
         }
 
-        if (toVoteAmount == 0) {
-            util.alert('Votes must be more than 0');
+        if (toVoteAmount <= 0) {
+            util.alert('Votes must be greater than 0');
             return;
         }
 
@@ -120,20 +120,20 @@ app.controller('voteController', function($scope) {
             return;
         }
         if (!toVoteFee) {
-            util.alert('Please enter the gas price');
+            util.alert('Please enter the transaction fee');
             return;
         }
         if (toVoteFee && isNaN(toVoteFee)) {
-            util.alert('Gas price must be a number');
+            util.alert('Transaction fee must be a number');
             return;
         }
 
-        if (toVoteFee == 0) {
-            util.alert('Gas price must be more than 0');
+        if (toVoteFee <= 0) {
+            util.alert('Transaction fee must be greater than 0');
             return;
         }
         if (+toVoteFee >= +balance) {
-            util.alert('Gas price must be less than the balance');
+            util.alert('Transaction fee must be less than your balance');
             return;
         }
 
@@ -145,7 +145,7 @@ app.controller('voteController', function($scope) {
                 util.alert(data.err);
             } else {
 
-                util.alertwithtile("Transaction Hash", "Transaction Hash:" + data.hash + "<br\> You can use your hash in explorer to search the result your operation");
+                util.alertwithtile("Transaction Hash", "Transaction Hash:" + data.hash + "<br\> You can use the transaction hash to query the transaction in the explorer.");
             }
         })
     }
@@ -162,8 +162,8 @@ app.controller('voteController', function($scope) {
             return;
         }
 
-        if (toIntAmount == 0) {
-            util.alert('Votes must be more than 0');
+        if (toIntAmount <= 0) {
+            util.alert('Votes must be greater than 0');
             return;
         }
 
@@ -172,21 +172,21 @@ app.controller('voteController', function($scope) {
             return;
         }
         if (!toIntFee) {
-            util.alert('Please enter the gas price');
+            util.alert('Please enter the transaction fee');
             return;
         }
         if (toIntFee && isNaN(toIntFee)) {
-            util.alert('Gas price must be a number');
+            util.alert('Transaction fee must be a number');
             return;
         }
 
-        if (toIntFee == 0) {
-            util.alert('Gas price must be more than 0');
+        if (toIntFee <= 0) {
+            util.alert('Transaction fee must be greater than 0');
             return;
         }
 
         if (+toIntFee >= +balance) {
-            util.alert('Gas price must be less than the balance');
+            util.alert('Transaction fee must be less than your balance');
             return;
         }
 
@@ -198,7 +198,7 @@ app.controller('voteController', function($scope) {
                 util.alert(data.err);
             } else {
 
-                util.alertwithtile("Transaction Hash", "Transaction Hash:" + data.hash + "<br\> You can use your hash in explorer to search the result your operation");
+                util.alertwithtile("Transaction Hash", "Transaction Hash:" + data.hash + "<br\> You can use the transaction hash to query the transaction in the explorer.");
             }
         })
     }
@@ -230,7 +230,7 @@ app.controller('voteController', function($scope) {
     $scope.vote = function() {
         let { balance, votes, voteFee, chooseNodes } = $scope.model
         if (!chooseNodes.length) {
-            util.alert('Please select at least one node');
+            util.alert('Please select at least one address');
             return;
         }
         if (votes == 0) {
@@ -238,21 +238,21 @@ app.controller('voteController', function($scope) {
             return;
         }
         if (!voteFee) {
-            util.alert('Please enter the gas price');
+            util.alert('Please enter the transaction fee');
             return;
         }
         if (voteFee && isNaN(voteFee)) {
-            util.alert('Gas price must be a number');
+            util.alert('Transaction fee must be a number');
             return;
         }
 
         if (voteFee == 0) {
-            util.alert('Gas price must be more than 0');
+            util.alert('Transaction fee must be greater than 0');
             return;
         }
 
         if (+voteFee >= +balance) {
-            util.alert('Gas price must be less than the balance');
+            util.alert('Transaction fee must be less than your balance');
             return;
         }
         var wal = require("wal");
@@ -264,10 +264,9 @@ app.controller('voteController', function($scope) {
                 if (data.err) {
                     util.alert(data.err)
                 } else {
-                    util.alertwithtile("Transaction Hash", "Transaction Hash:" + data.hash + "<br\> You can use your hash in explorer to search your transaction");
+                    util.alertwithtile("Transaction Hash", "Transaction Hash:" + data.hash + "<br\> You can use the transaction hash to query the transaction in the explorer.");
                 }
             });
-
     }
 });
 
@@ -294,4 +293,5 @@ app.controller('voteController', function($scope) {
 //          "value": "1",
 //         "fee": "1"
 //     }]
+
 // }

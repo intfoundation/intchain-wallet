@@ -54,8 +54,8 @@ app.directive('fileUploader', function($http) {
         },
         template: '<div class="is"><div class="lt1"><span>{{name}}</span></div>' +
             '<div class="lt2"><a href="javascript:void(0)"><input type="file">浏览</a></div>' +
-            '</div><div ng-show="show"><div class="mi middle">Please type your password</div>' +
-            '<div class="is" style="width: 381px;margin: 0 auto"><input type="password" ng-model="password" class="ip"  placeholder="Please type your password"></div></div>',
+            '</div><div ng-show="show"><div class="mi middle">Please enter your password</div>' +
+            '<div class="is" style="width: 381px;margin: 0 auto"><input type="password" ng-model="password" class="ip"  placeholder="Please enter your password"></div></div>',
         link: function(scope, element, attributes) {
             scope.show = false;
 
@@ -72,7 +72,7 @@ app.directive('fileUploader', function($http) {
                 scope.show = true;
                 scope.$apply();
             }
-            scope.name = 'Choose wallet file';
+            scope.name = 'Select wallet file';
         }
     };
 })

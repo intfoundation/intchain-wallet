@@ -69,7 +69,7 @@
                     <div class="common-interval">
                         <a href="./viewWalletInfo.html" class="common-link">
                             <img src="./images/wallet-information.png" alt="" class="wallet-information">
-                            <span class="common-font">Wallet Information</span>
+                            <span class="common-font">View wallet info</span>
                         </a>
                     </div>
 
@@ -89,18 +89,18 @@
                 </div>
                 <div class="pc">
                     <div class="wallet-title">A New Purse</div>
-                    <div class="c" ng-controller="mainController">
+                    <div class="c" ng-controller="mainController" style="width:425px">
                         <div>
                             <div>
-                                <div class="lt middle">Generate the wallet</div>
-                                <div class="middle lg">Enter a strong password</div>
-                                <div class="middle lp">At least nine digits</div>
+                                <div class="lt middle">Create new wallet</div>
+                                <div class="middle lg">Please ensure it is a strong password</div>
+                                <div class="middle lp">Your password must be at least 9 characters</div>
                                 <div class="dt">
-                                    <input class="in" type="password" placeholder="Enter the password of your wallet" ng-model="password">
+                                    <input class="in" type="password" placeholder="Enter your wallet password" ng-model="password">
                                 </div>
                                 <div class="st">
-                                    <input class="bt ln" type="button" value="Generate the wallet" ng-click="makefile();">
-                                    <div class="lm">The generated key file, please save, can't forward to others, otherwise the cconsequences is serious</div>
+                                    <input class="bt ln" type="button" value="Create new wallet" ng-click="makefile();">
+                                    <div class="lm">The downloaded file contains your wallet info,don't share it to others,otherwise your money will be stolen.</div>
                                 </div>
                             </div>
                         </div>
