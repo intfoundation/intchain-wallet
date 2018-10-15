@@ -7,6 +7,7 @@
     <script src="./js/plugins/jquery/jquery-3.3.1.min.js"></script>
     <link href="./js/plugins/layer/skin/default/layer.css" rel="stylesheet">
     <script src="./js/plugins/layer/layer.js"></script>
+    <script src="./js/page/modal.js"></script>
     <script type="text/javascript" src="./js/plugins/angular/angular.js"></script>
     <script type="text/javascript" src="./js/plugins/angular/angular-sanitize.min.js"></script>
     <script type="text/javascript" src="./js/plugins/angular/angular-animate.min.js"></script>
@@ -18,355 +19,592 @@
     <script type="text/javascript" src="./js/page/vote.js"></script>
     <!-- <script type="text/javascript" src="./js/page/int.js"></script> -->
     <script type="text/javascript" src="./js/page/wal.js"></script>
-    <style type="text/css">
-        .common-float {
-            width: 50%;
-            margin-bottom: 3px;
-        }
-        
-        .left-float {
-            float: left;
-        }
-        
-        .right-float {
-            float: right;
-            text-align: right;
-        }
-        
-        .lb {
-            position: relative
-        }
-        
-        .lb:active {
-            top: 2px
-        }
-        
-        .bind-input {
-            border: solid 2px #6d317c;
-            height: 40px;
-            padding: 8px;
-            width: 40%;
-            border-radius: 3px;
-            text-align: center;
-            outline: none;
-            margin: 0 auto;
-        }
-        
-        .mortgage {
-            clear: both;
+    <!-- <style type="text/css">
+        .container {
             width: 100%;
-            margin-top: 82%;
+            height: 100%;
+            background-color: rgba(249, 249, 249, 1);
         }
         
-        .in {
+        .header-box {
             width: 100%;
-            font-family: 'microsoft yahei';
-            font-size: 18px;
-            color: #7b4589;
-            padding-top: 20px;
-            text-align: center;
-            font-size: 22px;
+            height: 90px;
+            -moz-box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.35);
+            box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.35);
+            background-color: rgba(255, 255, 255, 1);
         }
         
-        .in {
+        .header-con {
+            height: 100%;
+            width: 1200px;
             margin: 0px auto;
         }
         
-        .c-vote {
-            position: absolute;
-            top: 28%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
+        .logo {
+            height: 100%;
+            display: inline-block;
         }
         
-        .input-item {
-            width: 90%
+        .logo img {
+            padding-top: 18px;
         }
         
-        li {
-            list-style: none;
+        .tabbar-box {
+            height: 100%;
+            display: inline-block;
+            vertical-align: top;
         }
         
-        .common-float {
-            height: 100px
+        .tabbar-box .tab-item {
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 100px;
+            font-size: 18px;
+            font-family: PingFangSC-Medium;
+            color: rgba(102, 102, 102, 1);
+            padding-top: 32.5px;
+            cursor: pointer;
         }
         
-        .btn-box {
-            clear: both;
-            width: 100%;
-            text-align: center;
-            padding-top: 40px;
+        .tabbar-box .active {
+            color: rgba(60, 49, 215, 1);
+        }
+        
+        .active div {
+            width: 40px;
+            height: 2px;
+            border-radius: 4px;
+            background-color: rgba(60, 49, 215, 1);
+            margin: 0 auto;
+        }
+        
+        .content {
+            width: 1200px;
+            background-color: rgba(255, 255, 255, 1);
+            box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.5);
+            margin: 0 auto;
+            margin-top: 90px;
+            padding-bottom: 50px;
         }
         
         .btn {
-            margin-top: 20px;
-            height: 32px;
-            border-radius: 16px;
+            margin-top: 48px;
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            background-color: #3C31D7;
+            color: rgba(255, 255, 255, 1);
             text-align: center;
-            background: #7b4589;
-            color: #fff;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: 300;
-            outline: none !important;
+            line-height: 50px;
         }
         
-        .t {
-            height: 30px
-        }
-        
-        .is .lt1 {
+        .foot {
+            margin-top: 50px;
+            color: rgba(165, 165, 173, 1);
+            font-size: 18px;
+            width: 100%;
             text-align: center;
+            font-family: PingFangSC-Regular;
         }
         
-        .ng-binding {
-            text-align: center;
-            font-size: 14px;
-            color: #8c8c8c;
+        #vote {
+            position: relative;
         }
         
-        .ct {
-            margin-top: 50%;
+        .voteTab {
+            background-color: rgba(255, 255, 255, 1);
+            position: absolute;
+            z-index: 1px;
+            padding: 10px 20px 20px 20px;
+            margin-left: -20px;
+            color: rgba(102, 102, 102, 1);
         }
         
-        .node-name {
-            width: 60%;
-            cursor: pointer;
+        .con-top {
+            height: 80px;
+            border-bottom: 1px solid rgba(204, 204, 204, 1);
+            line-height: 80px;
+            color: rgba(51, 51, 51, 1);
+            font-size: 18px;
+            font-family: PingFangSC-Medium;
+            padding-left: 36px;
         }
         
-        .node-num {
-            width: 20%;
-            cursor: pointer;
+        .con-top span {
+            margin-left: 13px;
         }
         
-        .node-hr {
-            width: 82%
+        .title {
+            color: rgba(60, 49, 215, 1);
+            font-size: 36px;
+            font-family: PingFangSC-Medium;
+            width: 100%;
+        }
+    </style> -->
+    <style>
+        .main {
+            padding: 50px 0 0 165px;
         }
         
-        .hr-box {
+        .out {
+            height: 14px;
+            width: 14px;
+            border: 1px solid rgba(60, 49, 215, 1);
+            border-radius: 8px;
             display: inline-block;
-            width: 44%;
+            cursor: pointer;
+        }
+        
+        .in {
+            height: 8px;
+            width: 8px;
+            background-color: rgba(60, 49, 215, 1);
+            border-radius: 5px;
+            margin: 3px;
+            display: inline-block;
+        }
+        
+        .inac {
+            height: 14px;
+            width: 14px;
+            border: 1px solid rgba(204, 204, 204, 1);
+            border-radius: 8px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .ch-item {
+            display: inline;
+        }
+        
+        .ch-item span {
+            margin-left: 8px;
+        }
+        
+        .pri {
+            margin-left: 50px;
         }
         
         .ch {
-            position: absolute;
-            height: 16px;
-            margin-top: 10px;
-            margin-left: 10px;
+            margin-top: 18px;
+            color: rgba(51, 51, 51, 1);
+            font-size: 20px;
+            font-family: PingFangSC-Medium;
         }
         
-        .in-nodes {
-            position: relative;
-            padding-bottom: 20px;
-            padding-top: 0
+        .se {
+            margin-top: 36px;
+            color: rgba(51, 51, 51, 1);
+            font-size: 24px;
+            font-family: PingFangSC-Medium;
         }
         
-        .vote {
-            margin-top: 40%;
-        }
-        
-        .nodes-box {
-            height: 240px;
-            overflow-y: auto;
+        .warn {
             margin-top: 20px;
+            width: 852px;
+            color: rgba(215, 49, 111, 1);
+            font-size: 12px;
+            font-family: PingFangSC-Regular;
+        }
+        
+        .ch-file {
+            margin-top: 16px;
+            width: 240px;
+        }
+        
+        .is .lt1 {
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            border: 1px solid rgba(60, 49, 215, 1);
+            line-height: 50px;
+            cursor: pointer;
+            color: rgba(60, 49, 215, 1);
+            font-family: PingFangSC-Medium;
+            text-align: center;
+        }
+        
+        .middle {
+            margin-top: 36px;
+            color: rgba(153, 153, 153, 1);
+            font-size: 12px;
+            text-align: left;
+            font-family: PingFangSC-Regular;
+        }
+        
+        .in-box {
+            display: inline-block;
+            width: 410px;
+            height: 46px;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 1);
+            border: 1px solid rgba(204, 204, 204, 1);
+        }
+        
+        .in-box img {
+            cursor: pointer;
+        }
+        
+        input {
+            margin-left: 24px;
+            width: 85%;
+            height: 100%;
+            border: 0px;
+            outline: none
+        }
+        
+        input::-webkit-input-placeholder {
+            color: rgba(153, 153, 153, 1);
+            font-size: 14px;
+            font-family: PingFangSC-Regular;
+        }
+        
+        .btn-dis {
+            margin-top: 36px;
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            background-color: rgba(204, 204, 204, 1);
+            text-align: center;
+            line-height: 50px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 1);
+            cursor: not-allowed;
+        }
+        
+        .btn-unlock {
+            margin-top: 36px;
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            background-color: rgba(60, 49, 215, 1);
+            text-align: center;
+            line-height: 50px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 1);
+            cursor: pointer;
+        }
+        
+        .msg {
+            margin-top: 25px;
+            width: 300px;
+            height: 32px;
+            opacity: 0.8;
+            border-radius: 4px;
+            background-color: rgba(215, 49, 111, 1);
+            line-height: 32px;
+            padding-left: 40px;
+            color: rgba(255, 255, 255, 1);
+            font-size: 12px;
+        }
+        
+        .item-box {
+            display: inline-block;
+            color: rgba(51, 51, 51, 1);
+            font-size: 16px;
+            font-family: PingFangSC-Medium;
+            margin-top: 24px;
+        }
+        
+        .node-item {
+            width: 880px;
+            height: 46px;
+            border-radius: 4px;
+            background-color: rgba(244, 248, 255, 1);
+            line-height: 46px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+        
+        .no-ch {
+            width: 15px;
+            height: 15px;
+            border: 1px solid rgba(204, 204, 204, 1);
+            border-radius: 8px;
+            margin-top: 14px;
+            margin-left: 24px;
+            display: inline-block;
+        }
+        
+        .node-item .icon {
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 14px;
+            margin-left: 24px;
+        }
+        
+        .node-item .node {
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 24px;
+            border-right: 1px solid rgba(221, 233, 255, 1);
+            width: 525px;
+        }
+        
+        .node-item .vote {
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 97px;
+        }
+        
+        .node-box {
+            height: 500px;
+            overflow-y: scroll;
+            width: 880px;
+            margin-top: 36px;
+        }
+        
+        .voteTab {
+            margin-top: 30px;
         }
     </style>
 
     <body ng-app="myApp">
-        <div class="container">
-            <div id="content">
-                <div class="wrapper">
-                    <!-- int logo -->
+        <div class="container" ng-controller="voteController">
+            <div ng-show="!step" style="width: 100%;height: 100%"></div>
+            <div class="header-box">
+                <div class="header-con">
                     <div class="logo">
-                        <img src="./images/logo-int-red.png" alt="int logo" class="img-logo">
-                        <span class="int-text">INT</span>
+                        <img src="./images/logo.png" width="82px" height="54px">
                     </div>
-
-                    <!-- 创建钱包 -->
-                    <div class="common-interval">
-                        <a href="./index.html" class="common-link">
-                            <img src="./images/wallet.png" alt="wallet icon" class="create-wallet">
-                            <span class="common-font">New wallet</span>
-                        </a>
-                    </div>
-
-                    <div class="common-interval">
-                        <a href="./sendint.html" class="common-link">
-                            <img src="./images/send-int.png" alt="" class="send-int">
-                            <span class="common-font">Send INT</span>
-                        </a>
-                    </div>
-
-
-                    <div class="common-interval">
-                        <a href="./vote.html" class="common-link">
-                            <img src="./images/vote.png" alt="" class="send-int">
-                            <span class="common-font">Vote</span>
-                        </a>
-                    </div>
-
-                    <div class="common-interval">
-                        <a href="./viewWalletInfo.html" class="common-link">
-                            <img src="./images/wallet-information.png" alt="" class="wallet-information">
-                            <span class="common-font">View wallet info</span>
-                        </a>
-                    </div>
-
-                    <!-- <div class="common-interval">
-                        <a href="./viewtxinfo.html" class="common-link">
-                            <img src="./images/trading-status.png" alt="" class="trading-status">
-                            <span class="common-font">Trading Status</span>
-                        </a>
-                    </div> -->
-
-                    <div class="common-interval">
-                        <a href="./mapping.html" class="common-link">
-                            <img src="./images/mapping.png" alt="" class="mapping">
-                            <span class="common-font">Mapping</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="pc">
-                    <div class="wallet-title">Vote</div>
-                    <div class="c-vote" ng-controller="voteController">
-                        <div class="ct" ng-show='step==1'>
-                            <div>
-                                <div class="mi middle">Please select your wallet file</div>
-                                <!-- <div class="is">选择钱包文件</div> -->
-                                <div file-uploader url="url" password="model.password" file="file"></div>
-                                <div class="btn-box">
-                                    <button class="bt ln" ng-click="unlock()">Unlock</button>
+                    <div class="tabbar-box">
+                        <div class="tab-item ">
+                            <span>
+                                <a href="./index.html">New wallet</a>
+                      </span>
+                            <div></div>
+                        </div>
+                        <div class="tab-item">
+                            <span>
+                       <a href="./sendInt.html">Send INT</a>
+                      </span>
+                            <div></div>
+                        </div>
+                        <div id="vote" style="position:absolute" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item active">
+                            <span ng-click="action='Vote'">
+                                        Vote
+                                    <img  src="./images/voteac.png" alt="">
+                            </span>
+                            <div class="b-line" style="margin-left:5px"></div>
+                            <div class="voteTab" ng-show="voteTabView">
+                                <div class="voteTab-item">
+                                    <a href="javascript:;" ng-click="action='Mortgage'">
+                                    Mortgage
+                                </a>
+                                </div>
+                                <div class="voteTab-item">
+                                    <a href="javascript:;" ng-click="action='Unmortgage'">
+                                    Unmortgage
+                                </a>
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-box" ng-show='step!=1'>
-                            <a class="item" ng-click="tabChange(2)">vote</a>
-                            <a class="item" ng-click="tabChange(3)">mortgage</a>
-                            <a class="item" ng-click="tabChange(4)">unmortgage</a>
+                        <div class="tab-item" style="margin-left: 260px;">
+                            <span>
+                                <a href="./walletInfo.html"> View wallet info</a>
+                      </span>
+                            <div></div>
                         </div>
-                        <div class="mortgage vote" ng-show='step==2'>
-                            <div style="height:50px"></div>
-                            <div class="in">
-                                <div class="hr-box">
-                                    <span class="in" style="display:block">Your votes</span>
-                                    <input type="text" disabled="disabled" ng-model="model.votes" class="bind-input node-hr" placeholder="Your votes">
-
-                                </div>
-                                <div class="hr-box">
-                                    <span class="in" style="display:block">Wallet Balance</span>
-                                    <input type="text" disabled="disabled" ng-model="model.balance" class="bind-input node-hr" placeholder="Wallet Balance">
-
-                                </div>
-                            </div>
-                            <div class="nodes-box">
-                                <div class="in in-nodes" ng-repeat="n in model.nodes" ng-click="chooseNode(n.node)">
-                                    <input type="text" disabled="disabled" ng-model="n.node" class="bind-input node-name" placeholder="Your votes">
-                                    <input type="text" disabled="disabled" ng-model="n.num" class="bind-input node-num" placeholder="Your votes">
-                                    <img ng-show="model.chooseNodes.indexOf(n.node)>=0" class="ch" src="./images/chose.png" alt="">
-                                </div>
-                            </div>
-                            <div class="in" style="padding-top: 0">
-                                <div class="hr-box" style="margin-right: 44.5%">
-                                    <span class="hint-text" style="display:block;padding-top: 0">Fee</span>
-                                    <input type="text" ng-model="model.voteFee" class="bind-input node-hr" placeholder="Gas price">
-                                </div>
-                            </div>
-
-                            <li class="btn-box">
-                                <button class="bt ln" ng-click="vote()">vote</button>
-                            </li>
-                        </div>
-                        <div class="mortgage" ng-show='step==3'>
-                            <div class="in">Your votes</div>
-                            <div class="in">
-                                <input type="text" disabled="disabled" ng-model="model.votes" class="bind-input" placeholder="Your votes">
-                            </div>
-
-                            <div style="height:50px"></div>
-                            <li class="left-float common-float">
-                                <div class="item">
-                                    <div class="t">
-                                        <span class="hint-text">Wallet Balance</span>
-                                    </div>
-                                    <div class="ci">
-                                        <input type="text" disabled="disabled" ng-model="model.balance" placeholder="Wallet Balance" class="bind-input input-item">
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="right-float common-float">
-                                <div class="item">
-                                    <div class="t">
-                                        <span class="hint-text">Votes</span>
-                                    </div>
-                                    <div class="ci">
-                                        <input type="text" ng-model="model.toVoteAmount" placeholder="Votes" class="bind-input input-item">
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="left-float common-float">
-                                <div class="item">
-                                    <div class="t">
-                                        <span class="hint-text">Fee</span>
-                                    </div>
-                                    <div class="ci">
-                                        <input type="text" ng-model="model.toVoteFee" placeholder="Gas price" class="bind-input input-item">
-                                    </div>
-                                </div>
-                            </li>
-
-
-                            <li class="btn-box">
-                                <button class="btn" ng-click="mortgage()">Generate transactions</button>
-                            </li>
-                        </div>
-                        <div class="mortgage" ng-show='step==4'>
-                            <div class="in">Wallet Balance</div>
-                            <div class="in">
-                                <input type="text" disabled="disabled" ng-model="model.balance" class="bind-input" placeholder="Your votes">
-                            </div>
-
-                            <div style="height:50px"></div>
-                            <li class="left-float common-float">
-                                <div class="item">
-                                    <div class="t">
-                                        <span class="hint-text">Your votes</span>
-                                    </div>
-                                    <div class="ci">
-                                        <input type="text" disabled="disabled" ng-model="model.votes" placeholder="Wallet Balance" class="bind-input input-item">
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="right-float common-float">
-                                <div class="item">
-                                    <div class="t">
-                                        <span class="hint-text">Votes</span>
-                                    </div>
-                                    <div class="ci">
-                                        <input type="text" ng-model="model.toIntAmount" placeholder="Votes" class="bind-input input-item">
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="left-float common-float">
-                                <div class="item">
-                                    <div class="t">
-                                        <span class="hint-text">Fee</span>
-                                    </div>
-                                    <div class="ci">
-                                        <input type="text" ng-model="model.toIntFee" placeholder="Gas price" class="bind-input input-item">
-                                    </div>
-                                </div>
-                            </li>
-
-
-                            <li class="btn-box">
-                                <button class="btn" ng-click="unmortgage()">Generate transactions</button>
-                            </li>
+                        <div class="tab-item">
+                            <span>
+                                <a href="./mapping.html">Mapping</a>
+                       
+                       </span>
+                            <div></div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="content">
+                <div class="con-top">
+                    <img src="./images/vote.png" alt=""><span>{{action}}</span>
+                </div>
+                <div class="main">
+                    <div ng-show="step==1">
+                        <div class="title">How would you like to access your wallet?</div>
+                        <div class="ch">
+                            <div class="ch-item">
+                                <div ng-show="ch=='keyStore'" class="out">
+                                    <div class="in"></div>
+                                </div>
+                                <div ng-show="ch=='privateKey'" ng-click="ch='keyStore';unlockDisabled = true" class="inac"></div>
+                                <span>Keystore</span>
+                            </div>
+                            <div class="ch-item pri">
+                                <div ng-show="ch=='privateKey'" class="out">
+                                    <div class="in"></div>
+                                </div>
+                                <div ng-show="ch=='keyStore'" ng-click="ch='privateKey';unlockDisabled = true" class="inac"></div>
+                                <span>Private Key</span>
+                            </div>
+                        </div>
+                        <div ng-show="ch=='keyStore'">
+                            <div class="se">Select Your Wallet File</div>
+                            <div class="warn">
+                                <img src="./images/warn.png" width="12px">
+                                <span>this is not a recommended  way to access your wallet. Entering your private key on
+                            a website dangerous. If our website is compromised or you accidentally visit a
+                            different website, your funds will be stolen</span>
+                            </div>
+                            <div file-uploader password="password" file="file" class="ch-file">
+                            </div>
+                            <div class="btn-dis" ng-show="unlockDisabled">Unlock</div>
+                            <div class="btn-unlock" ng-click="unlock()" ng-show="!unlockDisabled">Unlock</div>
+                            <div class="msg" ng-show="keyStoreUnlockFail">
+                                <img src="./images/msg.png" width="13px">
+                                <span style="padding-left: 14.5px">Password error, unlock fail</span>
+                                <img ng-click="keyStoreUnlockFail = false" style="padding-left: 70px;cursor: pointer" src="./images/close.png" width="13px">
+                            </div>
+                        </div>
+                        <div ng-show="ch=='privateKey'">
+                            <div class="se">Paste Your Private Key</div>
+                            <div class="warn">
+                                <img src="./images/warn.png" width="12px">
+                                <span>this is not a recommended  way to access your wallet. Entering your private key on
+                            a website dangerous. If our website is compromised or you accidentally visit a
+                            different website, your funds will be stolen</span>
+                            </div>
+
+                            <div style="height: 16px"></div>
+                            <div class="in-box">
+                                <input ng-show="!privateKeyView" type="password" ng-model="privateKey" ng-change="unlockDisabled = false " placeholder="Enter your wallet privateKey">
+                                <input ng-show="privateKeyView" type="text" ng-model="privateKey" placeholder="Enter your wallet privateKey">
+                                <img ng-click="privateKeyView=!privateKeyView" ng-show="privateKeyView" src="./images/eyeopen.png">
+                                <img ng-click="privateKeyView=!privateKeyView" ng-show="!privateKeyView" src="./images/eyeclose.png">
+                            </div>
+                            <div class="btn-dis" ng-show="unlockDisabled">Unlock</div>
+                            <div class="btn-unlock" ng-click="unlock()" ng-show="!unlockDisabled">Unlock</div>
+                            <div class="msg" ng-show="privateKeyUnlockFail">
+                                <img src="./images/msg.png" width="13px">
+                                <span style="padding-left: 14.5px">This is not a valid private key</span>
+                                <img ng-click="keyStoreUnlockFail = false" style="padding-left: 70px;cursor: pointer" src="./images/close.png" width="13px">
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="action=='Vote'&&step==2">
+                        <div class="item-box">
+                            <div class="lable">Your votes</div>
+                            <div class="in-box">
+                                <input type="text" readonly ng-model="vote">
+                            </div>
+                        </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">Wallet Balance</div>
+                            <div class="in-box">
+                                <input type="text" readonly ng-model="balance">
+                            </div>
+                        </div>
+                        <div class="node-box">
+                            <div class="node-item" ng-repeat="n in nodes" ng-click="chooseNodes($index)">
+                                <img ng-show="n.ch" class="icon" src="./images/choose.png" alt="">
+                                <div ng-show="!n.ch" class="no-ch"></div>
+                                <div class="node">{{n.node}}</div>
+                                <div class="vote"><span style="color: rgba(60, 49, 215, 1)">{{n.num}}</span> votes</div>
+                            </div>
+                        </div>
+                        <div class="item-box" style="display: inline-block">
+                            <div class="lable">Fee</div>
+                            <div class="in-box">
+                                <input type="text" placeholder="Fee" ng-model="voteFee">
+                            </div>
+                        </div>
+                        <span style="display:inline-block;margin-left: 150px;width: 40px">{{chNum}}/59</span>
+                        <div style="display: inline-block;margin-left: 25px">
+                            <div class="btn-dis" style="margin-top: 48px" ng-show="!votePass">Vote</div>
+                            <div class="btn-unlock" style="margin-top: 48px" ng-click="Vote()" ng-show="votePass">
+                                Vote</div>
+                        </div>
+                    </div>
+                    <div ng-show="action=='Mortgage' && step == 2">
+                        <div class="item-box">
+                            <div class="lable">Your votes</div>
+                            <div class="in-box">
+                                <input type="text" readonly ng-model="vote">
+                            </div>
+                        </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">Wallet Balance</div>
+                            <div class="in-box">
+                                <input type="text" readonly ng-model="balance">
+                            </div>
+                        </div>
+                        <div class="item-box">
+                            <div class="lable">Amount</div>
+                            <div class="in-box">
+                                <input type="text" ng-model="morgageAmount" placeholder="please enter Amount">
+                            </div>
+                        </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">Fee</div>
+                            <div class="in-box">
+                                <input type="text" ng-model="morgageFee" placeholder="please enter Fee">
+                            </div>
+                        </div>
+                        <div class="btn-dis" style="margin-top: 48px" ng-show="!morgagePass">Morgage</div>
+                        <div class="btn-unlock" style="margin-top: 48px" ng-click="Morgage()" ng-show="morgagePass">Morgage</div>
+                    </div>
+                    <div ng-show="action=='Unmortgage' && step == 2">
+                        <div class="item-box">
+                            <div class="lable">Your votes</div>
+                            <div class="in-box">
+                                <input type="text" readonly ng-model="vote">
+                            </div>
+                        </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">Wallet Balance</div>
+                            <div class="in-box">
+                                <input type="text" readonly ng-model="balance">
+                            </div>
+                        </div>
+                        <div class="item-box">
+                            <div class="lable">Amount</div>
+                            <div class="in-box">
+                                <input type="text" ng-model="unmorgageAmount" placeholder="please enter Amount">
+                            </div>
+                        </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">Fee</div>
+                            <div class="in-box">
+                                <input type="text" ng-model="unmorgageFee" placeholder="please enter Fee">
+                            </div>
+                        </div>
+                        <div class="btn-dis" style="margin-top: 48px" ng-show="!unmorgagePass">Unmorgage</div>
+                        <div class="btn-unlock" style="margin-top: 48px" ng-click="Unmorgage()" ng-show="unmorgagePass">Unmorgage</div>
+                    </div>
+                </div>
+            </div>
+            <div class="foot">
+                Copyright © 2018 INT
+            </div>
         </div>
+        <!--<div-->
+        <!--style="-->
+        <!--position:absolute;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">-->
+        <!--<div-->
+        <!--style="margin:300px auto;-->
+        <!--background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 10px 15px;z-index: 101px;border-radius: 4px">-->
+        <!--<span style="font-size: 18px;color: #303133">提示</span>-->
+        <!--<div style="margin-top:20px;font-size: 14px;color: #606266" >-->
+        <!--<img style="display: inline-block;vertical-align: top" height="20"-->
+        <!--src="./images/error.png"-->
+        <!--alt="">-->
+        <!--<span style="margin-left:10px;width:380px;display:inline-block;vertical-align: top">-->
+        <!--he dissolvability of the soluble dietary fibers ( SSDF) extracted from-->
+        <!--</span>-->
+        <!--</div>-->
+
+        <!--<div-->
+        <!--style="padding:0 10px;margin-top: 20px;-->
+        <!--float: right;text-align:center;line-height:30px;border-radius:3px;background-color:#409eff;color:rgba(255, 255,255, 1)">-->
+
+        <!--confirm-->
+        <!--</div>-->
+        <!--<div style="height: 50px"></div>-->
+        <!--</div>-->
+        <!--</div>-->
+
     </body>
 
 </html>

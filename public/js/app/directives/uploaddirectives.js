@@ -33,6 +33,24 @@ app.directive('webUpload', function($http) {
             '</div><div class="statusBar" style="display: none;">' +
             '<div class="progress"><span class="text">0%</span> <span class="percentage"></span></div><div class="info"></div><div class="btns">' +
             '<div id="filePicker2"></div><div class="uploadBtn">开始上传</div></div></div></div>',
+        // template: `<div class="is">
+        //              <div class="lt1">
+        //                    <span>SELECT WALLET FILE{{ch}}</span>
+        //              </div>
+        //     <div class="lt2"><a href="javascript:void(0)"><input type="file">浏览</a></div>
+        //     </div><div ng-show="show" style="display:block;width: 800px;height: 79px"><div class="mi middle">Your wallet is
+        //     encrypted.Good! Please
+        //     enter the
+        //     password</div>
+        //     <div class="in-box">
+        //         <input ng-show="!pwdView" type="password"
+        //                ng-model="password" ng-change="pwdChange()" ng-click="pwdChange()"
+        //                placeholder="Enter your wallet password">
+        //         <input ng-show="pwdView" type="text"  ng-change="pwdChange()" ng-model="password"
+        //                placeholder="Enter your wallet password">
+        //         <img ng-click="pwdView=!pwdView" ng-show="pwdView" src="./images/eyeopen.png">
+        //         <img ng-click="pwdView=!pwdView" ng-show="!pwdView" src="./images/eyeclose.png">
+        //     </div></div>`,
         link: function(scope, element, attributes) {
             scope.$watch('show', function(n, o) {
                 if (n != o) {
@@ -52,10 +70,29 @@ app.directive('fileUploader', function($http) {
             file: '=file',
             password: '=password'
         },
-        template: '<div class="is"><div class="lt1"><span>{{name}}</span></div>' +
-            '<div class="lt2"><a href="javascript:void(0)"><input type="file">浏览</a></div>' +
-            '</div><div ng-show="show"><div class="mi middle">Please enter your password</div>' +
-            '<div class="is" style="width: 381px;margin: 0 auto"><input type="password" ng-model="password" class="ip"  placeholder="Please enter your password"></div></div>',
+        // template: '<div class="is"><div class="lt1"><span>{{name}}</span></div>' +
+        //     '<div class="lt2"><a href="javascript:void(0)"><input type="file">浏览</a></div>' +
+        //     '</div><div ng-show="show"><div class="mi middle">Please enter your password</div>' +
+        //     '<div class="is" style="width: 381px;margin: 0 auto"><input type="password"  ng-model="password"' +
+        // ' class="ip"  placeholder="Please enter your password"></div></div>',
+        template: `<div class="is">
+	                 <div class="lt1">
+	                       <span>SELECT WALLET FILE{{ch}}</span>
+	                 </div>
+                     <div class="lt2" style="display:none"><a href="javascript:void(0)"><input type="file">浏览</a></div>
+	        </div><div ng-show="show" style="display:block;width: 800px;height: 79px"><div class="mi middle">Your wallet is
+	        encrypted.Good! Please
+	        enter the
+	        password</div>
+	        <div class="in-box">
+	            <input ng-show="!pwdView" type="password"
+	                   ng-model="password" 
+	                   placeholder="Enter your wallet password">
+	            <input ng-show="pwdView" type="text"   ng-model="password"
+	                   placeholder="Enter your wallet password">
+	            <img ng-click="pwdView=!pwdView" ng-show="pwdView" src="./images/eyeopen.png">
+	            <img ng-click="pwdView=!pwdView" ng-show="!pwdView" src="./images/eyeclose.png">
+	        </div></div>`,
         link: function(scope, element, attributes) {
             scope.show = false;
 

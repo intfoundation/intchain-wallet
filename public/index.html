@@ -24,116 +24,269 @@
     <script type="text/javascript" src="./js/app/directives/pagedirectives.js"></script>
     <!-- <script type="text/javascript" src="./js/page/int.js"></script> -->
     <script type="text/javascript" src="./js/page/wal.js"></script>
-    <style type="text/css">
-        .c {
-            width: 400px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+    <style>
+        .title {
+            color: rgba(60, 49, 215, 1);
+            font-size: 36px;
+            font-family: PingFangSC-Medium;
+            width: 100%;
+            margin-top: 50px;
+        }
+        
+        .con-main {
+            margin-left: 278px;
+            margin-top: 50px;
+        }
+        
+        .tip {
+            color: rgba(51, 51, 51, 1);
+            font-size: 20px;
+            font-family: PingFangSC-Regular;
+        }
+        
+        .in-box {
+            display: inline-block;
+            margin-top: 24px;
+            width: 410px;
+            height: 46px;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 1);
+            border: 1px solid rgba(204, 204, 204, 1);
+        }
+        
+        .in-box img {
+            cursor: pointer;
+        }
+        
+        input {
+            margin-left: 24px;
+            width: 85%;
+            height: 100%;
+            border: 0px;
+            outline: none
+        }
+        
+        input::-webkit-input-placeholder {
+            color: rgba(153, 153, 153, 1);
+            font-size: 14px;
+            font-family: PingFangSC-Regular;
+        }
+        
+        .warn {
+            margin-top: 24px;
+            color: rgba(215, 49, 111, 1);
+            font-size: 12px;
+            font-family: PingFangSC-Regular;
+        }
+        
+        .pwdtip {
+            color: rgba(102, 102, 102, 1);
+            font-size: 14px;
+            font-family: PingFangSC-Regular;
+            margin-left: 16px;
+        }
+        
+        .step2 {
+            margin-left: 165px;
+        }
+        
+        .down {
+            margin-top: 20px;
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            border: 1px solid rgba(60, 49, 215, 1);
+            text-align: center;
+            line-height: 50px;
+            color: rgba(60, 49, 215, 1);
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .warning {
+            font-size: 16px;
+            color: rgba(102, 102, 102, 1);
+            margin-top: 32px;
+        }
+        
+        .warning .warn-item {
+            margin-top: 12px;
+        }
+        
+        .dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            opacity: 0.7;
+            background-color: rgba(60, 49, 215, 1);
+            border-radius: 3px;
+            margin-bottom: 2px;
+            margin-right: 12px;
+        }
+        
+        .continue {
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            background-color: rgba(58, 62, 219, 1);
+            text-align: center;
+            line-height: 50px;
+            color: rgba(255, 255, 255, 1);
+            font-size: 16px;
+            margin-top: 36px;
+            cursor: pointer;
+        }
+        
+        .step3 {
+            margin-left: 165px;
+        }
+        
+        .privateKey {
+            margin-top: 20px;
+            width: 800px;
+            height: 100px;
+            border-radius: 4px;
+            background-color: rgba(247, 247, 247, 1);
+            border: 1px solid rgba(204, 204, 204, 1);
+            color: rgba(51, 51, 51, 1);
+            font-size: 16px;
+            font-family: PingFangSC-Regular;
+            padding: 16px 24px;
         }
     </style>
 
     <body ng-app="myApp">
-        <div class="container">
-            <div id="content">
-                <div class="wrapper">
-                    <!-- int logo -->
+        <div class="container" ng-controller="mainController">
+            <div ng-show="!step" style="width: 100%;height: 100%"></div>
+            <div class="header-box">
+                <div class="header-con">
                     <div class="logo">
-                        <img src="./images/logo-int-red.png" alt="int logo" class="img-logo">
-                        <span class="int-text">INT</span>
+                        <img src="./images/logo.png" width="82px" height="54px">
                     </div>
-
-                    <!-- 创建钱包 -->
-                    <div class="common-interval">
-                        <a href="./index.html" class="common-link">
-                            <img src="./images/wallet.png" alt="wallet icon" class="create-wallet">
-                            <span class="common-font">A New Purse</span>
-                        </a>
-                    </div>
-
-                    <div class="common-interval">
-                        <a href="./sendint.html" class="common-link">
-                            <img src="./images/send-int.png" alt="" class="send-int">
-                            <span class="common-font">Send INT</span>
-                        </a>
-                    </div>
-
-                    <div class="common-interval">
-                        <a href="./vote.html" class="common-link">
-                            <img src="./images/vote.png" alt="" class="send-int">
-                            <span class="common-font">Vote</span>
-                        </a>
-                    </div>
-
-                    <div class="common-interval">
-                        <a href="./viewWalletInfo.html" class="common-link">
-                            <img src="./images/wallet-information.png" alt="" class="wallet-information">
-                            <span class="common-font">View wallet info</span>
-                        </a>
-                    </div>
-
-                    <!-- <div class="common-interval">
-                        <a href="./viewtxinfo.html" class="common-link">
-                            <img src="./images/trading-status.png" alt="" class="trading-status">
-                            <span class="common-font">Trading Status</span>
-                        </a>
-                    </div> -->
-
-                    <div class="common-interval">
-                        <a href="./mapping.html" class="common-link">
-                            <img src="./images/mapping.png" alt="" class="mapping">
-                            <span class="common-font">Mapping</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="pc">
-                    <div class="wallet-title">A New Purse</div>
-                    <div class="c" ng-controller="mainController" style="width:425px">
-                        <div>
-                            <div>
-                                <div class="lt middle">Create new wallet</div>
-                                <div class="middle lg">Please ensure it is a strong password</div>
-                                <div class="middle lp">Your password must be at least 9 characters</div>
-                                <div class="dt">
-                                    <input class="in" type="password" placeholder="Enter your wallet password" ng-model="password">
+                    <div class="tabbar-box">
+                        <div class="tab-item active">
+                            <span>
+                      New wallet
+                      </span>
+                            <div class="b-line"></div>
+                        </div>
+                        <div class="tab-item">
+                            <span>
+                       <a href="./sendInt.html">Send INT</a>
+                      </span>
+                            <div></div>
+                        </div>
+                        <div id="vote" style="position:absolute" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item">
+                            <span>
+                                    <a href="./vote.html?action=Vote">Vote</a>
+                                     <img  src="./images/voteunac.png" alt="">
+                      </span>
+                            <div></div>
+                            <div class="voteTab" ng-show="voteTabView">
+                                <div class="voteTab-item">
+                                    <a href="./vote.html?action=Mortgage">
+                                        Mortgage
+                                    </a>
                                 </div>
-                                <div class="st">
-                                    <input class="bt ln" type="button" value="Create new wallet" ng-click="makefile();">
-                                    <div class="lm">The downloaded file contains your wallet info,don't share it to others,otherwise your money will be stolen.</div>
+                                <div class="voteTab-item">
+                                    <a href="./vote.html?action=Unmortgage">
+                                        Unmortgage
+                                    </a>
                                 </div>
                             </div>
                         </div>
+                        <div class="tab-item" style="margin-left: 260px;">
+                            <span>
+                                    <a href="./walletInfo.html">View wallet info</a>
+                      
+                      </span>
+                            <div></div>
+                        </div>
+                        <div class="tab-item">
+                            <span>
+                                    <a href="./mapping.html">Mapping</a>  
+                                </span>
+                            <div></div>
+                        </div>
                     </div>
-
                 </div>
-                <script type="text/javascript">
-                    $(function() {
-                        setCurUrlTab();
-                        bindClick();
-                    })
+            </div>
+            <div class="content">
+                <div class="con-top">
+                    <img src="./images/wallet.png" alt=""><span>New wallet</span>
+                </div>
+                <div class="con-main" ng-show="step==1">
+                    <div class="title">Create new wallet</div>
+                    <span class="tip">Please ensure it is a strong password</span><br/>
+                    <div class="in-box">
+                        <input ng-show="!pwdView" type="password" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="Enter your wallet password">
+                        <input ng-show="pwdView" type="text" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="Enter your wallet password">
+                        <img ng-click="pwdView=!pwdView" ng-show="pwdView" src="./images/eyeopen.png">
+                        <img ng-click="pwdView=!pwdView" ng-show="!pwdView" src="./images/eyeclose.png">
+                    </div>
+                    <span ng-show="pwdTip" class="pwdtip">Your password must be at least 9 characters</span>
+                    <br/>
+                    <div class="in-box">
+                        <input ng-show="!rePwdView" type="password" ng-change="rePwdChange()" ng-blur="rePwdBlur()" ng-model="password2" placeholder="Enter the wallet password again">
+                        <input ng-show="rePwdView" type="text" ng-change="rePwdChange()" ng-blur="rePwdBlur()" ng-model="password2" placeholder="Enter the wallet password again">
 
-                    function setCurUrlTab() {
-                        var url = window.location.hash;
-                        var tag = ".tabs .i .c";
-                        var tags = $(tag);
-                        $.each(tags, function(i, item) {
-                            if ($(item).attr('href') === url) {
-                                $(item).addClass("cu");
-                            } else {
-                                $(item).removeClass("cu");
-                            }
-                        });
-                    };
-
-                    function bindClick() {
-                        var tabs = $(".tabs .i .c");
-                        $(tabs).on('click', function() {
-                            $(tabs).removeClass("cu");
-                            $(this).addClass("cu");
-                        });
-                    };
-                </script>
+                        <img ng-click="rePwdView=!rePwdView" ng-show="rePwdView" src="./images/eyeopen.png">
+                        <img ng-click="rePwdView=!rePwdView" ng-show="!rePwdView" src="./images/eyeclose.png">
+                    </div>
+                    <span ng-show="rePwdTip" class="pwdtip">两次输入的密码不一致</span>
+                    <div class="warn">
+                        <img src="./images/eyeopen.png" alt="">
+                        <span>The download file contains your wallet info, don't share it to others,otherwise your money
+                    will be stolen</span>
+                    </div>
+                    <div class="btn" ng-click="create()">
+                        Create new wallet
+                    </div>
+                </div>
+                <div class="step2" ng-show="step==2">
+                    <div class="title">Save your KeyStore File</div>
+                    <div class="down" ng-click="downFile()">Download</div>
+                    <div class="warning">
+                        <div>
+                            <div class="dot"></div>
+                            <span>Do not lose it! It cannot be recovered if you lose it</span>
+                        </div>
+                        <div class="warn-item">
+                            <div class="dot"></div>
+                            <span>Do not share it! Your funds will be stolen if you use this file on a malicious/phishing site</span>
+                        </div>
+                        <div class="warn-item">
+                            <div class="dot"></div>
+                            <span>Make a backup! Secure it like the millions of dollars it may one day be worth</span>
+                        </div>
+                    </div>
+                    <div class="continue" ng-click="step = 3">
+                        Okay,go ahead
+                    </div>
+                </div>
+                <div class="step3" ng-show="step==3">
+                    <div class="title">Save your Private Key</div>
+                    <div class="privateKey">
+                        <span class="pri">{{privateKey}}</span>
+                    </div>
+                    <div class="warning">
+                        <div>
+                            <div class="dot"></div>
+                            <span>Do not lose it! It cannot be recovered if you lose it</span>
+                        </div>
+                        <div class="warn-item">
+                            <div class="dot"></div>
+                            <span>Do not share it! Your funds will be stolen if you use this file on a malicious/phishing site</span>
+                        </div>
+                        <div class="warn-item">
+                            <div class="dot"></div>
+                            <span>Make a backup! Secure it like the millions of dollars it may one day be worth</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="foot">
+                Copyright © 2018 INT
             </div>
         </div>
     </body>

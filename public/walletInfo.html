@@ -1,0 +1,548 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>int wallet</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <script src="./js/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <link href="./js/plugins/layer/skin/default/layer.css" rel="stylesheet">
+    <script src="./js/plugins/layer/layer.js"></script>
+    <script src="./js/page/modal.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-animate.min.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-route.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-file-upload.min.js"></script>
+    <script type="text/javascript" src="./js/app/ngapp.js"></script>
+    <script type="text/javascript" src="./js/app/directives/uploaddirectives.js"></script>
+    <script type="text/javascript" src="./js/page/common.js"></script>
+    <script type="text/javascript" src="./js/plugins/jquery/jquery.qrcode.min.js"></script>
+    <script type="text/javascript" src="./js/page/walletinfo.js"></script>
+    <script type="text/javascript" src="./js/page/wal.js"></script>
+
+    <!-- <style type="text/css">
+        .container {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(249, 249, 249, 1);
+        }
+        
+        .header-box {
+            width: 100%;
+            height: 90px;
+            -moz-box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.35);
+            box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.35);
+            background-color: rgba(255, 255, 255, 1);
+        }
+        
+        .header-con {
+            height: 100%;
+            width: 1200px;
+            margin: 0px auto;
+        }
+        
+        .logo {
+            height: 100%;
+            display: inline-block;
+        }
+        
+        .logo img {
+            padding-top: 18px;
+        }
+        
+        .tabbar-box {
+            height: 100%;
+            display: inline-block;
+            vertical-align: top;
+        }
+        
+        .tabbar-box .tab-item {
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 100px;
+            font-size: 18px;
+            font-family: PingFangSC-Medium;
+            color: rgba(102, 102, 102, 1);
+            padding-top: 32.5px;
+            cursor: pointer;
+        }
+        
+        .tabbar-box .tab-item a {
+            color: rgba(102, 102, 102, 1);
+            text-decoration: none;
+        }
+        
+        .tabbar-box .active span a {
+            color: rgba(60, 49, 215, 1);
+        }
+        
+        .active div {
+            width: 40px;
+            height: 2px;
+            border-radius: 4px;
+            background-color: rgba(60, 49, 215, 1);
+            margin: 0 auto;
+        }
+        
+        .content {
+            width: 1200px;
+            min-height: 60%;
+            padding-bottom: 50px;
+            background-color: rgba(255, 255, 255, 1);
+            box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.5);
+            margin: 0 auto;
+            margin-top: 90px;
+        }
+        
+        .btn {
+            margin-top: 48px;
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            background-color: #3C31D7;
+            color: rgba(255, 255, 255, 1);
+            text-align: center;
+            cursor: pointer;
+            line-height: 50px;
+        }
+        
+        .foot {
+            margin-top: 50px;
+            color: rgba(165, 165, 173, 1);
+            font-size: 18px;
+            width: 100%;
+            text-align: center;
+            font-family: PingFangSC-Regular;
+        }
+        
+        #vote {
+            position: relative;
+        }
+        
+        .voteTab {
+            background-color: rgba(255, 255, 255, 1);
+            position: absolute;
+            z-index: 1px;
+            padding: 10px 20px 20px 20px;
+            margin-left: -20px;
+        }
+        
+        .con-top {
+            height: 80px;
+            border-bottom: 1px solid rgba(204, 204, 204, 1);
+            line-height: 80px;
+            color: rgba(51, 51, 51, 1);
+            font-size: 18px;
+            font-family: PingFangSC-Medium;
+            padding-left: 36px;
+        }
+        
+        .con-top span {
+            margin-left: 13px;
+        }
+        
+        .title {
+            color: rgba(60, 49, 215, 1);
+            font-size: 36px;
+            font-family: PingFangSC-Medium;
+            width: 100%;
+        }
+    </style> -->
+    <style>
+        .main {
+            padding: 50px 0 0 165px;
+        }
+        
+        .out {
+            height: 14px;
+            width: 14px;
+            border: 1px solid rgba(60, 49, 215, 1);
+            border-radius: 8px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .in {
+            height: 8px;
+            width: 8px;
+            background-color: rgba(60, 49, 215, 1);
+            border-radius: 5px;
+            margin: 3px;
+            display: inline-block;
+        }
+        
+        .inac {
+            height: 14px;
+            width: 14px;
+            border: 1px solid rgba(204, 204, 204, 1);
+            border-radius: 8px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .ch-item {
+            display: inline;
+        }
+        
+        .ch-item span {
+            margin-left: 8px;
+        }
+        
+        .pri {
+            margin-left: 50px;
+        }
+        
+        .ch {
+            margin-top: 18px;
+            color: rgba(51, 51, 51, 1);
+            font-size: 20px;
+            font-family: PingFangSC-Medium;
+        }
+        
+        .se {
+            margin-top: 36px;
+            color: rgba(51, 51, 51, 1);
+            font-size: 24px;
+            font-family: PingFangSC-Medium;
+        }
+        
+        .warn {
+            margin-top: 20px;
+            width: 852px;
+            color: rgba(215, 49, 111, 1);
+            font-size: 12px;
+            font-family: PingFangSC-Regular;
+        }
+        
+        .ch-file {
+            margin-top: 16px;
+            width: 240px;
+        }
+        
+        .is .lt1 {
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            border: 1px solid rgba(60, 49, 215, 1);
+            line-height: 50px;
+            cursor: pointer;
+            color: rgba(60, 49, 215, 1);
+            font-family: PingFangSC-Medium;
+            text-align: center;
+        }
+        
+        .middle {
+            margin-top: 36px;
+            color: rgba(153, 153, 153, 1);
+            font-size: 12px;
+            text-align: left;
+            font-family: PingFangSC-Regular;
+        }
+        
+        .in-box {
+            display: inline-block;
+            width: 410px;
+            height: 46px;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 1);
+            border: 1px solid rgba(204, 204, 204, 1);
+        }
+        
+        .in-box img {
+            cursor: pointer;
+        }
+        
+        input {
+            margin-left: 24px;
+            width: 85%;
+            height: 100%;
+            border: 0px;
+            outline: none;
+            font-size: 14px;
+        }
+        
+        input::-webkit-input-placeholder {
+            color: rgba(153, 153, 153, 1);
+            font-size: 14px;
+            font-family: PingFangSC-Regular;
+        }
+        
+        .btn-dis {
+            margin-top: 36px;
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            background-color: rgba(204, 204, 204, 1);
+            text-align: center;
+            line-height: 50px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 1);
+            cursor: not-allowed;
+        }
+        
+        .btn-unlock {
+            margin-top: 36px;
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            background-color: rgba(60, 49, 215, 1);
+            text-align: center;
+            line-height: 50px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 1);
+            cursor: pointer;
+        }
+        
+        .msg {
+            margin-top: 25px;
+            width: 300px;
+            height: 32px;
+            opacity: 0.8;
+            border-radius: 4px;
+            background-color: rgba(215, 49, 111, 1);
+            line-height: 32px;
+            padding-left: 40px;
+            color: rgba(255, 255, 255, 1);
+            font-size: 12px;
+        }
+        
+        .item-box {
+            display: inline-block;
+            color: rgba(51, 51, 51, 1);
+            font-size: 16px;
+            font-family: PingFangSC-Medium;
+            margin-top: 24px;
+        }
+        
+        .down {
+            height: 25px;
+            padding-top: 10px;
+        }
+        
+        .token-box {
+            width: 410px;
+            max-height: 200px;
+            border: 1px solid rgba(204, 204, 204, 1);
+            border-top: 0px;
+            overflow-y: scroll;
+            position: absolute;
+            z-index: 100px;
+            background-color: rgba(255, 255, 255, 1);
+            margin-left: -1px;
+        }
+        
+        .token-item {
+            height: 40px;
+            line-height: 40px;
+            margin-left: 24px;
+            color: rgba(51, 51, 51, 1);
+            font-size: 14px;
+        }
+        
+        .in-box:hover {
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+    </style>
+
+    <body ng-app="myApp">
+        <div class="container" ng-controller="walletinfoController">
+            <div ng-show="!step" style="width: 100%;height: 100%"></div>
+            <div class="header-box">
+                <div class="header-con">
+                    <div class="logo">
+                        <img src="./images/logo.png" width="82px" height="54px">
+                    </div>
+                    <div class="tabbar-box">
+                        <div class="tab-item ">
+                            <span>
+                      <a href="./index.html">New wallet</a>
+                      </span>
+                            <div class="b-line"></div>
+                        </div>
+                        <div class="tab-item">
+                            <span>
+                                <a href="./sendInt.html">Send INT</a> 
+                      </span>
+                            <div class="b-line"></div>
+                        </div>
+                        <div id="vote" style="position:absolute" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item">
+                            <span>
+                                    <a href="./vote.html?action=Vote">Vote</a>
+               <img  src="./images/voteunac.png" alt="">
+              </span>
+                            <div class="b-line"></div>
+                            <div class="voteTab" ng-show="voteTabView">
+                                <div class="voteTab-item">
+                                    <a href="./vote1.html?action=Mortgage">
+                                Mortgage
+                            </a>
+                                </div>
+                                <div class="voteTab-item">
+                                    <a href="./vote1.html?action=Unmortgage">
+                                Unmortgage
+                            </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-item active" style="margin-left: 260px;">
+                            <span>
+                               View wallet info
+                      </span>
+                            <div class="b-line"></div>
+                        </div>
+                        <div class="tab-item">
+                            <span>
+                                <a href="./mapping.html"> Mapping</a>
+                       </span>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="con-top">
+                    <img src="./images/walletInfo.png" alt=""><span>View wallet info</span>
+                </div>
+                <div class="main">
+                    <div ng-show="step==1">
+                        <div class="title">How would you like to access your wallet?</div>
+                        <div class="ch">
+                            <div class="ch-item">
+                                <div ng-show="ch=='keyStore'" class="out">
+                                    <div class="in"></div>
+                                </div>
+                                <div ng-show="ch=='privateKey'" ng-click="ch='keyStore';unlockDisabled = true" class="inac"></div>
+                                <span>Keystore</span>
+                            </div>
+                            <div class="ch-item pri">
+                                <div ng-show="ch=='privateKey'" class="out">
+                                    <div class="in"></div>
+                                </div>
+                                <div ng-show="ch=='keyStore'" ng-click="ch='privateKey';unlockDisabled = true" class="inac"></div>
+                                <span>Private Key</span>
+                            </div>
+                        </div>
+                        <div ng-show="ch=='keyStore'">
+                            <div class="se">Select Your Wallet File</div>
+                            <div class="warn">
+                                <img src="./images/warn.png" width="12px">
+                                <span>this is not a recommended  way to access your wallet. Entering your private key on
+                            a website dangerous. If our website is compromised or you accidentally visit a
+                            different website, your funds will be stolen</span>
+                            </div>
+                            <div file-uploader password="password" file="file" class="ch-file">
+                            </div>
+                            <div class="btn-dis" ng-show="unlockDisabled">Unlock</div>
+                            <div class="btn-unlock" ng-click="unlock()" ng-show="!unlockDisabled">Unlock</div>
+                            <div class="msg" ng-show="keyStoreUnlockFail">
+                                <img src="./images/msg.png" width="13px">
+                                <span style="padding-left: 14.5px">Password error, unlock fail</span>
+                                <img ng-click="keyStoreUnlockFail = false" style="padding-left: 70px;cursor: pointer" src="./images/close.png" width="13px">
+                            </div>
+                        </div>
+                        <div ng-show="ch=='privateKey'">
+                            <div class="se">Paste Your Private Key</div>
+                            <div class="warn">
+                                <img src="./images/warn.png" width="12px">
+                                <span>this is not a recommended  way to access your wallet. Entering your private key on
+                            a website dangerous. If our website is compromised or you accidentally visit a
+                            different website, your funds will be stolen</span>
+                            </div>
+
+                            <div style="height: 16px"></div>
+                            <div class="in-box">
+                                <input ng-show="!privateKeyView" type="password" ng-model="privateKey" ng-change="unlockDisabled = false " placeholder="Enter your wallet privateKey">
+                                <input ng-show="privateKeyView" type="text" ng-model="privateKey" placeholder="Enter your wallet privateKey">
+                                <img ng-click="privateKeyView=!privateKeyView" ng-show="privateKeyView" src="./images/eyeopen.png">
+                                <img ng-click="privateKeyView=!privateKeyView" ng-show="!privateKeyView" src="./images/eyeclose.png">
+                            </div>
+                            <div class="btn-dis" ng-show="unlockDisabled">Unlock</div>
+                            <div class="btn-unlock" ng-click="unlock()" ng-show="!unlockDisabled">Unlock</div>
+                            <div class="msg" ng-show="privateKeyUnlockFail">
+                                <img src="./images/msg.png" width="13px">
+                                <span style="padding-left: 14.5px">This is not a valid private key</span>
+                                <img ng-click="keyStoreUnlockFail = false" style="padding-left: 70px;cursor: pointer" src="./images/close.png" width="13px">
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-show="step==2">
+                        <div class="item-box">
+                            <div class="lable">Address</div>
+                            <div class="in-box">
+                                <input type="text" readonly ng-model="address">
+                            </div>
+                        </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">Private Key</div>
+                            <div class="in-box">
+                                <input type="text" readonly ng-model="privateKey">
+                            </div>
+                        </div>
+                        <div class="item-box">
+                            <div class="lable">Number of vote</div>
+                            <div class="in-box">
+                                <input type="text" readonly ng-model="vote">
+                            </div>
+                        </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">Balance</div>
+                            <div class="in-box" style="cursor:pointer" ng-mouseenter="viewToken = true" ng-mouseleave="viewToken = false">
+                                <input type="text" ng-model="balance" style="cursor:pointer">
+                                <div style="display:inline-block;height:100%;vertical-align: top">
+                                    <img ng-show='!viewToken' src="./images/down.png" class="down">
+                                    <img ng-show='viewToken' src="./images/up.png" class="down">
+                                </div>
+                                <div class="token-box" ng-show='viewToken'>
+                                    <div ng-show='token.length' ng-repeat='t in token' class="token-item"><span>{{t.coin}}:  </span><span>{{t.balance}}</span></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="item-box">
+                            <div class="lable">Your address(QR Code)</div>
+                            <div id="addressqrcode"></div>
+                        </div>
+                        <div class="item-box" style="margin-left: 282px;vertical-align: top">
+                            <div class="btn-unlock" style="margin-top: 48px" ng-click='enterPwd()'>
+                                Download</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="foot">
+                Copyright © 2018 INT
+            </div>
+        </div>
+        <!-- <div ng-show='download' style="
+        position:absolute;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">
+            <div style="margin:300px auto;
+        background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 10px 15px;z-index: 101px;border-radius: 4px">
+                <span style="font-size: 18px;color: #303133">Please Enter Password</span>
+                <div style="margin-top:20px;font-size: 14px;color: #606266">
+                    <div class="in-box">
+                        <input ng-show="!pwdView" type="password" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="Enter your wallet password">
+                        <input ng-show="pwdView" type="text" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="Enter your wallet password">
+                        <img ng-click="pwdView=!pwdView" ng-show="pwdView" src="./images/eyeopen.png">
+                        <img ng-click="pwdView=!pwdView" ng-show="!pwdView" src="./images/eyeclose.png">
+                    </div>
+                    <div ng-show='pwdTip' style="padding-top:5px;color: rgba(215, 49, 111, 1);font-size: 12px">Your password must be at least 9 characters</div>
+                </div>
+
+                <div style="padding:0 10px;margin-top: 20px;
+        float: right;text-align:center;line-height:30px;border-radius:3px;background-color:#409eff;color:rgba(255, 255,255, 1)">
+
+                    confirm
+                </div>
+                <div style="padding:0 10px;margin-top: 20px;margin-right: 20px;
+        float: right;text-align:center;line-height:30px;border-radius:3px;    border: 1px solid #dcdfe6;color: #606266;">
+
+                    cancel
+                </div>
+                <div style="height: 50px"></div>
+            </div>
+        </div> -->
+
+    </body>
+
+</html>

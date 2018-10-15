@@ -2,6 +2,7 @@ app.controller('mappingController', function($scope, $http) {
     $scope.ethAddress = '';
     //0x04fa4d66a673cBf91F7cf48dfF236482495Fd49e  ng-blur="queryBalance()"
     $scope.hash = '';
+    $scope.pass = false;
     $scope.model = {
         fromAddress: '',
         toAddress: '',
@@ -11,48 +12,73 @@ app.controller('mappingController', function($scope, $http) {
         mydata: '',
         mynonce: ''
     };
+    $scope.$watch('{f:model.fromAddress,t:model.toAddress,g:model.decimalGas,p:model.fromAddressPrivateKey}', function(v) {
+        if (v.f && v.t && v.g && v.p) {
+            $scope.pass = true
+        } else {
+            $scope.pass = false
+        }
+    })
     $scope.queryBalance = async function() {
         //$scope.model.decimalAmount = 0.998;
-        if (!$scope.model.fromAddress) {
+        if ($scope.model.fromAddress.length != 42) {
+            modal.error({ msg: 'ETH wallet address is not is not valid' })
             return;
         }
         var wal = require("wal");
-        var data = await wal.queryBalance($scope.model.fromAddress, $scope)
+        var data = await wal.queryBalance($scope.model.fromAddress)
         if (data) {
             if (data.status === "success") {
                 $scope.model.decimalAmount = data.balance;
                 $scope.model.mydata = data.mydata;
                 $scope.model.mynonce = data.mynonce;
+                $scope.$apply();
             } else {
                 util.alert(data.message)
             }
         }
     }
     $scope.toMapping = async function() {
-        if (!$scope.model.fromAddress) {
-            util.alert("From Address should not be empty")
+        if ($scope.model.fromAddress.length != 42) {
+            modal.error({ msg: 'ETH wallet address is not is not valid' })
+            return;
+        }
+        if ($scope.model.fromAddressPrivateKey.length != 64) {
+            modal.error({ msg: 'ETH wallet private key is not is not valid' })
+            return;
+        }
+
+        if ($scope.model.toAddress.length != 34) {
+            modal.error({ msg: 'INT wallet address is not is not valid' })
+            return;
+        }
+
+        if (!$scope.model.decimalGas || isNaN($scope.model.decimalGas) || $scope.model.decimalGas <= 0) {
+            modal.error({ msg: 'Gas price is not is not valid' })
             return;
         }
         var wal = require("wal");
-        $scope.model
         var data = await wal.burnIntOnEth($scope.model);
         if (data) {
-            if (data.status === "success") {
-                document.getElementById("mp-result").style.display = "block"
-                document.getElementById("mpUrl").innerHTML = `https://etherscan.io/tx/${data.hash}`
-                $scope.hash = data.hash
-                util.alert("success")
+            if (data.error) {
+                modal.error({ mas: data.message })
             } else {
-                util.alert(data.message)
+                modal.showInfo(data.info, function() {
+                    wal.sendBurn(data.data).then(r => {
+                        if (typeof r === 'string') {
+                            r = JSON.parse(r)
+                        }
+                        if (r.err) {
+                            modal.error({ msg: r.err })
+                        } else {
+                            modal.burnSuccess({ msg: r.hash })
+                        }
+                    })
+                })
             }
         }
     }
     $scope.toResult = function() {
         window.open(`https://etherscan.io/tx/${$scope.hash}`)
     }
-    let timer = setInterval(function() {
-        if ($scope.model.decimalAmount || $scope.model.decimalAmount === 0) {
-            document.getElementById("decimalAmount").value = $scope.model.decimalAmount
-        }
-    }, 100)
 });

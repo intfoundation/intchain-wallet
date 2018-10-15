@@ -1,18 +1,37 @@
 app.controller('sendintController', function($scope) {
     $scope.url = "/wallet/unlock";
     $scope.file = null;
-    $scope.wallet = {};
-    $scope.model = {
-        password: '',
-        sourceAddress: '',
-        sourceAmount: '',
-        targetAddress: '',
-        targetAmount: '',
-        gasLimit: '',
-        gasPrice: '',
-        nonce: ''
-    };
-
+    $scope.step = 1;
+    $scope.ch = "keyStore"
+    $scope.pwdView = false
+    $scope.password = ''
+    $scope.unlockDisabled = true
+    $scope.keyStoreUnlockFail = false
+    $scope.privateKeyUnlockFail = false
+    $scope.privateKeyView = false
+    $scope.pass = false
+        //钱包信息相关
+    $scope.privateKey = ""
+    $scope.address = ""
+    $scope.balance = 0;
+    $scope.toAddress;
+    $scope.amount;
+    $scope.fee;
+    $scope.$watch('password', function(newValue, oldValue) {
+        if ($scope.password.length >= 9) {
+            $scope.unlockDisabled = false
+        } else {
+            $scope.unlockDisabled = true
+        }
+    });
+    $scope.unlock = function() {
+        if ($scope.ch === "keyStore") {
+            $scope.keyStoreUnlock()
+        }
+        if ($scope.ch === "privateKey") {
+            $scope.privateKeyUnlock()
+        }
+    }
     $scope.unlock1 = function() {
         if ($scope.file) {
             if ($.trim($scope.model.password).length == 0) {
@@ -41,54 +60,106 @@ app.controller('sendintController', function($scope) {
         }
     };
 
-    $scope.unlock = function() {
-        if ($scope.file) {
-            if ($.trim($scope.model.password).length == 0) {
-                util.alert('Please input your password');
-                return;
-            }
-            var file = $scope.file;
-            var reader = new FileReader(); //new一个FileReader实例
-            // if (/text+/.test(file.type)) { //判断文件类型，是不是text类型
-            reader.onload = function() {
-                var filedata = JSON.parse(this.result);
-                var wal = require("wal");
-                wal.decodeFromOption(filedata, $scope.model.password).then(data => {
-                    if (data) {
-                        $scope.model.sourceAddress = filedata.address;
-                        $scope.wallet.privateKey = data;
-                        $scope.getbalance();
-                    } else {
-                        util.alert('Password error, unlock fail');
-                    }
-                })
-
-            }
-            reader.readAsText(file);
-        } else {
-            util.alert('Please select wallet file');
+    $scope.keyStoreUnlock = function() {
+        var file = $scope.file;
+        var reader = new FileReader();
+        reader.onload = function() {
+            var filedata = JSON.parse(this.result);
+            var wal = require("wal");
+            wal.decodeFromOption(filedata, $scope.password).then(data => {
+                $scope.address = filedata.address;
+                $scope.privateKey = data;
+                $scope.keyStoreUnlockFail = false
+                $scope.getbalance()
+                $scope.$apply();
+            }).catch(e => {
+                $scope.keyStoreUnlockFail = true
+                $scope.$apply();
+            })
         }
-    };
+        reader.readAsText(file);
 
+    };
+    $scope.privateKeyUnlock = function() {
+        if ($scope.length != 64) {
+            $scope.privateKeyUnlockFail = true
+            return
+        }
+        var wal = require("wal");
+        $scope.address = wal.addressFromPrivateKey($scope.privateKey)
+        if (!$scope.address) {
+            $scope.privateKeyUnlockFail = true
+        } else {
+            $scope.getbalance()
+            $scope.step = 2;
+        }
+        $scope.$apply();
+    }
     $scope.getbalance = function() {
         var wal = require("wal");
-        wal.getBalance($scope.model.sourceAddress).then(data => {
+        wal.getBalance($scope.address).then(data => {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
             if (data.err) {
-                util.alert(data.err)
+                modal.error({ msg: data.err })
                 return;
             }
-            $scope.model.sourceAmount = data.balance;
-            if ($scope.model.sourceAmount == null) {
-                $scope.model.sourceAmount = 0.0;
+            $scope.balance = data.balance;
+            if ($scope.balance == null) {
+                $scope.balance = 0;
             }
-            util.alert('Unlock Successfully');
+            $scope.step = 2;
             $scope.$apply();
         });
     };
+    $scope.$watch('{toAddress:toAddress,amount:amount,fee:fee}', function(v) {
+        if (v.toAddress && v.amount && v.fee) {
+            $scope.pass = true
+        } else {
+            $scope.pass = false
+        }
+    })
+    $scope.send = function() {
+        var wal = require("wal");
+        if ($scope.toAddress.length != 34) {
+            modal.error({ msg: 'To address is not valid' })
+            return
+        }
+        if (isNaN($scope.amount) || $scope.amount <= 0) {
+            modal.error({ msg: 'Amount is not valid' })
+            return
+        }
+        if (+$scope.amount >= +$scope.balance) {
+            modal.error({ msg: 'Amount must be less then balance' })
+            return
+        }
+        if (isNaN($scope.fee) || $scope.fee <= 0) {
+            modal.error({ msg: 'Fee is not valid' })
+            return
+        }
+        wal.transfer($scope.amount, $scope.fee, $scope.toAddress, $scope.privateKey)
+            .then(res => {
+                if (res.err) {
+                    modal.error({ msg: res.err })
+                    return;
+                }
 
+                modal.showInfo(res.info, function() {
+                    wal.sendSignedTransaction(res.renderStr).then(r => {
+                        if (typeof r === 'string') {
+                            r = JSON.parse(r)
+                        }
+                        if (r.err) {
+                            modal.error({ msg: r.err })
+                        } else {
+                            modal.success({ msg: res.hash })
+                        }
+                    })
+                })
+            })
+
+    }
     $scope.makeTransation = function() {
         var errmsg = '';
         if ($.trim($scope.model.sourceAddress).length == 0) {

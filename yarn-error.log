@@ -1,20 +1,20 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add rlp
+  /usr/local/bin/node /usr/local/bin/yarn add bignumber.js -S
 
 PATH: 
-  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/mysql/bin:/usr/local/mysql/bin
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/mysql/bin
 
 Yarn version: 
-  1.7.0
+  1.9.4
 
 Node version: 
-  8.11.3
+  8.12.0
 
 Platform: 
   darwin x64
 
 Trace: 
-  Error: EACCES: permission denied, mkdir '/Users/apple/Desktop/项目/钱包/intchain-wallet/node_modules/request/node_modules/qs'
+  Error: EACCES: permission denied, mkdir '/Users/apple/Desktop/项目/钱包/intchain-wallet/node_modules/browserify-sha3/node_modules'
 
 npm manifest: 
   {
@@ -28,7 +28,7 @@ npm manifest:
           "test": "echo \"Error: no test specified\" && exit 1",
           "start": "node server.js",
           "watch": "gulp watch",
-          "build": "webpack --config webpack.build.js --watch"
+          "build": "browserify --require  ./src/index.js:wal ./src/index.js > wal.js"
       },
       "author": "",
       "license": "ISC",
@@ -43,6 +43,7 @@ npm manifest:
           "multer": "^1.3.0",
           "node-uuid": "^1.4.8",
           "qr-image": "^3.2.0",
+          "rlp": "^2.1.0",
           "secp256k1": "^3.4.0",
           "web3": "^1.0.0-beta.21",
           "web3-eth": "^1.0.0-beta.21",
