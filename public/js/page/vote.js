@@ -161,6 +161,14 @@ app.controller('voteController', function($scope) {
                 clearInterval(bTimer)
             }
         })
+        let vote = $scope.vote
+        let vTimer = setInterval(() => {
+            $scope.getbalance()
+            let rVote = $scope.balance
+            if (balance != rBanlance) {
+                clearInterval(vTimer)
+            }
+        })
     }
     $scope.getNodes = function() {
         var wal = require("wal");
