@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>int wallet</title>
     <link rel="stylesheet" href="./css/index.css" />
+    <link rel="icon" href="./images/logo.png" type="image/x-icon" />
     <script src="./js/plugins/jquery/jquery-3.3.1.min.js"></script>
     <link href="./js/plugins/layer/skin/default/layer.css" rel="stylesheet">
     <script src="./js/plugins/layer/layer.js"></script>
@@ -374,12 +375,12 @@
                             <div class="b-line"></div>
                             <div class="voteTab" ng-show="voteTabView">
                                 <div class="voteTab-item">
-                                    <a href="./vote1.html?action=Mortgage">
+                                    <a href="./vote.html?action=Mortgage">
                                 Mortgage
                             </a>
                                 </div>
                                 <div class="voteTab-item">
-                                    <a href="./vote1.html?action=Unmortgage">
+                                    <a href="./vote.html?action=Unmortgage">
                                 Unmortgage
                             </a>
                                 </div>
@@ -488,7 +489,7 @@
                         <div class="item-box" style="margin-left: 50px">
                             <div class="lable">Balance</div>
                             <div class="in-box" style="cursor:pointer" ng-mouseenter="viewToken = true" ng-mouseleave="viewToken = false">
-                                <input type="text" ng-model="balance" style="cursor:pointer">
+                                <input type="text" readonly ng-model="balance" style="cursor:pointer">
                                 <div style="display:inline-block;height:100%;vertical-align: top">
                                     <img ng-show='!viewToken' src="./images/down.png" class="down">
                                     <img ng-show='viewToken' src="./images/up.png" class="down">

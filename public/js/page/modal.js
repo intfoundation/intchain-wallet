@@ -51,7 +51,7 @@ modal.error = function(obj, cal) {
     div.setAttribute('id', 'modal')
     let dom = `<div
         style="
-        position:absolute;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">
+        position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">
     <div
             style="margin:300px auto;
             background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 10px 15px;z-index: 101px;border-radius: 4px">
@@ -90,7 +90,7 @@ modal.success = function(obj, cal) {
     div.setAttribute('id', 'modal')
     let dom = `<div
         style="
-        position:absolute;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">
+        position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">
     <div
             style="margin:300px auto;
             background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 10px 15px;z-index: 101px;border-radius: 4px">
@@ -129,7 +129,7 @@ modal.burnSuccess = function(obj, cal) {
     div.setAttribute('id', 'modal')
     let dom = `<div
         style="
-        position:absolute;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">
+        position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">
     <div
             style="margin:300px auto;
             background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 10px 15px;z-index: 101px;border-radius: 4px">
@@ -167,7 +167,7 @@ modal.prompt = function(cal) {
     div.setAttribute('id', 'modal')
     let dom = `
     <div style="
-    position:absolute;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">
+    position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">
         <div style="margin:300px auto;
     background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 10px 15px;z-index: 101px;border-radius: 4px">
             <span style="font-size: 18px;color: #303133">Please Enter Password</span>

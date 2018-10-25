@@ -11,7 +11,6 @@ app.controller('voteController', function($scope) {
     $scope.privateKeyView = false
     $scope.votePass = false
     $scope.action = new modal.UrlSearch().action
-    console.log(3333, $scope.action)
         //钱包信息相关
     $scope.privateKey = ""
     $scope.address = ""
@@ -19,13 +18,16 @@ app.controller('voteController', function($scope) {
     $scope.vote = 0;
     $scope.toAddress;
     $scope.amount;
-    $scope.voteFee;
+    $scope.voteLmit;
+    $scope.votePrice
     $scope.chNum = 0
     $scope.morgageAmount;
-    $scope.morgageFee;
+    $scope.morgageLimit;
+    $scope.morgagePrice;
     $scope.morgagePass = false;
     $scope.unmorgageAmount;
-    $scope.unmorgageFee;
+    $scope.unmorgageLimit;
+    $scope.unmorgagePrice;
     $scope.unmorgagePass = false;
 
     $scope.nodes = [
@@ -33,7 +35,7 @@ app.controller('voteController', function($scope) {
         { node: "sokmnjchuygtfzvdetqlpojdnmc2dhsbzj", num: 212.31245, ch: false },
         { node: "sokmnjchuygtfzvdetqlp2jdnmcudhsbzj", num: 212.31245, ch: false },
         { node: "sokmnjchuygtfzvdetqlpojdnmcudhs2zj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetql2ojdnmcudhsbzj", num: 212.31245, ch: false },
+        { node: "sokmnjchuygtfzvdetql2ojdnmmudhsbzj", num: 212.31245, ch: false },
         { node: "sokmnjc2uygtfzvdetqlpojd2mcudhsbzj", num: 212.31245, ch: false },
         { node: "sokmnjchuyg3fzvdetqlpojdnmcudhsbzj", num: 212.31245, ch: false },
         { node: "sokmnjchuygtfzvd3tqlpojdnmcudhsbzj", num: 212.31245, ch: false },
@@ -60,22 +62,22 @@ app.controller('voteController', function($scope) {
             $scope.unlockDisabled = true
         }
     });
-    $scope.$watch('{chNum:chNum,voteFee:voteFee}', function(v) {
-        if (v.chNum && v.voteFee) {
+    $scope.$watch('{chNum:chNum,voteLimit:voteLimit,votePrice:votePrice}', function(v) {
+        if (v.chNum && v.voteLimit && v.votePrice) {
             $scope.votePass = true
         } else {
             $scope.votePass = false
         }
     })
-    $scope.$watch('{morgageAmount:morgageAmount,morgageFee:morgageFee}', function(v) {
-        if (v.morgageAmount && v.morgageFee) {
+    $scope.$watch('{morgageAmount:morgageAmount,morgageLimit:morgageLimit,morgagePrice:morgagePrice}', function(v) {
+        if (v.morgageAmount && v.morgageLimit && v.morgagePrice) {
             $scope.morgagePass = true
         } else {
             $scope.morgagePass = false
         }
     })
-    $scope.$watch('{unmorgageAmount:unmorgageAmount,unmorgageFee:unmorgageFee}', function(v) {
-        if (v.unmorgageAmount && v.unmorgageFee) {
+    $scope.$watch('{unmorgageAmount:unmorgageAmount,unmorgageLimit:unmorgageLimit,unmorgagePrice:unmorgagePrice}', function(v) {
+        if (v.unmorgageAmount && v.unmorgageLimit && v.unmorgagePrice) {
             $scope.unmorgagePass = true
         } else {
             $scope.unmorgagePass = false
@@ -118,7 +120,7 @@ app.controller('voteController', function($scope) {
 
     };
     $scope.privateKeyUnlock = function() {
-        if ($scope.length != 64) {
+        if ($scope.privateKey.length != 64) {
             $scope.privateKeyUnlockFail = true
             return
         }
@@ -142,7 +144,8 @@ app.controller('voteController', function($scope) {
                 modal.error({ msg: data.err })
                 return;
             }
-            $scope.balance = data.balance;
+            //$scope.balance = new Number(data.balance / Math.pow(10, 18)).toLocaleString().replace(/,/g, '');
+            $scope.balance = data.balance / Math.pow(10, 18)
             if ($scope.balance == null) {
                 $scope.balance = 0;
             }
@@ -152,29 +155,47 @@ app.controller('voteController', function($scope) {
             $scope.$apply();
         });
     };
-    $scope.refresh = function() {
-        let balance = $scope.balance
-        let bTimer = setInterval(() => {
-            $scope.getbalance()
-            let rBanlance = $scope.balance
-            if (balance != rBanlance) {
-                clearInterval(bTimer)
+    $scope.timeGetBalance = function() {
+        var wal = require("wal");
+        wal.getBalance($scope.address).then(data => {
+            if (typeof data === 'string') {
+                data = JSON.parse(data)
             }
-        })
-        let vote = $scope.vote
-        let vTimer = setInterval(() => {
-            $scope.getbalance()
-            let rVote = $scope.balance
-            if (balance != rBanlance) {
-                clearInterval(vTimer)
+            if ($scope.balance == data.balance / Math.pow(10, 18)) {
+                setTimeout(function() {
+                    $scope.timeGetBalance()
+                })
+            } else {
+                $scope.balance = data.balance / Math.pow(10, 18);
+                $scope.$apply();
             }
-        })
+        });
     }
     $scope.getNodes = function() {
         var wal = require("wal");
         wal.getNodes().then(nodes => {
             $scope.nodes = nodes;
             $scope.$apply();
+        })
+    }
+    $scope.timeGetNodes = function() {
+        var wal = require("wal");
+        wal.getNodes().then(nodes => {
+            let flag = false;
+            for (let n of $scope.nodes) {
+                for (let node of nodes) {
+                    if (n.node == node.node && n.num != node.num) {
+                        n.num = node.num
+                        flag = true
+                        $scope.$apply();
+                    }
+                }
+            }
+            if (!flag) {
+                setTimeout(function() {
+                    $scope.timeGetNodes()
+                }, 1000)
+            }
         })
     }
     $scope.getVotes = function() {
@@ -187,9 +208,26 @@ app.controller('voteController', function($scope) {
                 modal.error({ msg: data.err })
                 return;
             }
-            $scope.vote = data.stake;
+            $scope.vote = data.stake
             $scope.$apply();
         });
+    }
+    $scope.timeGetVote = function() {
+        var wal = require("wal");
+        wal.getVotes($scope.address).then(data => {
+            if (typeof data === 'string') {
+                data = JSON.parse(data)
+            }
+            if ($scope.vote == data.stake) {
+                setTimeout(function() {
+                    $scope.timeGetVote()
+                }, 1000)
+            } else {
+                $scope.vote = data.stake;
+                $scope.$apply();
+            }
+        });
+
     }
     $scope.Vote = function() {
         if ($scope.vote <= 0) {
@@ -199,8 +237,12 @@ app.controller('voteController', function($scope) {
             })
             return
         }
-        if (isNaN($scope.voteFee) || $scope.voteFee <= 0) {
-            modal.error({ msg: 'Fee is not valid' })
+        if (isNaN($scope.voteLimit) || $scope.voteLimit <= 0) {
+            modal.error({ msg: 'Limit is not valid' })
+            return
+        }
+        if (isNaN($scope.votePrice) || $scope.votePrice <= 0) {
+            modal.error({ msg: 'Limit is not valid' })
             return
         }
         let candies = [];
@@ -210,7 +252,7 @@ app.controller('voteController', function($scope) {
             }
         }
         var wal = require("wal");
-        wal.vote(candies, $scope.voteFee, $scope.privateKey).then(
+        wal.vote(candies, $scope.voteLimit, $scope.votePrice, $scope.privateKey).then(
             res => {
                 if (res.err) {
                     modal.error({ msg: res.err })
@@ -224,6 +266,7 @@ app.controller('voteController', function($scope) {
                                 modal.error({ msg: r.err })
                             } else {
                                 modal.success({ msg: r.hash })
+                                $scope.timeGetNodes()
                             }
                         })
                     })
@@ -236,12 +279,16 @@ app.controller('voteController', function($scope) {
             modal.error({ msg: 'Amount is not valid' })
             return
         }
-        if (isNaN($scope.morgageFee) || $scope.morgageFee <= 0) {
-            modal.error({ msg: 'Fee is not valid' })
+        if (isNaN($scope.morgageLimit) || $scope.morgageLimit <= 0) {
+            modal.error({ msg: 'Limit is not valid' })
+            return
+        }
+        if (isNaN($scope.morgagePrice) || $scope.morgagePrice <= 0) {
+            modal.error({ msg: 'Price is not valid' })
             return
         }
         var wal = require("wal");
-        wal.mortgage($scope.morgageAmount, $scope.morgageFee, $scope.privateKey).then(
+        wal.mortgage($scope.morgageAmount, $scope.morgageLimit, $scope.morgagePrice, $scope.privateKey).then(
             res => {
                 if (res.err) {
                     modal.error({ msg: res.err })
@@ -255,6 +302,8 @@ app.controller('voteController', function($scope) {
                                 modal.error({ msg: r.err })
                             } else {
                                 modal.success({ msg: r.hash })
+                                $scope.timeGetBalance()
+                                $scope.timeGetVote()
                             }
                         })
                     })
@@ -267,12 +316,17 @@ app.controller('voteController', function($scope) {
                 modal.error({ msg: 'Amount is not valid' })
                 return
             }
-            if (isNaN($scope.unmorgageFee) || $scope.unmorgageFee <= 0) {
-                modal.error({ msg: 'Fee is not valid' })
+            if (isNaN($scope.unmorgageLimit) || $scope.unmorgageLimit <= 0) {
+                modal.error({ msg: 'Limit is not valid' })
                 return
             }
+            if (isNaN($scope.unmorgagePrice) || $scope.unmorgagePrice <= 0) {
+                modal.error({ msg: 'Price is not valid' })
+                return
+            }
+
             var wal = require("wal");
-            wal.unmortgage($scope.unmorgageAmount, $scope.unmorgageFee, $scope.privateKey).then(
+            wal.unmortgage($scope.unmorgageAmount, $scope.unmorgageLimit, $scope.unmorgagePrice, $scope.privateKey).then(
                 res => {
                     if (res.err) {
                         modal.error({ msg: res.err })
@@ -286,6 +340,8 @@ app.controller('voteController', function($scope) {
                                     modal.error({ msg: r.err })
                                 } else {
                                     modal.success({ msg: res.hash })
+                                    $scope.timeGetBalance()
+                                    $scope.timeGetVote()
                                 }
                             })
                         })

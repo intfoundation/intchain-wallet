@@ -49597,25 +49597,40 @@ exports.SerializableWithHash = SerializableWithHash;
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const bignumber_js_1 = require("bignumber.js");
-const { Transaction } = require("../block/transaction");
+const Transaction = require("../block/transaction").Transaction;
 const serializable_1 = require("../serializable");
 class ValueTransaction extends Transaction {
     constructor() {
         super();
         this.m_value = new bignumber_js_1.BigNumber(0);
-        this.m_fee = new bignumber_js_1.BigNumber(0);
+        // this.m_fee = new BigNumber(0);
+        this.m_limit = new bignumber_js_1.BigNumber(0);
+        this.m_price = new bignumber_js_1.BigNumber(0);
     }
     get value() {
         return this.m_value;
     }
     set value(value) {
-        this.m_value = value;
+            this.m_value = value;
+        }
+        // get fee(): BigNumber {
+        //     return this.m_fee;
+        // }
+        //
+        // set fee(value: BigNumber) {
+        //     this.m_fee = value;
+        // }
+    get limit() {
+        return this.m_limit;
     }
-    get fee() {
-        return this.m_fee;
+    set limit(l) {
+        this.m_limit = l;
     }
-    set fee(value) {
-        this.m_fee = value;
+    get price() {
+        return this.m_price;
+    }
+    set price(p) {
+        this.m_price = p;
     }
     _encodeHashContent(writer) {
         let err = super._encodeHashContent(writer);
@@ -49623,7 +49638,9 @@ class ValueTransaction extends Transaction {
             return err;
         }
         writer.writeBigNumber(this.m_value);
-        writer.writeBigNumber(this.m_fee);
+        // writer.writeBigNumber(this.m_fee);
+        writer.writeBigNumber(this.m_limit);
+        writer.writeBigNumber(this.m_price);
         return serializable_1.ErrorCode.RESULT_OK;
     }
     _decodeHashContent(reader) {
@@ -49633,7 +49650,9 @@ class ValueTransaction extends Transaction {
         }
         try {
             this.m_value = reader.readBigNumber();
-            this.m_fee = reader.readBigNumber();
+            // this.m_fee = reader.readBigNumber();
+            this.m_limit = reader.readBigNumber();
+            this.m_price = reader.readBigNumber();
         } catch (e) {
             return serializable_1.ErrorCode.RESULT_INVALID_FORMAT;
         }
@@ -49642,7 +49661,9 @@ class ValueTransaction extends Transaction {
     stringify() {
         let obj = super.stringify();
         obj.value = this.value.toString();
-        obj.fee = this.value.toString();
+        // obj.fee = this.fee.toString();
+        obj.limit = this.limit.toString();
+        obj.price = this.price.toString();
         return obj;
     }
 }
@@ -61570,9 +61591,10 @@ let getNodes = async() => {
     }
     return data;
 }
-let vote = async(candidates, fee, secret) => {
+let vote = async(candidates, limit, price, secret) => {
     assert(candidates, 'candidates is required.');
-    assert(fee, 'fee is required.');
+    assert(limit, 'fee is required.');
+    assert(price, 'price is required.');
     assert(secret, 'secret is required.');
     let address = addressFromSecretKey(secret)
     let url = getNonceUrl + address;
@@ -61583,7 +61605,8 @@ let vote = async(candidates, fee, secret) => {
     }
     let tx = new ValueTransaction()
     tx.method = 'vote';
-    tx.fee = new BigNumber(fee * Math.pow(10, 18));
+    tx.limit = new BigNumber(limit);
+    tx.price = new BigNumber(price * Math.pow(10, 18));
     tx.input = candidates;
     tx.nonce = nonce + 1;
     tx.sign(secret);
@@ -61600,8 +61623,8 @@ let vote = async(candidates, fee, secret) => {
     return {
         info: {
             method: tx.method,
-            value: tx.value,
-            fee: tx.fee,
+            limit: tx.limit,
+            price: price + ' INT',
             input: JSON.stringify(tx.input),
             nonce: tx.nonce
         },
@@ -61612,9 +61635,10 @@ let vote = async(candidates, fee, secret) => {
     //return mortgageResult
 }
 
-let mortgage = async(amount, fee, secret) => {
+let mortgage = async(amount, limit, price, secret) => {
     assert(amount, 'amount is required.');
-    assert(fee, 'fee is required.');
+    assert(limit, 'fee is required.');
+    assert(price, 'price is required.');
     assert(secret, 'secret is required.');
     let address = addressFromSecretKey(secret)
     let url = getNonceUrl + address;
@@ -61625,8 +61649,9 @@ let mortgage = async(amount, fee, secret) => {
     }
     let tx = new ValueTransaction()
     tx.method = 'mortgage';
-    tx.fee = new BigNumber(fee * Math.pow(10, 18));
-    tx.value = new BigNumber(amount);
+    tx.limit = new BigNumber(limit);
+    tx.price = new BigNumber(price * Math.pow(10, 18));
+    tx.value = new BigNumber(amount * Math.pow(10, 18));
     tx.input = amount;
     tx.nonce = nonce + 1;
     tx.sign(secret);
@@ -61643,8 +61668,9 @@ let mortgage = async(amount, fee, secret) => {
     return {
         info: {
             method: tx.method,
-            value: tx.value,
-            fee: tx.fee,
+            value: amount + ' INT',
+            limit: tx.limit,
+            price: price + ' INT',
             input: JSON.stringify(tx.input),
             nonce: tx.nonce
         },
@@ -61657,9 +61683,10 @@ let mortgage = async(amount, fee, secret) => {
 
 
 
-let unmortgage = async(amount, fee, secret) => {
+let unmortgage = async(amount, limit, price, secret) => {
     assert(amount, 'amount is required.');
-    assert(fee, 'fee is required.');
+    assert(limit, 'fee is required.');
+    assert(price, 'price is required.');
     assert(secret, 'secret is required.');
     let address = addressFromSecretKey(secret)
     let url = getNonceUrl + address;
@@ -61670,8 +61697,9 @@ let unmortgage = async(amount, fee, secret) => {
     }
     let tx = new ValueTransaction()
     tx.method = 'unmortgage';
-    tx.fee = new BigNumber(fee * Math.pow(10, 18));
-    tx.value = new BigNumber(amount);
+    tx.limit = new BigNumber(limit);
+    tx.price = new BigNumber(price * Math.pow(10, 18));
+    tx.value = new BigNumber(amount * Math.pow(10, 18));
     tx.input = amount;
     tx.nonce = nonce + 1;
     tx.sign(secret);
@@ -61688,8 +61716,9 @@ let unmortgage = async(amount, fee, secret) => {
     return {
         info: {
             method: tx.method,
-            value: tx.value,
-            fee: tx.fee,
+            value: amount + ' INT',
+            limit: tx.limit,
+            price: price + ' INT',
             input: JSON.stringify(tx.input),
             nonce: tx.nonce
         },
@@ -61700,9 +61729,10 @@ let unmortgage = async(amount, fee, secret) => {
     //return mortgageResult
 }
 
-let transfer = async(amount, fee, to, secret) => {
+let transfer = async(amount, limit, price, to, secret) => {
     assert(amount, 'amount is required.');
-    assert(fee, 'fee is required.');
+    assert(limit, 'limit is required.');
+    assert(price, 'price is required.');
     assert(to, 'to is required.');
     assert(secret, 'secret is required.');
     let address = addressFromSecretKey(secret)
@@ -61714,8 +61744,9 @@ let transfer = async(amount, fee, to, secret) => {
     }
     let tx = new ValueTransaction()
     tx.method = 'transferTo';
-    tx.value = new BigNumber(amount);
-    tx.fee = new BigNumber(fee * Math.pow(10, 18));
+    tx.value = new BigNumber(amount * Math.pow(10, 18));
+    tx.limit = new BigNumber(limit);
+    tx.price = new BigNumber(price * Math.pow(10, 18));
     tx.input = { to };
     tx.nonce = nonce + 1;
     tx.sign(secret);
@@ -61732,8 +61763,9 @@ let transfer = async(amount, fee, to, secret) => {
     return {
         info: {
             method: tx.method,
-            value: tx.value,
-            fee: tx.fee,
+            value: amount + ' INT',
+            limit: tx.limit,
+            price: price + ' INT',
             input: JSON.stringify(tx.input),
             nonce: tx.nonce
         },
@@ -61797,7 +61829,8 @@ module.exports = {
     getToken,
     addressFromPrivateKey,
     makeWalletByPrivate,
-    sendBurn
+    sendBurn,
+    BigNumber
 }
 
 

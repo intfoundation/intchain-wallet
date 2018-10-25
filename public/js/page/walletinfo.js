@@ -75,7 +75,7 @@ app.controller('walletinfoController', function($scope) {
                 modal.error({ msg: data.err })
                 return;
             }
-            $scope.vote = data.stoke;
+            $scope.vote = data.stake;
             $scope.$apply();
         });
     }
@@ -110,6 +110,12 @@ app.controller('walletinfoController', function($scope) {
             $scope.getbalance()
             $scope.getVotes()
             $scope.getToken()
+            $('#addressqrcode').qrcode({
+                render: "canvas",
+                width: 180,
+                height: 180,
+                text: $scope.address
+            });
         }
         $scope.$apply();
     }
@@ -123,7 +129,7 @@ app.controller('walletinfoController', function($scope) {
                 modal.error({ msg: data.err })
                 return;
             }
-            $scope.balance = 'INT:' + data.balance;
+            $scope.balance = 'INT:' + (data.balance / Math.pow(10, 18));
             if ($scope.balance == null) {
                 $scope.balance = 'INT:' + 0;
             }

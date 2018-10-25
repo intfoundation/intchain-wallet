@@ -16,7 +16,8 @@ app.controller('sendintController', function($scope) {
     $scope.balance = 0;
     $scope.toAddress;
     $scope.amount;
-    $scope.fee;
+    $scope.limit;
+    $scope.price;
     $scope.$watch('password', function(newValue, oldValue) {
         if ($scope.password.length >= 9) {
             $scope.unlockDisabled = false
@@ -81,7 +82,7 @@ app.controller('sendintController', function($scope) {
 
     };
     $scope.privateKeyUnlock = function() {
-        if ($scope.length != 64) {
+        if ($scope.privateKey.length != 64) {
             $scope.privateKeyUnlockFail = true
             return
         }
@@ -105,7 +106,7 @@ app.controller('sendintController', function($scope) {
                 modal.error({ msg: data.err })
                 return;
             }
-            $scope.balance = data.balance;
+            $scope.balance = data.balance / Math.pow(10, 18);
             if ($scope.balance == null) {
                 $scope.balance = 0;
             }
@@ -113,8 +114,8 @@ app.controller('sendintController', function($scope) {
             $scope.$apply();
         });
     };
-    $scope.$watch('{toAddress:toAddress,amount:amount,fee:fee}', function(v) {
-        if (v.toAddress && v.amount && v.fee) {
+    $scope.$watch('{toAddress:toAddress,amount:amount,limit:limit,price:price}', function(v) {
+        if (v.toAddress && v.amount && v.limit && v.price) {
             $scope.pass = true
         } else {
             $scope.pass = false
@@ -134,11 +135,15 @@ app.controller('sendintController', function($scope) {
             modal.error({ msg: 'Amount must be less then balance' })
             return
         }
-        if (isNaN($scope.fee) || $scope.fee <= 0) {
-            modal.error({ msg: 'Fee is not valid' })
+        if (isNaN($scope.limit) || $scope.limit <= 0) {
+            modal.error({ msg: 'Limit is not valid' })
             return
         }
-        wal.transfer($scope.amount, $scope.fee, $scope.toAddress, $scope.privateKey)
+        if (isNaN($scope.price) || $scope.price <= 0) {
+            modal.error({ msg: 'Price is not valid' })
+            return
+        }
+        wal.transfer($scope.amount, $scope.limit, $scope.price, $scope.toAddress, $scope.privateKey)
             .then(res => {
                 if (res.err) {
                     modal.error({ msg: res.err })

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>int wallet</title>
     <link rel="stylesheet" href="./css/index.css" />
+    <link rel="icon" href="./images/logo.png" type="image/x-icon" />
     <script src="./js/plugins/jquery/jquery-3.3.1.min.js"></script>
     <link href="./js/plugins/layer/skin/default/layer.css" rel="stylesheet">
     <script src="./js/plugins/layer/layer.js"></script>
@@ -372,7 +373,7 @@
             </div>
             <div class="content">
                 <div class="con-top">
-                    <img src="./images/send.png" alt=""><span>New wallet</span>
+                    <img src="./images/send.png" alt=""><span>Send INT</span>
                 </div>
                 <div class="main">
                     <div ng-show="step==1">
@@ -393,14 +394,15 @@
                                 <span>Private Key</span>
                             </div>
                         </div>
+
                         <div ng-show="ch=='keyStore'">
                             <div class="se">Select Your Wallet File</div>
-                            <div class="warn">
+                            <!-- <div class="warn">
                                 <img src="./images/warn.png" width="12px">
                                 <span>this is not a recommended  way to access your wallet. Entering your private key on
                             a website dangerous. If our website is compromised or you accidentally visit a
                             different website, your funds will be stolen</span>
-                            </div>
+                            </div> -->
                             <div file-uploader password="password" file="file" class="ch-file">
                             </div>
                             <div class="btn-dis" ng-show="unlockDisabled">Unlock</div>
@@ -413,12 +415,12 @@
                         </div>
                         <div ng-show="ch=='privateKey'">
                             <div class="se">Paste Your Private Key</div>
-                            <div class="warn">
+                            <!-- <div class="warn">
                                 <img src="./images/warn.png" width="12px">
                                 <span>this is not a recommended  way to access your wallet. Entering your private key on
                             a website dangerous. If our website is compromised or you accidentally visit a
                             different website, your funds will be stolen</span>
-                            </div>
+                            </div> -->
 
                             <div style="height: 16px"></div>
                             <div class="in-box">
@@ -462,9 +464,15 @@
                             </div>
                         </div>
                         <div class="item-box">
-                            <div class="lable">Fee</div>
+                            <div class="lable">Limit</div>
                             <div class="in-box">
-                                <input type="text" placeholder="Fee" ng-model="fee">
+                                <input type="text" placeholder="Limit" ng-model="limit">
+                            </div>
+                        </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">Price</div>
+                            <div class="in-box">
+                                <input type="text" placeholder="Price" ng-model="price">
                             </div>
                         </div>
                         <div class="btn-dis" style="margin-top: 48px" ng-show="!pass">Generate transaction</div>

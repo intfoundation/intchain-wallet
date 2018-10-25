@@ -68,8 +68,8 @@ app.controller('mappingController', function($scope, $http) {
                         if (typeof r === 'string') {
                             r = JSON.parse(r)
                         }
-                        if (r.err) {
-                            modal.error({ msg: r.err })
+                        if (r.status == 'error') {
+                            modal.error({ msg: r.message })
                         } else {
                             modal.burnSuccess({ msg: r.hash })
                         }

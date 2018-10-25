@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>int wallet</title>
     <link rel="stylesheet" href="./css/index.css" />
+    <link rel="icon" href="./images/logo.png" type="image/x-icon" />
     <script src="./js/plugins/jquery/jquery-3.3.1.min.js"></script>
     <link href="./js/plugins/layer/skin/default/layer.css" rel="stylesheet">
     <script src="./js/plugins/layer/layer.js"></script>
@@ -340,13 +341,13 @@
             vertical-align: top;
             margin-left: 24px;
             border-right: 1px solid rgba(221, 233, 255, 1);
-            width: 525px;
+            width: 430px;
         }
         
         .node-item .vote {
             display: inline-block;
             vertical-align: top;
-            margin-left: 97px;
+            margin-left: 10px;
         }
         
         .node-box {
@@ -504,18 +505,27 @@
                                 <div class="vote"><span style="color: rgba(60, 49, 215, 1)">{{n.num}}</span> votes</div>
                             </div>
                         </div>
-                        <div class="item-box" style="display: inline-block">
-                            <div class="lable">Fee</div>
+                        <div class="item-box">
+                            <div class="lable">Limit</div>
                             <div class="in-box">
-                                <input type="text" placeholder="Fee" ng-model="voteFee">
+                                <input type="text" placeholder="Limit" ng-model="voteLimit">
                             </div>
                         </div>
-                        <span style="display:inline-block;margin-left: 150px;width: 40px">{{chNum}}/59</span>
-                        <div style="display: inline-block;margin-left: 25px">
-                            <div class="btn-dis" style="margin-top: 48px" ng-show="!votePass">Vote</div>
-                            <div class="btn-unlock" style="margin-top: 48px" ng-click="Vote()" ng-show="votePass">
-                                Vote</div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">Price</div>
+                            <div class="in-box">
+                                <input type="text" placeholder="Price" ng-model="votePrice">
+                            </div>
                         </div>
+                        <div>
+                            <span style="display:inline-block;margin-left: 570px;width: 40px">{{chNum}}/59</span>
+                            <div style="display: inline-block;margin-left: 25px">
+                                <div class="btn-dis" style="margin-top: 48px" ng-show="!votePass">Vote</div>
+                                <div class="btn-unlock" style="margin-top: 48px" ng-click="Vote()" ng-show="votePass">
+                                    Vote</div>
+                            </div>
+                        </div>
+
                     </div>
                     <div ng-show="action=='Mortgage' && step == 2">
                         <div class="item-box">
@@ -537,11 +547,18 @@
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">Fee</div>
+                            <div class="lable">Limit</div>
                             <div class="in-box">
-                                <input type="text" ng-model="morgageFee" placeholder="please enter Fee">
+                                <input type="text" ng-model="morgageLimit" placeholder="please enter Limit">
                             </div>
                         </div>
+                        <div class="item-box">
+                            <div class="lable">Price</div>
+                            <div class="in-box">
+                                <input type="text" ng-model="morgagePrice" placeholder="please enter Price">
+                            </div>
+                        </div>
+
                         <div class="btn-dis" style="margin-top: 48px" ng-show="!morgagePass">Morgage</div>
                         <div class="btn-unlock" style="margin-top: 48px" ng-click="Morgage()" ng-show="morgagePass">Morgage</div>
                     </div>
@@ -565,9 +582,15 @@
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">Fee</div>
+                            <div class="lable">Limit</div>
                             <div class="in-box">
-                                <input type="text" ng-model="unmorgageFee" placeholder="please enter Fee">
+                                <input type="text" ng-model="unmorgageLimit" placeholder="please enter Limit">
+                            </div>
+                        </div>
+                        <div class="item-box">
+                            <div class="lable">Price</div>
+                            <div class="in-box">
+                                <input type="text" ng-model="unmorgagePrice" placeholder="please enter Price">
                             </div>
                         </div>
                         <div class="btn-dis" style="margin-top: 48px" ng-show="!unmorgagePass">Unmorgage</div>
