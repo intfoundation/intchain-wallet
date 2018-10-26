@@ -105,6 +105,7 @@ app.controller('walletinfoController', function($scope) {
         $scope.address = wal.addressFromPrivateKey($scope.privateKey)
         if (!$scope.address) {
             $scope.privateKeyUnlockFail = true
+            $scope.$apply();
         } else {
             $scope.step = 2;
             $scope.getbalance()
@@ -116,8 +117,9 @@ app.controller('walletinfoController', function($scope) {
                 height: 180,
                 text: $scope.address
             });
+            $scope.$apply();
         }
-        $scope.$apply();
+
     }
     $scope.getbalance = function() {
         var wal = require("wal");

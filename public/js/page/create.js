@@ -65,8 +65,9 @@ app.controller('mainController', function($scope, $http) {
     }
     $scope.downFile = function() {
         var wal = require("wal");
-        var data = wal.makeWalletAccount($.trim($scope.password));
-        var filename = data.json.address + ".json";
+        //var data = wal.makeWalletAccount($.trim($scope.password));
+        var data = $scope.data
+        var filename = $scope.data.json.address + ".json";
         var fdata = JSON.stringify(data.json);
         var blob = new Blob([fdata], { type: "application/octet-stream" });
         var objectUrl = URL.createObjectURL(blob);

@@ -9,7 +9,9 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node server.js",
         "watch": "gulp watch",
-        "build": "browserify --require  ./src/index.js:wal ./src/index.js > wal.js"
+        "transform": "gulp transform",
+        "build": "browserify --require  ./dist/server/index.js:wal ./dist/server/index.js > wal.js",
+        "build2": "browserify --require  ./src/index.js:wal ./src/index.js > wal.js"
     },
     "author": "",
     "license": "ISC",
@@ -20,6 +22,9 @@
         "babel-preset-stage-2": "^6.24.1",
         "bignumber.js": "^7.2.1",
         "ethereumjs-tx": "^1.3.6",
+        "gulp": "^3.9.1",
+        "gulp-babel": "^7.0.0",
+        "gulp-watch": "^5.0.0",
         "express": "^4.16.3",
         "fs-extra": "^6.0.1",
         "multer": "^1.3.0",
@@ -27,9 +32,11 @@
         "qr-image": "^3.2.0",
         "rlp": "^2.1.0",
         "secp256k1": "^3.4.0",
+        "sqlite": "^3.0.0",
         "web3": "^1.0.0-beta.21",
         "web3-eth": "^1.0.0-beta.21",
-        "web3-eth-personal": "^1.0.0-beta.21"
+        "web3-eth-personal": "^1.0.0-beta.21",
+        "winston": "^3.1.0"
     },
     "devDependencies": {},
     "description": ""

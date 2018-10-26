@@ -30,10 +30,10 @@ let makeWalletAccount = pwd => {
     let [key, secret] = createKeyPair();
     let addr = addressFromSecretKey(secret);
     let address = addr;
-    console.log(secret)
     let privateKey = secret.toString('hex')
-    console.log(privateKey)
     let json = encrypt(privateKey, pwd)
+    let privatekey2 = decrypt(json, pwd)
+    console.log(privateKey, privatekey2)
     json.address = address;
     return { json, privateKey };
 }
