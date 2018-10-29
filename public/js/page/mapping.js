@@ -33,7 +33,7 @@ app.controller('mappingController', function($scope, $http) {
                 $scope.model.decimalAmount = data.balance;
                 $scope.model.mydata = data.mydata;
                 $scope.model.mynonce = data.mynonce;
-                $scope.model.decimalGas = data.gasPrice;
+                $scope.model.decimalGas = (data.gasPrice / Math.pow(10, 18)).toFixed(18).replace(/\.0+$/, "").replace(/(\.\d+[1-9])0+$/, "$1")
                 $scope.$apply();
             } else {
                 util.alert(data.message)
@@ -79,7 +79,9 @@ app.controller('mappingController', function($scope, $http) {
                         if (r.status == 'error') {
                             modal.error({ msg: r.message })
                         } else {
-                            modal.burnSuccess({ msg: r.hash })
+                            // modal.burnSuccess({ msg: r.hash })
+                            modal.burnSuccess({ msg: 'https://etherscan.io/tx/' + res.hash })
+
                         }
                     })
                 })

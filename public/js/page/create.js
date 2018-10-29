@@ -61,13 +61,15 @@ app.controller('mainController', function($scope, $http) {
         }
         var password = $.trim($scope.password);
         if (password != $scope.password) {
-            modal.error({ msg: 'Can‘t create wallet , password should not start or end with space' })
+            modal.error({
+                msg: "Can't create wallet,password should not start or end with space "
+            })
             return
         }
         var wal = require("wal");
         var data = wal.makeWalletAccount(password);
-        $scope.data = data
-        $scope.privateKey = data.privateKey
+        $scope.data = data;
+        $scope.privateKey = data.privateKey;
         $scope.step = 2
     }
     $scope.downFile = function() {

@@ -6,7 +6,7 @@ modal.showInfo = function(obj = {}, cal) {
     callbak = cal
     let div = document.createElement("div");
     div.setAttribute('id', 'modal')
-    let dom = `<div style="position:absolute;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">
+    let dom = `<div style="position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">
     <div style="width: 700px;margin: 200px auto;z-index: 101px;border-radius: 4px">
         <div style="color:rgba(51,51,51,1);font-size:20px; width: 100%;height: 76px;line-height:
                 76px;background-color:
@@ -141,11 +141,10 @@ modal.burnSuccess = function(obj, cal) {
                 <span style="margin-left:10px;width:380px;display:inline-block;vertical-align: top">
                 Operation success, click the URL below to view the results.<br>
 	                <span onClick="toEth(this)" style="word-wrap:break-word;cursor: pointer;">
-                    https://etherscan.io/tx/${msg}
+                    ${msg}
 					</span>                
                 </span>
             </div>
-
             <div    onclick="Ok()"
                     style="padding:0 10px;margin-top: 20px;cursor: pointer;
                     float: right;text-align:center;line-height:30px;border-radius:3px;background-color:#409eff;color:rgba(255, 255,255, 1)"

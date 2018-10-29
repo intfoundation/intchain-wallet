@@ -201,7 +201,8 @@ app.controller('sendintController', function($scope) {
                         if (r.err) {
                             modal.error({ msg: r.err })
                         } else {
-                            modal.success({ msg: res.hash })
+                            modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + res.hash })
+
                         }
                     })
                 })

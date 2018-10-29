@@ -307,7 +307,9 @@ app.controller('voteController', function($scope) {
                             if (r.err) {
                                 modal.error({ msg: r.err })
                             } else {
-                                modal.success({ msg: r.hash })
+                                // modal.success({ msg: r.hash })
+                                modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + res.hash })
+
                                 $scope.timeGetNodes()
                             }
                         })
@@ -349,7 +351,9 @@ app.controller('voteController', function($scope) {
                             if (r.err) {
                                 modal.error({ msg: r.err })
                             } else {
-                                modal.success({ msg: r.hash })
+                                //modal.success({ msg: r.hash })
+                                modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + res.hash })
+
                                 $scope.timeGetBalance()
                                 $scope.timeGetVote()
                             }
@@ -393,7 +397,8 @@ app.controller('voteController', function($scope) {
                                 if (r.err) {
                                     modal.error({ msg: r.err })
                                 } else {
-                                    modal.success({ msg: res.hash })
+                                    //modal.success({ msg: res.hash })
+                                    modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + res.hash })
                                     $scope.timeGetBalance()
                                     $scope.timeGetVote()
                                 }

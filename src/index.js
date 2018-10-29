@@ -146,8 +146,8 @@ let vote = async(candidates, limit, price, secret) => {
     return {
         info: {
             method: tx.method,
-            limit: tx.limit,
-            price: price,
+            'gas limit': tx.limit,
+            'gas price': price,
             fee: tx.limit * price + ' INT',
             input: JSON.stringify(tx.input),
             nonce: tx.nonce
@@ -193,8 +193,8 @@ let mortgage = async(amount, limit, price, secret) => {
         info: {
             method: tx.method,
             amount: amount + ' INT',
-            limit: tx.limit,
-            price: price,
+            'gas limit': tx.limit,
+            'gas price': price,
             fee: tx.limit * price + ' INT',
             input: JSON.stringify(tx.input),
             nonce: tx.nonce
@@ -242,8 +242,8 @@ let unmortgage = async(amount, limit, price, secret) => {
         info: {
             method: tx.method,
             amount: amount + ' INT',
-            limit: tx.limit,
-            price: price,
+            'gas limit': tx.limit,
+            'gas price': price,
             fee: tx.limit * price + ' INT',
             input: JSON.stringify(tx.input),
             nonce: tx.nonce
@@ -290,8 +290,8 @@ let transfer = async(amount, limit, price, to, secret) => {
         info: {
             method: tx.method,
             amount: amount + ' INT',
-            limit: tx.limit,
-            price: price,
+            'gas limit': tx.limit,
+            'gas price': price,
             fee: tx.limit * price + ' INT',
             input: JSON.stringify(tx.input),
             nonce: tx.nonce
