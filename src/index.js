@@ -145,12 +145,12 @@ let vote = async(candidates, limit, price, secret) => {
     let renderStr = encodeRender.toString('hex')
     return {
         info: {
-            method: tx.method,
-            'gas limit': tx.limit,
-            'gas price': price,
-            fee: tx.limit * price + ' INT',
-            input: JSON.stringify(tx.input),
-            nonce: tx.nonce
+            Method: tx.method,
+            'Gas limit': tx.limit,
+            'Gas price': price,
+            Fee: tx.limit * price + ' INT',
+            Input: JSON.stringify(tx.input),
+            Nonce: tx.nonce
         },
         renderStr: renderStr,
         hash: tx.m_hash
@@ -191,13 +191,13 @@ let mortgage = async(amount, limit, price, secret) => {
     let renderStr = encodeRender.toString('hex')
     return {
         info: {
-            method: tx.method,
-            amount: amount + ' INT',
-            'gas limit': tx.limit,
-            'gas price': price,
-            fee: tx.limit * price + ' INT',
-            input: JSON.stringify(tx.input),
-            nonce: tx.nonce
+            Method: tx.method,
+            Amount: amount + ' INT',
+            'Gas limit': tx.limit,
+            'Gas price': price,
+            Fee: tx.limit * price + ' INT',
+            Input: JSON.stringify(tx.input),
+            Nonce: tx.nonce
         },
         renderStr: renderStr,
         hash: tx.m_hash
@@ -240,13 +240,13 @@ let unmortgage = async(amount, limit, price, secret) => {
     let renderStr = encodeRender.toString('hex')
     return {
         info: {
-            method: tx.method,
-            amount: amount + ' INT',
-            'gas limit': tx.limit,
-            'gas price': price,
-            fee: tx.limit * price + ' INT',
-            input: JSON.stringify(tx.input),
-            nonce: tx.nonce
+            Method: tx.method,
+            Amount: amount + ' INT',
+            'Gas limit': tx.limit,
+            'Gas price': price,
+            Fee: tx.limit * price + ' INT',
+            Input: JSON.stringify(tx.input),
+            Nonce: tx.nonce
         },
         renderStr: renderStr,
         hash: tx.m_hash
@@ -288,13 +288,13 @@ let transfer = async(amount, limit, price, to, secret) => {
     let renderStr = encodeRender.toString('hex')
     return {
         info: {
-            method: tx.method,
-            amount: amount + ' INT',
-            'gas limit': tx.limit,
-            'gas price': price,
-            fee: tx.limit * price + ' INT',
-            input: JSON.stringify(tx.input),
-            nonce: tx.nonce
+            Method: tx.method,
+            Amount: amount + ' INT',
+            'Gas limit': tx.limit,
+            'Gas price': price,
+            Fee: tx.limit * price + ' INT',
+            Input: JSON.stringify(tx.input),
+            Nonce: tx.nonce
         },
         renderStr: renderStr,
         hash: tx.m_hash

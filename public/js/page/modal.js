@@ -16,8 +16,8 @@ modal.showInfo = function(obj = {}, cal) {
         <div style="font-size:16px;width: 100%;padding:10px 0 28px 0;background-color:
         rgba(255,255,255,1);color:rgba(102,102,102,1) ;border-bottom: 1px solid #d7d7d7">`
     for (let o in obj) {
-        dom += `<div style="margin-top: 18px">
-                 <div style="display: inline-block;width: 180px;text-align: right;vertical-align: top">${o}:</div>
+        dom += `<div style="margin-top: 18px;margin-left:20px">
+                 <div style="display: inline-block;width: 180px;text-align: left;vertical-align: top">${o}:</div>
                  <div style="display: inline-block;width: 480px;text-align: left;word-break: break-all ;vertical-align: top">
                      ${obj[o]}</div>
              </div>`

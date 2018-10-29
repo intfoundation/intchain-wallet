@@ -57,10 +57,11 @@ async function getSerializedTx(options) {
             return;
         }
         let info = {
-                "ETH Wallet Address": options.fromAddress,
-                "INT Wallet Address": options.toAddress,
-                "Gas Price": gasPrice,
-                "Gas Limit": gasLimit,
+                "ETH wallet address": options.fromAddress,
+                "INT wallet address": options.toAddress,
+                "Gas price": options.decimalGas,
+                "Gas limit": gasLimit,
+                "Fee": gasLimit * options.decimalGas + "ETH",
                 "Method": "burn(uint256)",
                 "Nonce": options.mynonce,
                 "Amount": options.decimalAmount + " INT",
