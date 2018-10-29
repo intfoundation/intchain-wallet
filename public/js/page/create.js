@@ -43,9 +43,16 @@ app.controller('mainController', function($scope, $http) {
             $scope.rePwdTip = false
         }
     }
+    $scope.enterEvent = function(e) {
+        var keycode = window.event ? e.keyCode : e.which;
+        if (keycode == 13) {
+            $scope.create();
+        }
+    }
     $scope.create = function() {
         if ($scope.password.length < 9) {
             $scope.pwdTip = true
+            modal.error({ msg: 'Your password must be at least 9 characters ' })
             return
         }
         if ($scope.password != $scope.password2) {
@@ -54,7 +61,7 @@ app.controller('mainController', function($scope, $http) {
         }
         var password = $.trim($scope.password);
         if (password != $scope.password) {
-            modal.error({ msg: 'password is not valid' })
+            modal.error({ msg: 'Can‘t create wallet , password should not start or end with space' })
             return
         }
         var wal = require("wal");

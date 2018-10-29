@@ -68,7 +68,8 @@ app.directive('fileUploader', function($http) {
         scope: {
             url: '=url',
             file: '=file',
-            password: '=password'
+            password: '=password',
+            //enterUnlock: '=enterUnlock'
         },
         // template: '<div class="is"><div class="lt1"><span>{{name}}</span></div>' +
         //     '<div class="lt2"><a href="javascript:void(0)"><input type="file">浏览</a></div>' +
@@ -77,7 +78,7 @@ app.directive('fileUploader', function($http) {
         // ' class="ip"  placeholder="Please enter your password"></div></div>',
         template: `<div class="is">
 	                 <div class="lt1">
-	                       <span>SELECT WALLET FILE{{ch}}</span>
+	                       <span>SELECT KEYSTORE{{ch}}</span>
 	                 </div>
                      <div class="lt2" style="display:none"><a href="javascript:void(0)"><input type="file">浏览</a></div>
 	        </div><div ng-show="show" style="display:block;width: 800px;height: 79px"><div class="mi middle">Your wallet is
@@ -85,16 +86,19 @@ app.directive('fileUploader', function($http) {
 	        enter the
 	        password</div>
 	        <div class="in-box">
-	            <input ng-show="!pwdView" type="password"
+	            <input ng-show="!pwdView" type="password" ng-keyup="enterUnlock($event)" 
 	                   ng-model="password" 
 	                   placeholder="Enter your wallet password">
-	            <input ng-show="pwdView" type="text"   ng-model="password"
+	            <input ng-show="pwdView" type="text"  ng-keyup="enterUnlock($event)"  ng-model="password"
 	                   placeholder="Enter your wallet password">
 	            <img ng-click="pwdView=!pwdView" ng-show="pwdView" src="./images/eyeopen.png">
 	            <img ng-click="pwdView=!pwdView" ng-show="!pwdView" src="./images/eyeclose.png">
 	        </div></div>`,
         link: function(scope, element, attributes) {
             scope.show = false;
+            scope.enterUnlock = function(e) {
+                scope.$parent.enterUnlock(e)
+            }
 
             $(element).find(".lt1").on('click', function() {
                 $(element).find("input[type=file]").trigger('click');

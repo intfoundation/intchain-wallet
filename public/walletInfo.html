@@ -264,7 +264,6 @@
         
         input::-webkit-input-placeholder {
             color: rgba(153, 153, 153, 1);
-            font-size: 14px;
             font-family: PingFangSC-Regular;
         }
         
@@ -352,7 +351,7 @@
             <div class="header-box">
                 <div class="header-con">
                     <div class="logo">
-                        <img src="./images/logo.png" width="82px" height="54px">
+                        <img src="./images/intlogo.png" width="82px" height="54px">
                     </div>
                     <div class="tabbar-box">
                         <div class="tab-item ">
@@ -381,7 +380,7 @@
                         </div>
                         <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item">
                             <span>
-                                    <a href="./vote.html?action=Vote">Vote</a>
+                                    <a href="javascript:;" >Vote</a>
                <img  src="./images/voteunac.png" alt="">
               </span>
                             <div class="b-line"></div>
@@ -390,6 +389,11 @@
                                     <a href="./vote.html?action=Mortgage">
                                 Mortgage
                             </a>
+                                </div>
+                                <div class="voteTab-item">
+                                    <a href="./vote.html?action=Vote">
+                                        Vote
+                                    </a>
                                 </div>
                                 <div class="voteTab-item">
                                     <a href="./vote.html?action=Unmortgage">
@@ -454,8 +458,8 @@
 
                             <div style="height: 16px"></div>
                             <div class="in-box">
-                                <input ng-show="!privateKeyView" type="password" ng-model="privateKey" ng-change="unlockDisabled = false " placeholder="Enter your wallet privateKey">
-                                <input ng-show="privateKeyView" type="text" ng-model="privateKey" placeholder="Enter your wallet privateKey">
+                                <input ng-keyup="enterUnlock($event)" ng-show="!privateKeyView" type="password" ng-model="privateKey" ng-change="unlockDisabled = false " placeholder="Enter your wallet privateKey">
+                                <input ng-keyup="enterUnlock($event)" ng-show="privateKeyView" type="text" ng-model="privateKey" placeholder="Enter your wallet privateKey">
                                 <img ng-click="privateKeyView=!privateKeyView" ng-show="privateKeyView" src="./images/eyeopen.png">
                                 <img ng-click="privateKeyView=!privateKeyView" ng-show="!privateKeyView" src="./images/eyeclose.png">
                             </div>

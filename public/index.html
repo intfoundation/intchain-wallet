@@ -7,7 +7,8 @@
     <link rel="icon" href="./images/logo.png" type="image/x-icon" />
     <script src="./js/plugins/jquery/jquery-3.3.1.min.js"></script>
     <link href="./js/plugins/layer/skin/default/layer.css" rel="stylesheet">
-    <script src="./js/plugins/layer/layer.js"></script>
+    <script type="text/javascript" src="./js/plugins/layer/layer.js"></script>
+    <script type="text/javascript" src="./js/page/modal.js"></script>
     <script type="text/javascript" src="./js/plugins/angular/angular.js"></script>
     <script type="text/javascript" src="./js/plugins/angular/angular-sanitize.min.js"></script>
     <script type="text/javascript" src="./js/plugins/angular/angular-animate.min.js"></script>
@@ -69,7 +70,6 @@
         
         input::-webkit-input-placeholder {
             color: rgba(153, 153, 153, 1);
-            font-size: 14px;
             font-family: PingFangSC-Regular;
         }
         
@@ -162,7 +162,7 @@
             <div class="header-box">
                 <div class="header-con">
                     <div class="logo">
-                        <img src="./images/logo.png" width="82px" height="54px">
+                        <img src="./images/intlogo.png" width="82px" height="54px">
                     </div>
                     <div class="tabbar-box">
                         <div class="tab-item active">
@@ -192,7 +192,7 @@
                         </div>
                         <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item">
                             <span>
-                                    <a href="./vote.html?action=Vote">Vote</a>
+                                    <a href="javascript:;" >Vote</a>
                                      <img  src="./images/voteunac.png" alt="">
                       </span>
                             <div></div>
@@ -200,6 +200,11 @@
                                 <div class="voteTab-item">
                                     <a href="./vote.html?action=Mortgage">
                                         Mortgage
+                                    </a>
+                                </div>
+                                <div class="voteTab-item">
+                                    <a href="./vote.html?action=Vote">
+                                        Vote
                                     </a>
                                 </div>
                                 <div class="voteTab-item">
@@ -220,23 +225,27 @@
                     <div class="title">Create new wallet</div>
                     <span class="tip">Please ensure it is a strong password</span><br/>
                     <div class="in-box">
-                        <input ng-show="!pwdView" type="password" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="Enter your wallet password">
-                        <input ng-show="pwdView" type="text" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="Enter your wallet password">
+                        <input ng-keyup="enterEvent($event)" ng-show="!pwdView" type="password" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="Enter your wallet password">
+                        <input ng-keyup="enterEvent($event)" ng-show="pwdView" type="text" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="Enter your wallet password">
                         <img ng-click="pwdView=!pwdView" ng-show="pwdView" src="./images/eyeopen.png">
                         <img ng-click="pwdView=!pwdView" ng-show="!pwdView" src="./images/eyeclose.png">
                     </div>
                     <span ng-show="pwdTip" class="pwdtip">Your password must be at least 9 characters</span>
                     <br/>
                     <div class="in-box">
-                        <input ng-show="!rePwdView" type="password" ng-change="rePwdChange()" ng-blur="rePwdBlur()" ng-model="password2" placeholder="Enter the wallet password again">
-                        <input ng-show="rePwdView" type="text" ng-change="rePwdChange()" ng-blur="rePwdBlur()" ng-model="password2" placeholder="Enter the wallet password again">
+                        <input ng-keyup="enterEvent($event)" ng-show="!rePwdView" type="password" ng-change="rePwdChange()" ng-blur="rePwdBlur()" ng-model="password2" placeholder="Enter the wallet password again">
+                        <input ng-keyup="enterEvent($event)" ng-show="rePwdView" type="text" ng-change="rePwdChange()" ng-blur="rePwdBlur()" ng-model="password2" placeholder="Enter the wallet password again">
 
                         <img ng-click="rePwdView=!rePwdView" ng-show="rePwdView" src="./images/eyeopen.png">
                         <img ng-click="rePwdView=!rePwdView" ng-show="!rePwdView" src="./images/eyeclose.png">
                     </div>
-                    <span ng-show="rePwdTip" class="pwdtip">两次输入的密码不一致</span>
+                    <span ng-show="rePwdTip" class="pwdtip">Password doesn't match , please try again</span>
                     <div class="warn">
-                        <img src="./images/eyeopen.png" alt="">
+                        <img src="./images/warn.png" alt="" height="12px">
+                        <span>Password should not start or end with space</span>
+                    </div>
+                    <div class="warn">
+                        <img src="./images/warn.png" alt="" height="12px">
                         <span>The download file contains your wallet info, don't share it to others,otherwise your money
                     will be stolen</span>
                     </div>

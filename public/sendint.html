@@ -262,7 +262,6 @@
         
         input::-webkit-input-placeholder {
             color: rgba(153, 153, 153, 1);
-            font-size: 14px;
             font-family: PingFangSC-Regular;
         }
         
@@ -320,7 +319,7 @@
             <div class="header-box">
                 <div class="header-con">
                     <div class="logo">
-                        <img src="./images/logo.png" width="82px" height="54px">
+                        <img src="./images/intlogo.png" width="82px" height="54px">
                     </div>
                     <div class="tabbar-box">
                         <div class="tab-item ">
@@ -351,7 +350,7 @@
                         </div>
                         <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item">
                             <span>
-                                    <a href="./vote.html?action=Vote">Vote</a>
+                                    <a href="javascript:;" >Vote</a>
                                     <img  src="./images/voteunac.png" alt="">
                              </span>
                             <div class="b-line"></div>
@@ -359,6 +358,11 @@
                                 <div class="voteTab-item">
                                     <a href="./vote.html?action=Mortgage">
                                         Mortgage
+                                    </a>
+                                </div>
+                                <div class="voteTab-item">
+                                    <a href="./vote.html?action=Vote">
+                                        Vote
                                     </a>
                                 </div>
                                 <div class="voteTab-item">
@@ -424,8 +428,8 @@
 
                             <div style="height: 16px"></div>
                             <div class="in-box">
-                                <input ng-show="!privateKeyView" type="password" ng-model="privateKey" ng-change="unlockDisabled = false " placeholder="Enter your wallet privateKey">
-                                <input ng-show="privateKeyView" type="text" ng-model="privateKey" placeholder="Enter your wallet privateKey">
+                                <input ng-keyup="enterUnlock($event)" ng-show="!privateKeyView" type="password" ng-model="privateKey" ng-change="unlockDisabled = false " placeholder="Enter your wallet privateKey">
+                                <input ng-keyup="enterUnlock($event)" ng-show="privateKeyView" type="text" ng-model="privateKey" placeholder="Enter your wallet privateKey">
                                 <img ng-click="privateKeyView=!privateKeyView" ng-show="privateKeyView" src="./images/eyeopen.png">
                                 <img ng-click="privateKeyView=!privateKeyView" ng-show="!privateKeyView" src="./images/eyeclose.png">
                             </div>
@@ -442,37 +446,37 @@
                         <div class="item-box">
                             <div class="lable">From address</div>
                             <div class="in-box">
-                                <input type="text" ng-model="address">
+                                <input ng-keyup="enterEvent($event)" type="text" ng-model="address">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
                             <div class="lable">balance</div>
                             <div class="in-box">
-                                <input type="text" ng-model="balance">
+                                <input ng-keyup="enterEvent($event)" type="text" readonly ng-model="balance">
                             </div>
                         </div>
                         <div class="item-box">
                             <div class="lable">To address</div>
                             <div class="in-box">
-                                <input type="text" placeholder="To address" ng-model="toAddress">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="To address" ng-model="toAddress">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
                             <div class="lable">Amount</div>
                             <div class="in-box">
-                                <input type="text" placeholder="Amount" ng-model="amount">
+                                <input ng-keyup="enterEvent($event)" ng-blur="getLimit()" type="text" placeholder="Amount" ng-model="amount">
                             </div>
                         </div>
                         <div class="item-box">
-                            <div class="lable">Limit</div>
+                            <div class="lable">Gas Limit</div>
                             <div class="in-box">
-                                <input type="text" placeholder="Limit" ng-model="limit">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="Gas Limit" ng-model="limit">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">Price</div>
+                            <div class="lable">Gas Price (INT)</div>
                             <div class="in-box">
-                                <input type="text" placeholder="Price" ng-model="price">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="Gas Price (INT)" ng-model="price">
                             </div>
                         </div>
                         <div class="btn-dis" style="margin-top: 48px" ng-show="!pass">Generate transaction</div>

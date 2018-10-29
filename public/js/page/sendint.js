@@ -17,7 +17,7 @@ app.controller('sendintController', function($scope) {
     $scope.toAddress;
     $scope.amount;
     $scope.limit;
-    $scope.price;
+    $scope.price = 0.00001;
     $scope.$watch('password', function(newValue, oldValue) {
         if ($scope.password.length >= 9) {
             $scope.unlockDisabled = false
@@ -25,6 +25,12 @@ app.controller('sendintController', function($scope) {
             $scope.unlockDisabled = true
         }
     });
+    $scope.enterUnlock = function(e) {
+        var keycode = window.event ? e.keyCode : e.which;
+        if (keycode == 13 && !$scope.unlockDisabled) {
+            $scope.unlock();
+        }
+    }
     $scope.unlock = function() {
         if ($scope.ch === "keyStore") {
             $scope.keyStoreUnlock()
@@ -71,7 +77,8 @@ app.controller('sendintController', function($scope) {
                 $scope.address = filedata.address;
                 $scope.privateKey = data;
                 $scope.keyStoreUnlockFail = false
-                $scope.getbalance()
+                $scope.getbalance();
+                $scope.getPrice()
                 $scope.$apply();
             }).catch(e => {
                 $scope.keyStoreUnlockFail = true
@@ -81,6 +88,35 @@ app.controller('sendintController', function($scope) {
         reader.readAsText(file);
 
     };
+    $scope.getPrice = function() {
+        var wal = require("wal");
+        wal.getPrice().then(data => {
+            if (typeof data === 'string') {
+                data = JSON.parse(data)
+            }
+            if (data.err) {
+                modal.error({ msg: data.err })
+                return;
+            }
+            $scope.price = (data.gasPrice / Math.pow(10, 18)).toFixed(18).replace(/\.0+$/, "").replace(/(\.\d+[1-9])0+$/, "$1")
+            $scope.$apply();
+        })
+    }
+    $scope.getLimit = function() {
+        var wal = require("wal");
+        wal.getLimit('transferTo', $scope.amount).then(data => {
+            if (typeof data === 'string') {
+                data = JSON.parse(data)
+            }
+            if (data.err) {
+                modal.error({ msg: data.err })
+                return;
+            }
+            $scope.limit = data.limit
+            $scope.$apply();
+        })
+    }
+
     $scope.privateKeyUnlock = function() {
         if ($scope.privateKey.length != 64) {
             $scope.privateKeyUnlockFail = true
@@ -92,6 +128,7 @@ app.controller('sendintController', function($scope) {
             $scope.privateKeyUnlockFail = true
         } else {
             $scope.getbalance()
+            $scope.getPrice()
             $scope.step = 2;
         }
         $scope.$apply();
@@ -121,6 +158,12 @@ app.controller('sendintController', function($scope) {
             $scope.pass = false
         }
     })
+    $scope.enterEvent = function(e) {
+        var keycode = window.event ? e.keyCode : e.which;
+        if (keycode == 13 && $scope.pass) {
+            $scope.send();
+        }
+    }
     $scope.send = function() {
         var wal = require("wal");
         if ($scope.toAddress.length != 34) {

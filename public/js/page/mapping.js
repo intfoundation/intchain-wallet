@@ -10,7 +10,8 @@ app.controller('mappingController', function($scope, $http) {
         decimalGas: '',
         fromAddressPrivateKey: '',
         mydata: '',
-        mynonce: ''
+        mynonce: '',
+        gasLimit: 40000
     };
     $scope.$watch('{f:model.fromAddress,t:model.toAddress,g:model.decimalGas,p:model.fromAddressPrivateKey}', function(v) {
         if (v.f && v.t && v.g && v.p) {
@@ -32,10 +33,17 @@ app.controller('mappingController', function($scope, $http) {
                 $scope.model.decimalAmount = data.balance;
                 $scope.model.mydata = data.mydata;
                 $scope.model.mynonce = data.mynonce;
+                $scope.model.decimalGas = data.gasPrice;
                 $scope.$apply();
             } else {
                 util.alert(data.message)
             }
+        }
+    }
+    $scope.enterEvent = function(e) {
+        var keycode = window.event ? e.keyCode : e.which;
+        if (keycode == 13 && $scope.pass) {
+            $scope.toMapping();
         }
     }
     $scope.toMapping = async function() {

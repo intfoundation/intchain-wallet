@@ -134,7 +134,6 @@
         
         input::-webkit-input-placeholder {
             color: rgba(153, 153, 153, 1);
-            font-size: 14px;
             font-family: PingFangSC-Regular;
         }
         
@@ -191,7 +190,7 @@
             <div class="header-box">
                 <div class="header-con">
                     <div class="logo">
-                        <img src="./images/logo.png" width="82px" height="54px">
+                        <img src="./images/intlogo.png" width="82px" height="54px">
                     </div>
                     <div class="tabbar-box">
                         <div class="tab-item ">
@@ -221,7 +220,7 @@
                         </div>
                         <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item">
                             <span>
-                                    <a href="./vote.html?action=Vote">Vote</a>
+                                    <a href="javascript:;" >Vote</a>
                <img  src="./images/voteunac.png" alt="">
               </span>
                             <div class="b-line"></div>
@@ -230,6 +229,11 @@
                                     <a href="./vote.html?action=Mortgage">
                                 Mortgage
                             </a>
+                                </div>
+                                <div class="voteTab-item">
+                                    <a href="./vote.html?action=Vote">
+                                        Vote
+                                    </a>
                                 </div>
                                 <div class="voteTab-item">
                                     <a href="./vote.html?action=Unmortgage">
@@ -250,36 +254,42 @@
                         <div class="item-box">
                             <div class="lable">ETH wallet address</div>
                             <div class="in-box">
-                                <input type="text" ng-blur="queryBalance()" placeholder="Please enter ETH wallet address" ng-model="model.fromAddress">
+                                <input ng-keyup="enterEvent($event)" type="text" ng-blur="queryBalance()" placeholder="Please enter ETH wallet address" ng-model="model.fromAddress">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
                             <div class="lable">ETH wallet private key</div>
                             <div class="in-box">
-                                <input type="text" placeholder="Please enter ETH wallet private key" ng-model="model.fromAddressPrivateKey">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="Please enter ETH wallet private key" ng-model="model.fromAddressPrivateKey">
                             </div>
                         </div>
                         <div class="item-box">
                             <div class="lable">Balance</div>
                             <div class="in-box">
-                                <input type="text" readonly placeholder="Balance" ng-model="model.decimalAmount">
+                                <input ng-keyup="enterEvent($event)" type="text" readonly placeholder="Balance" ng-model="model.decimalAmount">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
                             <div class="lable">INT wallet address</div>
                             <div class="in-box">
-                                <input type="text" placeholder="Please enter INT wallet address" ng-model="model.toAddress">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="Please enter INT wallet address" ng-model="model.toAddress">
                             </div>
                         </div>
                         <div class="item-box">
-                            <div class="lable">Gas price</div>
+                            <div class="lable">Gas price (ETH)</div>
                             <div class="in-box">
-                                <input type="text" placeholder="Please enter gas price" ng-model="model.decimalGas">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="Please enter gas price" ng-model="model.decimalGas">
                             </div>
                         </div>
-                        <div class="btn-dis" style="margin-top: 48px" ng-show="!pass">Generate transaction</div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">Gas limit</div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" type="text" readonly placeholder="Please enter gas limit" ng-model="model.gasLimit">
+                            </div>
+                        </div>
+                        <div class="btn-dis" style="margin-top: 48px" ng-show="!pass">Start Mapping</div>
                         <div ng-click="toMapping()" class="btn-unlock" style="margin-top: 48px" ng-click="send()" ng-show="pass">
-                            Generate transaction</div>
+                            Start Mapping</div>
                     </div>
                 </div>
             </div>

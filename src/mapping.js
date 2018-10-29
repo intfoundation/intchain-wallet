@@ -47,7 +47,7 @@ async function getSerializedTx(options) {
         var decimalGas = options.decimalGas;
         var fromAddress = options.fromAddress;
         var fromAddressPrivateKey = options.fromAddressPrivateKey;
-        let gasLimit = 100000;
+        let gasLimit = options.gasLimit; //100000;
         //合约转账
         //let amount = Math.round(decimalAmount * Math.pow(10,18));//代币的小数位
         let gasPrice = Math.round(decimalGas * Math.pow(10, decimalDigits));

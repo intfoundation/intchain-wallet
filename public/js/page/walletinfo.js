@@ -28,6 +28,12 @@ app.controller('walletinfoController', function($scope) {
             $scope.unlockDisabled = true
         }
     });
+    $scope.enterUnlock = function(e) {
+        var keycode = window.event ? e.keyCode : e.which;
+        if (keycode == 13 && !$scope.unlockDisabled) {
+            $scope.unlock();
+        }
+    }
     $scope.unlock = function() {
         if ($scope.ch === "keyStore") {
             $scope.keyStoreUnlock()

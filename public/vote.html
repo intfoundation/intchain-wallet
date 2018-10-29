@@ -257,7 +257,6 @@
         
         input::-webkit-input-placeholder {
             color: rgba(153, 153, 153, 1);
-            font-size: 14px;
             font-family: PingFangSC-Regular;
         }
         
@@ -368,7 +367,7 @@
             <div class="header-box">
                 <div class="header-con">
                     <div class="logo">
-                        <img src="./images/logo.png" width="82px" height="54px">
+                        <img src="./images/intlogo.png" width="82px" height="54px">
                     </div>
                     <div class="tabbar-box">
                         <div class="tab-item ">
@@ -397,7 +396,7 @@
                             <div></div>
                         </div>
                         <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item active">
-                            <span ng-click="action='Vote'">
+                            <span>
                                         Vote
                                     <img  src="./images/voteac.png" alt="">
                             </span>
@@ -406,6 +405,11 @@
                                 <div class="voteTab-item">
                                     <a href="javascript:;" ng-click="action='Mortgage'">
                                     Mortgage
+                                </a>
+                                </div>
+                                <div class="voteTab-item">
+                                    <a href="javascript:;" ng-click="action='Vote'">
+                                    Vote
                                 </a>
                                 </div>
                                 <div class="voteTab-item">
@@ -471,8 +475,8 @@
 
                             <div style="height: 16px"></div>
                             <div class="in-box">
-                                <input ng-show="!privateKeyView" type="password" ng-model="privateKey" ng-change="unlockDisabled = false " placeholder="Enter your wallet privateKey">
-                                <input ng-show="privateKeyView" type="text" ng-model="privateKey" placeholder="Enter your wallet privateKey">
+                                <input ng-keyup="enterUnlock($event)" ng-show="!privateKeyView" type="password" ng-model="privateKey" ng-change="unlockDisabled = false " placeholder="Enter your wallet privateKey">
+                                <input ng-keyup="enterUnlock($event)" ng-show="privateKeyView" type="text" ng-model="privateKey" placeholder="Enter your wallet privateKey">
                                 <img ng-click="privateKeyView=!privateKeyView" ng-show="privateKeyView" src="./images/eyeopen.png">
                                 <img ng-click="privateKeyView=!privateKeyView" ng-show="!privateKeyView" src="./images/eyeclose.png">
                             </div>
@@ -489,17 +493,23 @@
                         <div class="item-box">
                             <div class="lable">Your votes</div>
                             <div class="in-box">
-                                <input type="text" readonly ng-model="vote">
+                                <input ng-keyup="enterVote($event)" type="text" readonly ng-model="vote">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
                             <div class="lable">Wallet Balance</div>
                             <div class="in-box">
-                                <input type="text" readonly ng-model="balance">
+                                <input ng-keyup="enterVote($event)" type="text" readonly ng-model="balance">
+                            </div>
+                        </div>
+                        <div class="item-box">
+                            <div class="lable">search</div>
+                            <div class="in-box">
+                                <input ng-keyup="enterVote($event)" type="text" ng-model="searchStr">
                             </div>
                         </div>
                         <div class="node-box">
-                            <div class="node-item" ng-repeat="n in nodes" ng-click="chooseNodes($index)">
+                            <div class="node-item" ng-repeat="n in nodes" ng-click="chooseNodes($index)" ng-if="n.node.indexOf(searchStr)>=0">
                                 <img ng-show="n.ch" class="icon" src="./images/choose.png" alt="">
                                 <div ng-show="!n.ch" class="no-ch"></div>
                                 <div class="node">{{n.node}}</div>
@@ -507,15 +517,15 @@
                             </div>
                         </div>
                         <div class="item-box">
-                            <div class="lable">Limit</div>
+                            <div class="lable">Gas Limit</div>
                             <div class="in-box">
-                                <input type="text" placeholder="Limit" ng-model="voteLimit">
+                                <input ng-keyup="enterVote($event)" type="text" placeholder="Gas Limit" ng-model="voteLimit">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">Price</div>
+                            <div class="lable">Gas Price (INT)</div>
                             <div class="in-box">
-                                <input type="text" placeholder="Price" ng-model="votePrice">
+                                <input ng-keyup="enterVote($event)" type="text" placeholder="Gas Price" ng-model="votePrice">
                             </div>
                         </div>
                         <div>
@@ -532,70 +542,70 @@
                         <div class="item-box">
                             <div class="lable">Your votes</div>
                             <div class="in-box">
-                                <input type="text" readonly ng-model="vote">
+                                <input ng-keyup="enterMorgage($event)" type="text" readonly ng-model="vote">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
                             <div class="lable">Wallet Balance</div>
                             <div class="in-box">
-                                <input type="text" readonly ng-model="balance">
+                                <input ng-keyup="enterMorgage($event)" type="text" readonly ng-model="balance">
                             </div>
                         </div>
                         <div class="item-box">
                             <div class="lable">Amount</div>
                             <div class="in-box">
-                                <input type="text" ng-model="morgageAmount" placeholder="please enter Amount">
+                                <input ng-blur="getLimit('mortgage',morgageAmount)" ng-keyup="enterMorgage($event)" type="text" ng-model="morgageAmount" placeholder="please enter Amount">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">Limit</div>
+                            <div class="lable">Gas Limit</div>
                             <div class="in-box">
-                                <input type="text" ng-model="morgageLimit" placeholder="please enter Limit">
+                                <input ng-keyup="enterMorgage($event)" type="text" ng-model="morgageLimit" placeholder="please enter Gas Limit">
                             </div>
                         </div>
                         <div class="item-box">
-                            <div class="lable">Price</div>
+                            <div class="lable">Gas Price (INT)</div>
                             <div class="in-box">
-                                <input type="text" ng-model="morgagePrice" placeholder="please enter Price">
+                                <input ng-keyup="enterMorgage($event)" ng-keyup="enterEvent($event)" type="text" ng-model="morgagePrice" placeholder="please enter Gas Price">
                             </div>
                         </div>
 
-                        <div class="btn-dis" style="margin-top: 48px" ng-show="!morgagePass">Morgage</div>
-                        <div class="btn-unlock" style="margin-top: 48px" ng-click="Morgage()" ng-show="morgagePass">Morgage</div>
+                        <div class="btn-dis" style="margin-top: 48px" ng-show="!morgagePass">mortgage</div>
+                        <div class="btn-unlock" style="margin-top: 48px" ng-click="Morgage()" ng-show="morgagePass">mortgage</div>
                     </div>
                     <div ng-show="action=='Unmortgage' && step == 2">
                         <div class="item-box">
                             <div class="lable">Your votes</div>
                             <div class="in-box">
-                                <input type="text" readonly ng-model="vote">
+                                <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" readonly ng-model="vote">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
                             <div class="lable">Wallet Balance</div>
                             <div class="in-box">
-                                <input type="text" readonly ng-model="balance">
+                                <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" readonly ng-model="balance">
                             </div>
                         </div>
                         <div class="item-box">
                             <div class="lable">Amount</div>
                             <div class="in-box">
-                                <input type="text" ng-model="unmorgageAmount" placeholder="please enter Amount">
+                                <input ng-blur="getLimit('unmortgage',unmorgageAmount)" ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" ng-model="unmorgageAmount" placeholder="please enter Amount">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">Limit</div>
+                            <div class="lable">Gas Limit</div>
                             <div class="in-box">
-                                <input type="text" ng-model="unmorgageLimit" placeholder="please enter Limit">
+                                <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" ng-model="unmorgageLimit" placeholder="please enter Gas Limit">
                             </div>
                         </div>
                         <div class="item-box">
-                            <div class="lable">Price</div>
+                            <div class="lable">Gas Price (INT)</div>
                             <div class="in-box">
-                                <input type="text" ng-model="unmorgagePrice" placeholder="please enter Price">
+                                <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" ng-model="unmorgagePrice" placeholder="please enter Gas Price">
                             </div>
                         </div>
-                        <div class="btn-dis" style="margin-top: 48px" ng-show="!unmorgagePass">Unmorgage</div>
-                        <div class="btn-unlock" style="margin-top: 48px" ng-click="Unmorgage()" ng-show="unmorgagePass">Unmorgage</div>
+                        <div class="btn-dis" style="margin-top: 48px" ng-show="!unmorgagePass">unmortgage</div>
+                        <div class="btn-unlock" style="margin-top: 48px" ng-click="Unmorgage()" ng-show="unmorgagePass">unmortgage</div>
                     </div>
                 </div>
             </div>
@@ -618,17 +628,14 @@
         <!--he dissolvability of the soluble dietary fibers ( SSDF) extracted from-->
         <!--</span>-->
         <!--</div>-->
-
         <!--<div-->
         <!--style="padding:0 10px;margin-top: 20px;-->
         <!--float: right;text-align:center;line-height:30px;border-radius:3px;background-color:#409eff;color:rgba(255, 255,255, 1)">-->
-
         <!--confirm-->
         <!--</div>-->
         <!--<div style="height: 50px"></div>-->
         <!--</div>-->
         <!--</div>-->
-
     </body>
 
 </html>

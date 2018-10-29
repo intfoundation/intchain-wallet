@@ -11,7 +11,7 @@ modal.showInfo = function(obj = {}, cal) {
         <div style="color:rgba(51,51,51,1);font-size:20px; width: 100%;height: 76px;line-height:
                 76px;background-color:
                 rgba(244,248,255,1);border-bottom: 1px solid #d7d7d7">
-            <span style="margin-left: 32px">You will send INT</span>
+            <span style="margin-left: 32px">Confirm the following information</span>
         </div>
         <div style="font-size:16px;width: 100%;padding:10px 0 28px 0;background-color:
         rgba(255,255,255,1);color:rgba(102,102,102,1) ;border-bottom: 1px solid #d7d7d7">`

@@ -20,10 +20,21 @@ const {
     getMydataUrl,
     burnIntOnEthUrl,
     queryIntOnEthUrl,
-    getTokenUrl
+    getTokenUrl,
+    getPriceUrl,
+    getLimitUrl
 } = require('./cfg')
 
 const Mapping = require("./mapping");
+let getPrice = async() => {
+    let result = await http.sendGet(getPriceUrl);
+    return result;
+}
+let getLimit = async(method, input) => {
+    let url = getLimitUrl + '/' + method + '/' + input
+    let result = await http.sendGet(url);
+    return result;
+}
 
 let makeWalletAccount = pwd => {
     assert(pwd, 'pwd must not empty');
@@ -136,7 +147,8 @@ let vote = async(candidates, limit, price, secret) => {
         info: {
             method: tx.method,
             limit: tx.limit,
-            price: price + ' INT',
+            price: price,
+            fee: tx.limit * price + ' INT',
             input: JSON.stringify(tx.input),
             nonce: tx.nonce
         },
@@ -180,9 +192,10 @@ let mortgage = async(amount, limit, price, secret) => {
     return {
         info: {
             method: tx.method,
-            value: amount + ' INT',
+            amount: amount + ' INT',
             limit: tx.limit,
-            price: price + ' INT',
+            price: price,
+            fee: tx.limit * price + ' INT',
             input: JSON.stringify(tx.input),
             nonce: tx.nonce
         },
@@ -228,9 +241,10 @@ let unmortgage = async(amount, limit, price, secret) => {
     return {
         info: {
             method: tx.method,
-            value: amount + ' INT',
+            amount: amount + ' INT',
             limit: tx.limit,
-            price: price + ' INT',
+            price: price,
+            fee: tx.limit * price + ' INT',
             input: JSON.stringify(tx.input),
             nonce: tx.nonce
         },
@@ -275,9 +289,10 @@ let transfer = async(amount, limit, price, to, secret) => {
     return {
         info: {
             method: tx.method,
-            value: amount + ' INT',
+            amount: amount + ' INT',
             limit: tx.limit,
-            price: price + ' INT',
+            price: price,
+            fee: tx.limit * price + ' INT',
             input: JSON.stringify(tx.input),
             nonce: tx.nonce
         },
@@ -342,9 +357,10 @@ module.exports = {
     addressFromPrivateKey,
     makeWalletByPrivate,
     sendBurn,
-    BigNumber
+    BigNumber,
+    getPrice,
+    getLimit
 }
-
 
 //transfer(2, 3, '1F9hNoR4xhPeqEcvjQ1qt7hLrdZhAQepcm', 'a86f164acf7eaff87c12c0dae926506a9ba31cd2f68f0d55f96a1b891b961d02')
 //mortgage(100, 2, 'a86f164acf7eaff87c12c0dae926506a9ba31cd2f68f0d55f96a1b891b961d02')

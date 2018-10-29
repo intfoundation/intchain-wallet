@@ -18,7 +18,7 @@ app.controller('voteController', function($scope) {
     $scope.vote = 0;
     $scope.toAddress;
     $scope.amount;
-    $scope.voteLmit;
+    $scope.voteLimit;
     $scope.votePrice
     $scope.chNum = 0
     $scope.morgageAmount;
@@ -29,32 +29,8 @@ app.controller('voteController', function($scope) {
     $scope.unmorgageLimit;
     $scope.unmorgagePrice;
     $scope.unmorgagePass = false;
-
-    $scope.nodes = [
-        { node: "sokmnjchuygtfzvdetqlpojdnmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetqlpojdnmc2dhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetqlp2jdnmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetqlpojdnmcudhs2zj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetql2ojdnmmudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjc2uygtfzvdetqlpojd2mcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuyg3fzvdetqlpojdnmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvd3tqlpojdnmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetqlpo3dnmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetqlpoj3nmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetqlpo33nmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetqlp333nmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetql3333nmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetq33333nmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdet333333nmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetqlpoj4nmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetqlpoj5nmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetqlpoj6nmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetqlpoj7nmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetqlpoj8nmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetqlpoj9nmcudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetqlpojdn0cudhsbzj", num: 212.31245, ch: false },
-        { node: "sokmnjchuygtfzvdetqlpojdnmcudh0bzj", num: 212.31245, ch: false },
-    ]
+    $scope.searchStr = "";
+    $scope.nodes = []
     $scope.$watch('password', function(newValue, oldValue) {
         if ($scope.password.length >= 9) {
             $scope.unlockDisabled = false
@@ -85,11 +61,22 @@ app.controller('voteController', function($scope) {
     })
     $scope.chooseNodes = function(index) {
         let chNum = 0
+        if ($scope.chNum >= 20) {
+            modal.error({ msg: 'You can choose 20 at most' })
+            return;
+        }
         $scope.nodes[index].ch = !$scope.nodes[index].ch;
         for (let n of $scope.nodes) {
             if (n.ch) chNum++
         }
         $scope.chNum = chNum;
+        $scope.getLimit('vote')
+    }
+    $scope.enterUnlock = function(e) {
+        var keycode = window.event ? e.keyCode : e.which;
+        if (keycode == 13 && !$scope.unlockDisabled) {
+            $scope.unlock();
+        }
     }
     $scope.unlock = function() {
         if ($scope.ch === "keyStore") {
@@ -109,7 +96,8 @@ app.controller('voteController', function($scope) {
                 $scope.address = filedata.address;
                 $scope.privateKey = data;
                 $scope.keyStoreUnlockFail = false
-                $scope.getbalance()
+                $scope.getbalance();
+                $scope.getPrice();
                 $scope.$apply();
             }).catch(e => {
                 $scope.keyStoreUnlockFail = true
@@ -119,6 +107,53 @@ app.controller('voteController', function($scope) {
         reader.readAsText(file);
 
     };
+    $scope.getLimit = function(method, input) {
+        if (method == 'vote') {
+            let candies = [];
+            for (let n of $scope.nodes) {
+                if (n.ch) {
+                    candies.push(n.node)
+                }
+            }
+            input = JSON.stringify(candies)
+        }
+        var wal = require("wal");
+        wal.getLimit(method, input).then(data => {
+            if (typeof data === 'string') {
+                data = JSON.parse(data)
+            }
+            if (data.err) {
+                modal.error({ msg: data.err })
+                return;
+            }
+            if (method == 'vote') {
+                $scope.voteLimit = data.limit
+            } else if (method == 'mortgage') {
+                $scope.morgageLimit = data.limit
+            } else if (method == 'unmortgage') {
+                $scope.unmorgageLimit = data.limit
+            }
+            $scope.$apply();
+        })
+    }
+
+    $scope.getPrice = function() {
+        var wal = require("wal");
+        wal.getPrice().then(data => {
+            if (typeof data === 'string') {
+                data = JSON.parse(data)
+            }
+            if (data.err) {
+                modal.error({ msg: data.err })
+                return;
+            }
+            $scope.votePrice = (data.gasPrice / Math.pow(10, 18)).toFixed(18).replace(/\.0+$/, "").replace(/(\.\d+[1-9])0+$/, "$1")
+            $scope.morgagePrice = (data.gasPrice / Math.pow(10, 18)).toFixed(18).replace(/\.0+$/, "").replace(/(\.\d+[1-9])0+$/, "$1")
+            $scope.unmorgagePrice = (data.gasPrice / Math.pow(10, 18)).toFixed(18).replace(/\.0+$/, "").replace(/(\.\d+[1-9])0+$/, "$1")
+
+            $scope.$apply();
+        })
+    }
     $scope.privateKeyUnlock = function() {
         if ($scope.privateKey.length != 64) {
             $scope.privateKeyUnlockFail = true
@@ -130,6 +165,7 @@ app.controller('voteController', function($scope) {
             $scope.privateKeyUnlockFail = true
         } else {
             $scope.getbalance()
+            $scope.getPrice()
             $scope.step = 2;
         }
         $scope.$apply();
@@ -229,6 +265,12 @@ app.controller('voteController', function($scope) {
         });
 
     }
+    $scope.enterVote = function(e) {
+        var keycode = window.event ? e.keyCode : e.which;
+        if (keycode == 13 && $scope.votePass) {
+            $scope.Vote();
+        }
+    }
     $scope.Vote = function() {
         if ($scope.vote <= 0) {
             modal.error({ msg: 'please mortgage first' }, function() {
@@ -274,6 +316,12 @@ app.controller('voteController', function($scope) {
             }
         )
     }
+    $scope.enterMorgage = function(e) {
+        var keycode = window.event ? e.keyCode : e.which;
+        if (keycode == 13 && $scope.morgagePass) {
+            $scope.Morgage();
+        }
+    }
     $scope.Morgage = function() {
         if (isNaN($scope.morgageAmount) || $scope.morgageAmount <= 0) {
             modal.error({ msg: 'Amount is not valid' })
@@ -310,6 +358,12 @@ app.controller('voteController', function($scope) {
                 }
             }
         )
+    }
+    $scope.enterUnmorgage = function(e) {
+        var keycode = window.event ? e.keyCode : e.which;
+        if (keycode == 13 && $scope.unmorgagePass) {
+            $scope.Unmorgage();
+        }
     }
     $scope.Unmorgage = function() {
             if (isNaN($scope.unmorgageAmount) || $scope.unmorgageAmount <= 0) {
@@ -644,4 +698,5 @@ app.controller('voteController', function($scope) {
 //         "fee": "1"
 //     }]
 
+// }
 // }

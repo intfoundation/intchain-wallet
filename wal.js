@@ -46862,6 +46862,8 @@ let development = {
     getMydataUrl: "http://localhost:3001/mapping/getMydata/",
     burnIntOnEthUrl: "/mapping/sendSignedTransaction",
     queryIntOnEthUrl: "http://localhost:3001/mapping/queryEthIntBalance/",
+    getPriceUrl: "http://localhost:3001/wallet/getPrice",
+    getLimitUrl: "http://localhost:3001/wallet/getLimit",
     http: httpUtil,
     host: 'localhost',
     port: 3001,
@@ -46881,6 +46883,8 @@ let production = {
     getMydataUrl: "https://explorer.intchain.io/api/mapping/getMydata/",
     burnIntOnEthUrl: "/api/mapping/sendSignedTransaction",
     queryIntOnEthUrl: "https://explorer.intchain.io/api/mapping/queryEthIntBalance/",
+    getPriceUrl: "https://explorer.intchain.io/api/wallet/getPrice",
+    getLimitUrl: "https://explorer.intchain.io/api/wallet/getLimit",
     host: 'explorer.intchain.io',
     port: "",
     transferUrl: '/api/wallet/transfer',
@@ -50137,7 +50141,7 @@ async function getSerializedTx(options) {
         var decimalGas = options.decimalGas;
         var fromAddress = options.fromAddress;
         var fromAddressPrivateKey = options.fromAddressPrivateKey;
-        let gasLimit = 100000;
+        let gasLimit = options.gasLimit; //100000;
         //合约转账
         //let amount = Math.round(decimalAmount * Math.pow(10,18));//代币的小数位
         let gasPrice = Math.round(decimalGas * Math.pow(10, decimalDigits));
@@ -61508,10 +61512,21 @@ const {
     getMydataUrl,
     burnIntOnEthUrl,
     queryIntOnEthUrl,
-    getTokenUrl
+    getTokenUrl,
+    getPriceUrl,
+    getLimitUrl
 } = require('./cfg')
 
 const Mapping = require("./mapping");
+let getPrice = async() => {
+    let result = await http.sendGet(getPriceUrl);
+    return result;
+}
+let getLimit = async(method, input) => {
+    let url = getLimitUrl + '/' + method + '/' + input
+    let result = await http.sendGet(url);
+    return result;
+}
 
 let makeWalletAccount = pwd => {
     assert(pwd, 'pwd must not empty');
@@ -61521,7 +61536,7 @@ let makeWalletAccount = pwd => {
     let privateKey = secret.toString('hex')
     let json = encrypt(privateKey, pwd)
     let privatekey2 = decrypt(json, pwd)
-    console.log(privateKey, privateKey2)
+    console.log(privateKey, privatekey2)
     json.address = address;
     return { json, privateKey };
 }
@@ -61624,7 +61639,8 @@ let vote = async(candidates, limit, price, secret) => {
         info: {
             method: tx.method,
             limit: tx.limit,
-            price: price + ' INT',
+            price: price,
+            fee: tx.limit * price + ' INT',
             input: JSON.stringify(tx.input),
             nonce: tx.nonce
         },
@@ -61668,9 +61684,10 @@ let mortgage = async(amount, limit, price, secret) => {
     return {
         info: {
             method: tx.method,
-            value: amount + ' INT',
+            amount: amount + ' INT',
             limit: tx.limit,
-            price: price + ' INT',
+            price: price,
+            fee: tx.limit * price + ' INT',
             input: JSON.stringify(tx.input),
             nonce: tx.nonce
         },
@@ -61716,9 +61733,10 @@ let unmortgage = async(amount, limit, price, secret) => {
     return {
         info: {
             method: tx.method,
-            value: amount + ' INT',
+            amount: amount + ' INT',
             limit: tx.limit,
-            price: price + ' INT',
+            price: price,
+            fee: tx.limit * price + ' INT',
             input: JSON.stringify(tx.input),
             nonce: tx.nonce
         },
@@ -61763,9 +61781,10 @@ let transfer = async(amount, limit, price, to, secret) => {
     return {
         info: {
             method: tx.method,
-            value: amount + ' INT',
+            amount: amount + ' INT',
             limit: tx.limit,
-            price: price + ' INT',
+            price: price,
+            fee: tx.limit * price + ' INT',
             input: JSON.stringify(tx.input),
             nonce: tx.nonce
         },
@@ -61830,9 +61849,10 @@ module.exports = {
     addressFromPrivateKey,
     makeWalletByPrivate,
     sendBurn,
-    BigNumber
+    BigNumber,
+    getPrice,
+    getLimit
 }
-
 
 //transfer(2, 3, '1F9hNoR4xhPeqEcvjQ1qt7hLrdZhAQepcm', 'a86f164acf7eaff87c12c0dae926506a9ba31cd2f68f0d55f96a1b891b961d02')
 //mortgage(100, 2, 'a86f164acf7eaff87c12c0dae926506a9ba31cd2f68f0d55f96a1b891b961d02')
