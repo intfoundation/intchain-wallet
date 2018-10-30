@@ -48,7 +48,7 @@ app.controller('walletinfoController', function($scope) {
         reader.onload = function() {
             var filedata = JSON.parse(this.result);
             var wal = require("wal");
-            wal.decodeFromOption(filedata, $scope.password).then(data => {
+            wal.decodeFromOption(filedata, $scope.password).then(function(data) {
                 $scope.address = filedata.address;
                 $('#addressqrcode').qrcode({
                     render: "canvas",
@@ -63,9 +63,6 @@ app.controller('walletinfoController', function($scope) {
                 $scope.getVotes()
                 $scope.getToken()
                 $scope.$apply();
-            }).catch(e => {
-                $scope.keyStoreUnlockFail = true
-                $scope.$apply();
             })
         }
         reader.readAsText(file);
@@ -73,7 +70,7 @@ app.controller('walletinfoController', function($scope) {
     };
     $scope.getVotes = function() {
         var wal = require("wal");
-        wal.getVotes($scope.address).then(data => {
+        wal.getVotes($scope.address).then(function(data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -87,7 +84,7 @@ app.controller('walletinfoController', function($scope) {
     }
     $scope.getToken = () => {
         var wal = require("wal");
-        wal.getToken($scope.address).then(data => {
+        wal.getToken($scope.address).then(function(data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -129,7 +126,7 @@ app.controller('walletinfoController', function($scope) {
     }
     $scope.getbalance = function() {
         var wal = require("wal");
-        wal.getBalance($scope.address).then(data => {
+        wal.getBalance($scope.address).then(function(data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }

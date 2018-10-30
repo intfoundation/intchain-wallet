@@ -92,15 +92,12 @@ app.controller('voteController', function($scope) {
         reader.onload = function() {
             var filedata = JSON.parse(this.result);
             var wal = require("wal");
-            wal.decodeFromOption(filedata, $scope.password).then(data => {
+            wal.decodeFromOption(filedata, $scope.password).then(function(data) {
                 $scope.address = filedata.address;
                 $scope.privateKey = data;
                 $scope.keyStoreUnlockFail = false
                 $scope.getbalance();
                 $scope.getPrice();
-                $scope.$apply();
-            }).catch(e => {
-                $scope.keyStoreUnlockFail = true
                 $scope.$apply();
             })
         }
@@ -118,7 +115,7 @@ app.controller('voteController', function($scope) {
             input = JSON.stringify(candies)
         }
         var wal = require("wal");
-        wal.getLimit(method, input).then(data => {
+        wal.getLimit(method, input).then(function(data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -139,7 +136,7 @@ app.controller('voteController', function($scope) {
 
     $scope.getPrice = function() {
         var wal = require("wal");
-        wal.getPrice().then(data => {
+        wal.getPrice().then(function(data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -172,7 +169,7 @@ app.controller('voteController', function($scope) {
     }
     $scope.getbalance = function() {
         var wal = require("wal");
-        wal.getBalance($scope.address).then(data => {
+        wal.getBalance($scope.address).then(function(data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -193,7 +190,7 @@ app.controller('voteController', function($scope) {
     };
     $scope.timeGetBalance = function() {
         var wal = require("wal");
-        wal.getBalance($scope.address).then(data => {
+        wal.getBalance($scope.address).then(function(data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -209,14 +206,14 @@ app.controller('voteController', function($scope) {
     }
     $scope.getNodes = function() {
         var wal = require("wal");
-        wal.getNodes().then(nodes => {
+        wal.getNodes().then(function(nodes) {
             $scope.nodes = nodes;
             $scope.$apply();
         })
     }
     $scope.timeGetNodes = function() {
         var wal = require("wal");
-        wal.getNodes().then(nodes => {
+        wal.getNodes().then(function(nodes) {
             let flag = false;
             for (let n of $scope.nodes) {
                 for (let node of nodes) {
@@ -236,7 +233,7 @@ app.controller('voteController', function($scope) {
     }
     $scope.getVotes = function() {
         var wal = require("wal");
-        wal.getVotes($scope.address).then(data => {
+        wal.getVotes($scope.address).then(function(data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -250,7 +247,7 @@ app.controller('voteController', function($scope) {
     }
     $scope.timeGetVote = function() {
         var wal = require("wal");
-        wal.getVotes($scope.address).then(data => {
+        wal.getVotes($scope.address).then(function(data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -295,12 +292,12 @@ app.controller('voteController', function($scope) {
         }
         var wal = require("wal");
         wal.vote(candies, $scope.voteLimit, $scope.votePrice, $scope.privateKey).then(
-            res => {
+            function(res) {
                 if (res.err) {
                     modal.error({ msg: res.err })
                 } else {
                     modal.showInfo(res.info, function() {
-                        wal.sendSignedTransaction(res.renderStr).then(r => {
+                        wal.sendSignedTransaction(res.renderStr).then(function(r) {
                             if (typeof r === 'string') {
                                 r = JSON.parse(r)
                             }
@@ -308,7 +305,7 @@ app.controller('voteController', function($scope) {
                                 modal.error({ msg: r.err })
                             } else {
                                 // modal.success({ msg: r.hash })
-                                modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + res.hash })
+                                modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
 
                                 $scope.timeGetNodes()
                             }
@@ -339,12 +336,12 @@ app.controller('voteController', function($scope) {
         }
         var wal = require("wal");
         wal.mortgage($scope.morgageAmount, $scope.morgageLimit, $scope.morgagePrice, $scope.privateKey).then(
-            res => {
+            function(res) {
                 if (res.err) {
                     modal.error({ msg: res.err })
                 } else {
                     modal.showInfo(res.info, function() {
-                        wal.sendSignedTransaction(res.renderStr).then(r => {
+                        wal.sendSignedTransaction(res.renderStr).then(function(r) {
                             if (typeof r === 'string') {
                                 r = JSON.parse(r)
                             }
@@ -352,7 +349,7 @@ app.controller('voteController', function($scope) {
                                 modal.error({ msg: r.err })
                             } else {
                                 //modal.success({ msg: r.hash })
-                                modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + res.hash })
+                                modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
 
                                 $scope.timeGetBalance()
                                 $scope.timeGetVote()
@@ -385,12 +382,12 @@ app.controller('voteController', function($scope) {
 
             var wal = require("wal");
             wal.unmortgage($scope.unmorgageAmount, $scope.unmorgageLimit, $scope.unmorgagePrice, $scope.privateKey).then(
-                res => {
+                function(res) {
                     if (res.err) {
                         modal.error({ msg: res.err })
                     } else {
                         modal.showInfo(res.info, function() {
-                            wal.sendSignedTransaction(res.renderStr).then(r => {
+                            wal.sendSignedTransaction(res.renderStr).then(function(r) {
                                 if (typeof r === 'string') {
                                     r = JSON.parse(r)
                                 }
@@ -398,7 +395,7 @@ app.controller('voteController', function($scope) {
                                     modal.error({ msg: r.err })
                                 } else {
                                     //modal.success({ msg: res.hash })
-                                    modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + res.hash })
+                                    modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
                                     $scope.timeGetBalance()
                                     $scope.timeGetVote()
                                 }

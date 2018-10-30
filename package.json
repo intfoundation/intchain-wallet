@@ -10,7 +10,7 @@
         "start": "node server.js",
         "watch": "gulp watch",
         "transform": "gulp transform",
-        "build": "browserify --require  ./dist/server/index.js:wal ./dist/server/index.js > wal.js",
+        "build": "browserify --require   ./src1/index.js:wal ./src1/index.js > wal.js",
         "build2": "browserify --require  ./src/index.js:wal ./src/index.js > wal.js"
     },
     "author": "",

@@ -20,7 +20,7 @@ app.controller('mappingController', function($scope, $http) {
             $scope.pass = false
         }
     })
-    $scope.queryBalance = async function() {
+    $scope.queryBalance = function() {
         //$scope.model.decimalAmount = 0.998;
         if ($scope.model.fromAddress.length != 42) {
             modal.error({ msg: 'ETH wallet address is not is not valid' })
@@ -46,49 +46,51 @@ app.controller('mappingController', function($scope, $http) {
             $scope.toMapping();
         }
     }
-    $scope.toMapping = async function() {
-        if ($scope.model.fromAddress.length != 42) {
-            modal.error({ msg: 'ETH wallet address is not is not valid' })
-            return;
-        }
-        if ($scope.model.fromAddressPrivateKey.length != 64) {
-            modal.error({ msg: 'ETH wallet private key is not is not valid' })
-            return;
-        }
-
-        if ($scope.model.toAddress.length != 34) {
-            modal.error({ msg: 'INT wallet address is not is not valid' })
-            return;
-        }
-
-        if (!$scope.model.decimalGas || isNaN($scope.model.decimalGas) || $scope.model.decimalGas <= 0) {
-            modal.error({ msg: 'Gas price is not is not valid' })
-            return;
-        }
-        var wal = require("wal");
-        var data = await wal.burnIntOnEth($scope.model);
-        if (data) {
-            if (data.error) {
-                modal.error({ mas: data.message })
-            } else {
-                modal.showInfo(data.info, function() {
-                    wal.sendBurn(data.data).then(r => {
-                        if (typeof r === 'string') {
-                            r = JSON.parse(r)
-                        }
-                        if (r.status == 'error') {
-                            modal.error({ msg: r.message })
-                        } else {
-                            // modal.burnSuccess({ msg: r.hash })
-                            modal.burnSuccess({ msg: 'https://etherscan.io/tx/' + res.hash })
-
-                        }
-                    })
-                })
+    $scope.toMapping = function() {
+            if ($scope.model.fromAddress.length != 42) {
+                modal.error({ msg: 'ETH wallet address is not is not valid' })
+                return;
             }
+            if ($scope.model.fromAddressPrivateKey.length != 64) {
+                modal.error({ msg: 'ETH wallet private key is not is not valid' })
+                return;
+            }
+
+            if ($scope.model.toAddress.length != 34 && $scope.model.toAddress.length != 33) {
+                modal.error({ msg: 'INT wallet address is not is not valid' })
+                return;
+            }
+
+            if (!$scope.model.decimalGas || isNaN($scope.model.decimalGas) || $scope.model.decimalGas <= 0) {
+                modal.error({ msg: 'Gas price is not is not valid' })
+                return;
+            }
+            var wal = require("wal");
+            wal.burnIntOnEth($scope.model).then(function(data) {
+                if (data) {
+                    if (data.error) {
+                        modal.error({ mas: data.message })
+                    } else {
+                        modal.showInfo(data.info, function() {
+                            wal.sendBurn(data.data).then(function(r) {
+                                if (typeof r === 'string') {
+                                    r = JSON.parse(r)
+                                }
+                                if (r.status == 'error') {
+                                    modal.error({ msg: r.message })
+                                } else {
+                                    // modal.burnSuccess({ msg: r.hash })
+                                    modal.burnSuccess({ msg: 'https://etherscan.io/tx/' + r.hash })
+
+                                }
+                            })
+                        })
+                    }
+                }
+            })
+
         }
-    }
-    $scope.toResult = function() {
-        window.open(`https://etherscan.io/tx/${$scope.hash}`)
-    }
+        // $scope.toResult = function() {
+        //     window.open(`https://etherscan.io/tx/${$scope.hash}`)
+        // }
 });

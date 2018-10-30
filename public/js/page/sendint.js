@@ -73,24 +73,21 @@ app.controller('sendintController', function($scope) {
         reader.onload = function() {
             var filedata = JSON.parse(this.result);
             var wal = require("wal");
-            wal.decodeFromOption(filedata, $scope.password).then(data => {
+            wal.decodeFromOption(filedata, $scope.password).then(function(data) {
                 $scope.address = filedata.address;
                 $scope.privateKey = data;
                 $scope.keyStoreUnlockFail = false
                 $scope.getbalance();
                 $scope.getPrice()
                 $scope.$apply();
-            }).catch(e => {
-                $scope.keyStoreUnlockFail = true
-                $scope.$apply();
             })
         }
         reader.readAsText(file);
-
     };
+
     $scope.getPrice = function() {
         var wal = require("wal");
-        wal.getPrice().then(data => {
+        wal.getPrice().then(function(data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -104,7 +101,7 @@ app.controller('sendintController', function($scope) {
     }
     $scope.getLimit = function() {
         var wal = require("wal");
-        wal.getLimit('transferTo', $scope.amount).then(data => {
+        wal.getLimit('transferTo', $scope.amount).then(function(data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -135,7 +132,7 @@ app.controller('sendintController', function($scope) {
     }
     $scope.getbalance = function() {
         var wal = require("wal");
-        wal.getBalance($scope.address).then(data => {
+        wal.getBalance($scope.address).then(function(data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -166,7 +163,7 @@ app.controller('sendintController', function($scope) {
     }
     $scope.send = function() {
         var wal = require("wal");
-        if ($scope.toAddress.length != 34) {
+        if ($scope.toAddress.length != 34 && $scope.toAddress.length != 33) {
             modal.error({ msg: 'To address is not valid' })
             return
         }
@@ -187,21 +184,21 @@ app.controller('sendintController', function($scope) {
             return
         }
         wal.transfer($scope.amount, $scope.limit, $scope.price, $scope.toAddress, $scope.privateKey)
-            .then(res => {
+            .then(function(res) {
                 if (res.err) {
                     modal.error({ msg: res.err })
                     return;
                 }
 
                 modal.showInfo(res.info, function() {
-                    wal.sendSignedTransaction(res.renderStr).then(r => {
+                    wal.sendSignedTransaction(res.renderStr).then(function(r) {
                         if (typeof r === 'string') {
                             r = JSON.parse(r)
                         }
                         if (r.err) {
                             modal.error({ msg: r.err })
                         } else {
-                            modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + res.hash })
+                            modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
 
                         }
                     })
@@ -287,7 +284,7 @@ app.controller('sendintController', function($scope) {
             var wal = require("wal");
             var outarray = [{ address: $scope.model.targetAddress, amount: $scope.model.targetAmount }];
             wal.transfer($scope.model.targetAmount, $scope.model.gasPrice, $scope.model.targetAddress, $scope.wallet.privateKey).then(
-                data => {
+                function(data) {
                     if (typeof data === 'string') {
                         data = JSON.parse(data)
                     }
