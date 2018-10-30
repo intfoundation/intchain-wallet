@@ -27,18 +27,20 @@ app.controller('mappingController', function($scope, $http) {
             return;
         }
         var wal = require("wal");
-        var data = await wal.queryBalance($scope.model.fromAddress)
-        if (data) {
-            if (data.status === "success") {
-                $scope.model.decimalAmount = data.balance;
-                $scope.model.mydata = data.mydata;
-                $scope.model.mynonce = data.mynonce;
-                $scope.model.decimalGas = (data.gasPrice / Math.pow(10, 18)).toFixed(18).replace(/\.0+$/, "").replace(/(\.\d+[1-9])0+$/, "$1")
-                $scope.$apply();
-            } else {
-                util.alert(data.message)
+        wal.queryBalance($scope.model.fromAddress).then(function(data) {
+            if (data) {
+                if (data.status === "success") {
+                    $scope.model.decimalAmount = data.balance;
+                    $scope.model.mydata = data.mydata;
+                    $scope.model.mynonce = data.mynonce;
+                    $scope.model.decimalGas = (data.gasPrice / Math.pow(10, 18)).toFixed(18).replace(/\.0+$/, "").replace(/(\.\d+[1-9])0+$/, "$1")
+                    $scope.$apply();
+                } else {
+                    util.alert(data.message)
+                }
             }
-        }
+        })
+
     }
     $scope.enterEvent = function(e) {
         var keycode = window.event ? e.keyCode : e.which;
