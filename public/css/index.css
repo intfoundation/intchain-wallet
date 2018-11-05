@@ -79,8 +79,9 @@
 }
 
 .foot {
-    margin-top: 50px;
+    margin-top: 20px;
     color: rgba(165, 165, 173, 1);
+    background-color: rgba(249, 249, 249, 1);
     font-size: 18px;
     width: 100%;
     text-align: center;

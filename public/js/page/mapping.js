@@ -20,10 +20,16 @@ app.controller('mappingController', function($scope, $http) {
             $scope.pass = false
         }
     })
+    $scope.$watch('model.fromAddressPrivateKey', function(value) {
+        if (value.length === 64) {
+            var wal = require("wal");
+            $scope.model.toAddress = wal.addressFromPrivateKey(value);
+        }
+    })
     $scope.queryBalance = function() {
         //$scope.model.decimalAmount = 0.998;
         if ($scope.model.fromAddress.length != 42) {
-            modal.error({ msg: 'ETH wallet address is not is not valid' })
+            //modal.error({ msg: 'ETH wallet address is not is not valid' })
             return;
         }
         var wal = require("wal");
@@ -40,7 +46,6 @@ app.controller('mappingController', function($scope, $http) {
                 }
             }
         })
-
     }
     $scope.enterEvent = function(e) {
         var keycode = window.event ? e.keyCode : e.which;
