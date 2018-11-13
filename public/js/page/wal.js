@@ -40391,10 +40391,10 @@ Wallet.prototype.load = function (password, keyName) {
     return this.decrypt(keystore || [], password);
 };
 
-// if (typeof localStorage === 'undefined') {
-//     delete Wallet.prototype.save;
-//     delete Wallet.prototype.load;
-// }
+if (typeof localStorage === 'undefined') {
+    delete Wallet.prototype.save;
+    delete Wallet.prototype.load;
+}
 
 
 module.exports = Accounts;
@@ -50254,7 +50254,7 @@ async function getSerializedTx(options) {
 
 function isIntAddress(address) {
     let flag = true
-    if (address.length !== 34) {
+    if (address.length !== 37 && address.length !== 36) {
         return false
     }
     for (let a of address) {

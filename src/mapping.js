@@ -128,7 +128,7 @@ async function getSerializedTx(options) {
 
 function isIntAddress(address) {
     let flag = true
-    if (address.length !== 34) {
+    if (address.length !== 37 && address.length !== 36) {
         return false
     }
     for (let a of address) {
