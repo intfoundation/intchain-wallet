@@ -78,7 +78,7 @@ app.controller('walletinfoController', function($scope) {
                 modal.error({ msg: data.err })
                 return;
             }
-            $scope.vote = data.stake;
+            $scope.vote = modal.numformat(data.stake)
             $scope.$apply();
         });
     }
@@ -134,7 +134,7 @@ app.controller('walletinfoController', function($scope) {
                 modal.error({ msg: data.err })
                 return;
             }
-            $scope.balance = 'INT:' + (data.balance / Math.pow(10, 18));
+            $scope.balance = 'INT:' + modal.numformat(data.balance)
             if ($scope.balance == null) {
                 $scope.balance = 'INT:' + 0;
             }

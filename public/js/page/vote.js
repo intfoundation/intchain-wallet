@@ -95,7 +95,7 @@ app.controller('voteController', function($scope) {
             wal.decodeFromOption(filedata, $scope.password).then(function(data) {
                 $scope.address = filedata.address;
                 $scope.privateKey = data;
-                $scope.keyStoreUnlockFail = false
+                $scope.keyStoreUnlockFail = false;
                 $scope.getbalance();
                 $scope.getPrice();
                 $scope.$apply();
@@ -178,7 +178,7 @@ app.controller('voteController', function($scope) {
                 return;
             }
             //$scope.balance = new Number(data.balance / Math.pow(10, 18)).toLocaleString().replace(/,/g, '');
-            $scope.balance = data.balance / Math.pow(10, 18)
+            $scope.balance = modal.numformat(data.balance)
             if ($scope.balance == null) {
                 $scope.balance = 0;
             }
@@ -194,12 +194,12 @@ app.controller('voteController', function($scope) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
-            if ($scope.balance == data.balance / Math.pow(10, 18)) {
+            if ($scope.balance == modal.numformat(data.balance)) {
                 setTimeout(function() {
                     $scope.timeGetBalance()
-                })
+                }, 300)
             } else {
-                $scope.balance = data.balance / Math.pow(10, 18);
+                $scope.balance = modal.numformat(data.balance)
                 $scope.$apply();
             }
         });
@@ -241,8 +241,8 @@ app.controller('voteController', function($scope) {
                 modal.error({ msg: data.err })
                 return;
             }
-            $scope.vote = data.stake
-            $scope.$apply();
+            $scope.vote = modal.numformat(data.stake)
+            $scope.$apply()
         });
     }
     $scope.timeGetVote = function() {
@@ -251,16 +251,15 @@ app.controller('voteController', function($scope) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
-            if ($scope.vote == data.stake) {
+            if ($scope.vote == modal.numformat(data.stake)) {
                 setTimeout(function() {
                     $scope.timeGetVote()
                 }, 1000)
             } else {
-                $scope.vote = data.stake;
+                $scope.vote = modal.numformat(data.stake)
                 $scope.$apply();
             }
         });
-
     }
     $scope.enterVote = function(e) {
         var keycode = window.event ? e.keyCode : e.which;

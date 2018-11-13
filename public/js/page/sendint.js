@@ -76,9 +76,9 @@ app.controller('sendintController', function($scope) {
             wal.decodeFromOption(filedata, $scope.password).then(function(data) {
                 $scope.address = filedata.address;
                 $scope.privateKey = data;
-                $scope.keyStoreUnlockFail = false
+                $scope.keyStoreUnlockFail = false;
                 $scope.getbalance();
-                $scope.getPrice()
+                $scope.getPrice();
                 $scope.$apply();
             })
         }
@@ -101,7 +101,7 @@ app.controller('sendintController', function($scope) {
     }
     $scope.getLimit = function() {
         var wal = require("wal");
-        wal.getLimit('transferTo', $scope.amount).then(function(data) {
+        wal.getLimit('transferTo', JSON.stringify({ to: $scope.toAddress })).then(function(data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -140,7 +140,7 @@ app.controller('sendintController', function($scope) {
                 modal.error({ msg: data.err })
                 return;
             }
-            $scope.balance = data.balance / Math.pow(10, 18);
+            $scope.balance = modal.numformat(data.balance)
             if ($scope.balance == null) {
                 $scope.balance = 0;
             }
@@ -148,6 +148,23 @@ app.controller('sendintController', function($scope) {
             $scope.$apply();
         });
     };
+    $scope.timeGetBalance = function() {
+        var wal = require("wal");
+        wal.getBalance($scope.address).then(function(data) {
+            if (typeof data === 'string') {
+                data = JSON.parse(data)
+            }
+            if ($scope.balance == modal.numformat(data.balance)) {
+                setTimeout(function() {
+                    $scope.timeGetBalance()
+                }, 300)
+            } else {
+                $scope.balance = modal.numformat(data.balance)
+                $scope.$apply();
+            }
+        });
+    }
+
     $scope.$watch('{toAddress:toAddress,amount:amount,limit:limit,price:price}', function(v) {
         if (v.toAddress && v.amount && v.limit && v.price) {
             $scope.pass = true
@@ -163,7 +180,7 @@ app.controller('sendintController', function($scope) {
     }
     $scope.send = function() {
         var wal = require("wal");
-        if ($scope.toAddress.length != 34 && $scope.toAddress.length != 33) {
+        if ($scope.toAddress.length != 37 && $scope.toAddress.length != 36) {
             modal.error({ msg: 'To address is not valid' })
             return
         }
@@ -199,7 +216,7 @@ app.controller('sendintController', function($scope) {
                             modal.error({ msg: r.err })
                         } else {
                             modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
-
+                            $scope.timeGetBalance()
                         }
                     })
                 })

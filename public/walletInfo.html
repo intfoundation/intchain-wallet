@@ -21,135 +21,6 @@
     <script type="text/javascript" src="./js/plugins/jquery/jquery.qrcode.min.js"></script>
     <script type="text/javascript" src="./js/page/walletinfo.js"></script>
     <script type="text/javascript" src="./js/page/wal.js"></script>
-
-    <!-- <style type="text/css">
-        .container {
-            width: 100%;
-            height: 100%;
-            background-color: rgba(249, 249, 249, 1);
-        }
-        
-        .header-box {
-            width: 100%;
-            height: 90px;
-            -moz-box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.35);
-            box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.35);
-            background-color: rgba(255, 255, 255, 1);
-        }
-        
-        .header-con {
-            height: 100%;
-            width: 1200px;
-            margin: 0px auto;
-        }
-        
-        .logo {
-            height: 100%;
-            display: inline-block;
-        }
-        
-        .logo img {
-            padding-top: 18px;
-        }
-        
-        .tabbar-box {
-            height: 100%;
-            display: inline-block;
-            vertical-align: top;
-        }
-        
-        .tabbar-box .tab-item {
-            display: inline-block;
-            vertical-align: top;
-            margin-left: 100px;
-            font-size: 18px;
-            font-family: PingFangSC-Medium;
-            color: rgba(102, 102, 102, 1);
-            padding-top: 32.5px;
-            cursor: pointer;
-        }
-        
-        .tabbar-box .tab-item a {
-            color: rgba(102, 102, 102, 1);
-            text-decoration: none;
-        }
-        
-        .tabbar-box .active span a {
-            color: rgba(60, 49, 215, 1);
-        }
-        
-        .active div {
-            width: 40px;
-            height: 2px;
-            border-radius: 4px;
-            background-color: rgba(60, 49, 215, 1);
-            margin: 0 auto;
-        }
-        
-        .content {
-            width: 1200px;
-            min-height: 60%;
-            padding-bottom: 50px;
-            background-color: rgba(255, 255, 255, 1);
-            box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.5);
-            margin: 0 auto;
-            margin-top: 90px;
-        }
-        
-        .btn {
-            margin-top: 48px;
-            width: 240px;
-            height: 50px;
-            border-radius: 4px;
-            background-color: #3C31D7;
-            color: rgba(255, 255, 255, 1);
-            text-align: center;
-            cursor: pointer;
-            line-height: 50px;
-        }
-        
-        .foot {
-            margin-top: 50px;
-            color: rgba(165, 165, 173, 1);
-            font-size: 18px;
-            width: 100%;
-            text-align: center;
-            font-family: PingFangSC-Regular;
-        }
-        
-        #vote {
-            position: relative;
-        }
-        
-        .voteTab {
-            background-color: rgba(255, 255, 255, 1);
-            position: absolute;
-            z-index: 1px;
-            padding: 10px 20px 20px 20px;
-            margin-left: -20px;
-        }
-        
-        .con-top {
-            height: 80px;
-            border-bottom: 1px solid rgba(204, 204, 204, 1);
-            line-height: 80px;
-            color: rgba(51, 51, 51, 1);
-            font-size: 18px;
-            font-family: PingFangSC-Medium;
-            padding-left: 36px;
-        }
-        
-        .con-top span {
-            margin-left: 13px;
-        }
-        
-        .title {
-            color: rgba(60, 49, 215, 1);
-            font-size: 36px;
-            font-family: PingFangSC-Medium;
-            width: 100%;
-        }
-    </style> -->
     <style>
         .main {
             padding: 50px 0 0 165px;
@@ -472,6 +343,9 @@
                                 <img ng-click="keyStoreUnlockFail = false" style="padding-left: 70px;cursor: pointer" src="./images/close.png" width="13px">
                             </div>
                         </div>
+                        <div style="margin-top:10px;font-family: PingFangSC-Regular;color: rgba(60, 49, 215, 1);">
+                            Any question？Please contact us.<br> Official email address:intwallet@intchain.io
+                        </div>
                     </div>
                     <div ng-show="step==2">
                         <div class="item-box">
@@ -514,10 +388,10 @@
                             <div class="btn-unlock" style="margin-top: 48px" ng-click='enterPwd()'>
                                 Download Keystore</div>
                         </div>
+                        <div style="margin-top:10px;font-family: PingFangSC-Regular;color: rgba(60, 49, 215, 1);">
+                            Any question？Please contact us.<br> Official email address:intwallet@intchain.io
+                        </div>
                     </div>
-                </div>
-                <div style="position:absolute;left:0;bottom:60px;width: 100%;text-align: center;font-family: PingFangSC-Regular;color: rgba(173, 165, 165, 0.99);">
-                    Any question？Please contact us.<br> Official email address:intwallet@intchain.io
                 </div>
             </div>
             <div class="foot">

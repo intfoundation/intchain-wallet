@@ -63,7 +63,7 @@ app.controller('mappingController', function($scope, $http) {
                 return;
             }
 
-            if ($scope.model.toAddress.length != 34 && $scope.model.toAddress.length != 33) {
+            if ($scope.model.toAddress.length != 37 && $scope.model.toAddress.length != 36) {
                 modal.error({ msg: 'INT wallet address is not is not valid' })
                 return;
             }

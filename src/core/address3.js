@@ -6,16 +6,15 @@ const digest = require("./lib/digest");
 const staticwriter_1 = require("./lib/staticwriter");
 const base58 = require("./lib/base58");
 const util_1 = require("util");
-//const client_1 = require("../client");
 // prefix can identify different network
 // will be readed from consensus params
-const defaultPrefix = 0x00;
+const prefix = 0x00;
 
-function pubKeyToBCFormat(publickey) {
+function pubKeyToBCFormat(publickey, netPrefix) {
     const keyHash = digest.hash160(publickey);
     const size = 5 + keyHash.length;
     const bw = new staticwriter_1.StaticWriter(size);
-    bw.writeU8(defaultPrefix);
+    bw.writeU8(netPrefix);
     bw.writeBytes(keyHash);
     bw.writeChecksum();
     return bw.render();
@@ -49,8 +48,7 @@ function addressFromPublicKey(publicKey) {
     if (util_1.isString(publicKey)) {
         publicKey = Buffer.from(publicKey, 'hex');
     }
-    let address = 'INT' + base58.encode(pubKeyToBCFormat(publicKey));
-    return address;
+    return base58.encode(pubKeyToBCFormat(publicKey, prefix));
 }
 exports.addressFromPublicKey = addressFromPublicKey;
 
@@ -103,30 +101,8 @@ function verify(md, signature, publicKey) {
 }
 exports.verify = verify;
 
-// function isValidAddress(address) {
-//     let subAddress = address.slice(3);
-//     try {
-//         let buf = base58.decode(subAddress);
-//         if (buf.length !== 25) {
-//             return false;
-//         }
-//         let br = new client_1.BufferReader(buf);
-//         br.readU8();
-//         br.readBytes(20);
-//         br.verifyChecksum();
-//     } catch (error) {
-//         return false;
-//     }
-//     return true;
-// }
-// exports.isValidAddress = isValidAddress;
-
-function isValidSecretKey(secretKey) {
-    var reg = /^[0-9a-fA-F]{64}$/;
-    if (reg.test(secretKey)) {
-        return true;
-    } else {
-        return false;
-    }
+function isValidAddress(address) {
+    let buf = base58.decode(address);
+    return buf.length === 25;
 }
-exports.isValidSecretKey = isValidSecretKey;
+exports.isValidAddress = isValidAddress;

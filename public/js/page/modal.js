@@ -70,6 +70,24 @@ modal.prompt = function(cal) {
     document.body.appendChild(div);
 };
 
+modal.numformat = function(val) {
+    if (val == 0) {
+        return 0;
+    }
+    if (val.toString().indexOf('e') > -1 && val.toString().indexOf('-') > -1) {
+        val = val.toFixed(18)
+        for (var i = val.length - 1; i >= 0; i--) {
+            if (val[i] != 0) {
+                return val.substr(0, i + 1)
+            }
+        }
+    }
+    if (val.toString().indexOf('e') > -1 && val.toString().indexOf('+') > -1) {
+        return Number(val).toLocaleString().replace(/,/g, '')
+    }
+    return val
+}
+
 function confirm() {
     callbak();
     var dom = document.getElementById("modal");

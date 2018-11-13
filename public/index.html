@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="./css/index.css" />
     <link rel="icon" href="./images/logo.png" type="image/x-icon" />
     <script src="./js/plugins/jquery/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.0.0/polyfill.js"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.0.0/polyfill.js"></script> -->
     <link href="./js/plugins/layer/skin/default/layer.css" rel="stylesheet">
     <script type="text/javascript" src="./js/page/babelfill.js"></script>
     <script type="text/javascript" src="./js/plugins/layer/layer.js"></script>
@@ -26,7 +26,6 @@
     <script type="text/javascript" src="./js/page/walletinfo.js"></script>
     <script type="text/javascript" src="./js/page/txinfo.js"></script>
     <script type="text/javascript" src="./js/app/directives/pagedirectives.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.0.0/polyfill.min.js"></script>
     <script type="text/javascript" src="./js/page/wal.js"></script>
     <style>
         .title {
@@ -254,6 +253,9 @@
                     <div class="btn" ng-click="create()">
                         Create new wallet
                     </div>
+                    <div style="margin-top:10px;font-family: PingFangSC-Regular;color: rgba(60, 49, 215, 1);">
+                        Any question？Please contact us.<br> Official email address:intwallet@intchain.io
+                    </div>
                 </div>
                 <div class="step2" ng-show="step==2">
                     <div class="title">Save your KeyStore File</div>
@@ -275,6 +277,9 @@
                     <div class="continue" ng-click="step = 3">
                         Okay,go ahead
                     </div>
+                    <div style="margin-top:10px;font-family: PingFangSC-Regular;color: rgba(60, 49, 215, 1);">
+                        Any question？Please contact us.<br> Official email address:intwallet@intchain.io
+                    </div>
                 </div>
                 <div class="step3" ng-show="step==3">
                     <div class="title">Save your Private Key</div>
@@ -295,11 +300,13 @@
                             <span>Make a backup! Secure it like the millions of dollars it may one day be worth</span>
                         </div>
                     </div>
-
+                    <div style="margin-top:10px;font-family: PingFangSC-Regular;color: rgba(60, 49, 215, 1);">
+                        Any question？Please contact us.<br> Official email address:intwallet@intchain.io
+                    </div>
                 </div>
-                <div style="position:absolute;left:0;bottom:60px;width: 100%;text-align: center;font-family: PingFangSC-Regular;color: rgba(173, 165, 165, 0.99);">
+                <!-- <div style="position:absolute;left:0;bottom:60px;width: 100%;text-align: center;font-family: PingFangSC-Regular;color: rgba(173, 165, 165, 0.99);">
                     Any question？Please contact us.<br> Official email address:intwallet@intchain.io
-                </div>
+                </div> -->
             </div>
             <div class="foot">
                 Copyright © 2018 INT
