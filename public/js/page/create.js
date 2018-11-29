@@ -7,8 +7,17 @@ app.controller('mainController', function($scope, $http) {
     $scope.pwdView = false
     $scope.rePwdView = false
     $scope.voteTabView = false
+    $scope.lanView = false
     $scope.step = 1
     $scope.data = {}
+    $scope.lan = new modal.UrlSearch().lan || 'en'
+    $scope.doc = lan[$scope.lan]
+    $scope.changelan = function(a) {
+        $scope.doc = lan[a]
+        $scope.lan = a
+    }
+
+
     $scope.pwdBlur = function() {
         if ($scope.password.length < 9) {
             $scope.pwdTip = true
@@ -52,7 +61,7 @@ app.controller('mainController', function($scope, $http) {
     $scope.create = function() {
         if ($scope.password.length < 9) {
             $scope.pwdTip = true
-            modal.error({ msg: 'Your password must be at least 9 characters ' })
+            modal.error({ msg: $scope.doc.nine, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
         if ($scope.password != $scope.password2) {
@@ -62,7 +71,9 @@ app.controller('mainController', function($scope, $http) {
         var password = $.trim($scope.password);
         if (password != $scope.password) {
             modal.error({
-                msg: "Can't create wallet,password should not start or end with space "
+                msg: $scope.doc.noSpace,
+                title: $scope.doc.notice,
+                okText: $scope.doc.confirm
             })
             return
         }

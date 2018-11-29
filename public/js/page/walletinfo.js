@@ -21,6 +21,15 @@ app.controller('walletinfoController', function($scope) {
     $scope.amount;
     $scope.fee;
     $scope.token = []
+
+    $scope.lan = new modal.UrlSearch().lan || 'en'
+    $scope.doc = lan[$scope.lan]
+    $scope.changelan = function(a) {
+        $scope.doc = lan[a]
+        $scope.lan = a
+    }
+
+
     $scope.$watch('password', function(newValue, oldValue) {
         if ($scope.password.length >= 9) {
             $scope.unlockDisabled = false
@@ -49,6 +58,11 @@ app.controller('walletinfoController', function($scope) {
             var filedata = JSON.parse(this.result);
             var wal = require("wal");
             wal.decodeFromOption(filedata, $scope.password).then(function(data) {
+                if (data == "error") {
+                    $scope.keyStoreUnlockFail = true
+                    $scope.$apply();
+                    return;
+                }
                 $scope.address = filedata.address;
                 $('#addressqrcode').qrcode({
                     render: "canvas",
@@ -75,7 +89,7 @@ app.controller('walletinfoController', function($scope) {
                 data = JSON.parse(data)
             }
             if (data.err) {
-                modal.error({ msg: data.err })
+                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
             $scope.vote = modal.numformat(data.stake)
@@ -89,7 +103,7 @@ app.controller('walletinfoController', function($scope) {
                 data = JSON.parse(data)
             }
             if (data.error) {
-                modal.error({ msg: data.err })
+                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
             for (let i in data.data.tokenList) {
@@ -131,7 +145,7 @@ app.controller('walletinfoController', function($scope) {
                 data = JSON.parse(data)
             }
             if (data.err) {
-                modal.error({ msg: data.err })
+                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
             $scope.balance = 'INT:' + modal.numformat(data.balance)
@@ -153,7 +167,7 @@ app.controller('walletinfoController', function($scope) {
         }
     }
     $scope.enterPwd = function() {
-        modal.prompt(pwd => {
+        modal.prompt($scope.doc, function(pwd) {
             var wal = require("wal");
             var json = wal.makeWalletByPrivate($scope.privateKey, pwd);
             var filename = json.address + ".json";

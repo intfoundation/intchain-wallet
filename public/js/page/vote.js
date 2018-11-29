@@ -31,6 +31,15 @@ app.controller('voteController', function($scope) {
     $scope.unmorgagePass = false;
     $scope.searchStr = "";
     $scope.nodes = []
+
+    $scope.lan = new modal.UrlSearch().lan || 'en'
+    $scope.doc = lan[$scope.lan]
+    $scope.changelan = function(a) {
+        $scope.doc = lan[a]
+        $scope.lan = a
+    }
+
+
     $scope.$watch('password', function(newValue, oldValue) {
         if ($scope.password.length >= 9) {
             $scope.unlockDisabled = false
@@ -62,7 +71,7 @@ app.controller('voteController', function($scope) {
     $scope.chooseNodes = function(index) {
         let chNum = 0
         if ($scope.chNum >= 20) {
-            modal.error({ msg: 'You can choose 20 at most' })
+            modal.error({ msg: $scope.doc.m20, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return;
         }
         $scope.nodes[index].ch = !$scope.nodes[index].ch;
@@ -120,7 +129,7 @@ app.controller('voteController', function($scope) {
                 data = JSON.parse(data)
             }
             if (data.err) {
-                modal.error({ msg: data.err })
+                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
             if (method == 'vote') {
@@ -141,7 +150,7 @@ app.controller('voteController', function($scope) {
                 data = JSON.parse(data)
             }
             if (data.err) {
-                modal.error({ msg: data.err })
+                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
             $scope.votePrice = (data.gasPrice / Math.pow(10, 18)).toFixed(18).replace(/\.0+$/, "").replace(/(\.\d+[1-9])0+$/, "$1")
@@ -174,7 +183,7 @@ app.controller('voteController', function($scope) {
                 data = JSON.parse(data)
             }
             if (data.err) {
-                modal.error({ msg: data.err })
+                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
             //$scope.balance = new Number(data.balance / Math.pow(10, 18)).toLocaleString().replace(/,/g, '');
@@ -238,7 +247,7 @@ app.controller('voteController', function($scope) {
                 data = JSON.parse(data)
             }
             if (data.err) {
-                modal.error({ msg: data.err })
+                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
             $scope.vote = modal.numformat(data.stake)
@@ -269,18 +278,18 @@ app.controller('voteController', function($scope) {
     }
     $scope.Vote = function() {
         if ($scope.vote <= 0) {
-            modal.error({ msg: 'please mortgage first' }, function() {
+            modal.error({ msg: $scope.doc.mf, title: $scope.doc.notice, okText: $scope.doc.confirm }, function() {
                 $scope.action = 'Mortgage'
                 $scope.$apply();
             })
             return
         }
         if (isNaN($scope.voteLimit) || $scope.voteLimit <= 0) {
-            modal.error({ msg: 'Limit is not valid' })
+            modal.error({ msg: $scope.doc.lnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
         if (isNaN($scope.votePrice) || $scope.votePrice <= 0) {
-            modal.error({ msg: 'Limit is not valid' })
+            modal.error({ msg: $scope.doc.lnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
         let candies = [];
@@ -293,7 +302,7 @@ app.controller('voteController', function($scope) {
         wal.vote(candies, $scope.voteLimit, $scope.votePrice, $scope.privateKey).then(
             function(res) {
                 if (res.err) {
-                    modal.error({ msg: res.err })
+                    modal.error({ msg: res.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 } else {
                     modal.showInfo(res.info, function() {
                         wal.sendSignedTransaction(res.renderStr).then(function(r) {
@@ -301,7 +310,7 @@ app.controller('voteController', function($scope) {
                                 r = JSON.parse(r)
                             }
                             if (r.err) {
-                                modal.error({ msg: r.err })
+                                modal.error({ msg: r.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                             } else {
                                 // modal.success({ msg: r.hash })
                                 modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
@@ -322,22 +331,22 @@ app.controller('voteController', function($scope) {
     }
     $scope.Morgage = function() {
         if (isNaN($scope.morgageAmount) || $scope.morgageAmount <= 0) {
-            modal.error({ msg: 'Amount is not valid' })
+            modal.error({ msg: $scope.doc.anv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
         if (isNaN($scope.morgageLimit) || $scope.morgageLimit <= 0) {
-            modal.error({ msg: 'Limit is not valid' })
+            modal.error({ msg: $scope.doc.lnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
         if (isNaN($scope.morgagePrice) || $scope.morgagePrice <= 0) {
-            modal.error({ msg: 'Price is not valid' })
+            modal.error({ msg: $scope.doc.pnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
         var wal = require("wal");
         wal.mortgage($scope.morgageAmount, $scope.morgageLimit, $scope.morgagePrice, $scope.privateKey).then(
             function(res) {
                 if (res.err) {
-                    modal.error({ msg: res.err })
+                    modal.error({ msg: res.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 } else {
                     modal.showInfo(res.info, function() {
                         wal.sendSignedTransaction(res.renderStr).then(function(r) {
@@ -345,7 +354,7 @@ app.controller('voteController', function($scope) {
                                 r = JSON.parse(r)
                             }
                             if (r.err) {
-                                modal.error({ msg: r.err })
+                                modal.error({ msg: r.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                             } else {
                                 //modal.success({ msg: r.hash })
                                 modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
@@ -367,15 +376,15 @@ app.controller('voteController', function($scope) {
     }
     $scope.Unmorgage = function() {
             if (isNaN($scope.unmorgageAmount) || $scope.unmorgageAmount <= 0) {
-                modal.error({ msg: 'Amount is not valid' })
+                modal.error({ msg: $scope.doc.anv, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return
             }
             if (isNaN($scope.unmorgageLimit) || $scope.unmorgageLimit <= 0) {
-                modal.error({ msg: 'Limit is not valid' })
+                modal.error({ msg: $scope.doc.lnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return
             }
             if (isNaN($scope.unmorgagePrice) || $scope.unmorgagePrice <= 0) {
-                modal.error({ msg: 'Price is not valid' })
+                modal.error({ msg: $scope.doc.pnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return
             }
 
@@ -383,7 +392,7 @@ app.controller('voteController', function($scope) {
             wal.unmortgage($scope.unmorgageAmount, $scope.unmorgageLimit, $scope.unmorgagePrice, $scope.privateKey).then(
                 function(res) {
                     if (res.err) {
-                        modal.error({ msg: res.err })
+                        modal.error({ msg: res.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                     } else {
                         modal.showInfo(res.info, function() {
                             wal.sendSignedTransaction(res.renderStr).then(function(r) {
@@ -391,7 +400,7 @@ app.controller('voteController', function($scope) {
                                     r = JSON.parse(r)
                                 }
                                 if (r.err) {
-                                    modal.error({ msg: r.err })
+                                    modal.error({ msg: r.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                                 } else {
                                     //modal.success({ msg: res.hash })
                                     modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })

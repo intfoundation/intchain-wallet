@@ -59,13 +59,13 @@ modal.burnSuccess = function(obj, cal) {
     document.body.appendChild(div);
 };
 
-modal.prompt = function(cal) {
+modal.prompt = function(doc, cal) {
     callbak = cal;
     var d = document.getElementById("modal");
     if (d) document.body.removeChild(d);
     var div = document.createElement("div");
     div.setAttribute('id', 'modal');
-    var dom = "\n    <div style=\"\n    position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)\">\n        <div style=\"margin:300px auto;\n    background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 10px 15px;z-index: 101px;border-radius: 4px\">\n            <span style=\"font-size: 18px;color: #303133\">Please Enter Password</span>\n            <div style=\"margin-top:20px;font-size: 14px;color: #606266\">\n                <div class=\"in-box\">\n                    <input id='unViewPwd' onpropertychange=\"pwdChange(this.value)\" oninput=\"pwdChange(this.value)\" type=\"password\"  placeholder=\"Enter your wallet password\">\n                    <input id='viewPwd' style='display:none' onpropertychange=\"pwdChange(this.value)\" oninput=\"pwdChange(this.value)\" type=\"text\"      placeholder=\"Enter your wallet password\">\n                    <img id='open' style='display:none' src=\"./images/eyeopen.png\" onClick=\"openClick()\" >\n                    <img id='close' src=\"./images/eyeclose.png\" onClick=\"closeClick()\">\n                </div>\n                <div id=\"warnTip\" style=\"display:none;position:absolute;padding-top:5px;color: rgba(215, 49, 111, 1);font-size: 12px\">Your password must be at least 9 characters</div>\n            </div>\n\n            <div onClick=\"download()\" style=\"padding:0 10px;margin-top: 30px;cursor:pointer;\n    float: right;text-align:center;line-height:30px;border-radius:3px;background-color:#409eff;color:rgba(255, 255,255, 1)\">\n\n                confirm\n            </div>\n            <div onClick=\"cancel()\" style=\"padding:0 10px;margin-top: 30px;margin-right: 20px;cursor:pointer;\n    float: right;text-align:center;line-height:30px;border-radius:3px;    border: 1px solid #dcdfe6;color: #606266;\">\n\n                cancel\n            </div>\n            <div style=\"height: 65px\"></div>\n        </div>\n    </div>";
+    var dom = "\n    <div style=\"\n    position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)\">\n        <div style=\"margin:300px auto;\n    background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 10px 15px;z-index: 101px;border-radius: 4px\">\n            <span style=\"font-size: 18px;color: #303133\">" + doc.ep + "</span>\n            <div style=\"margin-top:20px;font-size: 14px;color: #606266\">\n                <div class=\"in-box\">\n                    <input id='unViewPwd' onpropertychange=\"pwdChange(this.value)\" oninput=\"pwdChange(this.value)\" type=\"password\"  placeholder=\"" + doc.ep + "\">\n                    <input id='viewPwd' style='display:none' onpropertychange=\"pwdChange(this.value)\" oninput=\"pwdChange(this.value)\" type=\"text\"      placeholder=\"" + doc.ep + "\">\n                    <img id='open' style='display:none' src=\"./images/eyeopen.png\" onClick=\"openClick()\" >\n                    <img id='close' src=\"./images/eyeclose.png\" onClick=\"closeClick()\">\n                </div>\n                <div id=\"warnTip\" style=\"display:none;position:absolute;padding-top:5px;color: rgba(215, 49, 111, 1);font-size: 12px\">" + doc.nine + "</div>\n            </div>\n\n            <div onClick=\"download()\" style=\"padding:0 10px;margin-top: 30px;cursor:pointer;\n    float: right;text-align:center;line-height:30px;border-radius:3px;background-color:#409eff;color:rgba(255, 255,255, 1)\">\n\n                " + doc.confirm + "\n            </div>\n            <div onClick=\"cancel()\" style=\"padding:0 10px;margin-top: 30px;margin-right: 20px;cursor:pointer;\n    float: right;text-align:center;line-height:30px;border-radius:3px;    border: 1px solid #dcdfe6;color: #606266;\">\n\n                " + doc.cancel + "\n            </div>\n            <div style=\"height: 65px\"></div>\n        </div>\n    </div>";
     div.innerHTML = dom;
     document.body.appendChild(div);
 };
@@ -74,6 +74,7 @@ modal.numformat = function(val) {
     if (val == 0) {
         return 0;
     }
+    val = val / Math.pow(10, 18)
     if (val.toString().indexOf('e') > -1 && val.toString().indexOf('-') > -1) {
         val = val.toFixed(18)
         for (var i = val.length - 1; i >= 0; i--) {

@@ -49962,7 +49962,8 @@ let decrypt = function(v3Keystore, password, nonStrict) {
     //var mac = utils.sha3(Buffer.concat([ derivedKey.slice(16, 32), ciphertext ])).replace('0x','');
     var mac = sha3(Buffer.concat([derivedKey.slice(16, 32), ciphertext])).replace('0x', '');
     if (mac !== json.crypto.mac) {
-        throw new Error('Key derivation failed - possibly wrong password');
+        // throw new Error('Key derivation failed - possibly wrong password');
+        return "error"
     }
 
     var decipher = cryp.createDecipheriv(json.crypto.cipher, derivedKey.slice(0, 16), new Buffer(json.crypto.cipherparams.iv, 'hex'));

@@ -18,6 +18,15 @@ app.controller('sendintController', function($scope) {
     $scope.amount;
     $scope.limit;
     $scope.price = 0.00001;
+
+    $scope.lan = new modal.UrlSearch().lan || 'en'
+    $scope.doc = lan[$scope.lan]
+    $scope.changelan = function(a) {
+        $scope.doc = lan[a]
+        $scope.lan = a
+    }
+
+
     $scope.$watch('password', function(newValue, oldValue) {
         if ($scope.password.length >= 9) {
             $scope.unlockDisabled = false
@@ -92,7 +101,7 @@ app.controller('sendintController', function($scope) {
                 data = JSON.parse(data)
             }
             if (data.err) {
-                modal.error({ msg: data.err })
+                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
             $scope.price = (data.gasPrice / Math.pow(10, 18)).toFixed(18).replace(/\.0+$/, "").replace(/(\.\d+[1-9])0+$/, "$1")
@@ -106,7 +115,7 @@ app.controller('sendintController', function($scope) {
                 data = JSON.parse(data)
             }
             if (data.err) {
-                modal.error({ msg: data.err })
+                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
             $scope.limit = data.limit
@@ -137,7 +146,7 @@ app.controller('sendintController', function($scope) {
                 data = JSON.parse(data)
             }
             if (data.err) {
-                modal.error({ msg: data.err })
+                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
             $scope.balance = modal.numformat(data.balance)
@@ -181,29 +190,29 @@ app.controller('sendintController', function($scope) {
     $scope.send = function() {
         var wal = require("wal");
         if ($scope.toAddress.length != 37 && $scope.toAddress.length != 36) {
-            modal.error({ msg: 'To address is not valid' })
+            modal.error({ msg: $scope.doc.tanv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
         if (isNaN($scope.amount) || $scope.amount <= 0) {
-            modal.error({ msg: 'Amount is not valid' })
+            modal.error({ msg: $scope.doc.anv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
         if (+$scope.amount >= +$scope.balance) {
-            modal.error({ msg: 'Amount must be less then balance' })
+            modal.error({ msg: $scope.doc.amlb, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
         if (isNaN($scope.limit) || $scope.limit <= 0) {
-            modal.error({ msg: 'Limit is not valid' })
+            modal.error({ msg: $scope.doc.lnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
         if (isNaN($scope.price) || $scope.price <= 0) {
-            modal.error({ msg: 'Price is not valid' })
+            modal.error({ msg: $scope.doc.pnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
         wal.transfer($scope.amount, $scope.limit, $scope.price, $scope.toAddress, $scope.privateKey)
             .then(function(res) {
                 if (res.err) {
-                    modal.error({ msg: res.err })
+                    modal.error({ msg: res.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                     return;
                 }
 
@@ -213,7 +222,7 @@ app.controller('sendintController', function($scope) {
                             r = JSON.parse(r)
                         }
                         if (r.err) {
-                            modal.error({ msg: r.err })
+                            modal.error({ msg: r.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                         } else {
                             modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
                             $scope.timeGetBalance()

@@ -69,6 +69,8 @@ app.directive('fileUploader', function($http) {
             url: '=url',
             file: '=file',
             password: '=password',
+            doc: '=doc',
+            //balance: '='
             //enterUnlock: '=enterUnlock'
         },
         // template: '<div class="is"><div class="lt1"><span>{{name}}</span></div>' +
@@ -78,24 +80,23 @@ app.directive('fileUploader', function($http) {
         // ' class="ip"  placeholder="Please enter your password"></div></div>',
         template: '<div class="is">' +
             '<div class="lt1">' +
-            ' <span>SELECT KEYSTORE{{ch}}</span>' +
+            ' <span>{{doc.seStore}} </span>' +
             ' </div>' +
             ' <div class="lt2" style="display:none"><a href="javascript:void(0)"><input type="file">浏览</a></div>' +
-            '</div><div ng-show="show" style="display:block;width: 800px;height: 79px"><div class="mi middle">Your wallet is' +
-            '   encrypted.Good! Please' +
-            '   enter the' +
-            '   password</div>' +
+            '</div><div ng-show="show" style="display:block;width: 800px;height: 79px"><div class="mi middle">' +
+            '   {{doc.isSelected}}</div>' +
             '   <div class="in-box">' +
             '       <input ng-show="!pwdView" type="password" ng-keyup="enterUnlock($event)" ' +
             '              ng-model="password" ' +
-            '              placeholder="Enter your wallet password">' +
+            '              placeholder="{{doc.ep}}">' +
             '        <input ng-show="pwdView" type="text"  ng-keyup="enterUnlock($event)"  ng-model="password"' +
-            '              placeholder="Enter your wallet password">' +
+            '              placeholder="{{doc.ep}}">' +
             '       <img ng-click="pwdView=!pwdView" ng-show="pwdView" src="./images/eyeopen.png">' +
             '       <img ng-click="pwdView=!pwdView" ng-show="!pwdView" src="./images/eyeclose.png">' +
             '   </div></div>',
         link: function(scope, element, attributes) {
             scope.show = false;
+            scope.doc = scope.$parent.doc;
             scope.enterUnlock = function(e) {
                 scope.$parent.enterUnlock(e)
             }

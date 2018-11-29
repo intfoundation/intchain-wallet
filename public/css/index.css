@@ -31,12 +31,13 @@
     height: 100%;
     display: inline-block;
     vertical-align: top;
+    width: 1100px;
 }
 
 .tabbar-box .tab-item {
     display: inline-block;
     vertical-align: top;
-    margin-left: 100px;
+    margin-left: 60px;
     font-size: 18px;
     font-family: PingFangSC-Medium;
     color: rgba(102, 102, 102, 1);
@@ -44,8 +45,28 @@
     cursor: pointer;
 }
 
+.tabbar-box .tab-item:nth-child(1) {
+    width: 93px;
+}
+
+.tabbar-box .tab-item:nth-child(2) {
+    width: 136px;
+}
+
+.tabbar-box .tab-item:nth-child(3) {
+    width: 74px;
+}
+
+.tabbar-box .tab-item:nth-child(4) {
+    width: 110px;
+}
+
 .tabbar-box .active {
     color: rgba(60, 49, 215, 1);
+}
+
+.tabbar-box .active span {
+    border-bottom: 2px solid rgba(60, 49, 215, 1);
 }
 
 .active .b-line {
@@ -146,4 +167,9 @@ a {
 
 .lable {
     margin-bottom: 8px;
+}
+
+#lan {
+    float: right;
+    width: 150px;
 }

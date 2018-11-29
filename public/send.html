@@ -10,6 +10,7 @@
     <link href="./js/plugins/layer/skin/default/layer.css" rel="stylesheet">
     <script src="./js/plugins/layer/layer.js"></script>
     <script src="./js/page/modal.js"></script>
+    <script type="text/javascript" src="./js/page/language.js"></script>
     <script type="text/javascript" src="./js/plugins/angular/angular.js"></script>
     <script type="text/javascript" src="./js/page/babelfill.js"></script>
     <script type="text/javascript" src="./js/plugins/angular/angular-sanitize.min.js"></script>
@@ -198,64 +199,86 @@
                     <div class="tabbar-box">
                         <div class="tab-item ">
                             <span>
-                      <a href="./index.html">New wallet</a>
+                      <a href="./index.html?lan={{lan}}">{{doc.newWallet}}</a>
                       </span>
                             <div class="b-line"></div>
                         </div>
                         <div class="tab-item">
                             <span>
-                                <a href="./walletInfo.html">View wallet info</a>
+                                <a href="./walletInfo.html?lan={{lan}}"> {{doc.viewWllet}}</a>
                       
                       </span>
                             <div></div>
                         </div>
                         <div class="tab-item">
                             <span>
-                                <a href="./mapping.html">Mapping</a>
+                                <a href="./mapping.html?lan={{lan}}">{{doc.mapping}}</a>
                        
                        </span>
                             <div></div>
                         </div>
                         <div class="tab-item active">
                             <span>
-                          Send INT
+                                    {{doc.sendInt}}
                       </span>
-                            <div class="b-line"></div>
+
                         </div>
                         <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item">
                             <span>
-                                    <a href="javascript:;" >Vote</a>
+                                    <a href="javascript:;" >{{doc.vote}}</a>
                                     <img  src="./images/voteunac.png" alt="">
                              </span>
                             <div class="b-line"></div>
                             <div class="voteTab" ng-show="voteTabView">
                                 <div class="voteTab-item">
-                                    <a href="./vote.html?action=Mortgage">
-                                        Mortgage
+                                    <a href="./vote.html?action=Mortgage&lan={{lan}}">
+                                        {{doc.mortgage}}
                                     </a>
                                 </div>
                                 <div class="voteTab-item">
-                                    <a href="./vote.html?action=Vote">
-                                        Vote
+                                    <a href="./vote.html?action=Vote&lan={{lan}}">
+                                        {{doc.vote}}
                                     </a>
                                 </div>
                                 <div class="voteTab-item">
-                                    <a href="./vote.html?action=Unmortgage">
-                                         Unmortgage
+                                    <a href="./vote.html?action=Unmortgage&lan={{lan}}">
+                                        {{doc.unmortgage}} 
                                     </a>
                                 </div>
                             </div>
                         </div>
+
+                        <div id="lan" ng-mouseenter="lanView = true" ng-mouseleave="lanView = false" class="tab-item">
+                            <span>
+                                        <a href="javascript:;" >{{doc.language}} </a>
+                                         <img  src="./images/voteunac.png" alt="">
+                                </span>
+                            <div></div>
+                            <div class="voteTab" ng-show="lanView">
+                                <div class="voteTab-item" ng-click="changelan('en')">
+                                    <a href="javascript:;">
+                                            English
+                                        </a>
+                                </div>
+                                <div class="voteTab-item" ng-click="changelan('zh')">
+                                    <a href="javascript:;">
+                                            中文
+                                        </a>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
             <div class="content">
                 <div class="con-top">
-                    <img src="./images/send.png" alt=""><span>Send INT</span>
+                    <img src="./images/send.png" alt=""><span> {{doc.sendInt}}</span>
                 </div>
                 <div class="main">
                     <div ng-show="step==1">
-                        <div class="title">How would you like to access your wallet?</div>
+                        <div class="title">{{doc.access}}</div>
                         <div class="ch">
                             <div class="ch-item">
                                 <div ng-show="ch=='keyStore'" class="out">
@@ -269,30 +292,30 @@
                                     <div class="in"></div>
                                 </div>
                                 <div ng-show="ch=='keyStore'" ng-click="ch='privateKey';unlockDisabled = true" class="inac"></div>
-                                <span>Private Key</span>
+                                <span>{{doc.privateKey}}</span>
                             </div>
                         </div>
 
                         <div ng-show="ch=='keyStore'">
-                            <div class="se">Select Your Keystore</div>
+                            <div class="se">{{doc.selectStore}}</div>
                             <!-- <div class="warn">
                                 <img src="./images/warn.png" width="12px">
                                 <span>this is not a recommended  way to access your wallet. Entering your private key on
                             a website dangerous. If our website is compromised or you accidentally visit a
                             different website, your funds will be stolen</span>
                             </div> -->
-                            <div file-uploader password="password" file="file" class="ch-file">
+                            <div file-uploader password="password" file="file" doc="doc" class="ch-file">
                             </div>
-                            <div class="btn-dis" ng-show="unlockDisabled">Unlock</div>
-                            <div class="btn-unlock" ng-click="unlock()" ng-show="!unlockDisabled">Unlock</div>
+                            <div class="btn-dis" ng-show="unlockDisabled">{{doc.unlock}}</div>
+                            <div class="btn-unlock" ng-click="unlock()" ng-show="!unlockDisabled">{{doc.unlock}}</div>
                             <div class="msg" ng-show="keyStoreUnlockFail">
                                 <img src="./images/msg.png" width="13px">
-                                <span style="padding-left: 14.5px">Password error, unlock fail</span>
+                                <span style="padding-left: 14.5px">{{doc.passError}}</span>
                                 <img ng-click="keyStoreUnlockFail = false" style="padding-left: 70px;cursor: pointer" src="./images/close.png" width="13px">
                             </div>
                         </div>
                         <div ng-show="ch=='privateKey'">
-                            <div class="se">Enter Your Private Key</div>
+                            <div class="se">{{doc.ePri}}</div>
                             <!-- <div class="warn">
                                 <img src="./images/warn.png" width="12px">
                                 <span>this is not a recommended  way to access your wallet. Entering your private key on
@@ -302,46 +325,46 @@
 
                             <div style="height: 16px"></div>
                             <div class="in-box">
-                                <input ng-keyup="enterUnlock($event)" ng-show="!privateKeyView" type="password" ng-model="privateKey" ng-change="unlockDisabled = false " placeholder="Enter your wallet privateKey">
-                                <input ng-keyup="enterUnlock($event)" ng-show="privateKeyView" type="text" ng-model="privateKey" placeholder="Enter your wallet privateKey">
+                                <input ng-keyup="enterUnlock($event)" ng-show="!privateKeyView" type="password" ng-model="privateKey" ng-change="unlockDisabled = false " placeholder="{{doc.enPriKey}}">
+                                <input ng-keyup="enterUnlock($event)" ng-show="privateKeyView" type="text" ng-model="privateKey" placeholder="{{doc.enPriKey}}">
                                 <img ng-click="privateKeyView=!privateKeyView" ng-show="privateKeyView" src="./images/eyeopen.png">
                                 <img ng-click="privateKeyView=!privateKeyView" ng-show="!privateKeyView" src="./images/eyeclose.png">
                             </div>
-                            <div class="btn-dis" ng-show="unlockDisabled">Unlock</div>
-                            <div class="btn-unlock" ng-click="unlock()" ng-show="!unlockDisabled">Unlock</div>
+                            <div class="btn-dis" ng-show="unlockDisabled">{{doc.unlock}}</div>
+                            <div class="btn-unlock" ng-click="unlock()" ng-show="!unlockDisabled">{{doc.unlock}}</div>
                             <div class="msg" ng-show="privateKeyUnlockFail">
                                 <img src="./images/msg.png" width="13px">
-                                <span style="padding-left: 14.5px">This is not a valid private key</span>
+                                <span style="padding-left: 14.5px">{{doc.validPrivateKey}}</span>
                                 <img ng-click="keyStoreUnlockFail = false" style="padding-left: 70px;cursor: pointer" src="./images/close.png" width="13px">
                             </div>
                         </div>
                         <div style="margin-top:10px;font-family: PingFangSC-Regular;color: rgba(60, 49, 215, 1);">
-                            Any question？Please contact us.<br> Official email address:intwallet@intchain.io
+                            {{doc.callUs}}<br> {{doc.email}}
                         </div>
                     </div>
                     <div ng-show="step==2">
                         <div class="item-box">
-                            <div class="lable">From address</div>
+                            <div class="lable"> {{doc.fd}} </div>
                             <div class="in-box">
                                 <input ng-keyup="enterEvent($event)" type="text" ng-model="address">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">balance</div>
+                            <div class="lable">{{doc.balance}}</div>
                             <div class="in-box">
                                 <input ng-keyup="enterEvent($event)" type="text" readonly ng-model="balance">
                             </div>
                         </div>
                         <div class="item-box">
-                            <div class="lable">To address</div>
+                            <div class="lable"> {{doc.td}} </div>
                             <div class="in-box">
-                                <input ng-keyup="enterEvent($event)" ng-blur="getLimit()" type="text" placeholder="To address" ng-model="toAddress">
+                                <input ng-keyup="enterEvent($event)" ng-blur="getLimit()" type="text" placeholder=" {{doc.td}} " ng-model="toAddress">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">Amount</div>
+                            <div class="lable"> {{doc.am}} </div>
                             <div class="in-box">
-                                <input ng-keyup="enterEvent($event)" type="text" placeholder="Amount" ng-model="amount">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.am}}" ng-model="amount">
                             </div>
                         </div>
                         <div class="item-box">
@@ -356,12 +379,12 @@
                                 <input ng-keyup="enterEvent($event)" type="text" placeholder="Gas Price (INT)" ng-model="price">
                             </div>
                         </div>
-                        <div class="btn-dis" style="margin-top: 48px" ng-show="!pass">Generate transaction</div>
+                        <div class="btn-dis" style="margin-top: 48px" ng-show="!pass"> {{doc.gt}}</div>
                         <div class="btn-unlock" style="margin-top: 48px" ng-click="send()" ng-show="pass">
-                            Generate transaction
+                            {{doc.gt}}
                         </div>
                         <div style="margin-top:10px;font-family: PingFangSC-Regular;color: rgba(60, 49, 215, 1);">
-                            Any question？Please contact us.<br> Official email address:intwallet@intchain.io
+                            {{doc.callUs}}<br> {{doc.email}}
                         </div>
                     </div>
                 </div>

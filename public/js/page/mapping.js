@@ -13,6 +13,13 @@ app.controller('mappingController', function($scope, $http) {
         mynonce: '',
         gasLimit: 40000
     };
+
+    $scope.lan = new modal.UrlSearch().lan || 'en'
+    $scope.doc = lan[$scope.lan]
+    $scope.changelan = function(a) {
+        $scope.doc = lan[a]
+        $scope.lan = a
+    }
     $scope.$watch('{f:model.fromAddress,t:model.toAddress,g:model.decimalGas,p:model.fromAddressPrivateKey}', function(v) {
         if (v.f && v.t && v.g && v.p) {
             $scope.pass = true
@@ -55,28 +62,28 @@ app.controller('mappingController', function($scope, $http) {
     }
     $scope.toMapping = function() {
             if ($scope.model.fromAddress.length != 42) {
-                modal.error({ msg: 'ETH wallet address is not is not valid' })
+                modal.error({ msg: $scope.doc.ethAddressNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
             if ($scope.model.fromAddressPrivateKey.length != 64) {
-                modal.error({ msg: 'ETH wallet private key is not is not valid' })
+                modal.error({ msg: $scope.doc.ethPriKeyNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
 
             if ($scope.model.toAddress.length != 37 && $scope.model.toAddress.length != 36) {
-                modal.error({ msg: 'INT wallet address is not is not valid' })
+                modal.error({ msg: $scope.doc.intAddressNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
 
             if (!$scope.model.decimalGas || isNaN($scope.model.decimalGas) || $scope.model.decimalGas <= 0) {
-                modal.error({ msg: 'Gas price is not is not valid' })
+                modal.error({ msg: $scope.doc.priceNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
             var wal = require("wal");
-            wal.burnIntOnEth($scope.model).then(function(data) {
+            wal.burnIntOnEth($scope.model, $scope.doc).then(function(data) {
                 if (data) {
                     if (data.error) {
-                        modal.error({ mas: data.message })
+                        modal.error({ mas: data.message, title: $scope.doc.notice, okText: $scope.doc.confirm })
                     } else {
                         modal.showInfo(data.info, function() {
                             wal.sendBurn(data.data).then(function(r) {
@@ -84,7 +91,7 @@ app.controller('mappingController', function($scope, $http) {
                                     r = JSON.parse(r)
                                 }
                                 if (r.status == 'error') {
-                                    modal.error({ msg: r.message })
+                                    modal.error({ msg: r.message, title: $scope.doc.notice, okText: $scope.doc.confirm })
                                 } else {
                                     // modal.burnSuccess({ msg: r.hash })
                                     modal.burnSuccess({ msg: 'https://etherscan.io/tx/' + r.hash })
