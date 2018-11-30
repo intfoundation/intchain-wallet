@@ -217,6 +217,9 @@ app.controller('voteController', function($scope) {
         var wal = require("wal");
         wal.getNodes().then(function(nodes) {
             $scope.nodes = nodes;
+            for(let n of $scope.nodes){
+                n.num = modal.numformat(n.num)
+            }
             $scope.$apply();
         })
     }
@@ -226,8 +229,8 @@ app.controller('voteController', function($scope) {
             let flag = false;
             for (let n of $scope.nodes) {
                 for (let node of nodes) {
-                    if (n.node == node.node && n.num != node.num) {
-                        n.num = node.num
+                    if (n.node == node.node && n.num != modal.numformat(node.num)) {
+                        n.num = modal.numformat(node.num)
                         flag = true
                         $scope.$apply();
                     }
