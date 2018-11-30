@@ -80,7 +80,7 @@ var lan = {
         sendInt: "转账",
         vote: "投票",
         mortgage: "抵押",
-        unmortgage: "赎回抵押",s
+        unmortgage: "赎回抵押",
         cnw: "创建新钱包",
         nine: "密码至少包含9个字符",
         noMatch: "密码输入不一致，请重试",
