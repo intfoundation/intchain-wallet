@@ -51,9 +51,9 @@ var lan = {
         eLimit: "please enter Gas Limit",
         ePrice: "please enter Gas Price",
 
-        ethAdress: "ETH wallet address",
-        ethPrivateKey: "ETH wallet private key",
-        intAddress: "INT wallet address",
+        ethAdress: "ETH Wallet Address",
+        ethPrivateKey: "ETH Wallet Private Key",
+        intAddress: "INT Wallet Address",
 
         confirm: "confirm",
         cancel: "cancel",
