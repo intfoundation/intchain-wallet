@@ -8,7 +8,7 @@ var lan = {
         vote: "Vote",
         mortgage: "Stake",
         unmortgage: "Unstake",
-        cnw: "Create new wallet",
+        cnw: "Create New Wallet",
         nine: "Your password must be at least 9 characters",
         noMatch: "Password doesn't match , please try again",
         sp: "Please ensure it is a strong password",
