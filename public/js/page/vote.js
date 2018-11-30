@@ -40,7 +40,7 @@ app.controller('voteController', function($scope) {
     }
 
     $scope.$watch('action', function(val) {
-        document.title = val  + '| INT Chain';
+        document.title = val + '| INT Chain';
     })
     $scope.$watch('password', function(newValue, oldValue) {
         if ($scope.password.length >= 9) {

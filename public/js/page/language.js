@@ -79,8 +79,8 @@ var lan = {
         mapping: "映射",
         sendInt: "转账",
         vote: "投票",
-        mortgage: "换票",
-        unmortgage: "换回",
+        mortgage: "抵押",
+        unmortgage: "赎回抵押",s
         cnw: "创建新钱包",
         nine: "密码至少包含9个字符",
         noMatch: "密码输入不一致，请重试",
@@ -95,7 +95,7 @@ var lan = {
         download: "下载",
         notLose: "不要丢失！如果丢失，将无法恢复",
         notShare: "不要分享它！如果您在恶意/钓鱼网站上使用此文件，您的资金将被盗用",
-        backup: "备份！确保就像它一天可能值得的数百万美元",
+        backup: "备份！保护它就像哪天它有可能值数百万美元",
         goahead: "继续",
         savePri: "保存私钥",
 
