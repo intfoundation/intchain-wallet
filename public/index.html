@@ -30,8 +30,8 @@
     <script type="text/javascript" src="./js/page/wal.js"></script>
     <style>
         .title {
-            color: rgba(60, 49, 215, 1);
-            font-size: 36px;
+            color: rgba(102, 102, 102, 1);
+            font-size: 34px;
             font-family: PingFangSC-Medium;
             width: 100%;
             margin-top: 50px;
@@ -43,7 +43,7 @@
         }
         
         .tip {
-            color: rgba(51, 51, 51, 1);
+            color: #cd222d;
             font-size: 20px;
             font-family: PingFangSC-Regular;
         }
@@ -77,7 +77,7 @@
         
         .warn {
             margin-top: 24px;
-            color: rgba(215, 49, 111, 1);
+            color: #cd222d;
             font-size: 12px;
             font-family: PingFangSC-Regular;
         }
@@ -98,10 +98,10 @@
             width: 240px;
             height: 50px;
             border-radius: 4px;
-            border: 1px solid rgba(60, 49, 215, 1);
+            border: 1px solid #cd222d;
             text-align: center;
             line-height: 50px;
-            color: rgba(60, 49, 215, 1);
+            color: rgba(102, 102, 102, 1);
             font-size: 16px;
             cursor: pointer;
         }
@@ -121,7 +121,7 @@
             width: 6px;
             height: 6px;
             opacity: 0.7;
-            background-color: rgba(60, 49, 215, 1);
+            background-color: #cd222d;
             border-radius: 3px;
             margin-bottom: 2px;
             margin-right: 12px;
@@ -131,7 +131,7 @@
             width: 240px;
             height: 50px;
             border-radius: 4px;
-            background-color: rgba(58, 62, 219, 1);
+            background-color: #cd222d;
             text-align: center;
             line-height: 50px;
             color: rgba(255, 255, 255, 1);
@@ -151,7 +151,7 @@
             border-radius: 4px;
             background-color: rgba(247, 247, 247, 1);
             border: 1px solid rgba(204, 204, 204, 1);
-            color: rgba(51, 51, 51, 1);
+            color: rgba(102, 102, 102, 1);
             font-size: 16px;
             font-family: PingFangSC-Regular;
             padding: 16px 24px;
@@ -249,7 +249,7 @@
                 </div>
                 <div class="con-main" ng-show="step==1">
                     <div class="title"> {{doc.cnw}}</div>
-                    <span class="tip">{{doc.sp}}</span><br/>
+                    <!-- <span class="tip">{{doc.sp}}</span><br/> -->
                     <div class="in-box">
                         <input ng-keyup="enterEvent($event)" ng-show="!pwdView" type="password" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="{{doc.ep}}">
                         <input ng-keyup="enterEvent($event)" ng-show="pwdView" type="text" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="{{doc.ep}}">
@@ -268,6 +268,10 @@
                     <span ng-show="rePwdTip" class="pwdtip">{{doc.noMatch}}</span>
                     <div class="warn">
                         <img src="./images/warn.png" alt="" height="12px">
+                        <span>{{doc.sp}}</span>
+                    </div>
+                    <div class="warn">
+                        <img src="./images/warn.png" alt="" height="12px">
                         <span>{{doc.noSpace}}</span>
                     </div>
                     <div class="warn">
@@ -277,7 +281,7 @@
                     <div class="btn" ng-click="create()">
                         {{doc.cnw}}
                     </div>
-                    <div style="margin-top:10px;font-family: PingFangSC-Regular;color: rgba(60, 49, 215, 1);">
+                    <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
                         {{doc.callUs}}<br> {{doc.email}}
                     </div>
                 </div>
@@ -301,7 +305,7 @@
                     <div class="continue" ng-click="step = 3">
                         {{doc.goahead}}
                     </div>
-                    <div style="margin-top:10px;font-family: PingFangSC-Regular;color: rgba(60, 49, 215, 1);">
+                    <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
                         {{doc.callUs}}<br> {{doc.email}}
                     </div>
                 </div>
@@ -324,7 +328,7 @@
                             <span> {{doc.backup}}</span>
                         </div>
                     </div>
-                    <div style="margin-top:10px;font-family: PingFangSC-Regular;color: rgba(60, 49, 215, 1);">
+                    <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
                         {{doc.callUs}}<br> {{doc.email}}
                     </div>
                 </div>

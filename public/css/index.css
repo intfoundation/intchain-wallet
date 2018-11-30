@@ -62,19 +62,11 @@
 }
 
 .tabbar-box .active {
-    color: rgba(60, 49, 215, 1);
+    color: #cd222d;
 }
 
 .tabbar-box .active span {
-    border-bottom: 2px solid rgba(60, 49, 215, 1);
-}
-
-.active .b-line {
-    width: 40px;
-    height: 2px;
-    border-radius: 4px;
-    background-color: rgba(60, 49, 215, 1);
-    margin: 0 auto;
+    border-bottom: 2px solid #cd222d;
 }
 
 .content {
@@ -92,16 +84,17 @@
     width: 240px;
     height: 50px;
     border-radius: 4px;
-    background-color: #3C31D7;
+    background-color: #cd222d;
     color: rgba(255, 255, 255, 1);
     text-align: center;
     cursor: pointer;
     line-height: 50px;
+    font-size: 16px;
 }
 
 .foot {
     margin-top: 20px;
-    color: rgba(165, 165, 173, 1);
+    color: rgba(102, 102, 102, 1);
     background-color: rgba(249, 249, 249, 1);
     font-size: 18px;
     width: 100%;
@@ -143,7 +136,7 @@
     height: 80px;
     border-bottom: 1px solid rgba(204, 204, 204, 1);
     line-height: 80px;
-    color: rgba(51, 51, 51, 1);
+    color: rgba(102, 102, 102, 1);
     font-size: 18px;
     font-family: PingFangSC-Medium;
     padding-left: 36px;
@@ -159,8 +152,8 @@ a {
 }
 
 .title {
-    color: rgba(60, 49, 215, 1);
-    font-size: 36px;
+    color: rgba(102, 102, 102, 1);
+    font-size: 34px;
     font-family: PingFangSC-Medium;
     width: 100%;
 }
