@@ -1,7 +1,18 @@
 require = (function() {
     function r(e, n, t) {
-        function o(i, f) { if (!n[i]) { if (!e[i]) { var c = "function" == typeof require && require; if (!f && c) return c(i, !0); if (u) return u(i, !0); var a = new Error("Cannot find module '" + i + "'"); throw a.code = "MODULE_NOT_FOUND", a } var p = n[i] = { exports: {} };
-                e[i][0].call(p.exports, function(r) { var n = e[i][1][r]; return o(n || r) }, p, p.exports, r, e, n, t) } return n[i].exports } for (var u = "function" == typeof require && require, i = 0; i < t.length; i++) o(t[i]); return o } return r })()({
+        function o(i, f) {
+            if (!n[i]) {
+                if (!e[i]) { var c = "function" == typeof require && require; if (!f && c) return c(i, !0); if (u) return u(i, !0); var a = new Error("Cannot find module '" + i + "'"); throw a.code = "MODULE_NOT_FOUND", a }
+                var p = n[i] = { exports: {} };
+                e[i][0].call(p.exports, function(r) { var n = e[i][1][r]; return o(n || r) }, p, p.exports, r, e, n, t)
+            }
+            return n[i].exports
+        }
+        for (var u = "function" == typeof require && require, i = 0; i < t.length; i++) o(t[i]);
+        return o
+    }
+    return r
+})()({
     1: [function(require, module, exports) {
         module.exports = require('./register')().Promise
 
@@ -3258,8 +3269,7 @@ require = (function() {
                             xc[ni + 1] != null || (j < 0 ? n : n % pows10[d - j - 1]);
 
                             r = rm < 4 ?
-                            (rd || r) && (rm == 0 || rm == (x.s < 0 ? 3 : 2)) :
-                                rd > 5 || rd == 5 && (rm == 4 || r || rm == 6 &&
+                            (rd || r) && (rm == 0 || rm == (x.s < 0 ? 3 : 2)) : rd > 5 || rd == 5 && (rm == 4 || r || rm == 6 &&
 
                                 // Check whether the digit to the left of the rounding digit is odd.
                                 ((i > 0 ? j > 0 ? n / pows10[d - j] : 0 : xc[ni - 1]) % 10) & 1 ||
@@ -4407,9 +4417,7 @@ require = (function() {
 
                     // Determine which fraction is closer to x, n0/d0 or n1/d1
                     arr = div(n1, d1, e, ROUNDING_MODE).minus(x).abs().comparedTo(
-                            div(n0, d0, e, ROUNDING_MODE).minus(x).abs()) < 1 ?
-                        [n1.toString(), d1.toString()] :
-                        [n0.toString(), d0.toString()];
+                        div(n0, d0, e, ROUNDING_MODE).minus(x).abs()) < 1 ? [n1.toString(), d1.toString()] : [n0.toString(), d0.toString()];
 
                     MAX_EXP = exp;
                     return arr;
@@ -17920,8 +17928,10 @@ require = (function() {
             var extendStatics = Object.setPrototypeOf ||
                 ({ __proto__: [] }
                     instanceof Array && function(d, b) { d.__proto__ = b; }) ||
-                function(d, b) { for (var p in b)
-                        if (b.hasOwnProperty(p)) d[p] = b[p]; };
+                function(d, b) {
+                    for (var p in b)
+                        if (b.hasOwnProperty(p)) d[p] = b[p];
+                };
             return function(d, b) {
                 extendStatics(d, b);
 
@@ -18974,8 +18984,10 @@ require = (function() {
             var extendStatics = Object.setPrototypeOf ||
                 ({ __proto__: [] }
                     instanceof Array && function(d, b) { d.__proto__ = b; }) ||
-                function(d, b) { for (var p in b)
-                        if (b.hasOwnProperty(p)) d[p] = b[p]; };
+                function(d, b) {
+                    for (var p in b)
+                        if (b.hasOwnProperty(p)) d[p] = b[p];
+                };
             return function(d, b) {
                 extendStatics(d, b);
 
@@ -30575,8 +30587,7 @@ require = (function() {
                     // Shallow-clone the headers array. This allows it to be
                     // modified without side effects to the caller. We don't
                     // want to change objects that the user passes in.
-                    JSON.parse(JSON.stringify(headers)) :
-                    {};
+                    JSON.parse(JSON.stringify(headers)) : {};
 
                 if (body) {
                     if (!isString(body)) {
@@ -39940,8 +39951,19 @@ require = (function() {
     213: [function(require, module, exports) {
         (function(Buffer) {
             var _slicedToArray = function() {
-                function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true;
-                        _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function(arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+                function sliceIterator(arr, i) {
+                    var _arr = [];
+                    var _n = true;
+                    var _d = false;
+                    var _e = undefined;
+                    try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) {
+                        _d = true;
+                        _e = err;
+                    } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } }
+                    return _arr;
+                }
+                return function(arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } };
+            }();
 
             var Bytes = require("./bytes");
             var Nat = require("./nat");
@@ -46474,8 +46496,10 @@ require = (function() {
             var extendStatics = Object.setPrototypeOf ||
                 ({ __proto__: [] }
                     instanceof Array && function(d, b) { d.__proto__ = b; }) ||
-                function(d, b) { for (var p in b)
-                        if (b.hasOwnProperty(p)) d[p] = b[p]; };
+                function(d, b) {
+                    for (var p in b)
+                        if (b.hasOwnProperty(p)) d[p] = b[p];
+                };
             return function(d, b) {
                 extendStatics(d, b);
 
@@ -46602,8 +46626,10 @@ require = (function() {
                 var extendStatics = Object.setPrototypeOf ||
                     ({ __proto__: [] }
                         instanceof Array && function(d, b) { d.__proto__ = b; }) ||
-                    function(d, b) { for (var p in b)
-                            if (b.hasOwnProperty(p)) d[p] = b[p]; };
+                    function(d, b) {
+                        for (var p in b)
+                            if (b.hasOwnProperty(p)) d[p] = b[p];
+                    };
                 return function(d, b) {
                     extendStatics(d, b);
 
@@ -46684,8 +46710,10 @@ require = (function() {
                 var extendStatics = Object.setPrototypeOf ||
                     ({ __proto__: [] }
                         instanceof Array && function(d, b) { d.__proto__ = b; }) ||
-                    function(d, b) { for (var p in b)
-                            if (b.hasOwnProperty(p)) d[p] = b[p]; };
+                    function(d, b) {
+                        for (var p in b)
+                            if (b.hasOwnProperty(p)) d[p] = b[p];
+                    };
                 return function(d, b) {
                     extendStatics(d, b);
 

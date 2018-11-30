@@ -217,7 +217,7 @@ app.controller('voteController', function($scope) {
         var wal = require("wal");
         wal.getNodes().then(function(nodes) {
             $scope.nodes = nodes;
-            for(let n of $scope.nodes){
+            for (let n of $scope.nodes) {
                 n.num = modal.numformat(n.num)
             }
             $scope.$apply();
