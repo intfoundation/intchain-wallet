@@ -25,6 +25,7 @@ var lan = {
         backup: "Make a backup! Secure it like the millions of dollars it may one day be worth",
         goahead: "Next",
         savePri: "Save your Private Key",
+        dnk: "Download New Keystore",
 
         access: "How would you like to access your wallet?",
         privateKey: "Private Key",
@@ -72,7 +73,9 @@ var lan = {
         pnv: "Price is not valid",
         mf: "please mortgage first",
         m20: "You can choose 20 at most",
-
+        nineSpace: "Your password must be at least 9 characters.Password should not start or end with space",
+        epn: "Enter your new wallet password",
+        stakes: "votes"
     },
     zh: {
         language: "语言",
@@ -89,7 +92,7 @@ var lan = {
         sp: "请确保密码强度",
         ep: "请输入钱包密码",
         epa: "请再次输入钱包密码",
-        noSpace: "密码首位不可包含空格",
+        noSpace: "密码首尾不可包含空格",
         noShare: "下载文件包含您的钱包信息，不要与其他人分享，否则您的钱会被偷走",
         callUs: "有任何问题，请与我们联系",
         email: "官方邮箱:intwallet@intchain.io",
@@ -100,6 +103,7 @@ var lan = {
         backup: "备份！保护它就像哪天它有可能值数百万美元",
         goahead: "继续",
         savePri: "保存私钥",
+        dnk: "下载新Keystore",
 
         access: "如何访问你的钱包？",
         privateKey: "私钥",
@@ -128,6 +132,7 @@ var lan = {
 
         ethAdress: "ETH地址",
         ethPrivateKey: "ETH私钥",
+        intPrivateKey: "INT私钥",
         intAddress: "INT地址",
 
         confirm: "确定",
@@ -146,5 +151,8 @@ var lan = {
         pnv: "Price无效",
         mf: "请先换票",
         m20: "最多可选择20个",
+        nineSpace: "密码至少包含9个字符，且首尾不可包含空格",
+        epn: "请输入新钱包密码",
+        stakes: "票"
     }
 }

@@ -39,8 +39,8 @@ app.controller('mappingController', function($scope, $http) {
         if (value.length === 64) {
             var wal = require("wal");
             $scope.model.fromAddress = wal.ethPrivateKeyToAccount(value)
-            $scope.intPrivateKey = value
-            $scope.model.toAddress = wal.addressFromPrivateKey(value);
+                //$scope.intPrivateKey = value
+                //$scope.model.toAddress = wal.addressFromPrivateKey(value);
             $scope.queryBalance();
         }
     })
