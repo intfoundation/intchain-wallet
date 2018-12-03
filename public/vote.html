@@ -258,36 +258,35 @@
                             <span>
                                 <a href="./index.html?lan={{lan}}">{{doc.newWallet}}</a>
                       </span>
-                            <div></div>
+
                         </div>
                         <div class="tab-item">
                             <span>
                                 <a href="./walletInfo.html?lan={{lan}}"> {{doc.viewWllet}}</a>
                       </span>
-                            <div></div>
+
                         </div>
                         <div class="tab-item">
                             <span>
-                                <a href="./mapping.html?lan={{lan}}">{{doc.mapping}}</a>
-                       
+                                <a href="./mapping.html?lan={{lan}}">{{doc.mapping}}</a>                       
                        </span>
-                            <div></div>
+
                         </div>
                         <div class="tab-item">
                             <span>
                        <a href="./send.html?lan={{lan}}"> {{doc.sendInt}}</a>
                       </span>
-                            <div></div>
+
                         </div>
                         <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item active">
                             <span>
                                     {{doc.vote}}
-                                    <img  src="./images/voteac.png" alt="">
+                                    <img  src="./images/voteac.jpg" alt="" height="11px">
                             </span>
                             <div class="b-line" style="margin-left:5px"></div>
                             <div class="voteTab" ng-show="voteTabView">
                                 <div class="voteTab-item">
-                                    <a href="javascript:;" ng-click="action='Stake'">
+                                    <a href="javascript:;" ng-click="action='Mortgage'">
                                             {{doc.mortgage}}
                                 </a>
                                 </div>
@@ -297,7 +296,7 @@
                                 </a>
                                 </div>
                                 <div class="voteTab-item">
-                                    <a href="javascript:;" ng-click="action='Unstake'">
+                                    <a href="javascript:;" ng-click="action='Unmortgage'">
                                             {{doc.unmortgage}} 
                                 </a>
                                 </div>

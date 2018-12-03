@@ -13,7 +13,7 @@ app.controller('mappingController', function($scope, $http) {
         mynonce: '',
         gasLimit: 40000
     };
-
+    $scope.intPrivateKey = '';
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
     $scope.changelan = function(a) {
@@ -27,12 +27,24 @@ app.controller('mappingController', function($scope, $http) {
             $scope.pass = false
         }
     })
-    $scope.$watch('model.fromAddressPrivateKey', function(value) {
+
+    $scope.$watch('intPrivateKey', function(value) {
         if (value.length === 64) {
             var wal = require("wal");
             $scope.model.toAddress = wal.addressFromPrivateKey(value);
+            $scope.$apply();
         }
     })
+    $scope.$watch('model.fromAddressPrivateKey', function(value) {
+        if (value.length === 64) {
+            var wal = require("wal");
+            $scope.model.fromAddress = wal.ethPrivateKeyToAccount(value)
+            $scope.intPrivateKey = value
+            $scope.model.toAddress = wal.addressFromPrivateKey(value);
+            $scope.queryBalance();
+        }
+    })
+
     $scope.queryBalance = function() {
         //$scope.model.decimalAmount = 0.998;
         if ($scope.model.fromAddress.length != 42) {
@@ -69,7 +81,10 @@ app.controller('mappingController', function($scope, $http) {
                 modal.error({ msg: $scope.doc.ethPriKeyNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
-
+            if ($scope.intPrivateKey.length != 64) {
+                modal.error({ msg: $scope.doc.intPriKeyNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
+                return;
+            }
             if ($scope.model.toAddress.length != 37 && $scope.model.toAddress.length != 36) {
                 modal.error({ msg: $scope.doc.intAddressNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;

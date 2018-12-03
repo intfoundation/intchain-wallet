@@ -7,6 +7,7 @@ const { addressFromSecretKey } = require('./core/address')
 const { BufferWriter } = require('./core/lib/writer')
 const assert = require('assert');
 const rlp = require('rlp');
+const web3 = require("web3")
 const {
     http,
     getBalanceUrl,
@@ -43,8 +44,7 @@ let makeWalletAccount = pwd => {
     let address = addr;
     let privateKey = secret.toString('hex')
     let json = encrypt(privateKey, pwd)
-    let privatekey2 = decrypt(json, pwd)
-    console.log(privateKey, privatekey2)
+        //let privatekey2 = decrypt(json, pwd)
     json.address = address;
     return { json, privateKey };
 }
@@ -340,6 +340,12 @@ let getToken = async address => {
     let result = await http.sendGet(url);
     return JSON.parse(result);
 }
+
+let ethPrivateKeyToAccount = privateKey => {
+    let account = new web3().eth.accounts.privateKeyToAccount("0x" + privateKey)
+    return account.address
+}
+
 module.exports = {
     getBalance,
     transfer,
@@ -359,7 +365,8 @@ module.exports = {
     sendBurn,
     BigNumber,
     getPrice,
-    getLimit
+    getLimit,
+    ethPrivateKeyToAccount
 }
 
 //transfer(2, 3, '1F9hNoR4xhPeqEcvjQ1qt7hLrdZhAQepcm', 'a86f164acf7eaff87c12c0dae926506a9ba31cd2f68f0d55f96a1b891b961d02')

@@ -230,7 +230,7 @@
                             <div class="b-line"></div>
                             <div class="voteTab" ng-show="voteTabView">
                                 <div class="voteTab-item">
-                                    <a href="./vote.html?action=Stake&lan={{lan}}">
+                                    <a href="./vote.html?action=Mortgage&lan={{lan}}">
                                         {{doc.mortgage}} 
                             </a>
                                 </div>
@@ -240,7 +240,7 @@
                                     </a>
                                 </div>
                                 <div class="voteTab-item">
-                                    <a href="./vote.html?action=Unstake&lan={{lan}}">
+                                    <a href="./vote.html?action=Unmortgage&lan={{lan}}">
                                         {{doc.unmortgage}} 
                             </a>
                                 </div>
@@ -277,32 +277,41 @@
                 </div>
                 <div class="main">
                     <div>
-
-
                         <div class="item-box">
-                            <div class="lable"> {{doc.ethAdress}}</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterEvent($event)" type="text" ng-blur="queryBalance()" placeholder="{{doc.ethAdress}}" ng-model="model.fromAddress">
-                            </div>
-                        </div>
-                        <div class="item-box" style="margin-left: 50px">
                             <div class="lable">{{doc.ethPrivateKey}}</div>
                             <div class="in-box">
                                 <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.ethPrivateKey}}" ng-model="model.fromAddressPrivateKey">
                             </div>
                         </div>
+
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">{{doc.intPrivateKey}}</div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.intPrivateKey}}" ng-model="intPrivateKey">
+                            </div>
+                        </div>
+
+                        <div class="item-box">
+                            <div class="lable"> {{doc.ethAdress}}</div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" readonly type="text" ng-blur="queryBalance()" placeholder="{{doc.ethAdress}}" ng-model="model.fromAddress">
+                            </div>
+                        </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">{{doc.intAddress}}</div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.intAddress}}" ng-model="model.toAddress">
+                            </div>
+                        </div>
+
+
                         <div class="item-box">
                             <div class="lable">{{doc.balance}}</div>
                             <div class="in-box">
                                 <input ng-keyup="enterEvent($event)" type="text" readonly placeholder="{{doc.balance}}" ng-model="model.decimalAmount">
                             </div>
                         </div>
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">{{doc.intAddress}}</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.intAddress}}" ng-model="model.toAddress">
-                            </div>
-                        </div>
+                        <br>
                         <div class="item-box">
                             <div class="lable">Gas Price</div>
                             <div class="in-box">

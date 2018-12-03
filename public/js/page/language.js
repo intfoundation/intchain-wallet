@@ -6,8 +6,8 @@ var lan = {
         mapping: "Mapping",
         sendInt: "Transfer INT",
         vote: "Vote",
-        mortgage: "Stake",
-        unmortgage: "Unstake",
+        mortgage: "Mortgage",
+        unmortgage: "Unmortgage",
         cnw: "Create New Wallet",
         nine: "Your password must be at least 9 characters",
         noMatch: "Password doesn't match , please try again",
@@ -53,14 +53,16 @@ var lan = {
 
         ethAdress: "ETH Wallet Address",
         ethPrivateKey: "ETH Wallet Private Key",
+        intPrivateKey: "INT Wallet Private Key",
         intAddress: "INT Wallet Address",
 
-        confirm: "confirm",
-        cancel: "cancel",
+        confirm: "Confirm",
+        cancel: "Cancel",
         notice: "Notice",
 
         ethAddressNotValid: "ETH wallet address is not is not valid",
         ethPriKeyNotValid: "ETH wallet private key is not is not valid",
+        intPriKeyNotValid: "INT wallet private key is not is not valid",
         intAddressNotValid: "INT wallet address is not is not valid",
         priceNotValid: "Gas price is not is not valid",
         tanv: "To address is not valid",
@@ -134,6 +136,7 @@ var lan = {
 
         ethAddressNotValid: "ETH地址无效",
         ethPriKeyNotValid: "ETH私钥无效",
+        intPriKeyNotValid: "INT私钥无效",
         intAddressNotValid: "INT地址无效",
         priceNotValid: "Gas price无效",
         tanv: "转账地址无效",
