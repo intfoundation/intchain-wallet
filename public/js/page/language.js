@@ -103,7 +103,7 @@ var lan = {
         backup: "备份！保护它就像哪天它有可能值数百万美元",
         goahead: "继续",
         savePri: "保存私钥",
-        dnk: "下载新Keystore",
+        dnk: "下载新的Keystore",
 
         access: "如何访问你的钱包？",
         privateKey: "私钥",

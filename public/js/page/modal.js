@@ -135,6 +135,11 @@ function download() {
         document.getElementById('warnTip').style.display = 'block';
         return;
     }
+    if(pwd!=$.trim(pwd)){
+        document.getElementById('warnTip').style.display = 'block';
+        return;
+    }
+
     callbak(pwd);
     var dom = document.getElementById("modal");
     document.body.removeChild(dom);
