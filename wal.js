@@ -49835,8 +49835,6 @@ var Hash = require("eth-lib/lib/hash");
 var uuid = require('uuid');
 var cryp = (typeof global === 'undefined') ? require('crypto-browserify') : require('crypto');
 var scryptsy = require('scrypt.js');
-//let address = '1HLUdM9JpxByYVtLakADGUyLcKW2zEzVL1';
-//let privateKey =  'b555766f14a556db77b83aa08ff6c49aa0d4d8403e810be776020b682748b7c6';
 let isHexStrict = function(hex) {
     return ((_.isString(hex) || _.isNumber(hex)) && /^(-)?0x[0-9a-f]*$/i.test(hex));
 };

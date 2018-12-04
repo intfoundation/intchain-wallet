@@ -368,7 +368,3 @@ module.exports = {
     getLimit,
     ethPrivateKeyToAccount
 }
-
-//transfer(2, 3, '1F9hNoR4xhPeqEcvjQ1qt7hLrdZhAQepcm', 'a86f164acf7eaff87c12c0dae926506a9ba31cd2f68f0d55f96a1b891b961d02')
-//mortgage(100, 2, 'a86f164acf7eaff87c12c0dae926506a9ba31cd2f68f0d55f96a1b891b961d02')
-//getVotes('1CHpy1NayZHXxLe21LuzpTMLSs32Xk9D1K')
