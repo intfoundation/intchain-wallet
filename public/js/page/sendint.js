@@ -27,7 +27,7 @@ app.controller('sendintController', function($scope) {
         if (!$scope.balance || !$scope.limit || !$scope.price) {
             return
         }
-        $scope.ap = $scope.doc.maxAmount + ($scope.balance - $scope.limit * $scope.price)
+        $scope.ap = $scope.doc.maxAmount + ($scope.balance - $scope.limit * $scope.price - 0.00001)
     }
 
     $scope.$watch('{b:balance,l:limit,p:price}', function(v) {
