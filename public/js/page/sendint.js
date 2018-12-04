@@ -16,17 +16,26 @@ app.controller('sendintController', function($scope) {
     $scope.balance = 0;
     $scope.toAddress;
     $scope.amount;
-    $scope.limit;
-    $scope.price = 0.00001;
-
+    $scope.limit = 40000;
+    $scope.price = 0.0000002;
+    $scope.ap = ""
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
     $scope.changelan = function(a) {
         $scope.doc = lan[a]
         $scope.lan = a
+        if (!$scope.balance || !$scope.limit || !$scope.price) {
+            return
+        }
+        $scope.ap = $scope.doc.maxAmount + ($scope.balance - $scope.limit * $scope.price)
     }
 
-
+    $scope.$watch('{b:balance,l:limit,p:price}', function(v) {
+        if (!v.b || !v.l || !v.p) {
+            return
+        }
+        $scope.ap = $scope.doc.maxAmount + (v.b - v.l * v.p)
+    })
     $scope.$watch('password', function(newValue, oldValue) {
         if ($scope.password.length >= 9) {
             $scope.unlockDisabled = false
@@ -110,7 +119,7 @@ app.controller('sendintController', function($scope) {
     }
     $scope.getLimit = function() {
         var wal = require("wal");
-        wal.getLimit('transferTo', JSON.stringify({ to: $scope.toAddress })).then(function(data) {
+        wal.getLimit('transferTo', JSON.stringify({ to: 'INT17Rnp25o6JMwRiyvMCfLu4kN6AiacerA7y' })).then(function(data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -122,6 +131,7 @@ app.controller('sendintController', function($scope) {
             $scope.$apply();
         })
     }
+    $scope.getLimit()
 
     $scope.privateKeyUnlock = function() {
         if ($scope.privateKey.length != 64) {

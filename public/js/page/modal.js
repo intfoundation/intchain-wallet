@@ -135,7 +135,7 @@ function download() {
         document.getElementById('warnTip').style.display = 'block';
         return;
     }
-    if(pwd!=$.trim(pwd)){
+    if (pwd != $.trim(pwd)) {
         document.getElementById('warnTip').style.display = 'block';
         return;
     }

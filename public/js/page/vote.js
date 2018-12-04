@@ -31,16 +31,21 @@ app.controller('voteController', function($scope) {
     $scope.unmorgagePass = false;
     $scope.searchStr = "";
     $scope.nodes = []
+    $scope.title = ""
 
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
     $scope.changelan = function(a) {
         $scope.doc = lan[a]
         $scope.lan = a
+        $scope.title = $scope.doc[$scope.action.toLocaleLowerCase()]
     }
 
     $scope.$watch('action', function(val) {
         document.title = val + '| INT Chain';
+
+        $scope.title = $scope.doc[val.toLocaleLowerCase()]
+
     })
     $scope.$watch('password', function(newValue, oldValue) {
         if ($scope.password.length >= 9) {

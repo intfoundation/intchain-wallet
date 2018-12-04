@@ -190,6 +190,13 @@
             margin-top: 24px;
             font-weight: bold;
         }
+        
+        .all {
+            cursor: pointer;
+            color: rgba(102, 102, 102, 1);
+            font-weight: normal;
+            font-size: 14px;
+        }
     </style>
 
     <body ng-app="myApp">
@@ -362,13 +369,14 @@
                         <div class="item-box">
                             <div class="lable"> {{doc.td}} </div>
                             <div class="in-box">
-                                <input ng-keyup="enterEvent($event)" ng-blur="getLimit()" type="text" placeholder=" {{doc.td}} " ng-model="toAddress">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder=" {{doc.td}} " ng-model="toAddress">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
                             <div class="lable"> {{doc.am}} </div>
                             <div class="in-box">
-                                <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.am}}" ng-model="amount">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="{{ap}}" ng-model="amount">
+                                <span class="all" ng-click="amount=balance-limit*price">{{doc.all}}</span>
                             </div>
                         </div>
                         <div class="item-box">

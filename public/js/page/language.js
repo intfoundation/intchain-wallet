@@ -75,7 +75,9 @@ var lan = {
         m20: "You can choose 20 at most",
         nineSpace: "Your password must be at least 9 characters.Password should not start or end with space",
         epn: "Enter your new wallet password",
-        stakes: "votes"
+        stakes: "votes",
+        maxAmount: "Maximum input of ",
+        all: "All"
     },
     zh: {
         language: "语言",
@@ -153,6 +155,8 @@ var lan = {
         m20: "最多可选择20个",
         nineSpace: "密码至少包含9个字符，且首尾不可包含空格",
         epn: "请输入新钱包密码",
-        stakes: "票"
+        stakes: "票",
+        maxAmount: "最大可输入",
+        all: "全部"
     }
 }
