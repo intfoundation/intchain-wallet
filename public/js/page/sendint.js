@@ -119,7 +119,7 @@ app.controller('sendintController', function($scope) {
     }
     $scope.getLimit = function() {
         var wal = require("wal");
-        wal.getLimit('transferTo', JSON.stringify({ to: 'INT17Rnp25o6JMwRiyvMCfLu4kN6AiacerA7y' })).then(function(data) {
+        wal.getLimit('transferTo', JSON.stringify({ to: 'INT0000000000000000000000000000000000' })).then(function(data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }

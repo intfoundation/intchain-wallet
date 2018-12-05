@@ -130,7 +130,7 @@ let vote = async(candidates, limit, price, secret) => {
     tx.method = 'vote';
     tx.limit = new BigNumber(limit);
     tx.price = new BigNumber(price * Math.pow(10, 18));
-    tx.input = candidates;
+    tx.input = { candidates: candidates };
     tx.nonce = nonce + 1;
     tx.sign(secret);
 
@@ -176,7 +176,7 @@ let mortgage = async(amount, limit, price, secret) => {
     tx.limit = new BigNumber(limit);
     tx.price = new BigNumber(price * Math.pow(10, 18));
     tx.value = new BigNumber(amount * Math.pow(10, 18));
-    tx.input = new BigNumber(amount * Math.pow(10, 18));
+    tx.input = { amount: new BigNumber(amount * Math.pow(10, 18)) };
     tx.nonce = nonce + 1;
     tx.sign(secret);
 
@@ -225,7 +225,7 @@ let unmortgage = async(amount, limit, price, secret) => {
     tx.limit = new BigNumber(limit);
     tx.price = new BigNumber(price * Math.pow(10, 18));
     tx.value = new BigNumber(amount * Math.pow(10, 18));
-    tx.input = new BigNumber(amount * Math.pow(10, 18));
+    tx.input = { amount: new BigNumber(amount * Math.pow(10, 18)) };
     tx.nonce = nonce + 1;
     tx.sign(secret);
 

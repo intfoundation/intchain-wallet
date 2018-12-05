@@ -128,7 +128,7 @@ app.controller('voteController', function($scope) {
                     candies.push(n.node)
                 }
             }
-            input = JSON.stringify(candies)
+            input = JSON.stringify({ candidates: candies })
         }
         var wal = require("wal");
         wal.getLimit(method, input).then(function(data) {

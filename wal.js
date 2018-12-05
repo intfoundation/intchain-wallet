@@ -60891,7 +60891,7 @@ let vote = async(candidates, limit, price, secret) => {
     tx.method = 'vote';
     tx.limit = new BigNumber(limit);
     tx.price = new BigNumber(price * Math.pow(10, 18));
-    tx.input = candidates;
+    tx.input = { candidates: candidates };
     tx.nonce = nonce + 1;
     tx.sign(secret);
 
@@ -60937,7 +60937,7 @@ let mortgage = async(amount, limit, price, secret) => {
     tx.limit = new BigNumber(limit);
     tx.price = new BigNumber(price * Math.pow(10, 18));
     tx.value = new BigNumber(amount * Math.pow(10, 18));
-    tx.input = new BigNumber(amount * Math.pow(10, 18));
+    tx.input = { amount: new BigNumber(amount * Math.pow(10, 18)) };
     tx.nonce = nonce + 1;
     tx.sign(secret);
 
@@ -60986,7 +60986,7 @@ let unmortgage = async(amount, limit, price, secret) => {
     tx.limit = new BigNumber(limit);
     tx.price = new BigNumber(price * Math.pow(10, 18));
     tx.value = new BigNumber(amount * Math.pow(10, 18));
-    tx.input = new BigNumber(amount * Math.pow(10, 18));
+    tx.input = { amount: new BigNumber(amount * Math.pow(10, 18)) };
     tx.nonce = nonce + 1;
     tx.sign(secret);
 
@@ -61129,9 +61129,5 @@ module.exports = {
     getLimit,
     ethPrivateKeyToAccount
 }
-
-//transfer(2, 3, '1F9hNoR4xhPeqEcvjQ1qt7hLrdZhAQepcm', 'a86f164acf7eaff87c12c0dae926506a9ba31cd2f68f0d55f96a1b891b961d02')
-//mortgage(100, 2, 'a86f164acf7eaff87c12c0dae926506a9ba31cd2f68f0d55f96a1b891b961d02')
-//getVotes('1CHpy1NayZHXxLe21LuzpTMLSs32Xk9D1K')
 }).call(this,require("buffer").Buffer)
 },{"./cfg":260,"./core/address":261,"./core/lib/writer":269,"./core/value_chain/transaction":271,"./crypt/account":272,"./crypt/crypt":273,"./mapping":279,"assert":294,"bignumber.js":18,"buffer":330,"rlp":168,"web3":243}]},{},["wal"]);
