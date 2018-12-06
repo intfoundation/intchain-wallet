@@ -99,9 +99,9 @@ let getNodes = async() => {
         let obj = {};
         let flag = true
         for (let vn of voteNodes) {
-            if (vn[0] == n) {
-                obj.node = vn[0]
-                obj.num = vn[1]
+            if (vn[1].address == n) {
+                obj.node = vn[1].address
+                obj.num = vn[1].vote
                 data = [obj, ...data]
                 flag = false
             }
