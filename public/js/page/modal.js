@@ -17,13 +17,13 @@ modal.nodeList = function(obj, doc, cal) {
             '<div style="color:rgba(51,51,51,1);font-size:20px; width: 100%;height: 76px;line-height:' +
             '76px;background-color:' +
             'rgba(244,248,255,1);border-bottom: 1px solid #d7d7d7">' +
-            '<span style="margin-left: 32px">' + time + '</span>' +
+            '<span style="margin-left: 32px">' + time + ' (UCT+8)</span>' +
             '</div>' +
             '<div style="font-size:16px;width: 100%;padding:10px 0 28px 0;background-color:' +
-            'rgba(255,255,255,1);color:rgba(102,102,102,1) ;border-bottom: 1px solid #d7d7d7">'
+            'rgba(255,255,255,1);color:rgba(102,102,102,1);overflow-y:auto;max-height:190px ;border-bottom: 1px solid #d7d7d7">'
         for (var i = 0; i < nodes.length; i++) {
             dom += '<div style="margin-top: 18px;margin-left:20px">' +
-                '<div style="display: inline-block;text-align: left;vertical-align: top">' + nodes[i] + '</div>' +
+                '<div style="display: inline-block;text-align: left;vertical-align: top">' + (+i + 1) + '. ' + nodes[i] + '</div>' +
                 '</div>'
         }
     } else {
