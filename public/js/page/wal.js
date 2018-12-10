@@ -40391,10 +40391,10 @@ Wallet.prototype.load = function (password, keyName) {
     return this.decrypt(keystore || [], password);
 };
 
-if (typeof localStorage === 'undefined') {
-    delete Wallet.prototype.save;
-    delete Wallet.prototype.load;
-}
+// if (typeof localStorage === 'undefined') {
+//     delete Wallet.prototype.save;
+//     delete Wallet.prototype.load;
+// }
 
 
 module.exports = Accounts;
@@ -46864,6 +46864,7 @@ let development = {
     queryIntOnEthUrl: "http://localhost:3001/mapping/queryEthIntBalance/",
     getPriceUrl: "http://localhost:3001/wallet/getPrice",
     getLimitUrl: "http://localhost:3001/wallet/getLimit",
+    getVoteRecordUrl: "http://localhost:3001/wallet/voteRecord/",
     http: httpUtil,
     host: 'localhost',
     port: 3001,
@@ -46885,6 +46886,7 @@ let production = {
     queryIntOnEthUrl: "https://explorer.intchain.io/api/mapping/queryEthIntBalance/",
     getPriceUrl: "https://explorer.intchain.io/api/wallet/getPrice",
     getLimitUrl: "https://explorer.intchain.io/api/wallet/getLimit",
+    getVoteRecordUrl: "https://explorer.intchain.io/api/wallet/voteRecord/",
     host: 'explorer.intchain.io',
     port: "",
     transferUrl: '/api/wallet/transfer',
@@ -60784,7 +60786,8 @@ const {
     queryIntOnEthUrl,
     getTokenUrl,
     getPriceUrl,
-    getLimitUrl
+    getLimitUrl,
+    getVoteRecordUrl
 } = require('./cfg')
 
 const Mapping = require("./mapping");
@@ -60835,6 +60838,13 @@ let decodeFromOption = (option, pwd) => {
 let getBalance = async address => {
     assert(address, 'address is required.');
     let url = getBalanceUrl + address;
+    let result = await http.sendGet(url);
+    return result;
+}
+
+let voteRecord = async address => {
+    assert(address, 'address is required.');
+    let url = getVoteRecordUrl + address;
     let result = await http.sendGet(url);
     return result;
 }
@@ -61127,7 +61137,8 @@ module.exports = {
     BigNumber,
     getPrice,
     getLimit,
-    ethPrivateKeyToAccount
+    ethPrivateKeyToAccount,
+    voteRecord
 }
 }).call(this,require("buffer").Buffer)
 },{"./cfg":260,"./core/address":261,"./core/lib/writer":269,"./core/value_chain/transaction":271,"./crypt/account":272,"./crypt/crypt":273,"./mapping":279,"assert":294,"bignumber.js":18,"buffer":330,"rlp":168,"web3":243}]},{},["wal"]);

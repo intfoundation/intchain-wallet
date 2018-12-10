@@ -77,7 +77,8 @@ var lan = {
         epn: "Enter your new wallet password",
         stakes: "votes",
         maxAmount: "Maximum input of ",
-        all: "All"
+        all: "All",
+        noData: "No data"
     },
     zh: {
         language: "语言",
@@ -157,6 +158,7 @@ var lan = {
         epn: "请输入新钱包密码",
         stakes: "票",
         maxAmount: "最大可输入",
-        all: "全部"
+        all: "全部",
+        noData: " 暂无数据"
     }
 }

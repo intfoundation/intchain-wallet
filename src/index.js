@@ -23,7 +23,8 @@ const {
     queryIntOnEthUrl,
     getTokenUrl,
     getPriceUrl,
-    getLimitUrl
+    getLimitUrl,
+    getVoteRecordUrl
 } = require('./cfg')
 
 const Mapping = require("./mapping");
@@ -74,6 +75,13 @@ let decodeFromOption = (option, pwd) => {
 let getBalance = async address => {
     assert(address, 'address is required.');
     let url = getBalanceUrl + address;
+    let result = await http.sendGet(url);
+    return result;
+}
+
+let voteRecord = async address => {
+    assert(address, 'address is required.');
+    let url = getVoteRecordUrl + address;
     let result = await http.sendGet(url);
     return result;
 }
@@ -366,5 +374,6 @@ module.exports = {
     BigNumber,
     getPrice,
     getLimit,
-    ethPrivateKeyToAccount
+    ethPrivateKeyToAccount,
+    voteRecord
 }

@@ -415,6 +415,10 @@
                                 <input ng-keyup="enterVote($event)" type="text" ng-model="searchStr">
                             </div>
                         </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="btn-unlock" style="margin-top: 48px" ng-click="showRecord()">
+                                {{doc.vote}}</div>
+                        </div>
                         <div class="node-box">
                             <div class="node-item" ng-repeat="n in nodes" ng-click="chooseNodes($index)" ng-if="n.node.indexOf(searchStr)>=0">
                                 <img ng-show="n.ch" class="icon" src="./images/choose.png" alt="">

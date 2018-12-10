@@ -31,7 +31,8 @@ app.controller('voteController', function($scope) {
     $scope.unmorgagePass = false;
     $scope.searchStr = "";
     $scope.nodes = []
-    $scope.title = ""
+    $scope.title = "";
+    $scope.voteRecord = {};
 
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
@@ -75,6 +76,13 @@ app.controller('voteController', function($scope) {
             $scope.unmorgagePass = false
         }
     })
+    $scope.showRecord = function() {
+        modal.nodeList({
+            okText: $scope.doc.confirm,
+            time: $scope.voteRecord.time,
+            nodes: $scope.voteRecord.candidates
+        }, $scope.doc)
+    }
     $scope.chooseNodes = function(index) {
         let chNum = 0
         if ($scope.chNum >= 20) {
@@ -114,6 +122,7 @@ app.controller('voteController', function($scope) {
                 $scope.keyStoreUnlockFail = false;
                 $scope.getbalance();
                 $scope.getPrice();
+                $scope.getVoteRecord();
                 $scope.$apply();
             })
         }
@@ -179,9 +188,25 @@ app.controller('voteController', function($scope) {
         } else {
             $scope.getbalance()
             $scope.getPrice()
+            $scope.getVoteRecord()
             $scope.step = 2;
         }
         $scope.$apply();
+    }
+    $scope.getVoteRecord = function() {
+        var wal = require("wal");
+        wal.voteRecord($scope.address).then(function(data) {
+            if (typeof data === 'string') {
+                data = JSON.parse(data)
+            }
+            if (data.err) {
+                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
+                return;
+            }
+            //$scope.balance = new Number(data.balance / Math.pow(10, 18)).toLocaleString().replace(/,/g, '');
+            $scope.voteRecord = data
+            $scope.$apply();
+        });
     }
     $scope.getbalance = function() {
         var wal = require("wal");
