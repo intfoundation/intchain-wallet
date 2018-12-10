@@ -78,7 +78,8 @@ var lan = {
         stakes: "votes",
         maxAmount: "Maximum input of ",
         all: "All",
-        noData: "No data"
+        noData: "No data",
+        vvn: "View Voted Nodes"
     },
     zh: {
         language: "语言",
@@ -159,6 +160,7 @@ var lan = {
         stakes: "票",
         maxAmount: "最大可输入",
         all: "全部",
-        noData: " 暂无数据"
+        noData: " 暂无数据",
+        vvn: "查看已投节点"
     }
 }
