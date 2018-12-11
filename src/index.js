@@ -232,7 +232,7 @@ let unmortgage = async(amount, limit, price, secret) => {
     tx.method = 'unmortgage';
     tx.limit = new BigNumber(limit);
     tx.price = new BigNumber(price * Math.pow(10, 18));
-    tx.value = new BigNumber(amount * Math.pow(10, 18));
+    tx.value = new BigNumber(0);
     tx.input = { amount: new BigNumber(amount * Math.pow(10, 18)) };
     tx.nonce = nonce + 1;
     tx.sign(secret);
