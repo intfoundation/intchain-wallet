@@ -78,9 +78,11 @@ app.directive('fileUploader', function($http) {
         //     '</div><div ng-show="show"><div class="mi middle">Please enter your password</div>' +
         //     '<div class="is" style="width: 381px;margin: 0 auto"><input type="password"  ng-model="password"' +
         // ' class="ip"  placeholder="Please enter your password"></div></div>',
+
+
         template: '<div class="is">' +
-            '<div class="lt1">' +
-            ' <span>{{doc.seStore}} </span>' +
+            '<div class="lt1" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">' +
+            ' <span>{{fileName||doc.seStore}} </span>' +
             ' </div>' +
             ' <div class="lt2" style="display:none"><a href="javascript:void(0)"><input type="file">浏览</a></div>' +
             '</div><div ng-show="show" style="display:block;width: 800px;height: 79px"><div class="mi middle">' +
@@ -96,6 +98,7 @@ app.directive('fileUploader', function($http) {
             '   </div></div>',
         link: function(scope, element, attributes) {
             scope.show = false;
+            scope.fileName = ''
             scope.doc = scope.$parent.doc;
             scope.enterUnlock = function(e) {
                 scope.$parent.enterUnlock(e)
@@ -109,7 +112,7 @@ app.directive('fileUploader', function($http) {
             });
             var changeFile = function() {
                 //if( $(element).find("input[type=file]")[0].files==)
-                scope.name = $(element).find("input[type=file]")[0].files[0].name;
+                scope.fileName = $(element).find("input[type=file]")[0].files[0].name;
                 scope.file = $(element).find("input[type=file]")[0].files[0];
                 scope.show = true;
                 scope.$apply();

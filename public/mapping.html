@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Mapping | INT Chain</title>
+    <title>Get Test Coin| INT Chain</title>
     <link rel="stylesheet" href="./css/index.css" />
     <link rel="icon" href="./images/intlogo.png" type="image/x-icon" />
     <script src="./js/plugins/jquery/jquery-3.3.1.min.js"></script>
@@ -94,7 +94,7 @@
         }
         
         .is .lt1 {
-            width: 240px;
+            width: 412px;
             height: 50px;
             border-radius: 4px;
             border: 1px solid rgba(60, 49, 215, 1);
@@ -129,7 +129,7 @@
         input {
             margin-left: 24px;
             width: 85%;
-            height: 100%;
+            height: 98%;
             border: 0px;
             outline: none
         }
@@ -174,7 +174,7 @@
             border-radius: 4px;
             background-color: rgba(215, 49, 111, 1);
             line-height: 32px;
-            padding-left: 40px;
+            padding-left: 13px;
             color: rgba(255, 255, 255, 1);
             font-size: 12px;
         }
@@ -247,6 +247,33 @@
                             </div>
                         </div>
 
+                        <div id="token" ng-mouseenter="tokenView = true" ng-mouseleave="tokenView = false" class="tab-item">
+                            <span>
+                                            <a href="javascript:;" >Token </a>
+                                             <img  src="./images/voteunac.png" alt="">
+                                    </span>
+                            <div></div>
+                            <div class="voteTab" ng-show="tokenView">
+                                <div class="voteTab-item">
+                                    <a href="./token.html?action=create&lan={{lan}}">
+                                                {{doc.create}} 
+                                            </a>
+                                </div>
+                                <div class="voteTab-item">
+                                    <a href="./token.html?action=transfer&lan={{lan}}">
+                                                {{doc.transfer}} 
+                                            </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-item">
+                            <span>
+                                    <a href="./help.html?lan={{lan}}">{{doc.help}}</a>                      
+                                </span>
+                        </div>
+
                         <div id="lan" ng-mouseenter="lanView = true" ng-mouseleave="lanView = false" class="tab-item">
                             <span>
                                         <a href="javascript:;" >{{doc.language}} </a>
@@ -300,11 +327,9 @@
                         <div class="item-box" style="margin-left: 50px">
                             <div class="lable">{{doc.intAddress}}</div>
                             <div class="in-box">
-                                <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.intAddress}}" ng-model="model.toAddress">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.intAddress}}" ng-model="model.toAddress">
                             </div>
                         </div>
-
-
                         <div class="item-box">
                             <div class="lable">{{doc.balance}}</div>
                             <div class="in-box">
@@ -325,7 +350,7 @@
                             </div>
                         </div>
                         <div class="btn-dis" style="margin-top: 48px" ng-show="!pass">{{doc.mapping}}</div>
-                        <div ng-click="toMapping()" class="btn-unlock" style="margin-top: 48px" ng-click="send()" ng-show="pass">
+                        <div ng-click="toMapping()" ng-show="pass" class="btn-unlock" style="margin-top: 48px">
                             {{doc.mapping}}
                         </div>
                         <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">

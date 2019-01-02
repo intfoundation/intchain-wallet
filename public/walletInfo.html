@@ -95,7 +95,7 @@
         }
         
         .is .lt1 {
-            width: 240px;
+            width: 412px;
             height: 50px;
             border-radius: 4px;
             border: 1px solid rgba(204, 204, 204, 1);
@@ -131,7 +131,7 @@
         input {
             margin-left: 24px;
             width: 85%;
-            height: 100%;
+            height: 98%;
             border: 0px;
             outline: none;
             font-size: 14px;
@@ -177,7 +177,7 @@
             border-radius: 4px;
             background-color: rgba(215, 49, 111, 1);
             line-height: 32px;
-            padding-left: 40px;
+            padding-left: 13px;
             color: rgba(255, 255, 255, 1);
             font-size: 12px;
         }
@@ -211,9 +211,14 @@
         .token-item {
             height: 40px;
             line-height: 40px;
-            margin-left: 24px;
             color: rgba(51, 51, 51, 1);
             font-size: 14px;
+            border-top: 1px solid rgba(204, 204, 204, 1);
+            height: 90px;
+        }
+        
+        .token-item span {
+            margin-left: 20px;
         }
         
         .in-box:hover {
@@ -279,6 +284,33 @@
                             </div>
                         </div>
 
+                        <div id="token" ng-mouseenter="tokenView = true" ng-mouseleave="tokenView = false" class="tab-item">
+                            <span>
+                                            <a href="javascript:;" >Token </a>
+                                             <img  src="./images/voteunac.png" alt="">
+                                    </span>
+                            <div></div>
+                            <div class="voteTab" ng-show="tokenView">
+                                <div class="voteTab-item">
+                                    <a href="./token.html?action=create&lan={{lan}}">
+                                                {{doc.create}} 
+                                            </a>
+                                </div>
+                                <div class="voteTab-item">
+                                    <a href="./token.html?action=transfer&lan={{lan}}">
+                                                {{doc.transfer}} 
+                                            </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-item">
+                            <span>
+                                    <a href="./help.html?lan={{lan}}">{{doc.help}}</a>                      
+                                </span>
+                        </div>
+
                         <div id="lan" ng-mouseenter="lanView = true" ng-mouseleave="lanView = false" class="tab-item">
                             <span>
                                         <a href="javascript:;" >{{doc.language}} </a>
@@ -338,9 +370,9 @@
                             <div class="btn-dis" ng-show="unlockDisabled">{{doc.unlock}} </div>
                             <div class="btn-unlock" ng-click="unlock()" ng-show="!unlockDisabled">{{doc.unlock}}</div>
                             <div class="msg" ng-show="keyStoreUnlockFail">
-                                <img src="./images/msg.png" width="13px">
+                                <img src="./images/msg.png" width="14px" style="float:left;padding-top:9px">
                                 <span style="padding-left: 14.5px">{{doc.passError}}</span>
-                                <img ng-click="keyStoreUnlockFail = false" style="padding-left: 70px;cursor: pointer" src="./images/close.png" width="13px">
+                                <img ng-click="keyStoreUnlockFail = false" style="padding:10px;float:right;cursor: pointer" src="./images/close.png" width="13px">
                             </div>
                         </div>
                         <div ng-show="ch=='privateKey'">
@@ -362,9 +394,9 @@
                             <div class="btn-dis" ng-show="unlockDisabled">{{doc.unlock}}</div>
                             <div class="btn-unlock" ng-click="unlock()" ng-show="!unlockDisabled">{{doc.unlock}}</div>
                             <div class="msg" ng-show="privateKeyUnlockFail">
-                                <img src="./images/msg.png" width="13px">
+                                <img src="./images/msg.png" width="14px" style="float:left;padding-top:9px">
                                 <span style="padding-left: 14.5px">{{doc.validPrivateKey}}</span>
-                                <img ng-click="privateKeyUnlockFail = false" style="padding-left: 70px;cursor: pointer" src="./images/close.png" width="13px">
+                                <img ng-click="privateKeyUnlockFail = false" style="padding:10px;float:right;cursor: pointer" src="./images/close.png" width="13px">
                             </div>
                         </div>
                         <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
@@ -399,7 +431,12 @@
                                     <img ng-show='viewToken' src="./images/up.png" class="down">
                                 </div>
                                 <div class="token-box" ng-show='viewToken'>
-                                    <div ng-show='token.length' ng-repeat='t in token' class="token-item"><span>{{t.coin}}:  </span><span>{{t.balance}}</span></div>
+                                    <div ng-show='token.length' ng-repeat='t in token' class="token-item">
+
+                                        <span>{{t.coin}} </span> <br/>
+                                        <span>{{t.balance}}</span>
+
+                                    </div>
                                 </div>
                             </div>
 

@@ -7,14 +7,17 @@ app.controller('mainController', function($scope, $http) {
     $scope.pwdView = false
     $scope.rePwdView = false
     $scope.voteTabView = false
+    $scope.tokenView = false
     $scope.lanView = false
     $scope.step = 1
     $scope.data = {}
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
+    document.title = $scope.doc.newWallet + '| INT Chain';
     $scope.changelan = function(a) {
         $scope.doc = lan[a]
         $scope.lan = a
+        document.title = $scope.doc.newWallet + '| INT Chain';
     }
 
 

@@ -36,14 +36,16 @@ app.controller('voteController', function($scope) {
 
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
+    document.title = $scope.doc[$scope.action.toLocaleLowerCase()] + '| INT Chain';
     $scope.changelan = function(a) {
         $scope.doc = lan[a]
         $scope.lan = a
         $scope.title = $scope.doc[$scope.action.toLocaleLowerCase()]
+        document.title = $scope.doc[$scope.action.toLocaleLowerCase()] + '| INT Chain';
     }
 
     $scope.$watch('action', function(val) {
-        document.title = val + '| INT Chain';
+        document.title = $scope.doc[$scope.action.toLocaleLowerCase()] + '| INT Chain';
 
         $scope.title = $scope.doc[val.toLocaleLowerCase()]
 
@@ -77,6 +79,9 @@ app.controller('voteController', function($scope) {
         }
     })
     $scope.showRecord = function() {
+        if ($scope.vote == 0) {
+            $scope.voteRecord.candidates = [];
+        }
         modal.nodeList({
             okText: $scope.doc.confirm,
             time: $scope.voteRecord.time,
@@ -117,6 +122,11 @@ app.controller('voteController', function($scope) {
             var filedata = JSON.parse(this.result);
             var wal = require("wal");
             wal.decodeFromOption(filedata, $scope.password).then(function(data) {
+                if (data == "error") {
+                    $scope.keyStoreUnlockFail = true
+                    $scope.$apply();
+                    return;
+                }
                 $scope.address = filedata.address;
                 $scope.privateKey = data;
                 $scope.keyStoreUnlockFail = false;
@@ -138,6 +148,13 @@ app.controller('voteController', function($scope) {
                 }
             }
             input = JSON.stringify({ candidates: candies })
+        }
+
+        if (method == 'unmortgage' && (!$scope.unmorgageAmount || isNaN($scope.unmorgageAmount))) {
+            return
+        }
+        if (method == 'mortgage' && (!$scope.morgageAmount || isNaN($scope.morgageAmount))) {
+            return
         }
         var wal = require("wal");
         wal.getLimit(method, input).then(function(data) {
@@ -208,6 +225,22 @@ app.controller('voteController', function($scope) {
             $scope.$apply();
         });
     }
+    $scope.timeGetVoteRecord = function() {
+        var wal = require("wal");
+        wal.voteRecord($scope.address).then(function(data) {
+            if (typeof data === 'string') {
+                data = JSON.parse(data)
+            }
+            if ($scope.voteRecord.time == data.time) {
+                setTimeout(function() {
+                    $scope.timeGetVoteRecord()
+                }, 300)
+            } else {
+                $scope.voteRecord = data
+                $scope.$apply();
+            }
+        });
+    }
     $scope.getbalance = function() {
         var wal = require("wal");
         wal.getBalance($scope.address).then(function(data) {
@@ -248,13 +281,15 @@ app.controller('voteController', function($scope) {
     $scope.getNodes = function() {
         var wal = require("wal");
         wal.getNodes().then(function(nodes) {
-            $scope.nodes = nodes;
+            $scope.nodes = nodes.sort(modal.sortNum);
             for (let n of $scope.nodes) {
                 n.num = modal.numformat(n.num)
             }
+
             $scope.$apply();
         })
     }
+
     $scope.timeGetNodes = function() {
         var wal = require("wal");
         wal.getNodes().then(function(nodes) {
@@ -263,7 +298,8 @@ app.controller('voteController', function($scope) {
                 for (let node of nodes) {
                     if (n.node == node.node && n.num != modal.numformat(node.num)) {
                         n.num = modal.numformat(node.num)
-                        flag = true
+                        flag = true;
+                        $scope.getVoteRecord();
                         $scope.$apply();
                     }
                 }
@@ -339,7 +375,7 @@ app.controller('voteController', function($scope) {
                 if (res.err) {
                     modal.error({ msg: res.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 } else {
-                    modal.showInfo(res.info, function() {
+                    modal.showInfo(res.info, $scope.doc, function() {
                         wal.sendSignedTransaction(res.renderStr).then(function(r) {
                             if (typeof r === 'string') {
                                 r = JSON.parse(r)
@@ -348,9 +384,10 @@ app.controller('voteController', function($scope) {
                                 modal.error({ msg: r.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                             } else {
                                 // modal.success({ msg: r.hash })
-                                modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
-
-                                $scope.timeGetNodes()
+                                modal.burnSuccess({ doc: $scope.doc, msg: 'https://test.explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
+                                $scope.timeGetBalance();
+                                $scope.timeGetNodes();
+                                $scope.timeGetVoteRecord();
                             }
                         })
                     })
@@ -358,6 +395,7 @@ app.controller('voteController', function($scope) {
             }
         )
     }
+
     $scope.enterMorgage = function(e) {
         var keycode = window.event ? e.keyCode : e.which;
         if (keycode == 13 && $scope.morgagePass) {
@@ -383,7 +421,7 @@ app.controller('voteController', function($scope) {
                 if (res.err) {
                     modal.error({ msg: res.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 } else {
-                    modal.showInfo(res.info, function() {
+                    modal.showInfo(res.info, $scope.doc, function() {
                         wal.sendSignedTransaction(res.renderStr).then(function(r) {
                             if (typeof r === 'string') {
                                 r = JSON.parse(r)
@@ -392,8 +430,8 @@ app.controller('voteController', function($scope) {
                                 modal.error({ msg: r.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                             } else {
                                 //modal.success({ msg: r.hash })
-                                modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
-
+                                modal.burnSuccess({ doc: $scope.doc, msg: 'https://test.explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
+                                $scope.timeGetNodes();
                                 $scope.timeGetBalance()
                                 $scope.timeGetVote()
                             }
@@ -410,7 +448,7 @@ app.controller('voteController', function($scope) {
         }
     }
     $scope.Unmorgage = function() {
-            if (isNaN($scope.unmorgageAmount) || $scope.unmorgageAmount <= 0) {
+            if (isNaN($scope.unmorgageAmount) || $scope.unmorgageAmount <= 0 || $scope.unmorgageAmount > $scope.vote) {
                 modal.error({ msg: $scope.doc.anv, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return
             }
@@ -429,7 +467,7 @@ app.controller('voteController', function($scope) {
                     if (res.err) {
                         modal.error({ msg: res.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                     } else {
-                        modal.showInfo(res.info, function() {
+                        modal.showInfo(res.info, $scope.doc, function() {
                             wal.sendSignedTransaction(res.renderStr).then(function(r) {
                                 if (typeof r === 'string') {
                                     r = JSON.parse(r)
@@ -438,9 +476,10 @@ app.controller('voteController', function($scope) {
                                     modal.error({ msg: r.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                                 } else {
                                     //modal.success({ msg: res.hash })
-                                    modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
+                                    modal.burnSuccess({ doc: $scope.doc, msg: 'https://test.explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
                                     $scope.timeGetBalance()
                                     $scope.timeGetVote()
+                                    $scope.timeGetNodes();
                                 }
                             })
                         })
@@ -743,5 +782,6 @@ app.controller('voteController', function($scope) {
 //         "fee": "1"
 //     }]
 
+// }
 // }
 // }

@@ -11,6 +11,7 @@ app.controller('walletinfoController', function($scope) {
     $scope.privateKeyView = false
     $scope.pass = false
     $scope.viewToken = false
+    $scope.tokenView = false
     $scope.pwdTip = false
     $scope.download = false;
     //钱包信息相关
@@ -24,9 +25,11 @@ app.controller('walletinfoController', function($scope) {
 
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
+    document.title = $scope.doc.viewWllet + '| INT Chain';
     $scope.changelan = function(a) {
         $scope.doc = lan[a]
         $scope.lan = a
+        document.title = $scope.doc.viewWllet + '| INT Chain';
     }
 
 
@@ -107,7 +110,7 @@ app.controller('walletinfoController', function($scope) {
                 return;
             }
             for (let i in data.data.tokenList) {
-                data.data.tokenList[i].balance = (+data.data.tokenList[i].balance).toFixed(5)
+                data.data.tokenList[i].balance = modal.numformat(data.data.tokenList[i].balance, true)
             }
             $scope.token = data.data.tokenList;
             $scope.$apply();

@@ -6,7 +6,7 @@ const digest = require("./lib/digest");
 const staticwriter_1 = require("./lib/staticwriter");
 const base58 = require("./lib/base58");
 const util_1 = require("util");
-//const client_1 = require("../client");
+const { BufferReader } = require("./lib/reader");
 // prefix can identify different network
 // will be readed from consensus params
 const defaultPrefix = 0x00;
@@ -103,23 +103,23 @@ function verify(md, signature, publicKey) {
 }
 exports.verify = verify;
 
-// function isValidAddress(address) {
-//     let subAddress = address.slice(3);
-//     try {
-//         let buf = base58.decode(subAddress);
-//         if (buf.length !== 25) {
-//             return false;
-//         }
-//         let br = new client_1.BufferReader(buf);
-//         br.readU8();
-//         br.readBytes(20);
-//         br.verifyChecksum();
-//     } catch (error) {
-//         return false;
-//     }
-//     return true;
-// }
-// exports.isValidAddress = isValidAddress;
+function isValidAddress(address) {
+    let subAddress = address.slice(3);
+    try {
+        let buf = base58.decode(subAddress);
+        if (buf.length !== 25) {
+            return false;
+        }
+        let br = new BufferReader(buf);
+        br.readU8();
+        br.readBytes(20);
+        br.verifyChecksum();
+    } catch (error) {
+        return false;
+    }
+    return true;
+}
+exports.isValidAddress = isValidAddress;
 
 function isValidSecretKey(secretKey) {
     var reg = /^[0-9a-fA-F]{64}$/;
@@ -129,4 +129,5 @@ function isValidSecretKey(secretKey) {
         return false;
     }
 }
+
 exports.isValidSecretKey = isValidSecretKey;

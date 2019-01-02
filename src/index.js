@@ -2,7 +2,7 @@ const { createKeyPair } = require('./crypt/account')
 const { encrypt, decrypt } = require('./crypt/crypt')
 const { ValueTransaction } = require('./core/value_chain/transaction')
 const BigNumber = require('bignumber.js')
-const { addressFromSecretKey } = require('./core/address')
+const { addressFromSecretKey, isValidAddress } = require('./core/address')
     //const core_1 = require("./core");
 const { BufferWriter } = require('./core/lib/writer')
 const assert = require('assert');
@@ -24,12 +24,26 @@ const {
     getTokenUrl,
     getPriceUrl,
     getLimitUrl,
-    getVoteRecordUrl
+    getVoteRecordUrl,
+    getTokenBalanceUrl,
+    getTestCoinUrl
 } = require('./cfg')
 
 const Mapping = require("./mapping");
 let getPrice = async() => {
     let result = await http.sendGet(getPriceUrl);
+    return result;
+}
+
+let getTestCoin = async address => {
+    let url = getTestCoinUrl + '/' + address
+    let result = await http.sendGet(url);
+    return result;
+}
+
+let getTokenBalance = async(tokenid, address) => {
+    let url = getTokenBalanceUrl + tokenid + '/' + address
+    let result = await http.sendGet(url);
     return result;
 }
 let getLimit = async(method, input) => {
@@ -107,9 +121,9 @@ let getNodes = async() => {
         let obj = {};
         let flag = true
         for (let vn of voteNodes) {
-            if (vn[1].address == n) {
-                obj.node = vn[1].address
-                obj.num = vn[1].vote
+            if (vn.address == n) {
+                obj.node = vn.address
+                obj.num = vn.vote
                 data = [obj, ...data]
                 flag = false
             }
@@ -213,7 +227,105 @@ let mortgage = async(amount, limit, price, secret) => {
     //let mortgageResult = await http.sendPost({ renderStr: renderStr }, host, port, transferUrl)
     //return mortgageResult
 }
+let createToken = async(amount, limit, price, name, symbol, secret) => {
+    assert(amount, 'amount is required');
+    assert(limit, 'limit is required');
+    assert(price, 'price is required');
+    assert(secret, 'secret is required');
+    assert(name, 'name is required');
+    assert(symbol, 'symbol is required');
+    let address = addressFromSecretKey(secret)
+    let url = getNonceUrl + address;
+    let result = await http.sendGet(url);
+    let { err, nonce } = JSON.parse(result);
+    if (err) {
+        return { err: `unmortgage getNonce failed for ${err}` };
+    }
+    // let contract = this.create().address;
+    let [key, secret2] = createKeyPair();
+    let contract = addressFromSecretKey(secret2);
+    let tx = new ValueTransaction();
+    let newAmount = new BigNumber(amount * Math.pow(10, 18));
 
+    tx.method = 'createToken';
+    tx.value = new BigNumber('0');
+    tx.limit = new BigNumber(limit);
+    tx.price = new BigNumber(price * Math.pow(10, 18));
+    tx.input = { tokenid: contract, amount: newAmount, name, symbol };
+    tx.nonce = nonce + 1;
+    tx.sign(secret);
+    let writer = new BufferWriter();
+    let er = tx.encode(writer);
+    if (er) {
+        return { err: er };
+    }
+    let render = writer.render();
+
+    let encodeRender = rlp.encode(render)
+    let renderStr = encodeRender.toString('hex')
+    return {
+        info: {
+            Method: tx.method,
+            value: 0,
+            'Gas limit': limit,
+            'Gas price': price,
+            Fee: tx.limit * price + ' INT',
+            Input: JSON.stringify(tx.input),
+            Nonce: tx.nonce
+        },
+        renderStr: renderStr,
+        hash: tx.m_hash
+    }
+}
+
+
+let transferTokenTo = async(tokenid, to, amount, limit, price, secret) => {
+    assert(tokenid, 'tokenid is required.');
+    assert(to, 'to is required.');
+    assert(amount, 'amount is required.');
+    assert(limit, 'fee is required.');
+    assert(price, 'price is required.');
+    assert(secret, 'secret is required.');
+    let address = addressFromSecretKey(secret)
+    let url = getNonceUrl + address;
+    let result = await http.sendGet(url);
+    let { err, nonce } = JSON.parse(result);
+    if (err) {
+        return { err: `unmortgage getNonce failed for ${err}` };
+    }
+    let tx = new ValueTransaction()
+    let newAmount = new BigNumber(amount * Math.pow(10, 18));
+    tx.method = 'transferTokenTo';
+    tx.value = new BigNumber('0');
+    tx.limit = new BigNumber(limit);
+    tx.price = new BigNumber(price * Math.pow(10, 18));
+    tx.input = { tokenid, to, amount: newAmount };
+    tx.nonce = nonce + 1;
+    tx.sign(secret);
+
+    let writer = new BufferWriter();
+    let er = tx.encode(writer);
+    if (er) {
+        return { err: er };
+    }
+    let render = writer.render();
+
+    let encodeRender = rlp.encode(render)
+    let renderStr = encodeRender.toString('hex')
+    return {
+        info: {
+            Method: tx.method,
+            value: 0,
+            'Gas limit': limit,
+            'Gas price': price,
+            Fee: tx.limit * price + ' INT',
+            Input: JSON.stringify(tx.input),
+            Nonce: tx.nonce
+        },
+        renderStr: renderStr,
+        hash: tx.m_hash
+    }
+}
 
 
 let unmortgage = async(amount, limit, price, secret) => {
@@ -375,5 +487,10 @@ module.exports = {
     getPrice,
     getLimit,
     ethPrivateKeyToAccount,
-    voteRecord
+    voteRecord,
+    getTokenBalance,
+    transferTokenTo,
+    getTestCoin,
+    createToken,
+    isValidAddress
 }

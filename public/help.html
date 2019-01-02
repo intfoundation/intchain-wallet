@@ -2,7 +2,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>New Wallet | INT Chain</title>
+    <title>Guide | INT Chain</title>
     <link rel="stylesheet" href="./css/index.css" />
     <link rel="icon" href="./images/intlogo.png" type="image/x-icon" />
     <script src="./js/plugins/jquery/jquery-3.3.1.min.js"></script>
@@ -21,10 +21,8 @@
     <script type="text/javascript" src="./js/app/ngapp.js"></script>
     <script type="text/javascript" src="./js/app/directives/uploaddirectives.js"></script>
     <script type="text/javascript" src="./js/page/common.js"></script>
-    <script type="text/javascript" src="./js/page/create.js"></script>
-    <script type="text/javascript" src="./js/page/sendint.js"></script>
+    <script type="text/javascript" src="./js/page/help.js"></script>
     <script type="text/javascript" src="./js/page/sendoffline.js"></script>
-    <script type="text/javascript" src="./js/page/walletinfo.js"></script>
     <script type="text/javascript" src="./js/page/txinfo.js"></script>
     <script type="text/javascript" src="./js/app/directives/pagedirectives.js"></script>
     <script type="text/javascript" src="./js/page/wal.js"></script>
@@ -167,9 +165,9 @@
                         <img src="./images/intlogo.png" width="72px" height="72px">
                     </div>
                     <div class="tabbar-box">
-                        <div class="tab-item active">
+                        <div class="tab-item">
                             <span>
-                                    {{doc.newWallet}}                  
+                                    <a href="./index.html?lan={{lan}}">{{doc.newWallet}}</a>               
                             </span>
                             <!-- <div class="b-line"></div> -->
                         </div>
@@ -239,9 +237,9 @@
                         </div>
 
 
-                        <div class="tab-item">
+                        <div class="tab-item active">
                             <span>
-                                <a href="./help.html?lan={{lan}}">{{doc.help}}</a>                      
+                               {{doc.help}}                   
                             </span>
                         </div>
 
@@ -271,99 +269,19 @@
                     </div>
                 </div>
             </div>
-            <div class="content">
-                <div class="con-top">
-                    <img src="./images/wallet.png" alt=""><span> {{doc.newWallet}} </span>
-                </div>
-                <div class="con-main" ng-show="step==1">
-                    <div class="title"> {{doc.cnw}}</div>
-                    <!-- <span class="tip">{{doc.sp}}</span><br/> -->
-                    <div class="in-box">
-                        <input ng-keyup="enterEvent($event)" ng-show="!pwdView" type="password" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="{{doc.ep}}">
-                        <input ng-keyup="enterEvent($event)" ng-show="pwdView" type="text" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="{{doc.ep}}">
-                        <img ng-click="pwdView=!pwdView" ng-show="pwdView" src="./images/eyeopen.png">
-                        <img ng-click="pwdView=!pwdView" ng-show="!pwdView" src="./images/eyeclose.png">
-                    </div>
-                    <span ng-show="pwdTip" class="pwdtip">{{doc.nine}}</span>
-                    <br/>
-                    <div class="in-box">
-                        <input ng-keyup="enterEvent($event)" ng-show="!rePwdView" type="password" ng-change="rePwdChange()" ng-blur="rePwdBlur()" ng-model="password2" placeholder="{{doc.epa}}">
-                        <input ng-keyup="enterEvent($event)" ng-show="rePwdView" type="text" ng-change="rePwdChange()" ng-blur="rePwdBlur()" ng-model="password2" placeholder="{{doc.epa}}">
+            <div ng-show="src=='./images/helpEn.pdf'" class="content" style="padding-bottom:0">
+                <!-- <div class="con-top">
+                        <img src="./images/send.png" alt=""><span> {{doc.sendInt}}</span>
+                    </div> -->
 
-                        <img ng-click="rePwdView=!rePwdView" ng-show="rePwdView" src="./images/eyeopen.png">
-                        <img ng-click="rePwdView=!rePwdView" ng-show="!rePwdView" src="./images/eyeclose.png">
-                    </div>
-                    <span ng-show="rePwdTip" class="pwdtip">{{doc.noMatch}}</span>
-                    <div style="height:15px;width:2px"></div>
-                    <div class="warn">
-                        <img src="./images/warn.png" alt="" height="12px">
-                        <span>{{doc.sp}}</span>
-                    </div>
-                    <div class="warn">
-                        <img src="./images/warn.png" alt="" height="12px">
-                        <span>{{doc.noSpace}}</span>
-                    </div>
-                    <div class="warn">
-                        <img src="./images/warn.png" alt="" height="12px">
-                        <span>{{doc.noShare}}</span>
-                    </div>
-                    <div class="btn" ng-click="create()">
-                        {{doc.cnw}}
-                    </div>
-                    <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
-                        {{doc.callUs}}<br> {{doc.email}}
-                    </div>
-                </div>
-                <div class="step2" ng-show="step==2">
-                    <div class="title">{{doc.saveKey}}</div>
-                    <div class="down" ng-click="downFile()">{{doc.download}}</div>
-                    <div class="warning">
-                        <div>
-                            <div class="dot"></div>
-                            <span> {{doc.notLose}}</span>
-                        </div>
-                        <div class="warn-item">
-                            <div class="dot"></div>
-                            <span> {{doc.notShare}}</span>
-                        </div>
-                        <div class="warn-item">
-                            <div class="dot"></div>
-                            <span> {{doc.backup}}</span>
-                        </div>
-                    </div>
-                    <div class="continue" ng-click="step = 3">
-                        {{doc.goahead}}
-                    </div>
-                    <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
-                        {{doc.callUs}}<br> {{doc.email}}
-                    </div>
-                </div>
-                <div class="step3" ng-show="step==3">
-                    <div class="title">{{doc.savePri}}</div>
-                    <div class="privateKey">
-                        <span class="pri">{{privateKey}}</span>
-                    </div>
-                    <div class="warning">
-                        <div>
-                            <div class="dot"></div>
-                            <span> {{doc.notLose}}</span>
-                        </div>
-                        <div class="warn-item">
-                            <div class="dot"></div>
-                            <span> {{doc.notShare}}</span>
-                        </div>
-                        <div class="warn-item">
-                            <div class="dot"></div>
-                            <span> {{doc.backup}}</span>
-                        </div>
-                    </div>
-                    <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
-                        {{doc.callUs}}<br> {{doc.email}}
-                    </div>
-                </div>
-                <!-- <div style="position:absolute;left:0;bottom:60px;width: 100%;text-align: center;font-family: PingFangSC-Regular;color: rgba(173, 165, 165, 0.99);">
-                    Any question？Please contact us.<br> Official email address:intwallet@intchain.io
-                </div> -->
+                <embed style="width: 100%;height: 100%" src="./images/helpEn.pdf" />
+            </div>
+            <div ng-show="src=='./images/helpZh.pdf'" class="content" style="padding-bottom:0">
+                <!-- <div class="con-top">
+                        <img src="./images/send.png" alt=""><span> {{doc.sendInt}}</span>
+                    </div> -->
+
+                <embed style="width: 100%;height: 100%" src="./images/helpZh.pdf" />
             </div>
             <div class="foot">
                 Copyright © 2018 INT

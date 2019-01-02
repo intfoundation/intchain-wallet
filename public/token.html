@@ -20,7 +20,7 @@
     <script type="text/javascript" src="./js/app/ngapp.js"></script>
     <script type="text/javascript" src="./js/app/directives/uploaddirectives.js"></script>
     <script type="text/javascript" src="./js/page/common.js"></script>
-    <script type="text/javascript" src="./js/page/vote.js"></script>
+    <script type="text/javascript" src="./js/page/token.js"></script>
     <!-- <script type="text/javascript" src="./js/page/int.js"></script> -->
     <script type="text/javascript" src="./js/page/wal.js"></script>
     <style>
@@ -278,48 +278,47 @@
                       </span>
 
                         </div>
-                        <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item active">
+                        <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item">
                             <span>
-                                    {{doc.vote}}
-                                    <img  src="./images/voteac.jpg" alt="" height="11px">
-                            </span>
-                            <div class="b-line" style="margin-left:5px"></div>
+                                        <a href="javascript:;" >{{doc.vote}} </a>
+                                         <img  src="./images/voteunac.png" alt="">
+                                </span>
+                            <div></div>
                             <div class="voteTab" ng-show="voteTabView">
                                 <div class="voteTab-item">
-                                    <a href="javascript:;" ng-click="action='Mortgage'">
-                                            {{doc.mortgage}}
-                                </a>
+                                    <a href="./vote.html?action=Mortgage&lan={{lan}}">
+                                            {{doc.mortgage}} 
+                                        </a>
                                 </div>
                                 <div class="voteTab-item">
-                                    <a href="javascript:;" ng-click="action='Vote'">
-                                            {{doc.vote}}
-                                </a>
+                                    <a href="./vote.html?action=Vote&lan={{lan}}">
+                                            {{doc.vote}} 
+                                        </a>
                                 </div>
                                 <div class="voteTab-item">
-                                    <a href="javascript:;" ng-click="action='Unmortgage'">
+                                    <a href="./vote.html?action=Unmortgage&lan={{lan}}">
                                             {{doc.unmortgage}} 
-                                </a>
+                                        </a>
                                 </div>
                             </div>
                         </div>
 
-
-                        <div id="token" ng-mouseenter="tokenView = true" ng-mouseleave="tokenView = false" class="tab-item">
+                        <div id="token" ng-mouseenter="tokenView = true" ng-mouseleave="tokenView = false" class="tab-item  active">
                             <span>
-                                            <a href="javascript:;" >Token </a>
-                                             <img  src="./images/voteunac.png" alt="">
+                                           Token
+                                             <img  src="./images/voteac.jpg" height="11px" alt="">
                                     </span>
                             <div></div>
                             <div class="voteTab" ng-show="tokenView">
                                 <div class="voteTab-item">
-                                    <a href="./token.html?action=create&lan={{lan}}">
+                                    <a href="javascript:;" ng-click="action='create'">
                                                 {{doc.create}} 
                                             </a>
                                 </div>
                                 <div class="voteTab-item">
-                                    <a href="./token.html?action=transfer&lan={{lan}}">
-                                                {{doc.transfer}} 
-                                            </a>
+                                    <a href="javascript:;" ng-click="action='transfer'">
+                                        {{doc.transfer}}
+                                        </a>
                                 </div>
                             </div>
                         </div>
@@ -350,8 +349,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -424,133 +421,117 @@
                             {{doc.callUs}}<br> {{doc.email}}
                         </div>
                     </div>
-                    <div ng-show="action=='Vote'&&step==2">
+                    <div ng-show="action=='create' && step == 2">
                         <div class="item-box">
-                            <div class="lable">{{doc.votes}}</div>
+                            <div class="lable">{{doc.fd}}</div>
                             <div class="in-box">
-                                <input ng-keyup="enterVote($event)" type="text" readonly ng-model="vote">
-                            </div>
-                        </div>
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">{{doc.balance}}</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterVote($event)" type="text" readonly ng-model="balance">
-                            </div>
-                        </div>
-                        <div class="item-box">
-                            <div class="lable">{{doc.search}}</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterVote($event)" type="text" ng-model="searchStr">
-                            </div>
-                        </div>
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="btn-unlock" style="margin-top: 48px" ng-click="showRecord()">
-                                {{doc.vvn}}
-                            </div>
-                        </div>
-                        <div class="node-box">
-                            <div class="node-item" ng-repeat="n in nodes" ng-click="chooseNodes($index)" ng-if="n.node.indexOf(searchStr)>=0">
-                                <img ng-show="n.ch" class="icon" src="./images/choose.png" alt="">
-                                <div ng-show="!n.ch" class="no-ch"></div>
-                                <div class="node">{{n.node}}</div>
-                                <div class="vote"><span style="color: rgba(60, 49, 215, 1)">{{n.num}}</span> {{doc.stakes}}</div>
-                            </div>
-                        </div>
-                        <div class="item-box">
-                            <div class="lable">Gas Limit</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterVote($event)" type="text" placeholder="Gas Limit" ng-model="voteLimit">
-                            </div>
-                        </div>
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">Gas Price</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterVote($event)" type="text" placeholder="Gas Price" ng-model="votePrice">
-                            </div>
-                        </div>
-                        <div>
-                            <span style="display:inline-block;margin-left: 570px;width: 40px">{{chNum}}/20</span>
-                            <div style="display: inline-block;margin-left: 25px">
-                                <div class="btn-dis" style="margin-top: 48px" ng-show="!votePass">{{doc.vote}}</div>
-                                <div class="btn-unlock" style="margin-top: 48px" ng-click="Vote()" ng-show="votePass">
-                                    {{doc.vote}}</div>
-                            </div>
-                        </div>
-                        <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
-                            {{doc.callUs}}<br> {{doc.email}}
-                        </div>
-                    </div>
-                    <div ng-show="action=='Mortgage' && step == 2">
-                        <div class="item-box">
-                            <div class="lable">{{doc.votes}}</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterMorgage($event)" type="text" readonly ng-model="vote">
-                            </div>
-                        </div>
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">{{doc.balance}}</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterMorgage($event)" type="text" readonly ng-model="balance">
-                            </div>
-                        </div>
-                        <div class="item-box">
-                            <div class="lable">{{doc.am}}</div>
-                            <div class="in-box">
-                                <input ng-blur="getLimit('mortgage',morgageAmount)" ng-keyup="enterMorgage($event)" type="text" ng-model="morgageAmount" placeholder="{{doc.am}}">
-                            </div>
-                        </div>
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">Gas Limit</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterMorgage($event)" type="text" ng-model="morgageLimit" placeholder=" Gas Limit">
-                            </div>
-                        </div>
-                        <div class="item-box">
-                            <div class="lable">Gas Price</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterMorgage($event)" ng-keyup="enterEvent($event)" type="text" ng-model="morgagePrice" placeholder="Gas Price">
+                                <input type="text" readonly ng-model="address">
                             </div>
                         </div>
 
-                        <div class="btn-dis" style="margin-top: 48px" ng-show="!morgagePass">{{doc.mortgage}}</div>
-                        <div class="btn-unlock" style="margin-top: 48px" ng-click="Morgage()" ng-show="morgagePass">{{doc.mortgage}}</div>
-                        <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
-                            {{doc.callUs}}<br> {{doc.email}}
-                        </div>
-                    </div>
-                    <div ng-show="action=='Unmortgage' && step == 2">
-                        <div class="item-box">
-                            <div class="lable">{{doc.votes}}</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" readonly ng-model="vote">
-                            </div>
-                        </div>
                         <div class="item-box" style="margin-left: 50px">
                             <div class="lable">{{doc.balance}}</div>
                             <div class="in-box">
-                                <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" readonly ng-model="balance">
+                                <input ng-keyup="enterEvent($event)" type="text" readonly ng-model="balance">
                             </div>
                         </div>
+
                         <div class="item-box">
-                            <div class="lable">{{doc.am}}</div>
+                            <div class="lable">{{doc.name}}</div>
                             <div class="in-box">
-                                <input ng-blur="getLimit('unmortgage',unmorgageAmount)" ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" ng-model="unmorgageAmount" placeholder="{{doc.am}}">
+                                <input ng-blur="getCreateLimit()" type="text" ng-keyup="enterEvent($event)" placeholder="{{doc.name}}" ng-model="name">
+                            </div>
+                        </div>
+
+
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable"> {{doc.symbol}} </div>
+                            <div class="in-box">
+                                <input ng-blur="getCreateLimit()" ng-keyup="enterEvent($event)" placeholder="{{doc.symbol}}" type="text" ng-model="symbol">
+                            </div>
+                        </div>
+
+                        <div class="item-box">
+                            <div class="lable"> {{doc.am}} </div>
+                            <div class="in-box">
+                                <input ng-blur="getCreateLimit()" ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.am}}" ng-model="createAmount">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
                             <div class="lable">Gas Limit</div>
                             <div class="in-box">
-                                <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" ng-model="unmorgageLimit" placeholder="Gas Limit">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="Gas Limit" ng-model="createLimit">
                             </div>
                         </div>
                         <div class="item-box">
                             <div class="lable">Gas Price</div>
                             <div class="in-box">
-                                <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" ng-model="unmorgagePrice" placeholder="Gas Price">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="Gas Price" ng-model="price">
                             </div>
                         </div>
-                        <div class="btn-dis" style="margin-top: 48px" ng-show="!unmorgagePass">{{doc.unmortgage}}</div>
-                        <div class="btn-unlock" style="margin-top: 48px" ng-click="Unmorgage()" ng-show="unmorgagePass">{{doc.unmortgage}}</div>
+                        <div class="btn-dis" style="margin-top: 48px" ng-show="!createPass"> {{doc.createToken}}</div>
+                        <div class="btn-unlock" style="margin-top: 48px" ng-click="createToken()" ng-show="createPass">
+                            {{doc.createToken}}
+                        </div>
+                        <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
+                            {{doc.callUs}}<br> {{doc.email}}
+                        </div>
+
+                    </div>
+                    <div ng-show="action=='transfer' && step == 2">
+                        <div class="item-box">
+                            <div class="lable"> {{doc.fd}} </div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" type="text" readonly ng-model="address">
+                            </div>
+                        </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">{{doc.balance}}</div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" type="text" readonly ng-model="balance">
+                            </div>
+                        </div>
+
+                        <div class="item-box">
+                            <div class="lable"> Tokenid</div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" placeholder="Tokenid" type="text" ng-model="tokenid">
+                            </div>
+                        </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">{{doc.tokenBalance}}</div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" placeholder="{{doc.tokenBalance}}" type="text" readonly ng-model="tokenBalance">
+                            </div>
+                        </div>
+                        <div class="item-box">
+                            <div class="lable"> {{doc.td}} </div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder=" {{doc.td}} " ng-model="toAddress">
+                            </div>
+                        </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable"> {{doc.am}} </div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.am}}" ng-model="transferAmount">
+                            </div>
+                        </div>
+                        <div class="item-box">
+                            <div class="lable">Gas Limit</div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="Gas Limit" ng-model="transferLimit">
+                            </div>
+                        </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">Gas Price</div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="Gas Price (INT)" ng-model="price">
+                            </div>
+                        </div>
+                        <div class="btn-dis" style="margin-top: 48px" ng-show="!transferPass"> {{doc.gt}}</div>
+                        <div class="btn-unlock" style="margin-top: 48px" ng-click="transferTokenTo()" ng-show="transferPass">
+                            {{doc.gt}}
+                        </div>
                         <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
                             {{doc.callUs}}<br> {{doc.email}}
                         </div>
@@ -561,29 +542,6 @@
                 Copyright © 2018 INT
             </div>
         </div>
-        <!--<div-->
-        <!--style="-->
-        <!--position:absolute;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">-->
-        <!--<div-->
-        <!--style="margin:300px auto;-->
-        <!--background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 10px 15px;z-index: 101px;border-radius: 4px">-->
-        <!--<span style="font-size: 18px;color: #303133">提示</span>-->
-        <!--<div style="margin-top:20px;font-size: 14px;color: #606266" >-->
-        <!--<img style="display: inline-block;vertical-align: top" height="20"-->
-        <!--src="./images/error.png"-->
-        <!--alt="">-->
-        <!--<span style="margin-left:10px;width:380px;display:inline-block;vertical-align: top">-->
-        <!--he dissolvability of the soluble dietary fibers ( SSDF) extracted from-->
-        <!--</span>-->
-        <!--</div>-->
-        <!--<div-->
-        <!--style="padding:0 10px;margin-top: 20px;-->
-        <!--float: right;text-align:center;line-height:30px;border-radius:3px;background-color:#409eff;color:rgba(255, 255,255, 1)">-->
-        <!--confirm-->
-        <!--</div>-->
-        <!--<div style="height: 50px"></div>-->
-        <!--</div>-->
-        <!--</div>-->
     </body>
 
 </html>

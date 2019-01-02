@@ -46865,6 +46865,8 @@ let development = {
     getPriceUrl: "http://localhost:3001/wallet/getPrice",
     getLimitUrl: "http://localhost:3001/wallet/getLimit",
     getVoteRecordUrl: "http://localhost:3001/wallet/voteRecord/",
+    getTokenBalanceUrl: "http://localhost:3001/wallet/getTokenBalance/",
+    getTestCoinUrl: "http://localhost:3001/wallet/getTestCoin",
     http: httpUtil,
     host: 'localhost',
     port: 3001,
@@ -46875,19 +46877,21 @@ let development = {
 
 let production = {
     http: httpsUtil,
-    getBalanceUrl: 'https://explorer.intchain.io/api/wallet/getBalance/',
-    getNonceUrl: 'https://explorer.intchain.io/api/wallet/getNonce/',
-    getVotesUrl: 'https://explorer.intchain.io/api/wallet/getVotes/',
-    getCandiesUrl: 'https://explorer.intchain.io/api/wallet/candies',
-    getTokenUrl: 'https://explorer.intchain.io/api/wallet/walletList?',
-    getVoteCandiesUrl: 'https://explorer.intchain.io/api/wallet/voteCandies',
-    getMydataUrl: "https://explorer.intchain.io/api/mapping/getMydata/",
+    getBalanceUrl: 'https://test.explorer.intchain.io/api/wallet/getBalance/',
+    getNonceUrl: 'https://test.explorer.intchain.io/api/wallet/getNonce/',
+    getVotesUrl: 'https://test.explorer.intchain.io/api/wallet/getVotes/',
+    getCandiesUrl: 'https://test.explorer.intchain.io/api/wallet/candies',
+    getTokenUrl: 'https://test.explorer.intchain.io/api/wallet/walletList?',
+    getVoteCandiesUrl: 'https://test.explorer.intchain.io/api/wallet/voteCandies',
+    getMydataUrl: "https://test.explorer.intchain.io/api/mapping/getMydata/",
     burnIntOnEthUrl: "/api/mapping/sendSignedTransaction",
-    queryIntOnEthUrl: "https://explorer.intchain.io/api/mapping/queryEthIntBalance/",
-    getPriceUrl: "https://explorer.intchain.io/api/wallet/getPrice",
-    getLimitUrl: "https://explorer.intchain.io/api/wallet/getLimit",
-    getVoteRecordUrl: "https://explorer.intchain.io/api/wallet/voteRecord/",
-    host: 'explorer.intchain.io',
+    queryIntOnEthUrl: "https://test.explorer.intchain.io/api/mapping/queryEthIntBalance/",
+    getPriceUrl: "https://test.explorer.intchain.io/api/wallet/getPrice",
+    getLimitUrl: "https://test.explorer.intchain.io/api/wallet/getLimit",
+    getVoteRecordUrl: "https://test.explorer.intchain.io/api/wallet/voteRecord/",
+    getTokenBalanceUrl: "https://test.explorer.intchain.io/api/wallet/getTokenBalance/",
+    getTestCoinUrl: "https://test.explorer.intchain.io/api/wallet/getTestCoin",
+    host: 'test.explorer.intchain.io',
     port: "",
     transferUrl: '/api/wallet/transfer',
     ETH_CONTRACT_ADDRESS: '0x867F01e6b0331045629eFd2E0ddf26Ac470c80C2',
@@ -46908,7 +46912,7 @@ const digest = require("./lib/digest");
 const staticwriter_1 = require("./lib/staticwriter");
 const base58 = require("./lib/base58");
 const util_1 = require("util");
-//const client_1 = require("../client");
+const { BufferReader } = require("./lib/reader");
 // prefix can identify different network
 // will be readed from consensus params
 const defaultPrefix = 0x00;
@@ -47005,23 +47009,23 @@ function verify(md, signature, publicKey) {
 }
 exports.verify = verify;
 
-// function isValidAddress(address) {
-//     let subAddress = address.slice(3);
-//     try {
-//         let buf = base58.decode(subAddress);
-//         if (buf.length !== 25) {
-//             return false;
-//         }
-//         let br = new client_1.BufferReader(buf);
-//         br.readU8();
-//         br.readBytes(20);
-//         br.verifyChecksum();
-//     } catch (error) {
-//         return false;
-//     }
-//     return true;
-// }
-// exports.isValidAddress = isValidAddress;
+function isValidAddress(address) {
+    let subAddress = address.slice(3);
+    try {
+        let buf = base58.decode(subAddress);
+        if (buf.length !== 25) {
+            return false;
+        }
+        let br = new BufferReader(buf);
+        br.readU8();
+        br.readBytes(20);
+        br.verifyChecksum();
+    } catch (error) {
+        return false;
+    }
+    return true;
+}
+exports.isValidAddress = isValidAddress;
 
 function isValidSecretKey(secretKey) {
     var reg = /^[0-9a-fA-F]{64}$/;
@@ -47031,9 +47035,10 @@ function isValidSecretKey(secretKey) {
         return false;
     }
 }
+
 exports.isValidSecretKey = isValidSecretKey;
 }).call(this,require("buffer").Buffer)
-},{"./lib/base58":264,"./lib/digest":265,"./lib/staticwriter":268,"buffer":330,"crypto":339,"secp256k1":172,"util":452}],262:[function(require,module,exports){
+},{"./lib/base58":264,"./lib/digest":265,"./lib/reader":267,"./lib/staticwriter":268,"buffer":330,"crypto":339,"secp256k1":172,"util":452}],262:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const serializable_1 = require("../serializable");
@@ -60765,7 +60770,7 @@ const { createKeyPair } = require('./crypt/account')
 const { encrypt, decrypt } = require('./crypt/crypt')
 const { ValueTransaction } = require('./core/value_chain/transaction')
 const BigNumber = require('bignumber.js')
-const { addressFromSecretKey } = require('./core/address')
+const { addressFromSecretKey, isValidAddress } = require('./core/address')
     //const core_1 = require("./core");
 const { BufferWriter } = require('./core/lib/writer')
 const assert = require('assert');
@@ -60787,12 +60792,26 @@ const {
     getTokenUrl,
     getPriceUrl,
     getLimitUrl,
-    getVoteRecordUrl
+    getVoteRecordUrl,
+    getTokenBalanceUrl,
+    getTestCoinUrl
 } = require('./cfg')
 
 const Mapping = require("./mapping");
 let getPrice = async() => {
     let result = await http.sendGet(getPriceUrl);
+    return result;
+}
+
+let getTestCoin = async address => {
+    let url = getTestCoinUrl + '/' + address
+    let result = await http.sendGet(url);
+    return result;
+}
+
+let getTokenBalance = async(tokenid, address) => {
+    let url = getTokenBalanceUrl + tokenid + '/' + address
+    let result = await http.sendGet(url);
     return result;
 }
 let getLimit = async(method, input) => {
@@ -60870,9 +60889,9 @@ let getNodes = async() => {
         let obj = {};
         let flag = true
         for (let vn of voteNodes) {
-            if (vn[1].address == n) {
-                obj.node = vn[1].address
-                obj.num = vn[1].vote
+            if (vn.address == n) {
+                obj.node = vn.address
+                obj.num = vn.vote
                 data = [obj, ...data]
                 flag = false
             }
@@ -60976,7 +60995,105 @@ let mortgage = async(amount, limit, price, secret) => {
     //let mortgageResult = await http.sendPost({ renderStr: renderStr }, host, port, transferUrl)
     //return mortgageResult
 }
+let createToken = async(amount, limit, price, name, symbol, secret) => {
+    assert(amount, 'amount is required');
+    assert(limit, 'limit is required');
+    assert(price, 'price is required');
+    assert(secret, 'secret is required');
+    assert(name, 'name is required');
+    assert(symbol, 'symbol is required');
+    let address = addressFromSecretKey(secret)
+    let url = getNonceUrl + address;
+    let result = await http.sendGet(url);
+    let { err, nonce } = JSON.parse(result);
+    if (err) {
+        return { err: `unmortgage getNonce failed for ${err}` };
+    }
+    // let contract = this.create().address;
+    let [key, secret2] = createKeyPair();
+    let contract = addressFromSecretKey(secret2);
+    let tx = new ValueTransaction();
+    let newAmount = new BigNumber(amount * Math.pow(10, 18));
 
+    tx.method = 'createToken';
+    tx.value = new BigNumber('0');
+    tx.limit = new BigNumber(limit);
+    tx.price = new BigNumber(price * Math.pow(10, 18));
+    tx.input = { tokenid: contract, amount: newAmount, name, symbol };
+    tx.nonce = nonce + 1;
+    tx.sign(secret);
+    let writer = new BufferWriter();
+    let er = tx.encode(writer);
+    if (er) {
+        return { err: er };
+    }
+    let render = writer.render();
+
+    let encodeRender = rlp.encode(render)
+    let renderStr = encodeRender.toString('hex')
+    return {
+        info: {
+            Method: tx.method,
+            value: 0,
+            'Gas limit': limit,
+            'Gas price': price,
+            Fee: tx.limit * price + ' INT',
+            Input: JSON.stringify(tx.input),
+            Nonce: tx.nonce
+        },
+        renderStr: renderStr,
+        hash: tx.m_hash
+    }
+}
+
+
+let transferTokenTo = async(tokenid, to, amount, limit, price, secret) => {
+    assert(tokenid, 'tokenid is required.');
+    assert(to, 'to is required.');
+    assert(amount, 'amount is required.');
+    assert(limit, 'fee is required.');
+    assert(price, 'price is required.');
+    assert(secret, 'secret is required.');
+    let address = addressFromSecretKey(secret)
+    let url = getNonceUrl + address;
+    let result = await http.sendGet(url);
+    let { err, nonce } = JSON.parse(result);
+    if (err) {
+        return { err: `unmortgage getNonce failed for ${err}` };
+    }
+    let tx = new ValueTransaction()
+    let newAmount = new BigNumber(amount * Math.pow(10, 18));
+    tx.method = 'transferTokenTo';
+    tx.value = new BigNumber('0');
+    tx.limit = new BigNumber(limit);
+    tx.price = new BigNumber(price * Math.pow(10, 18));
+    tx.input = { tokenid, to, amount: newAmount };
+    tx.nonce = nonce + 1;
+    tx.sign(secret);
+
+    let writer = new BufferWriter();
+    let er = tx.encode(writer);
+    if (er) {
+        return { err: er };
+    }
+    let render = writer.render();
+
+    let encodeRender = rlp.encode(render)
+    let renderStr = encodeRender.toString('hex')
+    return {
+        info: {
+            Method: tx.method,
+            value: 0,
+            'Gas limit': limit,
+            'Gas price': price,
+            Fee: tx.limit * price + ' INT',
+            Input: JSON.stringify(tx.input),
+            Nonce: tx.nonce
+        },
+        renderStr: renderStr,
+        hash: tx.m_hash
+    }
+}
 
 
 let unmortgage = async(amount, limit, price, secret) => {
@@ -61138,7 +61255,12 @@ module.exports = {
     getPrice,
     getLimit,
     ethPrivateKeyToAccount,
-    voteRecord
+    voteRecord,
+    getTokenBalance,
+    transferTokenTo,
+    getTestCoin,
+    createToken,
+    isValidAddress
 }
 }).call(this,require("buffer").Buffer)
 },{"./cfg":260,"./core/address":261,"./core/lib/writer":269,"./core/value_chain/transaction":271,"./crypt/account":272,"./crypt/crypt":273,"./mapping":279,"assert":294,"bignumber.js":18,"buffer":330,"rlp":168,"web3":243}]},{},["wal"]);

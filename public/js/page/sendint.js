@@ -21,9 +21,11 @@ app.controller('sendintController', function($scope) {
     $scope.ap = ""
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
+    document.title = $scope.doc.sendInt + '| INT Chain';
     $scope.changelan = function(a) {
         $scope.doc = lan[a]
         $scope.lan = a
+        document.title = $scope.doc.sendInt + '| INT Chain';
         if (!$scope.balance || !$scope.limit || !$scope.price) {
             return
         }
@@ -92,6 +94,11 @@ app.controller('sendintController', function($scope) {
             var filedata = JSON.parse(this.result);
             var wal = require("wal");
             wal.decodeFromOption(filedata, $scope.password).then(function(data) {
+                if (data == "error") {
+                    $scope.keyStoreUnlockFail = true
+                    $scope.$apply();
+                    return;
+                }
                 $scope.address = filedata.address;
                 $scope.privateKey = data;
                 $scope.keyStoreUnlockFail = false;
@@ -199,14 +206,17 @@ app.controller('sendintController', function($scope) {
     }
     $scope.send = function() {
         var wal = require("wal");
-        if ($scope.toAddress.length != 37 && $scope.toAddress.length != 36) {
+
+        if (!wal.isValidAddress($scope.toAddress)) {
             modal.error({ msg: $scope.doc.tanv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
-        if (isNaN($scope.amount) || $scope.amount <= 0) {
+
+        if (isNaN($scope.amount) || $scope.amount < 1 / Math.pow(10, 18)) {
             modal.error({ msg: $scope.doc.anv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
+
         if (+$scope.amount >= +$scope.balance) {
             modal.error({ msg: $scope.doc.amlb, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
@@ -226,7 +236,7 @@ app.controller('sendintController', function($scope) {
                     return;
                 }
 
-                modal.showInfo(res.info, function() {
+                modal.showInfo(res.info, $scope.doc, function() {
                     wal.sendSignedTransaction(res.renderStr).then(function(r) {
                         if (typeof r === 'string') {
                             r = JSON.parse(r)
@@ -234,7 +244,7 @@ app.controller('sendintController', function($scope) {
                         if (r.err) {
                             modal.error({ msg: r.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                         } else {
-                            modal.burnSuccess({ msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
+                            modal.burnSuccess({ doc: $scope.doc, msg: 'https://test.explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
                             $scope.timeGetBalance()
                         }
                     })

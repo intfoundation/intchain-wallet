@@ -3,6 +3,7 @@ app.controller('mappingController', function($scope, $http) {
     //0x04fa4d66a673cBf91F7cf48dfF236482495Fd49e  ng-blur="queryBalance()"
     $scope.hash = '';
     $scope.pass = false;
+    $scope.tokenView = false
     $scope.model = {
         fromAddress: '',
         toAddress: '',
@@ -16,9 +17,11 @@ app.controller('mappingController', function($scope, $http) {
     $scope.intPrivateKey = '';
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
+    document.title = $scope.doc.mapping + '| INT Chain';
     $scope.changelan = function(a) {
         $scope.doc = lan[a]
         $scope.lan = a
+        document.title = $scope.doc.mapping + '| INT Chain';
     }
     $scope.$watch('{f:model.fromAddress,t:model.toAddress,g:model.decimalGas,p:model.fromAddressPrivateKey}', function(v) {
         if (v.f && v.t && v.g && v.p) {
@@ -73,6 +76,7 @@ app.controller('mappingController', function($scope, $http) {
         }
     }
     $scope.toMapping = function() {
+            var wal = require("wal");
             if ($scope.model.fromAddress.length != 42) {
                 modal.error({ msg: $scope.doc.ethAddressNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
@@ -85,7 +89,7 @@ app.controller('mappingController', function($scope, $http) {
                 modal.error({ msg: $scope.doc.intPriKeyNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
-            if ($scope.model.toAddress.length != 37 && $scope.model.toAddress.length != 36) {
+            if (!wal.isValidAddress($scope.model.toAddress)) {
                 modal.error({ msg: $scope.doc.intAddressNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
@@ -94,13 +98,13 @@ app.controller('mappingController', function($scope, $http) {
                 modal.error({ msg: $scope.doc.priceNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
-            var wal = require("wal");
+
             wal.burnIntOnEth($scope.model, $scope.doc).then(function(data) {
                 if (data) {
                     if (data.error) {
                         modal.error({ mas: data.message, title: $scope.doc.notice, okText: $scope.doc.confirm })
                     } else {
-                        modal.showInfo(data.info, function() {
+                        modal.showInfo(data.info, $scope.doc, function() {
                             wal.sendBurn(data.data).then(function(r) {
                                 if (typeof r === 'string') {
                                     r = JSON.parse(r)
@@ -109,7 +113,7 @@ app.controller('mappingController', function($scope, $http) {
                                     modal.error({ msg: r.message, title: $scope.doc.notice, okText: $scope.doc.confirm })
                                 } else {
                                     // modal.burnSuccess({ msg: r.hash })
-                                    modal.burnSuccess({ msg: 'https://etherscan.io/tx/' + r.hash })
+                                    modal.burnSuccess({ doc: $scope.doc, msg: 'https://etherscan.io/tx/' + r.hash })
 
                                 }
                             })
@@ -122,4 +126,28 @@ app.controller('mappingController', function($scope, $http) {
         // $scope.toResult = function() {
         //     window.open(`https://etherscan.io/tx/${$scope.hash}`)
         // }
+
+
+    $scope.toMapping2 = function() {
+        if ($scope.model.toAddress.length != 37 && $scope.model.toAddress.length != 36) {
+            modal.error({ msg: $scope.doc.tanv, title: $scope.doc.notice, okText: $scope.doc.confirm })
+            return
+        }
+        var wal = require("wal");
+        wal.getTestCoin($scope.model.toAddress).then(function(r) {
+            if (typeof r === 'string') {
+                r = JSON.parse(r)
+            }
+            if (r.err) {
+                modal.error({ msg: r.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
+            }
+            if (r.status == 'error') {
+                modal.error({ msg: r.message, title: $scope.doc.notice, okText: $scope.doc.confirm })
+            } else {
+                // modal.burnSuccess({ msg: r.hash })
+                modal.burnSuccess({ doc: $scope.doc, msg: 'https://test.explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
+
+            }
+        })
+    }
 });
