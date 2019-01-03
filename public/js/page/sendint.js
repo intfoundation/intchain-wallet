@@ -244,7 +244,7 @@ app.controller('sendintController', function($scope) {
                         if (r.err) {
                             modal.error({ msg: r.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                         } else {
-                            modal.burnSuccess({ doc: $scope.doc, msg: 'https://test.explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
+                            modal.burnSuccess({ doc: $scope.doc, msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
                             $scope.timeGetBalance()
                         }
                     })

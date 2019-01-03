@@ -384,7 +384,7 @@ app.controller('voteController', function($scope) {
                                 modal.error({ msg: r.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                             } else {
                                 // modal.success({ msg: r.hash })
-                                modal.burnSuccess({ doc: $scope.doc, msg: 'https://test.explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
+                                modal.burnSuccess({ doc: $scope.doc, msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
                                 $scope.timeGetBalance();
                                 $scope.timeGetNodes();
                                 $scope.timeGetVoteRecord();
@@ -430,7 +430,7 @@ app.controller('voteController', function($scope) {
                                 modal.error({ msg: r.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                             } else {
                                 //modal.success({ msg: r.hash })
-                                modal.burnSuccess({ doc: $scope.doc, msg: 'https://test.explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
+                                modal.burnSuccess({ doc: $scope.doc, msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
                                 $scope.timeGetNodes();
                                 $scope.timeGetBalance()
                                 $scope.timeGetVote()
@@ -476,7 +476,7 @@ app.controller('voteController', function($scope) {
                                     modal.error({ msg: r.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                                 } else {
                                     //modal.success({ msg: res.hash })
-                                    modal.burnSuccess({ doc: $scope.doc, msg: 'https://test.explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
+                                    modal.burnSuccess({ doc: $scope.doc, msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
                                     $scope.timeGetBalance()
                                     $scope.timeGetVote()
                                     $scope.timeGetNodes();
