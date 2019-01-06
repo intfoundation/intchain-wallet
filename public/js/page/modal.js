@@ -72,7 +72,7 @@ modal.showInfo = function() {
     callbak = cal;
     var div = document.createElement("div");
     div.setAttribute('id', 'modal');
-    var dom = "<div style=\"position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)\">\n    <div style=\"width: 700px;margin: 100px auto;z-index: 101px;border-radius: 4px\">\n        <div style=\"color:rgba(51,51,51,1);font-size:20px; width: 100%;height: 76px;line-height:\n                76px;background-color:\n                rgba(244,248,255,1);border-bottom: 1px solid #d7d7d7\">\n            <span style=\"margin-left: 32px\">" + doc.cfi + "</span>\n        </div>\n        <div style=\"font-size:16px;width: 100%;padding:10px 0 28px 0;background-color:\n        rgba(255,255,255,1);color:rgba(102,102,102,1) ;border-bottom: 1px solid #d7d7d7\">";
+    var dom = "<div style=\"position:fixed;left:0px;top:0px;width: 100%;height:100%;z-index: 1000;background-color:rgba(0,0,0,0.3)\">\n    <div style=\"width: 700px;margin: 100px auto 0 auto;border-radius: 4px\">\n        <div style=\"color:rgba(51,51,51,1);font-size:20px; width: 100%;height: 76px;line-height:\n                76px;background-color:\n                rgba(244,248,255,1);border-bottom: 1px solid #d7d7d7\">\n            <span style=\"margin-left: 32px\">" + doc.cfi + "</span>\n        </div>\n        <div style=\"font-size:16px;width: 100%;max-height:350px;overflow:auto;padding:10px 0 28px 0;background-color:\n        rgba(255,255,255,1);color:rgba(102,102,102,1) ;border-bottom: 1px solid #d7d7d7\">";
     for (var o in obj) {
         dom += "<div style=\"margin-top: 18px;margin-left:20px\">\n                 <div style=\"display: inline-block;width: 180px;text-align: left;vertical-align: top\">" + o + ":</div>\n                 <div style=\"display: inline-block;width: 480px;text-align: left;word-break: break-all ;vertical-align: top\">\n                     " + obj[o] + "</div>\n             </div>";
     }
@@ -136,10 +136,11 @@ modal.numformat = function(val, flag) {
         return 0;
     }
     if (!flag) {
-        val = val / Math.pow(10, 18)
+        var wal = require("wal");
+        val = new wal.BigNumber(val).dividedBy(Math.pow(10, 18)).toString()
     }
     if (val.toString().indexOf('e') > -1 && val.toString().indexOf('-') > -1) {
-        val = val.toFixed(18)
+        val = (+val).toFixed(18)
         for (var i = val.length - 1; i >= 0; i--) {
             if (val[i] != 0) {
                 return val.substr(0, i + 1)

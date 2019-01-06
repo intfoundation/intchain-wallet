@@ -60921,7 +60921,7 @@ let vote = async(candidates, limit, price, secret) => {
     let tx = new ValueTransaction()
     tx.method = 'vote';
     tx.limit = new BigNumber(limit);
-    tx.price = new BigNumber(price * Math.pow(10, 18));
+    tx.price = new BigNumber(price).multipliedBy(Math.pow(10, 18));
     tx.input = { candidates: candidates };
     tx.nonce = nonce + 1;
     tx.sign(secret);
@@ -60966,9 +60966,9 @@ let mortgage = async(amount, limit, price, secret) => {
     let tx = new ValueTransaction()
     tx.method = 'mortgage';
     tx.limit = new BigNumber(limit);
-    tx.price = new BigNumber(price * Math.pow(10, 18));
-    tx.value = new BigNumber(amount * Math.pow(10, 18));
-    tx.input = { amount: new BigNumber(amount * Math.pow(10, 18)) };
+    tx.price = new BigNumber(price).multipliedBy(Math.pow(10, 18));
+    tx.value = new BigNumber(amount).multipliedBy(Math.pow(10, 18));
+    tx.input = { amount: new BigNumber(amount).multipliedBy(Math.pow(10, 18)) };
     tx.nonce = nonce + 1;
     tx.sign(secret);
 
@@ -61015,12 +61015,12 @@ let createToken = async(amount, limit, price, name, symbol, secret) => {
     let [key, secret2] = createKeyPair();
     let contract = addressFromSecretKey(secret2);
     let tx = new ValueTransaction();
-    let newAmount = new BigNumber(amount * Math.pow(10, 18));
+    let newAmount = new BigNumber(amount).multipliedBy(Math.pow(10, 18));
 
     tx.method = 'createToken';
     tx.value = new BigNumber('0');
     tx.limit = new BigNumber(limit);
-    tx.price = new BigNumber(price * Math.pow(10, 18));
+    tx.price = new BigNumber(price).multipliedBy(Math.pow(10, 18));
     tx.input = { tokenid: contract, amount: newAmount, name, symbol };
     tx.nonce = nonce + 1;
     tx.sign(secret);
@@ -61064,11 +61064,11 @@ let transferTokenTo = async(tokenid, to, amount, limit, price, secret) => {
         return { err: `unmortgage getNonce failed for ${err}` };
     }
     let tx = new ValueTransaction()
-    let newAmount = new BigNumber(amount * Math.pow(10, 18));
+    let newAmount = new BigNumber(amount).multipliedBy(Math.pow(10, 18));
     tx.method = 'transferTokenTo';
     tx.value = new BigNumber('0');
     tx.limit = new BigNumber(limit);
-    tx.price = new BigNumber(price * Math.pow(10, 18));
+    tx.price = new BigNumber(price).multipliedBy(Math.pow(10, 18));
     tx.input = { tokenid, to, amount: newAmount };
     tx.nonce = nonce + 1;
     tx.sign(secret);
@@ -61113,9 +61113,9 @@ let unmortgage = async(amount, limit, price, secret) => {
     let tx = new ValueTransaction()
     tx.method = 'unmortgage';
     tx.limit = new BigNumber(limit);
-    tx.price = new BigNumber(price * Math.pow(10, 18));
+    tx.price = new BigNumber(price).multipliedBy(Math.pow(10, 18));
     tx.value = new BigNumber(0);
-    tx.input = { amount: new BigNumber(amount * Math.pow(10, 18)) };
+    tx.input = { amount: new BigNumber(amount).multipliedBy(Math.pow(10, 18)) };
     tx.nonce = nonce + 1;
     tx.sign(secret);
 
@@ -61160,9 +61160,9 @@ let transfer = async(amount, limit, price, to, secret) => {
     }
     let tx = new ValueTransaction()
     tx.method = 'transferTo';
-    tx.value = new BigNumber(amount * Math.pow(10, 18));
+    tx.value = new BigNumber(amount).multipliedBy(Math.pow(10, 18));
     tx.limit = new BigNumber(limit);
-    tx.price = new BigNumber(price * Math.pow(10, 18));
+    tx.price = new BigNumber(price).multipliedBy(Math.pow(10, 18));
     tx.input = { to };
     tx.nonce = nonce + 1;
     tx.sign(secret);

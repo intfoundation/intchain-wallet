@@ -6,11 +6,7 @@
         "lib": "lib"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node server.js",
-        "watch": "gulp watch",
-        "transform": "gulp transform",
-        "build": "browserify --require  ./src/index.js:wal ./src/index.js > wal.js"
+        "build": "browserify --require  ./src/index.js:wal ./src/index.js > ./public/js/page/wal.js"
     },
     "author": "",
     "license": "ISC",

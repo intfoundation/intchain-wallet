@@ -6,7 +6,7 @@ modal.showInfo = function(obj = {}, cal) {
     callbak = cal
     let div = document.createElement("div");
     div.setAttribute('id', 'modal')
-    let dom = `<div style="position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">
+    let dom = `<div style="position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 1000;background-color:rgba(0,0,0,0.3)">
     <div style="width: 700px;margin: 200px auto;z-index: 101px;border-radius: 4px">
         <div style="color:rgba(51,51,51,1);font-size:20px; width: 100%;height: 76px;line-height:
                 76px;background-color:
@@ -38,6 +38,8 @@ modal.showInfo = function(obj = {}, cal) {
 </div>`
     div.innerHTML = dom;
     document.body.appendChild(div)
+    document.body.style.overflow = 'hidden'
+    document.body.style.height = '100%'
 }
 
 modal.nodeList = function(obj, cal) {
