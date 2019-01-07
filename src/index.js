@@ -170,7 +170,7 @@ let vote = async(candidates, limit, price, secret) => {
             Method: tx.method,
             'Gas limit': tx.limit,
             'Gas price': price,
-            Fee: tx.limit * price + ' INT',
+            Fee: new BigNumber(tx.limit).multipliedBy(price).toString() + ' INT',
             Input: JSON.stringify(tx.input),
             Nonce: tx.nonce
         },
@@ -217,7 +217,7 @@ let mortgage = async(amount, limit, price, secret) => {
             Amount: amount + ' INT',
             'Gas limit': tx.limit,
             'Gas price': price,
-            Fee: tx.limit * price + ' INT',
+            Fee: new BigNumber(tx.limit).multipliedBy(price).toString() + ' INT',
             Input: JSON.stringify(tx.input),
             Nonce: tx.nonce
         },
@@ -269,7 +269,7 @@ let createToken = async(amount, limit, price, name, symbol, secret) => {
             value: 0,
             'Gas limit': limit,
             'Gas price': price,
-            Fee: tx.limit * price + ' INT',
+            Fee: new BigNumber(tx.limit).multipliedBy(price).toString() + ' INT',
             Input: JSON.stringify(tx.input),
             Nonce: tx.nonce
         },
@@ -318,7 +318,7 @@ let transferTokenTo = async(tokenid, to, amount, limit, price, secret) => {
             value: 0,
             'Gas limit': limit,
             'Gas price': price,
-            Fee: tx.limit * price + ' INT',
+            Fee: new BigNumber(tx.limit).multipliedBy(price).toString() + ' INT',
             Input: JSON.stringify(tx.input),
             Nonce: tx.nonce
         },
@@ -364,7 +364,7 @@ let unmortgage = async(amount, limit, price, secret) => {
             Amount: amount + ' INT',
             'Gas limit': tx.limit,
             'Gas price': price,
-            Fee: tx.limit * price + ' INT',
+            Fee: new BigNumber(tx.limit).multipliedBy(price).toString() + ' INT',
             Input: JSON.stringify(tx.input),
             Nonce: tx.nonce
         },
@@ -412,7 +412,7 @@ let transfer = async(amount, limit, price, to, secret) => {
             Amount: amount + ' INT',
             'Gas limit': tx.limit,
             'Gas price': price,
-            Fee: tx.limit * price + ' INT',
+            Fee: new BigNumber(tx.limit).multipliedBy(price).toString() + ' INT',
             Input: JSON.stringify(tx.input),
             Nonce: tx.nonce
         },

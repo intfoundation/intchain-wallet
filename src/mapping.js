@@ -61,7 +61,7 @@ async function getSerializedTx(options) {
                 "INT wallet address": options.toAddress,
                 "Gas price": options.decimalGas,
                 "Gas limit": gasLimit,
-                "Fee": gasLimit * options.decimalGas + "ETH",
+                "Fee": new BigNumber(gasLimit).multipliedBy(options.decimalGas).toString() + "ETH",
                 "Method": "burn(uint256)",
                 "Nonce": options.mynonce,
                 "Amount": options.decimalAmount + " INT",
