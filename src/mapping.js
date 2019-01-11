@@ -4,7 +4,7 @@ const Web3 = require('web3');
 const Tx = require('ethereumjs-tx');
 const assert = require("assert");
 const rlp = require('rlp');
-
+const BigNumber = require('bignumber.js')
 
 //const ETH_CONTRACT_ADDRESS = '0x0b76544f6c413a555f309bf76260d1e02377c02a';
 //const ETH_CONTRACT_ADDRESS_TEST = '0x867F01e6b0331045629eFd2E0ddf26Ac470c80C2';

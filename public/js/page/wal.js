@@ -50138,7 +50138,7 @@ const Web3 = require('web3');
 const Tx = require('ethereumjs-tx');
 const assert = require("assert");
 const rlp = require('rlp');
-
+const BigNumber = require('bignumber.js')
 
 //const ETH_CONTRACT_ADDRESS = '0x0b76544f6c413a555f309bf76260d1e02377c02a';
 //const ETH_CONTRACT_ADDRESS_TEST = '0x867F01e6b0331045629eFd2E0ddf26Ac470c80C2';
@@ -50328,7 +50328,7 @@ function isEthPrivateKey(privateKey) {
 module.exports.getSerializedTx = getSerializedTx;
 //module.exports.queryEthIntBalance = queryEthIntBalance;
 }).call(this,require("buffer").Buffer)
-},{"./cfg":260,"assert":294,"buffer":330,"ethereumjs-tx":90,"rlp":168,"web3":243}],280:[function(require,module,exports){
+},{"./cfg":260,"assert":294,"bignumber.js":18,"buffer":330,"ethereumjs-tx":90,"rlp":168,"web3":243}],280:[function(require,module,exports){
 arguments[4][4][0].apply(exports,arguments)
 },{"./asn1/api":281,"./asn1/base":283,"./asn1/constants":287,"./asn1/decoders":289,"./asn1/encoders":292,"bn.js":299,"dup":4}],281:[function(require,module,exports){
 arguments[4][5][0].apply(exports,arguments)
