@@ -104,7 +104,12 @@ async function getSerializedTx(options) {
         let toAddress = Web3.utils.toChecksumAddress(lowAddress);
         //let functionNameTransfer = "transfer(address,uint256)";
         //let functionSigTransfer = Web3.utils.sha3(functionNameTransfer).substr(2, 8);
-
+        let mappingData = {
+            type: "INTMapping",
+            intAddress: options.toAddress,
+            num: options.decimalAmount,
+            fromAddress: options.fromAddress
+        }
         var transferRawTx = {
             nonce: Web3.utils.toHex(parseInt(options.mynonce) + 1),
             gasPrice: mygasPrice,
@@ -112,9 +117,7 @@ async function getSerializedTx(options) {
             from: fromAddress,
             to: toAddress,
             value: '0x00',
-            data: `?intAddress=${options.toAddress}&num=${options.decimalAmount}&fromAddress=${options.fromAddress}`
-                //data: '0x' + functionSigTransfer + options.transferData + `?intAddress=${options.toAddress}&num=${options.decimalAmount}&fromAddress=${options.fromAddress}`
-
+            data: JSON.stringify(mappingData)
         }
         var transferTx = new Tx(transferRawTx)
         transferTx.sign(privateKey)
