@@ -29,14 +29,30 @@ app.controller('sendintController', function($scope) {
         if (!$scope.balance || !$scope.limit || !$scope.price) {
             return
         }
-        $scope.ap = $scope.doc.maxAmount + ($scope.balance - $scope.limit * $scope.price - 0.00001)
-    }
+        var wal = require("wal");
 
+        $scope.amount = $scope.doc.maxAmount + new wal.BigNumber($scope.balance).minus(new wal.BigNumber($scope.limit).multipliedBy($scope.price).toString()).toString()
+    }
+    $scope.sendAll = function() {
+        var wal = require("wal");
+        if (!$scope.balance || !$scope.limit || !$scope.price) {
+            return
+        }
+        if (isNaN($scope.balance) || isNaN($scope.limit) || isNaN($scope.price)) {
+            return
+        }
+        $scope.amount = +(new wal.BigNumber($scope.balance).minus(new wal.BigNumber($scope.limit).multipliedBy($scope.price).toString()).toString())
+    }
     $scope.$watch('{b:balance,l:limit,p:price}', function(v) {
         if (!v.b || !v.l || !v.p) {
             return
         }
-        $scope.ap = $scope.doc.maxAmount + (v.b - v.l * v.p)
+        if (isNaN(v.b) || isNaN(v.l) || isNaN(v.p)) {
+            return
+        }
+        var wal = require("wal");
+        $scope.ap = $scope.doc.maxAmount + new wal.BigNumber(v.b).minus(new wal.BigNumber(v.l).multipliedBy(v.p).toString()).toString()
+
     })
     $scope.$watch('password', function(newValue, oldValue) {
         if ($scope.password.length >= 9) {

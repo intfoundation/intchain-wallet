@@ -403,7 +403,7 @@
                             <div class="lable"> {{doc.am}} </div>
                             <div class="in-box">
                                 <input ng-keyup="enterEvent($event)" type="text" placeholder="{{ap}}" ng-model="amount">
-                                <span class="all" ng-click="amount=balance-limit*price-0.00001<0?0:balance-limit*price-0.00001">{{doc.all}}</span>
+                                <span class="all" ng-click="sendAll()">{{doc.all}}</span>
                             </div>
                         </div>
                         <div class="item-box">
