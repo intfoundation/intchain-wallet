@@ -189,7 +189,7 @@ app.controller('voteController', function($scope) {
             modal.error({ msg: $scope.doc.anv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
-        if (+$scope.transferAmount >= +$scope.tokenBalance) {
+        if (+$scope.transferAmount > +$scope.tokenBalance) {
             modal.error({ msg: $scope.doc.amltb, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
