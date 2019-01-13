@@ -2,9 +2,10 @@ const { createKeyPair } = require('./crypt/account')
 const { encrypt, decrypt } = require('./crypt/crypt')
 const { ValueTransaction } = require('./core/value_chain/transaction')
 const BigNumber = require('bignumber.js')
-const { addressFromSecretKey, isValidAddress } = require('./core/address')
+const { addressFromSecretKey, addressFromPublicKey, isValidAddress } = require('./core/address')
     //const core_1 = require("./core");
 const { BufferWriter } = require('./core/lib/writer')
+const { encodeAddressAndNonce } = require('./core/serializable')
 const assert = require('assert');
 const rlp = require('rlp');
 const web3 = require("web3")
@@ -241,9 +242,7 @@ let createToken = async(amount, limit, price, name, symbol, secret) => {
     if (err) {
         return { err: `unmortgage getNonce failed for ${err}` };
     }
-    // let contract = this.create().address;
-    let [key, secret2] = createKeyPair();
-    let contract = addressFromSecretKey(secret2);
+    let contract = addressFromPublicKey(encodeAddressAndNonce(address, nonce + 1));
     let tx = new ValueTransaction();
     let newAmount = new BigNumber(amount).multipliedBy(Math.pow(10, 18)).toString();
 

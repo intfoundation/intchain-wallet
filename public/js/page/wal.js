@@ -49429,6 +49429,7 @@ const encoding_1 = require("./lib/encoding");
 const digest = require("./lib/digest");
 const bignumber_js_1 = require("bignumber.js");
 const util_1 = require("util");
+
 function MapToObject(input) {
     if (!(input instanceof Map)) {
         throw new Error('input MUST be a Map');
@@ -49443,6 +49444,7 @@ function MapToObject(input) {
     return ret;
 }
 exports.MapToObject = MapToObject;
+
 function SetToArray(input) {
     if (!(input instanceof Set)) {
         throw new Error('input MUST be a Set');
@@ -49454,18 +49456,17 @@ function SetToArray(input) {
     return ret;
 }
 exports.SetToArray = SetToArray;
+
 function SetFromObject(input) {
     if (!util_1.isObject(input)) {
         throw new Error('input MUST be a Object');
     }
     let ret = new Set();
-    do {
-        const item = input.shift();
-        ret.add(item);
-    } while (input.length > 0);
+    input.forEach((v) => ret.add(v));
     return ret;
 }
 exports.SetFromObject = SetFromObject;
+
 function MapFromObject(input) {
     if (!util_1.isObject(input)) {
         throw new Error('input MUST be a Object');
@@ -49477,125 +49478,165 @@ function MapFromObject(input) {
     return ret;
 }
 exports.MapFromObject = MapFromObject;
+
 function deepCopy(o) {
     if (util_1.isUndefined(o) || util_1.isNull(o)) {
         return o;
-    }
-    else if (util_1.isNumber(o) || util_1.isBoolean(o)) {
+    } else if (util_1.isNumber(o) || util_1.isBoolean(o)) {
         return o;
-    }
-    else if (util_1.isString(o)) {
+    } else if (util_1.isString(o)) {
         return o;
-    }
-    else if (o instanceof bignumber_js_1.BigNumber) {
+    } else if (o instanceof bignumber_js_1.BigNumber) {
         return new bignumber_js_1.BigNumber(o);
-    }
-    else if (util_1.isBuffer(o)) {
+    } else if (util_1.isBuffer(o)) {
         return Buffer.from(o);
-    }
-    else if (util_1.isArray(o) || o instanceof Array) {
+    } else if (util_1.isArray(o) || o instanceof Array) {
         let s = [];
         for (let e of o) {
             s.push(deepCopy(e));
         }
         return s;
-    }
-    else if (o instanceof Map) {
+    } else if (o instanceof Map) {
         let s = new Map();
         for (let k of o.keys()) {
             s.set(k, deepCopy(o.get(k)));
         }
         return s;
-    }
-    else if (util_1.isObject(o)) {
+    } else if (util_1.isObject(o)) {
         let s = Object.create(null);
         for (let k of Object.keys(o)) {
             s[k] = deepCopy(o[k]);
         }
         return s;
-    }
-    else {
+    } else {
         throw new Error('not JSONable');
     }
 }
 exports.deepCopy = deepCopy;
+
+function toEvalText(o) {
+    if (util_1.isUndefined(o) || util_1.isNull(o)) {
+        return JSON.stringify(o);
+    } else if (util_1.isNumber(o) || util_1.isBoolean(o)) {
+        return JSON.stringify(o);
+    } else if (util_1.isString(o)) {
+        return JSON.stringify(o);
+    } else if (o instanceof bignumber_js_1.BigNumber) {
+        return `new BigNumber('${o.toString()}')`;
+    } else if (util_1.isBuffer(o)) {
+        return `Buffer.from('${o.toString('hex')}', 'hex')`;
+    } else if (util_1.isArray(o) || o instanceof Array) {
+        let s = [];
+        for (let e of o) {
+            s.push(toEvalText(e));
+        }
+        return `[${s.join(',')}]`;
+    } else if (o instanceof Map) {
+        throw new Error(`use MapToObject before toStringifiable`);
+    } else if (o instanceof Set) {
+        throw new Error(`use SetToArray before toStringifiable`);
+    } else if (util_1.isObject(o)) {
+        let s = [];
+        for (let k of Object.keys(o)) {
+            s.push(`'${k}':${toEvalText(o[k])}`);
+        }
+        return `{${s.join(',')}}`;
+    } else {
+        throw new Error('not JSONable');
+    }
+}
+exports.toEvalText = toEvalText;
+
 function toStringifiable(o, parsable = false) {
     if (util_1.isUndefined(o) || util_1.isNull(o)) {
         return o;
-    }
-    else if (util_1.isNumber(o) || util_1.isBoolean(o)) {
+    } else if (util_1.isNumber(o) || util_1.isBoolean(o)) {
         return o;
-    }
-    else if (util_1.isString(o)) {
+    } else if (util_1.isString(o)) {
         return parsable ? 's' + o : o;
-    }
-    else if (o instanceof bignumber_js_1.BigNumber) {
+    } else if (o instanceof bignumber_js_1.BigNumber) {
         return parsable ? 'n' + o.toString() : o.toString();
-    }
-    else if (util_1.isBuffer(o)) {
+    } else if (util_1.isBuffer(o)) {
         return parsable ? 'b' + o.toString('hex') : o.toString('hex');
-    }
-    else if (util_1.isArray(o) || o instanceof Array) {
+    } else if (util_1.isArray(o) || o instanceof Array) {
         let s = [];
         for (let e of o) {
             s.push(toStringifiable(e, parsable));
         }
         return s;
-    }
-    else if (o instanceof Map) {
+    } else if (o instanceof Map) {
         throw new Error(`use MapToObject before toStringifiable`);
-    }
-    else if (o instanceof Set) {
+    } else if (o instanceof Set) {
         throw new Error(`use SetToArray before toStringifiable`);
-    }
-    else if (util_1.isObject(o)) {
+    } else if (util_1.isObject(o)) {
         let s = Object.create(null);
         for (let k of Object.keys(o)) {
             s[k] = toStringifiable(o[k], parsable);
         }
         return s;
-    }
-    else {
+    } else {
         throw new Error('not JSONable');
     }
 }
 exports.toStringifiable = toStringifiable;
+
 function fromStringifiable(o) {
     // let value = JSON.parse(o);
     function __convertValue(v) {
         if (util_1.isString(v)) {
             if (v.charAt(0) === 's') {
                 return v.substring(1);
-            }
-            else if (v.charAt(0) === 'b') {
+            } else if (v.charAt(0) === 'b') {
                 return Buffer.from(v.substring(1), 'hex');
-            }
-            else if (v.charAt(0) === 'n') {
+            } else if (v.charAt(0) === 'n') {
                 return new bignumber_js_1.BigNumber(v.substring(1));
-            }
-            else {
+            } else {
                 throw new Error(`invalid parsable value ${v}`);
             }
-        }
-        else if (util_1.isArray(v) || v instanceof Array) {
+        } else if (util_1.isArray(v) || v instanceof Array) {
             for (let i = 0; i < v.length; ++i) {
                 v[i] = __convertValue(v[i]);
             }
             return v;
-        }
-        else if (util_1.isObject(v)) {
+        } else if (util_1.isObject(v)) {
             for (let k of Object.keys(v)) {
                 v[k] = __convertValue(v[k]);
             }
             return v;
-        }
-        else {
+        } else {
             return v;
         }
     }
     return __convertValue(o);
 }
 exports.fromStringifiable = fromStringifiable;
+
+function hasDecimals(o) {
+    let s = o.toString();
+    if (s.indexOf('.') > -1) {
+        if (s.indexOf('e') === -1) {
+            return true;
+        } else {
+            let pointIndex = s.indexOf('.');
+            let eIndex = s.indexOf('e');
+            let str = s.substring(pointIndex + 1, eIndex);
+            let n = s.substring(eIndex + 2);
+            if (str.length > Number(n)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+exports.hasDecimals = hasDecimals;
+
+function encodeAddressAndNonce(address, nonce) {
+    let bw = new writer_1.BufferWriter();
+    bw.writeVarString(address);
+    bw.writeU32(nonce);
+    return digest.hash256(bw.render()).toString('hex');
+}
+exports.encodeAddressAndNonce = encodeAddressAndNonce;
 class SerializableWithHash {
     constructor() {
         this.m_hash = encoding_1.Encoding.NULL_HASH;
@@ -49636,7 +49677,6 @@ class SerializableWithHash {
     }
 }
 exports.SerializableWithHash = SerializableWithHash;
-
 }).call(this,require("buffer").Buffer)
 },{"./error_code":263,"./lib/digest":265,"./lib/encoding":266,"./lib/reader":267,"./lib/writer":269,"bignumber.js":18,"buffer":330,"util":452}],271:[function(require,module,exports){
 "use strict";
@@ -60775,9 +60815,10 @@ const { createKeyPair } = require('./crypt/account')
 const { encrypt, decrypt } = require('./crypt/crypt')
 const { ValueTransaction } = require('./core/value_chain/transaction')
 const BigNumber = require('bignumber.js')
-const { addressFromSecretKey, isValidAddress } = require('./core/address')
+const { addressFromSecretKey, addressFromPublicKey, isValidAddress } = require('./core/address')
     //const core_1 = require("./core");
 const { BufferWriter } = require('./core/lib/writer')
+const { encodeAddressAndNonce } = require('./core/serializable')
 const assert = require('assert');
 const rlp = require('rlp');
 const web3 = require("web3")
@@ -61014,9 +61055,7 @@ let createToken = async(amount, limit, price, name, symbol, secret) => {
     if (err) {
         return { err: `unmortgage getNonce failed for ${err}` };
     }
-    // let contract = this.create().address;
-    let [key, secret2] = createKeyPair();
-    let contract = addressFromSecretKey(secret2);
+    let contract = addressFromPublicKey(encodeAddressAndNonce(address, nonce + 1));
     let tx = new ValueTransaction();
     let newAmount = new BigNumber(amount).multipliedBy(Math.pow(10, 18)).toString();
 
@@ -61268,4 +61307,4 @@ module.exports = {
     isValidAddress
 }
 }).call(this,require("buffer").Buffer)
-},{"./cfg":260,"./core/address":261,"./core/lib/writer":269,"./core/value_chain/transaction":271,"./crypt/account":272,"./crypt/crypt":273,"./mapping":279,"assert":294,"bignumber.js":18,"buffer":330,"rlp":168,"web3":243}]},{},["wal"]);
+},{"./cfg":260,"./core/address":261,"./core/lib/writer":269,"./core/serializable":270,"./core/value_chain/transaction":271,"./crypt/account":272,"./crypt/crypt":273,"./mapping":279,"assert":294,"bignumber.js":18,"buffer":330,"rlp":168,"web3":243}]},{},["wal"]);
