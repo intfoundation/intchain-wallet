@@ -185,7 +185,7 @@ app.controller('voteController', function($scope) {
             modal.error({ msg: $scope.doc.tanv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
-        if (isNaN($scope.transferAmount) || $scope.transferAmount <= 1 / Math.pow(10, 18)) {
+        if (isNaN($scope.transferAmount) || $scope.transferAmount < 1 / Math.pow(10, 18)) {
             modal.error({ msg: $scope.doc.anv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
