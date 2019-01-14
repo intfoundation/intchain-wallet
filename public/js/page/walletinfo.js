@@ -31,7 +31,12 @@ app.controller('walletinfoController', function($scope) {
         $scope.lan = a
         document.title = $scope.doc.viewWllet + '| INT Chain';
     }
-
+    $scope.$watch('privateKey', function(newValue, oldValue) {
+        if (newValue.length != 64 && oldValue.length == 64) {
+            console.log("error")
+            $scope.privateKey = oldValue;
+        }
+    });
 
     $scope.$watch('password', function(newValue, oldValue) {
         if ($scope.password.length >= 9) {

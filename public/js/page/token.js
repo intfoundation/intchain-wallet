@@ -236,7 +236,7 @@ app.controller('voteController', function($scope) {
             return
         }
 
-        if (isNaN($scope.createAmount) || $scope.createAmount < Math.pow(10, -18) || $scope.createAmount >= Math.pow(10, 18)) {
+        if (isNaN($scope.createAmount) || $scope.createAmount < Math.pow(10, -18) || $scope.createAmount > Math.pow(10, 18)) {
             modal.error({ msg: $scope.doc.amountNv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
