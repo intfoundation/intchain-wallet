@@ -421,8 +421,7 @@ let transfer = async(amount, limit, price, to, secret) => {
 }
 
 let burnIntOnEth = async(options) => {
-    let amount = new BigNumber(options.decimalAmount).minus(0.000001).toString()
-    let url = getMydataUrl + amount + "/" + options.fromAddress
+    let url = getMydataUrl + options.decimalAmount + "/" + options.fromAddress
     let result = await http.sendGet(url);
     let parseResult = JSON.parse(result);
     options.mydata = parseResult.mydata

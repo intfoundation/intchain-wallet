@@ -98,8 +98,10 @@ app.controller('mappingController', function($scope, $http) {
                 modal.error({ msg: $scope.doc.priceNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
+            let obj = $scope.model
+            obj.decimalAmount = new wal.BigNumber(options.decimalAmount).minus(0.000001).toString()
 
-            wal.burnIntOnEth($scope.model, $scope.doc).then(function(data) {
+            wal.burnIntOnEth(obj, $scope.doc).then(function(data) {
                 if (data) {
                     if (data.error) {
                         modal.error({ mas: data.message, title: $scope.doc.notice, okText: $scope.doc.confirm })
