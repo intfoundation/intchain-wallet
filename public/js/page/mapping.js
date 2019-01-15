@@ -58,7 +58,7 @@ app.controller('mappingController', function($scope, $http) {
         wal.queryBalance($scope.model.fromAddress).then(function(data) {
             if (data) {
                 if (data.status === "success") {
-                    $scope.model.decimalAmount = data.balance;
+                    $scope.model.decimalAmount = new wal.BigNumber(data.balance).minus(0.000001).toString()
                     $scope.model.mydata = data.mydata;
                     $scope.model.mynonce = data.mynonce;
                     $scope.model.decimalGas = (data.gasPrice / Math.pow(10, 18)).toFixed(18).replace(/\.0+$/, "").replace(/(\.\d+[1-9])0+$/, "$1")
