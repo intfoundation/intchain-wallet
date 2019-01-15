@@ -140,8 +140,6 @@ let decrypt = function(v3Keystore, password, nonStrict) {
     return seed;
 };
 
-console.log(decrypt({ "version": 3, "id": "03f6cfe8-b7d5-454d-b7a6-00f9de698060", "crypto": { "ciphertext": "30a77a175c8673e657d8164765f1ff771538325392154db94690b43aeee592ab", "cipherparams": { "iv": "19e92b44829024bd00c90324f0ac6b5c" }, "cipher": "aes-128-ctr", "kdf": "scrypt", "kdfparams": { "dklen": 32, "salt": "b8eb02a162f9cd66a6286d4f17e8cf6b70a0b7b15bcffa9b6e5a563b58314bc6", "n": 8192, "r": 8, "p": 1 }, "mac": "588c7a58ea6a67f5c4e559e33adb5eb276827c0defd11cca8e7d5883dda45dbc" }, "address": "INT1DZKKeykCP6TcmRGBU6C4Px2JAC1aMJuoi" }, 's0gTJqxXtfU8yfdT'))
-
 module.exports = {
     encrypt,
     decrypt
