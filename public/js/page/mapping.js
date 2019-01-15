@@ -99,7 +99,7 @@ app.controller('mappingController', function($scope, $http) {
                 return;
             }
             let obj = $scope.model
-            obj.decimalAmount = new wal.BigNumber(options.decimalAmount).minus(0.000001).toString()
+            obj.decimalAmount = new wal.BigNumber(obj.decimalAmount).minus(0.000001).toString()
 
             wal.burnIntOnEth(obj, $scope.doc).then(function(data) {
                 if (data) {
