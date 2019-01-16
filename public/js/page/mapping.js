@@ -94,6 +94,10 @@ app.controller('mappingController', function($scope, $http) {
                 return;
             }
 
+            if ($scope.model.decimalAmount == 0) {
+                modal.error({ msg: $scope.doc.bmmz, title: $scope.doc.notice, okText: $scope.doc.confirm })
+                return;
+            }
             if (!$scope.model.decimalGas || isNaN($scope.model.decimalGas) || $scope.model.decimalGas <= 0) {
                 modal.error({ msg: $scope.doc.priceNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
