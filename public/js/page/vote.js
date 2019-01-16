@@ -90,7 +90,7 @@ app.controller('voteController', function($scope) {
     }
     $scope.chooseNodes = function(index) {
         let chNum = 0
-        if ($scope.chNum >= 20) {
+        if ($scope.chNum >= 20 && $scope.nodes[index].ch) {
             modal.error({ msg: $scope.doc.m20, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return;
         }
