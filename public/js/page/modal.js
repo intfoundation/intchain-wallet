@@ -111,6 +111,7 @@ modal.success = function(obj, cal) {
     document.body.appendChild(div);
 };
 modal.burnSuccess = function(obj, cal) {
+    callbak = cal
     var d = document.getElementById("modal");
     if (d) document.body.removeChild(d);
     var title = obj.title || 'Notice';

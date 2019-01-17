@@ -119,7 +119,9 @@ app.controller('mappingController', function($scope, $http) {
                                     modal.error({ msg: r.message, title: $scope.doc.notice, okText: $scope.doc.confirm })
                                 } else {
                                     // modal.burnSuccess({ msg: r.hash })
-                                    modal.burnSuccess({ doc: $scope.doc, msg: 'https://etherscan.io/tx/' + r.hash })
+                                    modal.burnSuccess({ doc: $scope.doc, msg: 'https://etherscan.io/tx/' + r.hash }, function() {
+                                        window.location.reload()
+                                    })
 
                                 }
                             })
