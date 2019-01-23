@@ -12,7 +12,7 @@ app.controller('mappingController', function($scope, $http) {
         fromAddressPrivateKey: '',
         mydata: '',
         mynonce: '',
-        gasLimit: 100000
+        gasLimit: 50000
     };
     $scope.intPrivateKey = '';
     $scope.lan = new modal.UrlSearch().lan || 'en'
