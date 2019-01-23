@@ -2,6 +2,58 @@
 
 var modal = {};
 var callbak = void 0;
+var info = [
+    [1, '失败', 'failed'],
+    [2, '等待初始化', 'wait init'],
+    [3, '错误的状态', 'error state'],
+    [4, '无效的类型', 'invalid type'],
+    [5, '脚本错误', 'script error'],
+    [6, '没有执行', 'no implemention'],
+    [8, '需要先同步', 'need sync'],
+    [9, '没有找到', 'not found'],
+    [11, '无效的参数', 'invalid parameter'],
+    [12, '解析错误', 'parse error'],
+    [13, '请求错误', 'request error'],
+    [15, '超时', 'timeout'],
+    [17, '无效的格式', 'invalid format'],
+    [18, '不明数值', 'unknown value'],
+    [19, '无效的token', 'invalid token'],
+    [21, '无效的会话', 'invalid session'],
+    [24, '交易池满了', 'tx pool is full'],
+    [25, '无效的状态', 'invalid state'],
+    [26, '余额不足', 'balance is not enough'],
+    [27, '交易nonce错误', 'transaction nonce error'],
+    [28, '无效的区块', 'invalid block'],
+    [29, '操作取消', 'operation canceled'],
+    [30, '交易费过小', 'fee too small'],
+    [31, '此项只读', 'read only'],
+    [34, '交易已存在', 'transaction exist'],
+    [35, '版本不支持', 'version not support'],
+    [36, '执行出错', 'execute error'],
+    [37, '验证不匹配', 'verify as invalid'],
+    [38, '交易类型不存在', 'tx type not exist'],
+    [39, '交易费不足', 'tx fee not enough'],
+    [40, '已跳过', 'skipped'],
+    [41, '发起交易过于频繁', 'add tx too frequent'],
+    [50, '检测到分叉', 'fork detected'],
+    [10000, '用户定义的错误码', 'user defined errorcode'],
+    [10011, '没有权限', 'have no permission'],
+    [10012, '账户已冻结', 'address is frozen'],
+    [10013, '无效的地址', 'invalid address'],
+    [10021, 'limit值不够', 'limit not enough'],
+    [10022, 'limit值过大', 'limit too big'],
+    [10023, 'limit过小', 'limit too small'],
+    [10024, 'block limit值过大', 'block limit too big'],
+    [10025, 'price值过大', 'price too big'],
+    [10026, 'price值过小', 'price too small'],
+    [10027, '不是bignumber对象', 'not bignumber'],
+    [10028, '不能小于0', 'can not be less than zero'],
+    [10030, '不是整数', 'not integer'],
+    [10031, '超过最大值，大于1e+18', 'out of range, greater than 1e+18'],
+    [10032, '解锁的金额为0', 'unlock 0 INT'],
+    [10040, '找不到keystore', 'address not exist'],
+    [10041, 'keystore错误', 'keystore error']
+]
 
 modal.nodeList = function(obj, doc, cal) {
     callbak = cal
@@ -88,7 +140,15 @@ modal.error = function(obj, cal) {
     var title = obj.title || 'Notice';
     var msg = obj.msg;
     if (!isNaN(msg)) {
-        msg = "Error code: " + msg
+        for (let inf of info) {
+            if (msg == inf[0]) {
+                if (title == 'Notice') {
+                    msg = inf[2]
+                } else {
+                    msg = inf[1]
+                }
+            }
+        }
     }
     var okText = obj.okText || 'Confirm';
     var div = document.createElement("div");
