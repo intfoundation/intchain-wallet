@@ -96,7 +96,10 @@ var lan = {
         create: "Create",
         transfer: "Transfer",
         help: "Guide",
-        success: "Operation success, click the URL below to view the results"
+        success: "Operation success, click the URL below to view the results",
+        intBalance: "INT Balance",
+        ethBalance: "ETH Balance",
+        ethNotEnough: "ETH not enough,mapping requires at least "
     },
 
     zh: {
@@ -195,6 +198,9 @@ var lan = {
         create: "创建",
         transfer: "转账",
         help: "帮助",
-        success: "操作成功，点击下方链接查看结果"
+        success: "操作成功，点击下方链接查看结果",
+        intBalance: "INT余额",
+        ethBalance: "ETH余额",
+        ethNotEnough: "你的ETH余额不足,映射至少需要"
     }
 }

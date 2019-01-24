@@ -331,12 +331,17 @@
                             </div>
                         </div>
                         <div class="item-box">
-                            <div class="lable">{{doc.balance}}</div>
+                            <div class="lable">{{doc.ethBalance}}</div>
                             <div class="in-box">
-                                <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.balance}}" ng-model="model.decimalAmount">
+                                <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.ethBalance}}" ng-model="ethBalance">
                             </div>
                         </div>
-                        <br>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">{{doc.intBalance}}</div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.intBalance}}" ng-model="model.decimalAmount">
+                            </div>
+                        </div>
                         <div class="item-box">
                             <div class="lable">Gas Price</div>
                             <div class="in-box">

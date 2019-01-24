@@ -12,8 +12,9 @@ app.controller('mappingController', function($scope, $http) {
         fromAddressPrivateKey: '',
         mydata: '',
         mynonce: '',
-        gasLimit: 50000
+        gasLimit: 100000
     };
+    $scope.ethBalance = ''
     $scope.intPrivateKey = '';
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
@@ -59,6 +60,7 @@ app.controller('mappingController', function($scope, $http) {
             if (data) {
                 if (data.status === "success") {
                     $scope.model.decimalAmount = data.balance
+                    $scope.ethBalance = modal.numformat(data.ethBalance)
                     $scope.model.mydata = data.mydata;
                     $scope.model.mynonce = data.mynonce;
                     $scope.model.decimalGas = (data.gasPrice / Math.pow(10, 18)).toFixed(18).replace(/\.0+$/, "").replace(/(\.\d+[1-9])0+$/, "$1")
@@ -100,6 +102,11 @@ app.controller('mappingController', function($scope, $http) {
             }
             if (!$scope.model.decimalGas || isNaN($scope.model.decimalGas) || $scope.model.decimalGas <= 0) {
                 modal.error({ msg: $scope.doc.priceNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
+                return;
+            }
+            if ($scope.model.decimalGas * $scope.model.gasLimit * 2 > $scope.ethBalance) {
+                let num = new wal.BigNumber($scope.model.decimalGas).multipliedBy($scope.model.gasLimit).multipliedBy(2).toString()
+                modal.error({ msg: $scope.doc.ethNotEnough + num + ' ETH', title: $scope.doc.notice, okText: $scope.doc.confirm })
                 return;
             }
             let obj = {...$scope.model }
