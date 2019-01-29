@@ -80,6 +80,14 @@
     border-bottom: 2px solid #cd222d;
 }
 
+.tabbar-box .active1 {
+    color: #cd222d;
+}
+
+.tabbar-box .active1 span {
+    border-bottom: 2px solid #cd222d;
+}
+
 .content {
     width: 1200px;
     min-height: 80%;
@@ -136,7 +144,7 @@
 }
 
 .voteTab-item:hover {
-    background-color: rgba(69, 141, 255, 1);
+    background-color: #cd222d;
 }
 
 .voteTab-item a {

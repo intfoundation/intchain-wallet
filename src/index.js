@@ -27,7 +27,8 @@ const {
     getLimitUrl,
     getVoteRecordUrl,
     getTokenBalanceUrl,
-    getTestCoinUrl
+    getTestCoinUrl,
+    rewardHistoryUrl
 } = require('./cfg')
 
 const Mapping = require("./mapping");
@@ -90,6 +91,14 @@ let decodeFromOption = (option, pwd) => {
 let getBalance = async address => {
     assert(address, 'address is required.');
     let url = getBalanceUrl + address;
+    let result = await http.sendGet(url);
+
+    return result;
+}
+
+let rewardHistory = async address => {
+    assert(address, 'address is required.');
+    let url = rewardHistoryUrl + address;
     let result = await http.sendGet(url);
     return result;
 }
@@ -491,5 +500,6 @@ module.exports = {
     transferTokenTo,
     getTestCoin,
     createToken,
-    isValidAddress
+    isValidAddress,
+    rewardHistory
 }

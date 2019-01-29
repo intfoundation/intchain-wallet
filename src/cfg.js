@@ -30,6 +30,7 @@ let development = {
 let production = {
     http: httpsUtil,
     getBalanceUrl: 'https://explorer.intchain.io/api/wallet/getBalance/',
+    rewardHistoryUrl: 'https://explorer.intchain.io/api/wallet/rewardHistory/',
     getNonceUrl: 'https://explorer.intchain.io/api/wallet/getNonce/',
     getVotesUrl: 'https://explorer.intchain.io/api/wallet/getVotes/',
     getCandiesUrl: 'https://explorer.intchain.io/api/wallet/candies',

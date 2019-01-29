@@ -46879,6 +46879,7 @@ let development = {
 let production = {
     http: httpsUtil,
     getBalanceUrl: 'https://explorer.intchain.io/api/wallet/getBalance/',
+    rewardHistoryUrl: 'https://explorer.intchain.io/api/wallet/rewardHistory/',
     getNonceUrl: 'https://explorer.intchain.io/api/wallet/getNonce/',
     getVotesUrl: 'https://explorer.intchain.io/api/wallet/getVotes/',
     getCandiesUrl: 'https://explorer.intchain.io/api/wallet/candies',
@@ -60829,7 +60830,8 @@ const {
     getLimitUrl,
     getVoteRecordUrl,
     getTokenBalanceUrl,
-    getTestCoinUrl
+    getTestCoinUrl,
+    rewardHistoryUrl
 } = require('./cfg')
 
 const Mapping = require("./mapping");
@@ -60892,6 +60894,14 @@ let decodeFromOption = (option, pwd) => {
 let getBalance = async address => {
     assert(address, 'address is required.');
     let url = getBalanceUrl + address;
+    let result = await http.sendGet(url);
+
+    return result;
+}
+
+let rewardHistory = async address => {
+    assert(address, 'address is required.');
+    let url = rewardHistoryUrl + address;
     let result = await http.sendGet(url);
     return result;
 }
@@ -61293,7 +61303,8 @@ module.exports = {
     transferTokenTo,
     getTestCoin,
     createToken,
-    isValidAddress
+    isValidAddress,
+    rewardHistory
 }
 }).call(this,require("buffer").Buffer)
 },{"./cfg":260,"./core/address":261,"./core/lib/writer":269,"./core/serializable":270,"./core/value_chain/transaction":271,"./crypt/account":272,"./crypt/crypt":273,"./mapping":279,"assert":294,"bignumber.js":18,"buffer":330,"rlp":168,"web3":243}]},{},["wal"]);

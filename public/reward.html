@@ -1,0 +1,553 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>INT Chain</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="icon" href="./images/intlogo.png" type="image/x-icon" />
+    <script src="./js/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <link href="./js/plugins/layer/skin/default/layer.css" rel="stylesheet">
+    <script src="./js/plugins/layer/layer.js"></script>
+    <script src="./js/page/modal.js"></script>
+
+    <script type="text/javascript" src="./js/page/language.js"></script>
+    <script type="text/javascript" src="./js/page/babelfill.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-animate.min.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-route.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular/angular-file-upload.min.js"></script>
+    <script type="text/javascript" src="./js/app/ngapp.js"></script>
+    <script type="text/javascript" src="./js/app/directives/uploaddirectives.js"></script>
+    <script type="text/javascript" src="./js/page/common.js"></script>
+    <script type="text/javascript" src="./js/page/reward.js"></script>
+    <script type="text/javascript" src="./js/page/wal.js"></script>
+    <script type="text/javascript" src="./js/plugins/angular.js"></script>
+    <script type="text/javascript" src="./js/plugins/jquery-1.11.0.js"></script>
+    <script type="text/javascript" src="./js/plugins/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/plugins/ui-bootstrap-tpls.min.js"></script>
+    <!-- <link rel="stylesheet" href="./js/plugins/bootstrap.min.css"> -->
+    <style>
+        .main {
+            padding: 50px 0 0 30px;
+        }
+        
+        .out {
+            height: 14px;
+            width: 14px;
+            border: 1px solid #cd222d;
+            border-radius: 8px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .in {
+            height: 8px;
+            width: 8px;
+            background-color: #cd222d;
+            border-radius: 5px;
+            margin: 3px;
+            display: inline-block;
+        }
+        
+        .inac {
+            height: 14px;
+            width: 14px;
+            border: 1px solid rgba(204, 204, 204, 1);
+            border-radius: 8px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .ch-item {
+            display: inline;
+        }
+        
+        .ch-item span {
+            margin-left: 8px;
+        }
+        
+        .pri {
+            margin-left: 75px;
+        }
+        
+        .ch {
+            margin-top: 18px;
+            color: rgba(102, 102, 102, 1);
+            font-size: 16px;
+            font-family: PingFangSC-Medium;
+        }
+        
+        .se {
+            margin-top: 36px;
+            color: rgba(102, 102, 102, 1);
+            font-size: 16px;
+            font-weight: bold;
+            font-family: PingFangSC-Medium;
+        }
+        
+        .warn {
+            margin-top: 20px;
+            width: 852px;
+            color: rgba(215, 49, 111, 1);
+            font-size: 12px;
+            font-family: PingFangSC-Regular;
+        }
+        
+        .ch-file {
+            margin-top: 16px;
+            width: 240px;
+        }
+        
+        .is .lt1 {
+            width: 412px;
+            height: 50px;
+            border-radius: 4px;
+            border: 1px solid rgba(204, 204, 204, 1);
+            line-height: 50px;
+            cursor: pointer;
+            color: rgba(102, 102, 102, 1);
+            font-family: PingFangSC-Medium;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .middle {
+            margin-top: 36px;
+            color: rgba(153, 153, 153, 1);
+            font-size: 12px;
+            text-align: left;
+            font-family: PingFangSC-Regular;
+        }
+        
+        .in-box {
+            display: inline-block;
+            width: 410px;
+            height: 46px;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 1);
+            border: 1px solid rgba(204, 204, 204, 1);
+        }
+        
+        .in-box img {
+            cursor: pointer;
+        }
+        
+        input {
+            margin-left: 24px;
+            width: 85%;
+            height: 98%;
+            border: 0px;
+            outline: none
+        }
+        
+        input::-webkit-input-placeholder {
+            color: rgba(153, 153, 153, 1);
+            font-family: PingFangSC-Regular;
+        }
+        
+        .btn-dis {
+            font-family: PingFangSC-Regular;
+            margin-top: 36px;
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            background-color: rgba(204, 204, 204, 1);
+            text-align: center;
+            line-height: 50px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 1);
+            cursor: not-allowed;
+        }
+        
+        .btn-unlock {
+            margin-top: 36px;
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            background-color: #cd222d;
+            text-align: center;
+            line-height: 50px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 1);
+            cursor: pointer;
+        }
+        
+        .msg {
+            margin-top: 25px;
+            width: 300px;
+            height: 32px;
+            opacity: 0.8;
+            border-radius: 4px;
+            background-color: rgba(215, 49, 111, 1);
+            line-height: 32px;
+            padding-left: 13px;
+            color: rgba(255, 255, 255, 1);
+            font-size: 12px;
+        }
+        
+        .item-box {
+            display: inline-block;
+            color: rgba(51, 51, 51, 1);
+            font-size: 16px;
+            font-family: PingFangSC-Medium;
+            margin-top: 24px;
+            font-weight: bold;
+        }
+        
+        .node-item {
+            width: 880px;
+            height: 46px;
+            border-radius: 4px;
+            background-color: rgba(244, 248, 255, 1);
+            line-height: 46px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+        
+        .no-ch {
+            width: 15px;
+            height: 15px;
+            border: 1px solid rgba(204, 204, 204, 1);
+            border-radius: 8px;
+            margin-top: 14px;
+            margin-left: 24px;
+            display: inline-block;
+        }
+        
+        .node-item .icon {
+            display: inline-block;
+            vertical-align: top;
+            margin-top: 14px;
+            margin-left: 24px;
+        }
+        
+        .node-item .node {
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 24px;
+            border-right: 1px solid rgba(221, 233, 255, 1);
+            width: 430px;
+        }
+        
+        .node-item .vote {
+            display: inline-block;
+            vertical-align: top;
+            margin-left: 10px;
+        }
+        
+        .node-box {
+            height: 500px;
+            overflow-y: scroll;
+            width: 880px;
+            margin-top: 36px;
+        }
+        
+        .voteTab {
+            margin-top: 30px;
+        }
+        
+        .votes {
+            width: 500px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        
+        .line {
+            display: inline-block;
+            width: 30px;
+            margin-left: 30px;
+            margin-top: 25px;
+            height: 760px;
+            border-left: 1px solid rgba(204, 204, 204, 1);
+        }
+        
+        .reward {
+            width: 570px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        
+        .vote-title {
+            height: 24px;
+            font-size: 24px;
+            text-align: left;
+            font-family: SourceHanSansCN-Medium;
+            margin-bottom: 10px
+        }
+        
+        .vote-title span {
+            margin-left: 10px;
+            font-size: 20px;
+        }
+        
+        table {
+            border-spacing: 0px;
+            color: rgba(51, 51, 51, 1);
+            border: 1px solid rgba(204, 204, 204, 1);
+        }
+        
+        .table {
+            width: 100%;
+        }
+        
+        .table thead tr {
+            color: rgba(255, 255, 255, 1);
+            width: 100%;
+            height: 50px;
+            background-color: rgba(229, 103, 112, 1);
+            display: block;
+            line-height: 50px;
+        }
+        
+        .table tbody tr {
+            height: 46px;
+            display: block;
+            line-height: 46px;
+        }
+        
+        tbody tr:nth-of-type(even) {
+            background-color: #ffe5e7;
+        }
+        
+        li {
+            list-style: none;
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            color: rgba(51, 51, 51, 1);
+        }
+        
+        li a {
+            display: block;
+            text-align: center;
+            width: 32px;
+            height: 28px;
+            border-radius: 4px;
+            padding-top: 5px;
+        }
+        
+        .pagination-prev a {
+            font-size: 20px
+        }
+        
+        .pagination-next a {
+            font-size: 20px
+        }
+        
+        .active a {
+            background-color: rgba(229, 103, 112, 1);
+        }
+        
+        .disabled a {
+            color: #cecece
+        }
+    </style>
+
+    <body ng-app="app">
+        <div class="container" ng-controller="voteController">
+            <div class="header-box">
+                <div class="header-con">
+                    <div class="logo">
+                        <img src="./images/intlogo.png" width="72px" height="72px">
+                    </div>
+                    <div class="tabbar-box">
+                        <div class="tab-item ">
+                            <span>
+                                <a href="./index.html?lan={{lan}}">{{doc.newWallet}}</a>
+                      </span>
+
+                        </div>
+                        <div class="tab-item">
+                            <span>
+                                <a href="./walletInfo.html?lan={{lan}}"> {{doc.viewWllet}}</a>
+                      </span>
+
+                        </div>
+                        <div class="tab-item">
+                            <span>
+                                <a href="./mapping.html?lan={{lan}}">{{doc.mapping}}</a>                       
+                       </span>
+
+                        </div>
+                        <div class="tab-item">
+                            <span>
+                       <a href="./send.html?lan={{lan}}"> {{doc.sendInt}}</a>
+                      </span>
+
+                        </div>
+                        <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item active1">
+                            <span>
+                                    {{doc.vote}}
+                                    <img  src="./images/voteac.jpg" alt="" height="11px">
+                            </span>
+                            <div class="b-line" style="margin-left:5px"></div>
+                            <!-- <div class="voteTab" ng-show="voteTabView">
+                                <div class="voteTab-item">
+                                    <a href="javascript:;" ng-click="action='Mortgage'">
+                                            {{doc.mortgage}}
+                                </a>
+                                </div>
+                                <div class="voteTab-item">
+                                    <a href="javascript:;" ng-click="action='Vote'">
+                                            {{doc.vote}}
+                                </a>
+                                </div>
+                                <div class="voteTab-item">
+                                    <a href="javascript:;" ng-click="action='Unmortgage'">
+                                            {{doc.unmortgage}} 
+                                </a>
+                                </div>
+                            </div> -->
+
+                            <div class="voteTab" ng-show="voteTabView">
+                                <div class="voteTab-item">
+                                    <a href="./vote.html?action=Mortgage&lan={{lan}}">
+                                            {{doc.mortgage}} 
+                                        </a>
+                                </div>
+                                <div class="voteTab-item">
+                                    <a href="./vote.html?action=Vote&lan={{lan}}">
+                                            {{doc.vote}} 
+                                        </a>
+                                </div>
+                                <div class="voteTab-item">
+                                    <a href="./vote.html?action=Unmortgage&lan={{lan}}">
+                                            {{doc.unmortgage}} 
+                                        </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div id="token" ng-mouseenter="tokenView = true" ng-mouseleave="tokenView = false" class="tab-item">
+                            <span>
+                                            <a href="javascript:;" >Token </a>
+                                             <img  src="./images/voteunac.png" alt="">
+                                    </span>
+                            <div></div>
+                            <div class="voteTab" ng-show="tokenView">
+                                <div class="voteTab-item">
+                                    <a href="./token.html?action=create&lan={{lan}}">
+                                                {{doc.create}} 
+                                            </a>
+                                </div>
+                                <div class="voteTab-item">
+                                    <a href="./token.html?action=transfer&lan={{lan}}">
+                                                {{doc.transfer}} 
+                                            </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="tab-item">
+                            <span>
+                                    <a href="./help.html?lan={{lan}}">{{doc.help}}</a>                      
+                                </span>
+                        </div>
+
+                        <div id="lan" ng-mouseenter="lanView = true" ng-mouseleave="lanView = false" class="tab-item">
+                            <span>
+                                        <a href="javascript:;" >{{doc.language}} </a>
+                                         <img  src="./images/voteunac.png" alt="">
+                                </span>
+                            <div></div>
+                            <div class="voteTab" ng-show="lanView">
+                                <div class="voteTab-item" ng-click="changelan('en')">
+                                    <a href="javascript:;">
+                                            English
+                                        </a>
+                                </div>
+                                <div class="voteTab-item" ng-click="changelan('zh')">
+                                    <a href="javascript:;">
+                                            中文
+                                        </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content" style="min-height:0px;">
+                <div class="con-top">
+                    <img src="./images/vote.png" alt=""><span>{{doc.votedAndRecord}}</span>
+                </div>
+                <div class="main">
+                    <div class="votes">
+                        <div class="vote-title">{{doc.viewVoted}} <span ng-show="voteRecord.candidates.length&&vote!=0">{{voteRecord.time}}(UTC+8)</span></div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td style="padding-left:15px;width:80px">{{doc.noIndex}} </td>
+                                    <td>{{doc.nodeAddress}} </td>
+                                </tr>
+                            </thead>
+                            <tbody style="display:block;width:500px;max-height:690px; overflow-y: auto">
+                                <tr ng-show="!voteRecord.candidates.length||vote==0">
+                                    <td style="width:500px;text-align: center">
+                                        {{doc.noData}}
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="n in voteRecord.candidates track by $index">
+                                    <td style="padding-left:15px;width:80px;color: rgba(205, 34, 45, 1)">{{$index+1}}</td>
+                                    <td>{{n}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="line"></div>
+                    <div class="reward">
+                        <div class="vote-title"> {{doc.historyRecord}} </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td style="padding-left:15px;width:70px">{{doc.noIndex}} </td>
+                                    <td style="width:170px">{{doc.rewardType}}</td>
+                                    <td style="width:180px">{{doc.rewardNum}} </td>
+                                    <td style="width:210px">{{doc.rewardTime}} </td>
+                                </tr>
+                            </thead>
+                            <tbody style="display:block;width:570px;font-size: 12px">
+                                <tr ng-show="!reward.data.length">
+                                    <td style="width:570px;text-align: center">
+                                        {{doc.noData}}
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="r in rewardData track by $index">
+                                    <td style="padding-left:15px;width:78px;color: rgba(205, 34, 45, 1)">{{$index+1}}</td>
+
+                                    <td style="width:170px" ng-show="r.input.indexOf(':1')>0"> {{doc.reward1}} </td>
+                                    <td style="width:170px" ng-show="r.input.indexOf(':2')>0">{{doc.reward2}} </td>
+                                    <td style="width:170px" ng-show="r.input.indexOf(':3')>0">{{doc.reward3}} </td>
+                                    <td style="width:180px">{{r.value}}</td>
+                                    <td style="width:210px">{{r.timestamp}}(UTC+8)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div ng-show="reward.data.length" style="margin-top:10px">{{doc.totalReward}}：{{reward.total}} INT</div>
+                        <div ng-show="reward.data.length" style="float:right">
+                            <div style="display: inline-block">
+                                <uib-pagination total-items="page.totalCount " ng-model="page.pageNo " items-per-page="page.limit " max-size="10 " ng-change="pageChanged() " boundary-link-numbers="true ">
+                                </uib-pagination>
+                            </div>
+
+                            <div style="font-size:16px;color: rgba(51, 51, 51, 1);font-family:PingFangSC-Medium; display: inline-block ">
+                                <span>{{doc.to}}</span>
+                                <input ng-model="toPage " ng-keyup="enterEvent($event) " style="border:1px solid rgba(205, 34, 45, 1);width:33px;height: 27px;margin-left: 0px; border-radius: 4px; text-align: center " type="text ">
+                                <span>{{doc.page}}</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="foot ">
+                Copyright © 2018 INT
+            </div>
+        </div>
+    </body>
+
+</html>

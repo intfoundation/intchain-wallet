@@ -99,7 +99,23 @@ var lan = {
         success: "Operation success, click the URL below to view the results",
         intBalance: "INT Balance",
         ethBalance: "ETH Balance",
-        ethNotEnough: "ETH not enough,mapping requires at least "
+        ethNotEnough: "ETH not enough,mapping requires at least ",
+        notValidAddress: "address is not valid",
+        votedAndRecord: "View Voted Nodes and Reward History",
+        viewVoted: "View Voted Nodes",
+        historyRecord: "History Reward",
+        noIndex: "NO.",
+        nodeAddress: "Node Address",
+        rewardType: "Reward Type",
+        rewardNum: "Amount",
+        rewardTime: "Time",
+        reward3: "Block Reward",
+        reward1: "Reward Node Incentive",
+        reward2: "Voter Incentive",
+        totalReward: "Rewards in Total",
+        to: "Go to",
+        page: "Page",
+        noData: "No Data"
     },
 
     zh: {
@@ -201,6 +217,22 @@ var lan = {
         success: "操作成功，点击下方链接查看结果",
         intBalance: "INT余额",
         ethBalance: "ETH余额",
-        ethNotEnough: "你的ETH余额不足,映射至少需要"
+        ethNotEnough: "你的ETH余额不足,映射至少需要",
+        notValidAddress: "无效地址",
+        votedAndRecord: "查看已投节点及奖励",
+        viewVoted: "查看已投节点",
+        historyRecord: "历史奖励记录",
+        noIndex: "序列号",
+        nodeAddress: "节点地址",
+        rewardType: "奖励类型",
+        rewardNum: "奖励数量",
+        rewardTime: "奖励时间",
+        reward3: "出块",
+        reward1: "权重比",
+        reward2: "投票人分红",
+        totalReward: "奖励总计",
+        to: "到",
+        page: "页",
+        noData: "暂无数据"
     }
 }

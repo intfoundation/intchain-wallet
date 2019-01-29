@@ -79,14 +79,15 @@ app.controller('voteController', function($scope) {
         }
     })
     $scope.showRecord = function() {
-        if ($scope.vote == 0) {
-            $scope.voteRecord.candidates = [];
-        }
-        modal.nodeList({
-            okText: $scope.doc.confirm,
-            time: $scope.voteRecord.time,
-            nodes: $scope.voteRecord.candidates
-        }, $scope.doc)
+        window.open("./reward.html?address=" + $scope.address + "&lan=" + $scope.lan)
+            // if ($scope.vote == 0) {
+            //     $scope.voteRecord.candidates = [];
+            // }
+            // modal.nodeList({
+            //     okText: $scope.doc.confirm,
+            //     time: $scope.voteRecord.time,
+            //     nodes: $scope.voteRecord.candidates
+            // }, $scope.doc)
     }
     $scope.chooseNodes = function(index) {
         let chNum = 0
