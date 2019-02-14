@@ -60929,6 +60929,10 @@ let getNodes = async() => {
     if (typeof voteNodes == 'string') {
         voteNodes = JSON.parse(voteNodes)
     }
+    let teamList = await http.sendGet('https://explorer.intchain.io/api/node/nodeTeamList')
+    if (typeof teamList == 'string') {
+        teamList = JSON.parse(teamList)
+    }
     let data = [];
     for (let n of nodes) {
         let obj = {};
@@ -60945,6 +60949,13 @@ let getNodes = async() => {
             obj.node = n;
             obj.num = 0
             data.push(obj)
+        }
+    }
+    for (let t of teamList.data) {
+        for (let d of data) {
+            if (t.node == d.node) {
+                d.teamName = t.teamName
+            }
         }
     }
     return data;

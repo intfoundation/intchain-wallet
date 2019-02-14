@@ -193,10 +193,10 @@
         
         .node-item {
             width: 880px;
-            height: 46px;
+            height: 60px;
             border-radius: 4px;
             background-color: rgba(244, 248, 255, 1);
-            line-height: 46px;
+            line-height: 28px;
             font-size: 16px;
             cursor: pointer;
             margin-top: 16px;
@@ -207,7 +207,7 @@
             height: 15px;
             border: 1px solid rgba(204, 204, 204, 1);
             border-radius: 8px;
-            margin-top: 14px;
+            margin-top: 20px;
             margin-left: 24px;
             display: inline-block;
         }
@@ -215,7 +215,7 @@
         .node-item .icon {
             display: inline-block;
             vertical-align: top;
-            margin-top: 14px;
+            margin-top: 20px;
             margin-left: 24px;
         }
         
@@ -231,6 +231,7 @@
             display: inline-block;
             vertical-align: top;
             margin-left: 10px;
+            line-height: 62px;
         }
         
         .node-box {
@@ -246,6 +247,10 @@
         
         .voted-reward a:hover {
             color: #cd222d
+        }
+        
+        .nodeName {
+            line-height: 20px
         }
     </style>
 
@@ -453,10 +458,12 @@
                             </div>
                         </div>
                         <div class="node-box ">
-                            <div class="node-item " ng-repeat="n in nodes " ng-click="chooseNodes($index) " ng-if="n.node.indexOf(searchStr)>=0">
+                            <div class="node-item " ng-repeat="n in nodes " ng-class="{ 'nodeName':!n.teamName}" ng-click="chooseNodes($index) " ng-if="n.node.indexOf(searchStr)>=0||n.teamName.indexOf(searchStr)>=0">
                                 <img ng-show="n.ch" class="icon" src="./images/choose.png" alt="">
                                 <div ng-show="!n.ch" class="no-ch"></div>
-                                <div class="node">{{n.node}}</div>
+                                <div class="node">
+                                    {{n.teamName}} <br> {{n.node}}
+                                </div>
                                 <div class="vote"><span style="color: rgba(60, 49, 215, 1)">{{n.num}}</span> {{doc.stakes}}</div>
                             </div>
                         </div>
