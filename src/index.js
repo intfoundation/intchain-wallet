@@ -107,6 +107,25 @@ let voteRecord = async address => {
     assert(address, 'address is required.');
     let url = getVoteRecordUrl + address;
     let result = await http.sendGet(url);
+    if (typeof result == 'string') {
+        result = JSON.parse(result)
+    }
+    let teamList = await http.sendGet('https://explorer.intchain.io/api/node/nodeTeamList')
+    if (typeof teamList == 'string') {
+        teamList = JSON.parse(teamList)
+    }
+    let candidates = [];
+    for (let c of result.candidates) {
+        let obj = { node: c }
+        for (let t of teamList.data) {
+            if (c == t.node) {
+                obj.teamName = t.teamName;
+                obj.webUrl = t.webUrl
+            }
+        }
+        candidates.push(obj)
+    }
+    result.candidates = candidates;
     return result;
 }
 
@@ -152,6 +171,7 @@ let getNodes = async() => {
         for (let d of data) {
             if (t.node == d.node) {
                 d.teamName = t.teamName
+                d.webUrl = t.webUrl
             }
         }
     }

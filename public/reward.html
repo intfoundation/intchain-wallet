@@ -343,6 +343,14 @@
         .disabled a {
             color: #cecece
         }
+        
+        .nodeName {
+            line-height: 20px;
+        }
+        
+        .nodeIndex {
+            padding-top: 18px;
+        }
     </style>
 
     <body ng-app="app">
@@ -490,9 +498,13 @@
                                         {{doc.noData}}
                                     </td>
                                 </tr>
-                                <tr ng-repeat="n in voteRecord.candidates track by $index">
-                                    <td style="padding-left:15px;width:80px;color: rgba(205, 34, 45, 1)">{{$index+1}}</td>
-                                    <td>{{n}}</td>
+                                <tr style="height:62px;line-height:28px" ng-repeat="n in voteRecord.candidates track by $index">
+                                    <td ng-class="{ 'nodeIndex':!n.teamName}" style="padding-left:15px;width:80px;color: rgba(205, 34, 45, 1)">{{$index+1}}</td>
+                                    <td ng-class="{ 'nodeName':!n.teamName}">
+                                        <span ng-show="!n.webUrl" style="font-style: italic;color: #8d8d8d">{{n.teamName}} </span>
+                                        <a style="text-decoration:underline;color: rgba(60, 49, 215, 1);font-style: italic;" ng-show="n.webUrl" href="{{n.webUrl}}" target="_blank">{{n.teamName}}</a>
+                                        <br> {{n.node}}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

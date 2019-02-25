@@ -462,7 +462,9 @@
                                 <img ng-show="n.ch" class="icon" src="./images/choose.png" alt="">
                                 <div ng-show="!n.ch" class="no-ch"></div>
                                 <div class="node">
-                                    {{n.teamName}} <br> {{n.node}}
+                                    <span ng-show="!n.webUrl" style="font-style: italic;color: #8d8d8d">{{n.teamName}} </span>
+                                    <a style="text-decoration:underline;color: rgba(60, 49, 215, 1);font-style: italic;" ng-show="n.webUrl" href="{{n.webUrl}}" target="_blank">{{n.teamName}}</a>
+                                    <br> {{n.node}}
                                 </div>
                                 <div class="vote"><span style="color: rgba(60, 49, 215, 1)">{{n.num}}</span> {{doc.stakes}}</div>
                             </div>
