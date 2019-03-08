@@ -8,7 +8,7 @@ app.controller('voteController', function($scope) {
         "limit": 10,
         "pageSize": 10,
         "pageNo": 1,
-        "totalCount": 2
+        "totalCount": 0
     };
     $scope.toPage = 1
     $scope.lan = new modal.UrlSearch().lan || 'en'
@@ -72,6 +72,7 @@ app.controller('voteController', function($scope) {
             // }
             $scope.reward = data;
             $scope.rewardData = $scope.reward.data.slice($scope.page.pageSize * ($scope.page.pageNo - 1), $scope.page.pageSize * $scope.page.pageNo);
+            $scope.page.totalCount = data.data.length
             $scope.$apply();
         })
     }
