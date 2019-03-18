@@ -412,12 +412,18 @@ app.controller('voteController', function($scope) {
             modal.error({ msg: $scope.doc.anv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
+
         if (isNaN($scope.morgageLimit) || $scope.morgageLimit <= 0) {
             modal.error({ msg: $scope.doc.lnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
         if (isNaN($scope.morgagePrice) || $scope.morgagePrice <= 0) {
             modal.error({ msg: $scope.doc.pnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
+            return
+        }
+
+        if ($scope.balance - $scope.morgageAmount < 0.05) {
+            modal.error({ msg: $scope.doc.mortgageTip, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
         var wal = require("wal");

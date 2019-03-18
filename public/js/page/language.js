@@ -115,7 +115,8 @@ var lan = {
         totalReward: "Rewards in Total",
         to: "Go to",
         page: "Page",
-        noData: "No Data"
+        noData: "No Data",
+        mortgageTip: "Please keep at least 0.05 INT in your balance for vote and unmortgage"
     },
 
     zh: {
@@ -233,6 +234,7 @@ var lan = {
         totalReward: "奖励总计",
         to: "到",
         page: "页",
-        noData: "暂无数据"
+        noData: "暂无数据",
+        mortgageTip: "你的余额中请至少保留0.05INT，以便于投票和赎回"
     }
 }
