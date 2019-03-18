@@ -40,6 +40,9 @@ app.controller('mappingController', function($scope, $http) {
         }
     })
     $scope.$watch('model.fromAddressPrivateKey', function(value) {
+        if (value.indexOf("0x") == 0) {
+            value = value.substr(2)
+        }
         if (value.length === 64) {
             var wal = require("wal");
             $scope.model.fromAddress = wal.ethPrivateKeyToAccount(value)
