@@ -228,7 +228,7 @@ app.controller('sendintController', function($scope) {
             return
         }
 
-        if (isNaN($scope.amount) || $scope.amount < 1 / Math.pow(10, 18)) {
+        if (isNaN($scope.amount) || +$scope.amount < 1 / Math.pow(10, 18)) {
             modal.error({ msg: $scope.doc.anv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
@@ -237,11 +237,11 @@ app.controller('sendintController', function($scope) {
             modal.error({ msg: $scope.doc.amlb, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
-        if (isNaN($scope.limit) || $scope.limit <= 0) {
+        if (isNaN($scope.limit) || +$scope.limit <= 0) {
             modal.error({ msg: $scope.doc.lnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
-        if (isNaN($scope.price) || $scope.price <= 0) {
+        if (isNaN($scope.price) || +$scope.price <= 0) {
             modal.error({ msg: $scope.doc.pnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }

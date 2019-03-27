@@ -353,18 +353,18 @@ app.controller('voteController', function($scope) {
         }
     }
     $scope.Vote = function() {
-        if ($scope.vote <= 0) {
+        if (+$scope.vote <= 0) {
             modal.error({ msg: $scope.doc.mf, title: $scope.doc.notice, okText: $scope.doc.confirm }, function() {
                 $scope.action = 'Mortgage'
                 $scope.$apply();
             })
             return
         }
-        if (isNaN($scope.voteLimit) || $scope.voteLimit <= 0) {
+        if (isNaN($scope.voteLimit) || +$scope.voteLimit <= 0) {
             modal.error({ msg: $scope.doc.lnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
-        if (isNaN($scope.votePrice) || $scope.votePrice <= 0) {
+        if (isNaN($scope.votePrice) || +$scope.votePrice <= 0) {
             modal.error({ msg: $scope.doc.lnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
@@ -408,16 +408,16 @@ app.controller('voteController', function($scope) {
         }
     }
     $scope.Morgage = function() {
-        if (isNaN($scope.morgageAmount) || $scope.morgageAmount <= 0) {
+        if (isNaN($scope.morgageAmount) || +$scope.morgageAmount <= 0) {
             modal.error({ msg: $scope.doc.anv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
 
-        if (isNaN($scope.morgageLimit) || $scope.morgageLimit <= 0) {
+        if (isNaN($scope.morgageLimit) || +$scope.morgageLimit <= 0) {
             modal.error({ msg: $scope.doc.lnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
-        if (isNaN($scope.morgagePrice) || $scope.morgagePrice <= 0) {
+        if (isNaN($scope.morgagePrice) || +$scope.morgagePrice <= 0) {
             modal.error({ msg: $scope.doc.pnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
@@ -459,15 +459,15 @@ app.controller('voteController', function($scope) {
         }
     }
     $scope.Unmorgage = function() {
-        if (isNaN($scope.unmorgageAmount) || $scope.unmorgageAmount <= 0 || $scope.unmorgageAmount > $scope.vote) {
+        if (isNaN($scope.unmorgageAmount) || +$scope.unmorgageAmount <= 0 || +$scope.unmorgageAmount > +$scope.vote) {
             modal.error({ msg: $scope.doc.anv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
-        if (isNaN($scope.unmorgageLimit) || $scope.unmorgageLimit <= 0) {
+        if (isNaN($scope.unmorgageLimit) || +$scope.unmorgageLimit <= 0) {
             modal.error({ msg: $scope.doc.lnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
-        if (isNaN($scope.unmorgagePrice) || $scope.unmorgagePrice <= 0) {
+        if (isNaN($scope.unmorgagePrice) || +$scope.unmorgagePrice <= 0) {
             modal.error({ msg: $scope.doc.pnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
         }
