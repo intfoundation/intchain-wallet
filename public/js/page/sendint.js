@@ -41,7 +41,7 @@ app.controller('sendintController', function($scope) {
         if (isNaN($scope.balance) || isNaN($scope.limit) || isNaN($scope.price)) {
             return
         }
-        $scope.amount = +(new wal.BigNumber($scope.balance).minus(new wal.BigNumber($scope.limit).multipliedBy($scope.price).toString()).toString())
+        $scope.amount = new wal.BigNumber($scope.balance).minus(new wal.BigNumber($scope.limit).multipliedBy($scope.price).toString()).toString()
     }
     $scope.$watch('{b:balance,l:limit,p:price}', function(v) {
         if (!v.b || !v.l || !v.p) {
