@@ -187,6 +187,15 @@
             margin-top: 24px;
             font-weight: bold;
         }
+        
+        .mp-warn {
+            width: 865px;
+            color: #cd222d;
+            font-size: 15px;
+            background-color: rgba(253, 221, 155, 0.5);
+            border: 1px solid;
+            padding: 8px
+        }
     </style>
 
     <body ng-app="myApp">
@@ -303,6 +312,9 @@
                     <img style="margin-bottom:-4px" src="./images/mapping.png" alt=""><span> {{doc.mapping}}</span>
                 </div>
                 <div class="main">
+                    <p class="mp-warn">
+                        {{doc.mappingWarn}}
+                    </p>
                     <div>
                         <div class="item-box">
                             <div class="lable">{{doc.ethPrivateKey}}</div>

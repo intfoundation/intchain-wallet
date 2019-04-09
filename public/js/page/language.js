@@ -116,7 +116,8 @@ var lan = {
         to: "Go to",
         page: "Page",
         noData: "No Data",
-        mortgageTip: "Please keep at least 0.05 INT in your balance for vote and unmortgage"
+        mortgageTip: "Please keep at least 0.05 INT in your balance for vote and unmortgage",
+        mappingWarn: "Attention! During the mapping process, please carefully check that the INT wallet address to be mapped is the INT wallet address that you created! In case some users may accidentally input wrong private key, and map to a wrong wallet address. If you map to a wrong wallet address which is not belong to you, you need to responsible for your loss."
     },
 
     zh: {
@@ -235,6 +236,7 @@ var lan = {
         to: "到",
         page: "页",
         noData: "暂无数据",
-        mortgageTip: "你的余额中请至少保留0.05INT，以便于投票和赎回"
+        mortgageTip: "你的余额中请至少保留0.05INT，以便于投票和赎回",
+        mappingWarn: "注意！在映射过程中，请仔细检查要映射的INT钱包地址是您创建的INT钱包地址！因为某些用户可能会意外输入错误的私钥，并映射到错误的钱包地址。如果您映射到不属于您的错误钱包地址，您需要为您的损失负责。"
     }
 }
