@@ -197,7 +197,8 @@
                                      <img  src="./images/voteunac.png" alt="">
                             </span>
                             <div></div>
-                            <div class="voteTab" ng-show="voteTabView">
+                            <div class="voteTab">
+                                <!-- ng-show="voteTabView" -->
                                 <div class="voteTab-item">
                                     <a href="./vote.html?action=Mortgage&lan={{lan}}">
                                         {{doc.mortgage}} 
@@ -211,6 +212,11 @@
                                 <div class="voteTab-item">
                                     <a href="./vote.html?action=Unmortgage&lan={{lan}}">
                                         {{doc.unmortgage}} 
+                                    </a>
+                                </div>
+                                <div class="voteTab-item">
+                                    <a href="./vote.html?action=Referendum&lan={{lan}}">
+                                                        {{doc.referendum}} 
                                     </a>
                                 </div>
                             </div>

@@ -28,7 +28,9 @@ const {
     getVoteRecordUrl,
     getTokenBalanceUrl,
     getTestCoinUrl,
-    rewardHistoryUrl
+    rewardHistoryUrl,
+    getProposalRfdUrl,
+    getRfd2Url
 } = require('./cfg')
 
 const Mapping = require("./mapping");
@@ -414,6 +416,53 @@ let unmortgage = async(amount, limit, price, secret) => {
     //return mortgageResult
 }
 
+let rfdVote = async(price, secret, rfdId, optId) => {
+    assert(price, 'price is required.');
+    assert(secret, 'secret is required.');
+    assert(rfdId, 'rfdId is required.');
+    assert(optId, 'optId is required.');
+    let address = addressFromSecretKey(secret)
+    let url = getNonceUrl + address;
+    let result = await http.sendGet(url);
+    let { err, nonce } = JSON.parse(result);
+    if (err) {
+        return { err: `transferTo getNonce failed for ${err}` };
+    }
+    let limit = 60000;
+    let tx = new ValueTransaction()
+    tx.method = 'transferTo';
+    tx.value = new BigNumber(0).multipliedBy(Math.pow(10, 18));
+    tx.limit = new BigNumber(limit);
+    tx.price = new BigNumber(price).multipliedBy(Math.pow(10, 18));
+    tx.input = { to: address, data: { type: 'referendum_vote', rfdId: rfdId, optId: optId } };
+    tx.nonce = nonce + 1;
+    tx.sign(secret);
+
+    let writer = new BufferWriter();
+    let er = tx.encode(writer);
+    if (er) {
+        return { err: er };
+    }
+    let render = writer.render();
+
+    let encodeRender = rlp.encode(render)
+    let renderStr = encodeRender.toString('hex')
+    return {
+        info: {
+            Method: tx.method,
+            Amount: '0 INT',
+            'Gas limit': tx.limit,
+            'Gas price': price,
+            Fee: new BigNumber(tx.limit).multipliedBy(price).toString() + ' INT',
+            Input: JSON.stringify(tx.input),
+            Nonce: tx.nonce
+        },
+        renderStr: renderStr,
+        hash: tx.m_hash
+    }
+}
+
+
 let transfer = async(amount, limit, price, to, secret) => {
     assert(amount, 'amount is required.');
     assert(limit, 'limit is required.');
@@ -505,6 +554,15 @@ let ethPrivateKeyToAccount = privateKey => {
     return account.address
 }
 
+let queryProposalRfd = async() => {
+    let result = await http.sendGet(getProposalRfdUrl);
+    return JSON.parse(result);
+}
+let getRfd2 = async() => {
+    let result = await http.sendGet(getRfd2Url);
+    return JSON.parse(result);
+}
+
 module.exports = {
     getBalance,
     transfer,
@@ -532,5 +590,8 @@ module.exports = {
     getTestCoin,
     createToken,
     isValidAddress,
-    rewardHistory
+    rewardHistory,
+    rfdVote,
+    queryProposalRfd,
+    getRfd2
 }

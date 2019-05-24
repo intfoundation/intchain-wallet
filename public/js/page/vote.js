@@ -38,6 +38,7 @@ app.controller('voteController', function($scope) {
     $scope.doc = lan[$scope.lan]
     document.title = $scope.doc[$scope.action.toLocaleLowerCase()] + '| INT Chain';
     $scope.changelan = function(a) {
+        myVue.changeLan(a)
         $scope.doc = lan[a]
         $scope.lan = a
         $scope.title = $scope.doc[$scope.action.toLocaleLowerCase()]
@@ -46,7 +47,6 @@ app.controller('voteController', function($scope) {
 
     $scope.$watch('action', function(val) {
         document.title = $scope.doc[$scope.action.toLocaleLowerCase()] + '| INT Chain';
-
         $scope.title = $scope.doc[val.toLocaleLowerCase()]
 
     })
@@ -129,7 +129,9 @@ app.controller('voteController', function($scope) {
                     return;
                 }
                 $scope.address = filedata.address;
+                myVue.address = filedata.address
                 $scope.privateKey = data;
+                myVue.privateKey = data;
                 $scope.keyStoreUnlockFail = false;
                 $scope.step = 2;
                 $scope.getbalance();
@@ -192,7 +194,7 @@ app.controller('voteController', function($scope) {
             $scope.votePrice = (data.gasPrice / Math.pow(10, 18)).toFixed(18).replace(/\.0+$/, "").replace(/(\.\d+[1-9])0+$/, "$1")
             $scope.morgagePrice = (data.gasPrice / Math.pow(10, 18)).toFixed(18).replace(/\.0+$/, "").replace(/(\.\d+[1-9])0+$/, "$1")
             $scope.unmorgagePrice = (data.gasPrice / Math.pow(10, 18)).toFixed(18).replace(/\.0+$/, "").replace(/(\.\d+[1-9])0+$/, "$1")
-
+            myVue.price = (data.gasPrice / Math.pow(10, 18)).toFixed(18).replace(/\.0+$/, "").replace(/(\.\d+[1-9])0+$/, "$1")
             $scope.$apply();
         })
     }
@@ -207,6 +209,8 @@ app.controller('voteController', function($scope) {
         if (!$scope.address) {
             $scope.privateKeyUnlockFail = true
         } else {
+            myVue.address = $scope.address;
+            myVue.privateKey = $scope.privateKey;
             $scope.getbalance()
             $scope.getVotes();
             //$scope.getPrice()

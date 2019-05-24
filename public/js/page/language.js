@@ -9,6 +9,7 @@ var lan = {
         vote: "Vote",
         mortgage: "Mortgage",
         unmortgage: "Unmortgage",
+        referendum: "Referendum",
         cnw: "Create New Wallet",
         nine: "Your password must be at least 9 characters",
         noMatch: "Password doesn't match , please try again",
@@ -117,7 +118,15 @@ var lan = {
         page: "Page",
         noData: "No Data",
         mortgageTip: "Please keep at least 0.05 INT in your balance for vote and unmortgage",
-        mappingWarn: "Attention! During the mapping process, please carefully check that the INT wallet address to be mapped is the INT wallet address that you created! In case some users may accidentally input wrong private key, and map to a wrong wallet address. If you map to a wrong wallet address which is not belong to you, you need to responsible for your loss."
+        mappingWarn: "Attention! During the mapping process, please carefully check that the INT wallet address to be mapped is the INT wallet address that you created! In case some users may accidentally input wrong private key, and map to a wrong wallet address. If you map to a wrong wallet address which is not belong to you, you need to responsible for your loss.",
+        view: "View",
+        agreee: "Agree",
+        disagree: "Disagree",
+        voters: "Voters",
+        proposal: "Proposal",
+        oc: "Opinion collection",
+        alreadyInvolved: "Already involved",
+        notInvolved: "Not involved"
     },
 
     zh: {
@@ -130,6 +139,7 @@ var lan = {
         vote: "投票",
         mortgage: "抵押",
         unmortgage: "赎回抵押",
+        referendum: "公投",
         cnw: "创建新钱包",
         nine: "密码至少包含9个字符",
         noMatch: "密码输入不一致，请重试",
@@ -237,6 +247,14 @@ var lan = {
         page: "页",
         noData: "暂无数据",
         mortgageTip: "你的余额中请至少保留0.05INT，以便于投票和赎回",
-        mappingWarn: "注意！在映射过程中，请仔细检查要映射的INT钱包地址是您创建的INT钱包地址！因为某些用户可能会意外输入错误的私钥，并映射到错误的钱包地址。如果您映射到不属于您的错误钱包地址，您需要为您的损失负责。"
+        mappingWarn: "注意！在映射过程中，请仔细检查要映射的INT钱包地址是您创建的INT钱包地址！因为某些用户可能会意外输入错误的私钥，并映射到错误的钱包地址。如果您映射到不属于您的错误钱包地址，您需要为您的损失负责。",
+        view: "查看",
+        agreee: "赞同",
+        disagree: "反对",
+        voters: "投票人",
+        proposal: "提案型",
+        oc: "意见征集型",
+        alreadyInvolved: "已参与",
+        notInvolved: "未参与"
     }
 }
