@@ -655,10 +655,10 @@
                                                 </div>
                                                 <div style="float: right">
                                                     <Radio-Group v-model="r.votedId" style="margin-right:50px">
-                                                        <Radio style="margin-right:20px" class="r-item" :label="r.Agree.optId">{{doc.agreee}}</Radio>
-                                                        <Radio class="r-item" :label="r.Disagree.optId">{{doc.disagree}}</Radio>
+                                                        <Radio :disabled="moment().valueOf()> moment(r.end).valueOf()" style="margin-right:20px" class="r-item" :label="r.Agree.optId">{{doc.agreee}}</Radio>
+                                                        <Radio :disabled="moment().valueOf()> moment(r.end).valueOf()" class="r-item" :label="r.Disagree.optId">{{doc.disagree}}</Radio>
                                                     </Radio-Group>
-                                                    <i-Button class="rfd_vote" type="primary" shape="circle" @click="rfdVote(r)" :disabled="r.votedId == ''">{{doc.vote}}</i-Button>
+                                                    <i-Button class="rfd_vote" type="primary" shape="circle" @click="rfdVote(r)" :disabled="r.votedId == ''|| moment().valueOf()> moment(r.end).valueOf()">{{doc.vote}}</i-Button>
                                                 </div>
                                             </div>
                                             <div style="height:30px;width:10px"></div>
@@ -705,10 +705,10 @@
                                             <div class="options2" v-bind:class="{showOpts:!!r.showOpts}">
                                                 <Checkbox-Group v-model="r.votedId">
                                                     <div v-for="opt in r.options" class="rfdoptions">
-                                                        <Checkbox :label="opt.optId"> <span class="r-item">{{opt.name}}</span> </Checkbox> <a style="color: #2d8cf0" v-on:click.stop="toWebUrl(opt,$event)" href="javascript:;">{{doc.view}}</a> <br/>
+                                                        <Checkbox :disabled="moment().valueOf() > moment(r.end).valueOf()" :label="opt.optId"> <span class="r-item">{{opt.name}}</span> </Checkbox> <a style="color: #2d8cf0" v-on:click.stop="toWebUrl(opt,$event)" href="javascript:;">{{doc.view}}</a> <br/>
                                                     </div>
                                                 </Checkbox-Group>
-                                                <i-Button style="float: right;margin-top:20px;margin-right:50px" class="rfd_vote" type="primary" shape="circle" @click="rfdVote(r,'Checkbox')" :disabled="r.votedId.length==0">{{doc.vote}}</i-Button>
+                                                <i-Button style="float: right;margin-top:20px;margin-right:50px" class="rfd_vote" type="primary" shape="circle" @click="rfdVote(r,'Checkbox')" :disabled="r.votedId.length==0|| moment().valueOf() > moment(r.end).valueOf()">{{doc.vote}}</i-Button>
                                             </div>
                                             <div style="height:15px;width:10px"></div>
                                             <divider></divider>
