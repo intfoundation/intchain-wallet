@@ -651,7 +651,7 @@
                                             </div>
                                             <div style="margin-top:10px">
                                                 <div class="r-time">
-                                                    <span>{{moment(r.end).format("YYYY-MM-DD HH:mm:ss")}} (UTC+8)</span>
+                                                    <span>{{doc.endTime}} {{moment(r.end).format("YYYY-MM-DD HH:mm:ss")}} (UTC+8)</span>
                                                 </div>
                                                 <div style="float: right">
                                                     <Radio-Group v-model="r.votedId" style="margin-right:50px">
@@ -700,8 +700,8 @@
                                         </i-Select>
                                         <div style="text-align: center;height:80px;line-height: 150px" v-if="!showRfd2.length">{{doc.noData}}</div>
                                         <div style="margin-left: 50px;width:1025px" v-for="r in showRfd2.slice((pageNo2 - 1) * pageSize2, pageSize2 * pageNo2)">
-                                            <p class="r-hash">hash: {{r.hash}} <span style="float: right">{{moment(r.end).format("YYYY-MM-DD HH:mm:ss")}} (UTC+8)</span> </p>
-                                            <p class="r-title" @click="isShowOpts(r)">{{r.title}}</p>
+                                            <p class="r-hash">hash: {{r.hash}} <span style="float: right">{{doc.endTime}} {{moment(r.end).format("YYYY-MM-DD HH:mm:ss")}} (UTC+8)</span> </p>
+                                            <p style="cursor: pointer" class="r-title" @click="isShowOpts(r)">{{r.title}}</p>
                                             <div class="options2" v-bind:class="{showOpts:!!r.showOpts}">
                                                 <Checkbox-Group v-model="r.votedId">
                                                     <div v-for="opt in r.options" class="rfdoptions">
@@ -771,7 +771,9 @@
                 isShowOpts(r) {
                     let arr = [];
                     for (let rfd of this.showRfd2) {
-                        rfd.showOpts = !rfd.showOpts
+                        if (r.id === rfd.id) {
+                            rfd.showOpts = !rfd.showOpts
+                        }
                         arr.push(rfd)
                     }
                     this.showRfd2 = [...arr]

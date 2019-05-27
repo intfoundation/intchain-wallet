@@ -61534,7 +61534,12 @@ let rfdVote = async(price, secret, rfdId, optId) => {
     if (err) {
         return { err: `transferTo getNonce failed for ${err}` };
     }
-    let limit = 60000;
+    let limitUrl = getLimitUrl + '/' + 'transferTo' + '/' + JSON.stringify({ to: address, data: { type: 'referendum_vote', rfdId: rfdId, optId: optId } })
+    let resLimit = await http.sendGet(limitUrl);
+    if (typeof resLimit == 'string') {
+        resLimit = JSON.parse(resLimit);
+    }
+    let limit = resLimit.limit;
     let tx = new ValueTransaction()
     tx.method = 'transferTo';
     tx.value = new BigNumber(0).multipliedBy(Math.pow(10, 18));

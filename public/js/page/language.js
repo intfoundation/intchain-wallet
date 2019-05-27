@@ -126,7 +126,8 @@ var lan = {
         proposal: "Proposal",
         oc: "Opinion collection",
         alreadyInvolved: "Already involved",
-        notInvolved: "Not involved"
+        notInvolved: "Not involved",
+        endTime: "End time"
     },
 
     zh: {
@@ -255,6 +256,7 @@ var lan = {
         proposal: "提案型",
         oc: "意见征集型",
         alreadyInvolved: "已参与",
-        notInvolved: "未参与"
+        notInvolved: "未参与",
+        endTime: "结束时间"
     }
 }
