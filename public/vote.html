@@ -637,12 +637,12 @@
                                                     <div class="ivu-progress-inner">
                                                         <div v-bind:style="{width:getTotalWidth(r)}" class="ivu-progress-bg">
                                                             <span v-if="r.Agree.stake==0&&r.Disagree.stake==0" style="color:rgba(102, 102, 102, 1);margin-left: 10px ">0%</span>
-                                                            <span v-if="r.Disagree.stake!=0" style="margin-right: 5px"> {{r.Disagree.stake=='0'?'':(r.Disagree.stake/(r.Agree.stake+r.Disagree.stake)*100).toFixed(0)+'%'}}
+                                                            <span v-if="r.Disagree.stake!=0" style="margin-right: 5px"> {{r.Disagree.stake=='0'||(r.Disagree.stake/(r.Agree.stake+r.Disagree.stake)*100).toFixed(0)=='0'?'':(r.Disagree.stake/(r.Agree.stake+r.Disagree.stake)*100).toFixed(0)+'%'}}
                                                             </span>
                                                         </div>
                                                         <div v-bind:style="{width:getAgreeWidth(r)}" class="ivu-progress-success-bg">
                                                             <span v-if="r.Agree.stake!=0" style="margin-left: 5px">
-                                                                    {{r.Agree.stake=='0'?'':(r.Agree.stake/(r.Agree.stake+r.Disagree.stake)*100).toFixed(0)+'%'}}
+                                                                    {{r.Agree.stake=='0'||(r.Agree.stake/(r.Agree.stake+r.Disagree.stake)*100).toFixed(0)=='0'?'':(r.Agree.stake/(r.Agree.stake+r.Disagree.stake)*100).toFixed(0)+'%'}}
                                                             </span>
 
                                                         </div>
