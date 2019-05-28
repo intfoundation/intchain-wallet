@@ -619,7 +619,7 @@
                                         <div style="text-align: center;height:80px;line-height: 150px" v-if="!showProposalRfdList.length">{{doc.noData}}</div>
                                         <div style="margin-left: 50px;width:1025px" v-for="r in showProposalRfdList.slice((this.pageNo1 - 1) * this.pageSize1, this.pageSize1 * this.pageNo1)">
                                             <p class="r-hash">hash: {{r.hash}}</p>
-                                            <p class="r-title">{{r.title}}</p>
+                                            <p class="r-title" :class="{thover:!!r.webUrl}" v-on:click.stop="toWebUrl(r,$event)">{{r.title}}</p>
                                             <div class="r-icon">
                                                 <div style="float: left">
                                                     <Icon type="md-thumbs-up" color="#2CC868" size="20"></Icon>
@@ -701,7 +701,7 @@
                                         <div style="text-align: center;height:80px;line-height: 150px" v-if="!showRfd2.length">{{doc.noData}}</div>
                                         <div style="margin-left: 50px;width:1025px" v-for="r in showRfd2.slice((pageNo2 - 1) * pageSize2, pageSize2 * pageNo2)">
                                             <p class="r-hash">hash: {{r.hash}} <span style="float: right">{{doc.endTime}} {{moment(r.end).format("YYYY-MM-DD HH:mm:ss")}} (UTC+8)</span> </p>
-                                            <p style="cursor: pointer" class="r-title" @click="isShowOpts(r)">{{r.title}}</p>
+                                            <p class="r-title" @click="isShowOpts(r)">{{r.title}}</p>
                                             <div class="options2" v-bind:class="{showOpts:!!r.showOpts}">
                                                 <Checkbox-Group v-model="r.votedId">
                                                     <div v-for="opt in r.options" class="rfdoptions">
@@ -1051,6 +1051,7 @@
             color: rgba(51, 51, 51, 1);
             font-size: 18px;
             font-family: SourceHanSansCN-Medium;
+            cursor: pointer;
         }
         
         .r-icon {
@@ -1173,6 +1174,10 @@
         
         a {
             color: rgba(102, 102, 102, 1);
+        }
+        
+        .thover:hover {
+            color: rgb(45, 140, 240);
         }
     </style>
 
