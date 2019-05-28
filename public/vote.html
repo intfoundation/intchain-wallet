@@ -705,7 +705,7 @@
                                             <div class="options2" v-bind:class="{showOpts:!!r.showOpts}">
                                                 <Checkbox-Group v-model="r.votedId">
                                                     <div v-for="opt in r.options" class="rfdoptions">
-                                                        <Checkbox :disabled="moment().valueOf() > moment(r.end).valueOf()" :label="opt.optId"> <span class="r-item">{{opt.name}}</span> </Checkbox> <a style="color: #2d8cf0" v-on:click.stop="toWebUrl(opt,$event)" href="javascript:;">{{doc.view}}</a> <br/>
+                                                        <Checkbox :disabled="moment().valueOf() > moment(r.end).valueOf()" :label="opt.optId"> <span class="r-item">{{opt.name}}</span> </Checkbox> <a style="color: #2d8cf0" v-show="!!opt.webUrl" v-on:click.stop="toWebUrl(opt,$event)" href="javascript:;">{{doc.view}}</a> <br/>
                                                     </div>
                                                 </Checkbox-Group>
                                                 <i-Button style="float: right;margin-top:20px;margin-right:50px" class="rfd_vote" type="primary" shape="circle" @click="rfdVote(r,'Checkbox')" :disabled="r.votedId.length==0|| moment().valueOf() > moment(r.end).valueOf()">{{doc.vote}}</i-Button>
@@ -762,7 +762,9 @@
             },
             methods: {
                 toWebUrl(opt, e) {
-
+                    if (!opt.webUrl) {
+                        return;
+                    }
                     if (opt.webUrl) {
                         window.open(opt.webUrl)
                     }
