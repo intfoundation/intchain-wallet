@@ -32,16 +32,16 @@ app.controller('voteController', function($scope) {
     $scope.title = "";
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
-    document.title = $scope.doc[$scope.action.toLocaleLowerCase()] + '| INT Chain';
+    document.title = $scope.doc[$scope.action.toLocaleLowerCase()] + ' | INT Chain';
     $scope.changelan = function(a) {
         $scope.doc = lan[a]
         $scope.lan = a
-        document.title = $scope.doc[$scope.action.toLocaleLowerCase()] + '| INT Chain';
+        document.title = $scope.doc[$scope.action.toLocaleLowerCase()] + ' | INT Chain';
         $scope.title = $scope.doc[$scope.action.toLocaleLowerCase()]
     }
 
     $scope.$watch('action', function(val) {
-        document.title = $scope.doc[$scope.action.toLocaleLowerCase()] + '| INT Chain';
+        document.title = $scope.doc[$scope.action.toLocaleLowerCase()] + ' | INT Chain';
 
         $scope.title = $scope.doc[val.toLocaleLowerCase()]
 

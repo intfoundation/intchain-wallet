@@ -13,11 +13,11 @@ app.controller('mainController', function($scope, $http) {
     $scope.data = {}
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
-    document.title = $scope.doc.newWallet + '| INT Chain';
+    document.title = $scope.doc.newWallet + ' | INT Chain';
     $scope.changelan = function(a) {
         $scope.doc = lan[a]
         $scope.lan = a
-        document.title = $scope.doc.newWallet + '| INT Chain';
+        document.title = $scope.doc.newWallet + ' | INT Chain';
     }
 
 

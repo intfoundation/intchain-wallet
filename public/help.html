@@ -197,7 +197,7 @@
                                      <img  src="./images/voteunac.png" alt="">
                             </span>
                             <div></div>
-                            <div class="voteTab">
+                            <div class="voteTab" ng-show="voteTabView">
                                 <!-- ng-show="voteTabView" -->
                                 <div class="voteTab-item">
                                     <a href="./vote.html?action=Mortgage&lan={{lan}}">
@@ -228,7 +228,7 @@
                                          <img  src="./images/voteunac.png" alt="">
                                 </span>
                             <div></div>
-                            <div class="voteTab" ng-show="tokenView">
+                            <div style="height:80px" class="voteTab" ng-show="tokenView">
                                 <div class="voteTab-item">
                                     <a href="./token.html?action=create&lan={{lan}}">
                                             {{doc.create}} 

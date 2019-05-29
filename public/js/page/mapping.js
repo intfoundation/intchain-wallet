@@ -18,11 +18,11 @@ app.controller('mappingController', function($scope, $http) {
     $scope.intPrivateKey = '';
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
-    document.title = $scope.doc.mapping + '| INT Chain';
+    document.title = $scope.doc.mapping + ' | INT Chain';
     $scope.changelan = function(a) {
         $scope.doc = lan[a]
         $scope.lan = a
-        document.title = $scope.doc.mapping + '| INT Chain';
+        document.title = $scope.doc.mapping + ' | INT Chain';
     }
     $scope.$watch('{f:model.fromAddress,t:model.toAddress,g:model.decimalGas,p:model.fromAddressPrivateKey}', function(v) {
         if (v.f && v.t && v.g && v.p) {

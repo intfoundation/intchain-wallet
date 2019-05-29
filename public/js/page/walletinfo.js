@@ -25,11 +25,11 @@ app.controller('walletinfoController', function($scope) {
 
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
-    document.title = $scope.doc.viewWllet + '| INT Chain';
+    document.title = $scope.doc.viewWllet + ' | INT Chain';
     $scope.changelan = function(a) {
         $scope.doc = lan[a]
         $scope.lan = a
-        document.title = $scope.doc.viewWllet + '| INT Chain';
+        document.title = $scope.doc.viewWllet + ' | INT Chain';
     }
     $scope.$watch('privateKey', function(newValue, oldValue) {
         if (newValue.length != 64 && oldValue.length == 64) {

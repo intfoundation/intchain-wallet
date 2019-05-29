@@ -21,11 +21,11 @@ app.controller('sendintController', function($scope) {
     $scope.ap = ""
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
-    document.title = $scope.doc.sendInt + '| INT Chain';
+    document.title = $scope.doc.sendInt + ' | INT Chain';
     $scope.changelan = function(a) {
         $scope.doc = lan[a]
         $scope.lan = a
-        document.title = $scope.doc.sendInt + '| INT Chain';
+        document.title = $scope.doc.sendInt + ' | INT Chain';
         if (!$scope.balance || !$scope.limit || !$scope.price) {
             return
         }
