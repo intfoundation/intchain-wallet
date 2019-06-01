@@ -76,7 +76,7 @@ var lan = {
         bmmz: 'Blance must be more than 0',
         lnv: "Limit is not valid",
         pnv: "Price is not valid",
-        mf: "please mortgage first",
+        mf: "please stake first",
         m20: "You can choose 20 at most",
         nineSpace: "Your password must be at least 9 characters.Password should not start or end with space",
         epn: "Enter your new wallet password",
