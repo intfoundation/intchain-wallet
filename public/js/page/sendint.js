@@ -18,6 +18,7 @@ app.controller('sendintController', function($scope) {
     $scope.amount;
     $scope.limit = 40000;
     $scope.price = 0.0000002;
+    $scope.keystorestr = ""
     $scope.ap = ""
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
@@ -104,12 +105,20 @@ app.controller('sendintController', function($scope) {
     };
 
     $scope.keyStoreUnlock = function() {
-        var file = $scope.file;
-        var reader = new FileReader();
-        reader.onload = function() {
-            var filedata = JSON.parse(this.result);
-            var wal = require("wal");
-            wal.decodeFromOption(filedata, $scope.password).then(function(data) {
+        // var file = $scope.file;
+        // var reader = new FileReader();
+        // reader.onload = function() {
+        //     var filedata = JSON.parse(this.result);
+        var filedata
+        try {
+            filedata = JSON.parse($scope.keystorestr);
+        } catch (e) {
+            $scope.keyStoreUnlockFail = true
+            $scope.$apply();
+            return;
+        }
+        var wal = require("wal");
+        wal.decodeFromOption(filedata, $scope.password).then(function(data) {
                 if (data == "error") {
                     $scope.keyStoreUnlockFail = true
                     $scope.$apply();
@@ -122,8 +131,8 @@ app.controller('sendintController', function($scope) {
                 $scope.getPrice();
                 $scope.$apply();
             })
-        }
-        reader.readAsText(file);
+            // }
+            // reader.readAsText(file);
     };
 
     $scope.getPrice = function() {

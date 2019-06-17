@@ -42,7 +42,7 @@ var lan = {
         isSelected: "Your wallet is encrypted.Good! Please enter the password",
         validPrivateKey: "This is not a valid private key",
         enPriKey: "Enter your wallet Private Key",
-        passError: "Password error, unlock fail",
+        passError: "Error in keystore or password, unlock fail",
 
         fd: "From address",
         td: "To address",
@@ -53,6 +53,7 @@ var lan = {
         eAmount: "please enter Amount",
         eLimit: "please enter Gas Limit",
         ePrice: "please enter Gas Price",
+        eKeyStore: "please enter Keystore",
 
         ethAdress: "ETH Wallet Address",
         ethPrivateKey: "ETH Wallet Private Key",
@@ -185,6 +186,7 @@ var lan = {
         eAmount: "请输入数量",
         eLimit: "请输入Gas Limit",
         ePrice: "请输入Gas Price",
+        eKeyStore: "请输入Keystore",
 
         ethAdress: "ETH地址",
         ethPrivateKey: "ETH私钥",

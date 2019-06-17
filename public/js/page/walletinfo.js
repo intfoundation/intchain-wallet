@@ -22,7 +22,7 @@ app.controller('walletinfoController', function($scope) {
     $scope.amount;
     $scope.fee;
     $scope.token = []
-
+    $scope.keystorestr = ""
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
     document.title = $scope.doc.viewWllet + ' | INT Chain';
@@ -60,12 +60,20 @@ app.controller('walletinfoController', function($scope) {
         }
     }
     $scope.keyStoreUnlock = function() {
-        var file = $scope.file;
-        var reader = new FileReader();
-        reader.onload = function() {
-            var filedata = JSON.parse(this.result);
-            var wal = require("wal");
-            wal.decodeFromOption(filedata, $scope.password).then(function(data) {
+        //var file = $scope.file;
+        //var reader = new FileReader();
+        //reader.onload = function() {
+        var filedata
+        try {
+            filedata = JSON.parse($scope.keystorestr);
+        } catch (e) {
+            $scope.keyStoreUnlockFail = true
+            $scope.$apply();
+            return;
+        }
+
+        var wal = require("wal");
+        wal.decodeFromOption(filedata, $scope.password).then(function(data) {
                 if (data == "error") {
                     $scope.keyStoreUnlockFail = true
                     $scope.$apply();
@@ -86,8 +94,8 @@ app.controller('walletinfoController', function($scope) {
                 $scope.getToken()
                 $scope.$apply();
             })
-        }
-        reader.readAsText(file);
+            //}
+            //reader.readAsText(file);
 
     };
     $scope.getVotes = function() {

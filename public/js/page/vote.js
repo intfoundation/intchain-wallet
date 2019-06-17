@@ -32,6 +32,7 @@ app.controller('voteController', function($scope) {
     $scope.searchStr = "";
     $scope.nodes = []
     $scope.title = "";
+    $scope.keystorestr = ""
     $scope.voteRecord = {};
 
     $scope.lan = new modal.UrlSearch().lan || 'en'
@@ -117,12 +118,20 @@ app.controller('voteController', function($scope) {
         }
     }
     $scope.keyStoreUnlock = function() {
-        var file = $scope.file;
-        var reader = new FileReader();
-        reader.onload = function() {
-            var filedata = JSON.parse(this.result);
-            var wal = require("wal");
-            wal.decodeFromOption(filedata, $scope.password).then(function(data) {
+        // var file = $scope.file;
+        // var reader = new FileReader();
+        // reader.onload = function() {
+        //     var filedata = JSON.parse(this.result);
+        var filedata
+        try {
+            filedata = JSON.parse($scope.keystorestr);
+        } catch (e) {
+            $scope.keyStoreUnlockFail = true
+            $scope.$apply();
+            return;
+        }
+        var wal = require("wal");
+        wal.decodeFromOption(filedata, $scope.password).then(function(data) {
                 if (data == "error") {
                     $scope.keyStoreUnlockFail = true
                     $scope.$apply();
@@ -140,8 +149,8 @@ app.controller('voteController', function($scope) {
                 //$scope.getVoteRecord();
                 $scope.$apply();
             })
-        }
-        reader.readAsText(file);
+            // }
+            // reader.readAsText(file);
 
     };
     $scope.getLimit = function(method, input) {

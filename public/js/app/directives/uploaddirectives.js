@@ -70,6 +70,7 @@ app.directive('fileUploader', function($http) {
             file: '=file',
             password: '=password',
             doc: '=doc',
+            keystorestr: '=keystorestr',
             //balance: '='
             //enterUnlock: '=enterUnlock'
         },
@@ -85,7 +86,9 @@ app.directive('fileUploader', function($http) {
             ' <span>{{fileName||doc.seStore}} </span>' +
             ' </div>' +
             ' <div class="lt2" style="display:none"><a href="javascript:void(0)"><input type="file">浏览</a></div>' +
-            '</div><div ng-show="show" style="display:block;width: 800px;height: 79px"><div class="mi middle">' +
+            '</div>' +
+            '<textarea placeholder="{{doc.eKeyStore}}" ng-model="keystorestr" style="margin-top:40px;border: 1px solid rgba(204, 204, 204, 1);border-radius:4px" rows="4" cols="66"></textarea>' +
+            '<div  style="display:block;width: 800px;height: 79px"><div class="mi middle">' +
             '   {{doc.isSelected}}</div>' +
             '   <div class="in-box">' +
             '       <input ng-show="!pwdView" type="password" ng-keyup="enterUnlock($event)" ' +
@@ -109,11 +112,18 @@ app.directive('fileUploader', function($http) {
             })
             $(element).find("input[type=file]").on('change', function() {
                 changeFile();
+                var reader = new FileReader();
+                reader.onload = function() {
+                    scope.keystorestr = this.result;
+                    scope.$apply();
+                }
+                reader.readAsText(scope.file);
             });
             var changeFile = function() {
                 //if( $(element).find("input[type=file]")[0].files==)
                 scope.fileName = $(element).find("input[type=file]")[0].files[0].name;
                 scope.file = $(element).find("input[type=file]")[0].files[0];
+
                 scope.show = true;
                 scope.$apply();
             }
