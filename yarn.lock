@@ -2957,9 +2957,18 @@ lodash.restparam@^3.0.0:
   version "3.6.1"
   resolved "http://registry.npm.taobao.org/lodash.restparam/download/lodash.restparam-3.6.1.tgz#936a4e309ef330a7645ed4145986c85ae5b20805"
 
+lodash.template@4.5.0:
+  version "4.5.0"
+  resolved "https://registry.npm.taobao.org/lodash.template/download/lodash.template-4.5.0.tgz#f976195cf3f347d0d5f52483569fe8031ccce8ab"
+  integrity sha1-+XYZXPPzR9DV9SSDVp/oAxzM6Ks=
+  dependencies:
+    lodash._reinterpolate "^3.0.0"
+    lodash.templatesettings "^4.0.0"
+
 lodash.template@^3.0.0:
   version "3.6.2"
-  resolved "http://registry.npm.taobao.org/lodash.template/download/lodash.template-3.6.2.tgz#f8cdecc6169a255be9098ae8b0c53d378931d14f"
+  resolved "https://registry.npm.taobao.org/lodash.template/download/lodash.template-3.6.2.tgz#f8cdecc6169a255be9098ae8b0c53d378931d14f"
+  integrity sha1-+M3sxhaaJVvpCYrosMU9N4kx0U8=
   dependencies:
     lodash._basecopy "^3.0.0"
     lodash._basetostring "^3.0.0"
@@ -2977,6 +2986,13 @@ lodash.templatesettings@^3.0.0:
   dependencies:
     lodash._reinterpolate "^3.0.0"
     lodash.escape "^3.0.0"
+
+lodash.templatesettings@^4.0.0:
+  version "4.2.0"
+  resolved "https://registry.npm.taobao.org/lodash.templatesettings/download/lodash.templatesettings-4.2.0.tgz#e481310f049d3cf6d47e912ad09313b154f0fb33"
+  integrity sha1-5IExDwSdPPbUfpEq0JMTsVTw+zM=
+  dependencies:
+    lodash._reinterpolate "^3.0.0"
 
 lodash@^4.17.10, lodash@^4.17.4:
   version "4.17.11"
