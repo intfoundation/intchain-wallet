@@ -490,7 +490,7 @@
                 </div>
                 <div class="main">
                     <div class="votes">
-                        <div class="vote-title">{{doc.viewVoted}} <span ng-show="voteRecord.candidates.length&&vote!=0">{{voteRecord.time}}(UTC+8)</span></div>
+                        <div class="vote-title">{{doc.viewVoted}} <span ng-show="voteRecord.candidates.length&&vote!=0">{{voteRecord.time}}</span></div>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -540,7 +540,7 @@
                                     <td style="width:170px" ng-show="r.input.indexOf(':2')>0">{{doc.reward2}} </td>
                                     <td style="width:170px" ng-show="r.input.indexOf(':3')>0">{{doc.reward3}} </td>
                                     <td style="width:180px">{{r.value}}</td>
-                                    <td style="width:210px">{{r.timestamp}}(UTC+8)</td>
+                                    <td style="width:210px">{{r.timestamp}}</td>
                                 </tr>
                             </tbody>
                         </table>
