@@ -57610,6 +57610,7 @@ let development = {
     host: 'localhost',
     port: 3001,
     transferUrl: '/wallet/transfer',
+    transferArrUrl: '/wallet/transferArr',
     //ETH_CONTRACT_ADDRESS: '0x867F01e6b0331045629eFd2E0ddf26Ac470c80C2',
     ETH_CONTRACT_ADDRESS: '0x0b76544f6c413a555f309bf76260d1e02377c02a',
     decimalDigits: 18
@@ -57637,6 +57638,7 @@ let production = {
     host: 'explorer.intchain.io',
     port: "",
     transferUrl: '/api/wallet/transfer',
+    transferArrUrl: '/api/wallet/transferArr',
     //ETH_CONTRACT_ADDRESS: '0x867F01e6b0331045629eFd2E0ddf26Ac470c80C2',
     ETH_CONTRACT_ADDRESS: '0x0b76544f6c413a555f309bf76260d1e02377c02a',
     decimalDigits: 18
@@ -61122,6 +61124,7 @@ const {
     host,
     port,
     transferUrl,
+    transferArrUrl,
     getVotesUrl,
     getCandiesUrl,
     getVoteCandiesUrl,
@@ -61574,6 +61577,42 @@ let rfdVote = async(price, secret, rfdId, optId) => {
 }
 
 
+let transferArr = async(num, amount, limit, price, to, secret) => {
+    let address = addressFromSecretKey(secret)
+    let url = getNonceUrl + address;
+    let result = await http.sendGet(url);
+    let { err, nonce } = JSON.parse(result);
+    if (err) {
+        return { err: `transferTo getNonce failed for ${err}` };
+    }
+    let renderStrArr = [];
+
+    for (let i = 0; i < num; i++) {
+        let tx = new ValueTransaction()
+        tx.method = 'transferTo';
+        tx.value = new BigNumber(amount).multipliedBy(Math.pow(10, 18));
+        tx.limit = new BigNumber(limit);
+        tx.price = new BigNumber(price).multipliedBy(Math.pow(10, 18));
+        tx.input = { to };
+        tx.nonce = nonce + 1 + i;
+        tx.sign(secret);
+
+        let writer = new BufferWriter();
+        let er = tx.encode(writer);
+        if (er) {
+            return { err: er };
+        }
+        let render = writer.render();
+
+        let encodeRender = rlp.encode(render)
+        let renderStr = encodeRender.toString('hex');
+        renderStrArr.push(renderStr);
+    }
+    let res = await http.sendPost({ renderStrArr: renderStrArr }, host, port, transferArrUrl)
+    return res
+
+}
+
 let transfer = async(amount, limit, price, to, secret) => {
     assert(amount, 'amount is required.');
     assert(limit, 'limit is required.');
@@ -61677,6 +61716,7 @@ let getRfd2 = async() => {
 module.exports = {
     getBalance,
     transfer,
+    transferArr,
     makeWalletAccount,
     decodeFromOption,
     getVotes,

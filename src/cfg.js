@@ -24,6 +24,7 @@ let development = {
     host: 'localhost',
     port: 3001,
     transferUrl: '/wallet/transfer',
+    transferArrUrl: '/wallet/transferArr',
     //ETH_CONTRACT_ADDRESS: '0x867F01e6b0331045629eFd2E0ddf26Ac470c80C2',
     ETH_CONTRACT_ADDRESS: '0x0b76544f6c413a555f309bf76260d1e02377c02a',
     decimalDigits: 18
@@ -51,6 +52,7 @@ let production = {
     host: 'explorer.intchain.io',
     port: "",
     transferUrl: '/api/wallet/transfer',
+    transferArrUrl: '/api/wallet/transferArr',
     //ETH_CONTRACT_ADDRESS: '0x867F01e6b0331045629eFd2E0ddf26Ac470c80C2',
     ETH_CONTRACT_ADDRESS: '0x0b76544f6c413a555f309bf76260d1e02377c02a',
     decimalDigits: 18

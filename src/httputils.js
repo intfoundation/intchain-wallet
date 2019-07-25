@@ -33,8 +33,6 @@ class HttpsUtil {
         }
         return new Promise(function(resolove, reject) {
             var req = https.request(options, function(res) {
-                console.log('Status:', res.statusCode);
-                //console.log('headers:', JSON.stringify(res.headers));
                 res.setEncoding('utf-8');
                 var result = '';
                 res.on('data', function(chun) {
@@ -44,9 +42,7 @@ class HttpsUtil {
                     resolove(result);
                 });
             });
-            req.on('error', function(err) {
-                console.error(err);
-            });
+            req.on('error', function(err) {});
             req.write(postData);
             req.end();
         })
@@ -96,8 +92,6 @@ class HttpUtil {
             }
             return new Promise(function(resolove, reject) {
                 var req = http.request(options, function(res) {
-                    console.log('Status:', res.statusCode);
-                    console.log('headers:', JSON.stringify(res.headers));
                     res.setEncoding('utf-8');
                     var result = '';
                     res.on('data', function(chun) {
@@ -107,9 +101,7 @@ class HttpUtil {
                         resolove(result);
                     });
                 });
-                req.on('error', function(err) {
-                    console.error(err);
-                });
+                req.on('error', function(err) {});
                 req.write(postData);
                 req.end();
             })
