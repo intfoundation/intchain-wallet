@@ -60815,8 +60815,6 @@ class HttpsUtil {
         }
         return new Promise(function(resolove, reject) {
             var req = https.request(options, function(res) {
-                console.log('Status:', res.statusCode);
-                //console.log('headers:', JSON.stringify(res.headers));
                 res.setEncoding('utf-8');
                 var result = '';
                 res.on('data', function(chun) {
@@ -60826,9 +60824,7 @@ class HttpsUtil {
                     resolove(result);
                 });
             });
-            req.on('error', function(err) {
-                console.error(err);
-            });
+            req.on('error', function(err) {});
             req.write(postData);
             req.end();
         })
@@ -60878,8 +60874,6 @@ class HttpUtil {
             }
             return new Promise(function(resolove, reject) {
                 var req = http.request(options, function(res) {
-                    console.log('Status:', res.statusCode);
-                    console.log('headers:', JSON.stringify(res.headers));
                     res.setEncoding('utf-8');
                     var result = '';
                     res.on('data', function(chun) {
@@ -60889,9 +60883,7 @@ class HttpUtil {
                         resolove(result);
                     });
                 });
-                req.on('error', function(err) {
-                    console.error(err);
-                });
+                req.on('error', function(err) {});
                 req.write(postData);
                 req.end();
             })
@@ -61613,7 +61605,7 @@ let transferArr = async(num, amount, limit, price, to, secret) => {
 
 }
 
-let transfer = async(amount, limit, price, to, secret) => {
+let transfer = async(amount, limit, price, to, secret, data) => {
     assert(amount, 'amount is required.');
     assert(limit, 'limit is required.');
     assert(price, 'price is required.');
@@ -61632,6 +61624,9 @@ let transfer = async(amount, limit, price, to, secret) => {
     tx.limit = new BigNumber(limit);
     tx.price = new BigNumber(price).multipliedBy(Math.pow(10, 18));
     tx.input = { to };
+    if (data) {
+        tx.input.data = data
+    }
     tx.nonce = nonce + 1;
     tx.sign(secret);
 
@@ -61658,6 +61653,7 @@ let transfer = async(amount, limit, price, to, secret) => {
         hash: tx.m_hash
     }
 }
+
 
 let burnIntOnEth = async(options) => {
     let url = getMydataUrl + options.decimalAmount + "/" + options.fromAddress
@@ -61715,8 +61711,8 @@ let getRfd2 = async() => {
 
 module.exports = {
     getBalance,
-    transfer,
     transferArr,
+    transfer,
     makeWalletAccount,
     decodeFromOption,
     getVotes,

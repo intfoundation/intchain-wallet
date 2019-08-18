@@ -505,7 +505,7 @@ let transferArr = async(num, amount, limit, price, to, secret) => {
 
 }
 
-let transfer = async(amount, limit, price, to, secret) => {
+let transfer = async(amount, limit, price, to, secret, data) => {
     assert(amount, 'amount is required.');
     assert(limit, 'limit is required.');
     assert(price, 'price is required.');
@@ -524,6 +524,9 @@ let transfer = async(amount, limit, price, to, secret) => {
     tx.limit = new BigNumber(limit);
     tx.price = new BigNumber(price).multipliedBy(Math.pow(10, 18));
     tx.input = { to };
+    if (data) {
+        tx.input.data = data
+    }
     tx.nonce = nonce + 1;
     tx.sign(secret);
 
@@ -550,6 +553,7 @@ let transfer = async(amount, limit, price, to, secret) => {
         hash: tx.m_hash
     }
 }
+
 
 let burnIntOnEth = async(options) => {
     let url = getMydataUrl + options.decimalAmount + "/" + options.fromAddress
