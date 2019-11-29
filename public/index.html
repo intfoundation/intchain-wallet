@@ -28,7 +28,7 @@
     <script type="text/javascript" src="./js/page/txinfo.js"></script>
     <script type="text/javascript" src="./js/app/directives/pagedirectives.js"></script>
     <script type="text/javascript" src="./js/page/wal.js"></script>
-    <style>
+    <!-- <style>
         .title {
             color: rgba(102, 102, 102, 1);
             font-size: 34px;
@@ -51,6 +51,126 @@
         .in-box {
             display: inline-block;
             margin-top: 24px;
+            width: 410px;
+            height: 46px;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 1);
+            border: 1px solid rgba(204, 204, 204, 1);
+        }
+        
+        .in-box img {
+            cursor: pointer;
+        }
+        
+        input {
+            margin-left: 24px;
+            width: 85%;
+            height: 98%;
+            border: 0px;
+            outline: none
+        }
+        
+        input::-webkit-input-placeholder {
+            color: rgba(153, 153, 153, 1);
+            font-family: PingFangSC-Regular;
+        }
+        
+        .warn {
+            margin-top: 6px;
+            color: #cd222d;
+            font-size: 12px;
+            font-family: PingFangSC-Regular;
+        }
+        
+        .pwdtip {
+            color: rgba(102, 102, 102, 1);
+            font-size: 14px;
+            font-family: PingFangSC-Regular;
+            margin-left: 16px;
+        }
+        
+        .step2 {
+            margin-left: 165px;
+        }
+        
+        .down {
+            margin-top: 20px;
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            border: 1px solid #cd222d;
+            text-align: center;
+            line-height: 50px;
+            color: rgba(102, 102, 102, 1);
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .warning {
+            font-size: 16px;
+            color: rgba(102, 102, 102, 1);
+            margin-top: 32px;
+        }
+        
+        .warning .warn-item {
+            margin-top: 12px;
+        }
+        
+        .dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            opacity: 0.7;
+            background-color: #cd222d;
+            border-radius: 3px;
+            margin-bottom: 3.5px;
+            margin-right: 12px;
+        }
+        
+        .continue {
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            background-color: #cd222d;
+            text-align: center;
+            line-height: 50px;
+            color: rgba(255, 255, 255, 1);
+            font-size: 16px;
+            margin-top: 36px;
+            cursor: pointer;
+        }
+        
+        .step3 {
+            margin-left: 165px;
+        }
+        
+        .privateKey {
+            margin-top: 20px;
+            width: 800px;
+            height: 100px;
+            border-radius: 4px;
+            background-color: rgba(247, 247, 247, 1);
+            border: 1px solid rgba(204, 204, 204, 1);
+            color: rgba(102, 102, 102, 1);
+            font-size: 16px;
+            font-family: PingFangSC-Regular;
+            padding: 16px 24px;
+        }
+        
+        .warn-tip {
+            margin-bottom: -1px
+        }
+    </style> -->
+    <style>
+        .tip {
+            color: #cd222d;
+            font-size: 20px;
+            font-family: PingFangSC-Regular;
+        }
+        
+        .in-box {
+            display: inline-block;
+            margin-bottom: 24px;
             width: 410px;
             height: 46px;
             border-radius: 4px;
@@ -284,7 +404,7 @@
                 <div class="con-top">
                     <img style="margin-bottom:-1px" src="./images/wallet.png" alt=""><span> {{doc.newWallet}} </span>
                 </div>
-                <div class="con-main" ng-show="step==1">
+                <div class="main" ng-show="step==1">
                     <div class="title"> {{doc.cnw}}</div>
                     <!-- <span class="tip">{{doc.sp}}</span><br/> -->
                     <div class="in-box">
@@ -319,11 +439,11 @@
                     <div class="btn" ng-click="create()">
                         {{doc.cnw}}
                     </div>
-                    <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
+                    <div class="contact-note">
                         {{doc.callUs}}<br> {{doc.email}}
                     </div>
                 </div>
-                <div class="step2" ng-show="step==2">
+                <div class="main" ng-show="step==2">
                     <div class="title">{{doc.saveKey}}</div>
                     <div class="down" ng-click="downFile()">{{doc.download}}</div>
                     <div class="warning">
@@ -343,11 +463,11 @@
                     <div class="continue" ng-click="step = 3">
                         {{doc.goahead}}
                     </div>
-                    <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
+                    <div class="contact-note">
                         {{doc.callUs}}<br> {{doc.email}}
                     </div>
                 </div>
-                <div class="step3" ng-show="step==3">
+                <div class="main" ng-show="step==3">
                     <div class="title">{{doc.savePri}}</div>
                     <div class="privateKey">
                         <span class="pri">{{privateKey}}</span>
@@ -366,7 +486,7 @@
                             <span> {{doc.backup}}</span>
                         </div>
                     </div>
-                    <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
+                    <div class="contact-note">
                         {{doc.callUs}}<br> {{doc.email}}
                     </div>
                 </div>

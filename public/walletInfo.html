@@ -22,7 +22,7 @@
     <script type="text/javascript" src="./js/plugins/jquery/jquery.qrcode.min.js"></script>
     <script type="text/javascript" src="./js/page/walletinfo.js"></script>
     <script type="text/javascript" src="./js/page/wal.js"></script>
-    <style>
+    <!-- <style>
         .main {
             padding: 50px 0 0 165px;
         }
@@ -113,6 +113,217 @@
             font-size: 12px;
             text-align: left;
             font-family: PingFangSC-Regular;
+        }
+        
+        .in-box {
+            display: inline-block;
+            width: 416px;
+            height: 46px;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 1);
+            border: 1px solid rgba(204, 204, 204, 1);
+        }
+        
+        .in-box img {
+            cursor: pointer;
+        }
+        
+        input {
+            margin-left: 24px;
+            width: 85%;
+            height: 98%;
+            border: 0px;
+            outline: none;
+            font-size: 14px;
+        }
+        
+        input::-webkit-input-placeholder {
+            color: rgba(153, 153, 153, 1);
+            font-family: PingFangSC-Regular;
+        }
+        
+        .btn-dis {
+            font-family: PingFangSC-Regular;
+            margin-top: 36px;
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            background-color: rgba(204, 204, 204, 1);
+            text-align: center;
+            line-height: 50px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 1);
+            cursor: not-allowed;
+        }
+        
+        .btn-unlock {
+            margin-top: 36px;
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            background-color: #cd222d;
+            text-align: center;
+            line-height: 50px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 1);
+            cursor: pointer;
+        }
+        
+        .msg {
+            margin-top: 25px;
+            width: 300px;
+            height: 32px;
+            opacity: 0.8;
+            border-radius: 4px;
+            background-color: rgba(215, 49, 111, 1);
+            line-height: 32px;
+            padding-left: 13px;
+            color: rgba(255, 255, 255, 1);
+            font-size: 12px;
+        }
+        
+        .item-box {
+            display: inline-block;
+            color: rgba(51, 51, 51, 1);
+            font-size: 16px;
+            font-family: PingFangSC-Medium;
+            margin-top: 24px;
+            font-weight: bold;
+        }
+        
+        .down {
+            height: 25px;
+            padding-top: 10px;
+        }
+        
+        .token-box {
+            width: 410px;
+            max-height: 200px;
+            border: 1px solid rgba(204, 204, 204, 1);
+            border-top: 0px;
+            overflow-y: scroll;
+            position: absolute;
+            z-index: 100px;
+            background-color: rgba(255, 255, 255, 1);
+            margin-left: -1px;
+        }
+        
+        .token-item {
+            height: 40px;
+            line-height: 40px;
+            color: rgba(51, 51, 51, 1);
+            font-size: 14px;
+            border-top: 1px solid rgba(204, 204, 204, 1);
+            height: 90px;
+        }
+        
+        .token-item span {
+            margin-left: 20px;
+        }
+        
+        .in-box:hover {
+            border-bottom-left-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+    </style> -->
+    <style>
+        /* .main {
+            padding: 50px 0 0 165px;
+        } */
+        
+        textarea {
+            padding: 14px 24px;
+        }
+        
+        .out {
+            height: 14px;
+            width: 14px;
+            border: 1px solid #cd222d;
+            border-radius: 8px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .in {
+            height: 8px;
+            width: 8px;
+            background-color: #cd222d;
+            border-radius: 5px;
+            margin: 3px;
+            display: inline-block;
+        }
+        
+        .inac {
+            height: 14px;
+            width: 14px;
+            border: 1px solid rgba(204, 204, 204, 1);
+            border-radius: 8px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .ch-item {
+            display: inline;
+        }
+        
+        .ch-item span {
+            margin-left: 8px;
+        }
+        
+        .pri {
+            margin-left: 75px;
+        }
+        
+        .ch {
+            margin-top: 18px;
+            color: rgba(102, 102, 102, 1);
+            font-size: 16px;
+            font-family: PingFangSC-Medium;
+            margin-bottom: 30px;
+        }
+        
+        .se {
+            margin-top: 36px;
+            color: rgba(102, 102, 102, 1);
+            font-size: 16px;
+            font-weight: bold;
+            font-family: PingFangSC-Medium;
+        }
+        
+        .warn {
+            margin-top: 20px;
+            width: 852px;
+            color: rgba(215, 49, 111, 1);
+            font-size: 12px;
+            font-family: PingFangSC-Regular;
+        }
+        
+        .ch-file {
+            margin-top: 16px;
+            width: 240px;
+        }
+        
+        .is .lt1 {
+            width: 416px;
+            height: 50px;
+            border-radius: 4px;
+            /* border: 1px solid rgba(204, 204, 204, 1); */
+            line-height: 50px;
+            cursor: pointer;
+            color: #fff;
+            font-family: PingFangSC-Medium;
+            text-align: center;
+            font-size: 14px;
+            background-color: #cd222d;
+        }
+        
+        .middle {
+            margin-top: 36px;
+            color: rgba(102, 102, 102, 1);
+            font-size: 14px;
+            text-align: left;
+            font-family: PingFangSC-Regular;
+            margin-bottom: 12px;
         }
         
         .in-box {
@@ -344,7 +555,7 @@
                     <img style="margin-bottom:-4px" src="./images/walletInfo.png" alt=""><span>{{doc.viewWllet}}</span>
                 </div>
                 <div class="main">
-                    <div ng-show="step==1" style="margin-left:113px">
+                    <div ng-show="step==1">
                         <div class="title">{{doc.access}}</div>
                         <div class="ch">
                             <div class="ch-item">
@@ -363,7 +574,7 @@
                             </div>
                         </div>
                         <div ng-show="ch=='keyStore'">
-                            <div class="se">{{doc.selectStore}} </div>
+                            <!-- <div class="se">{{doc.selectStore}} </div> -->
                             <!-- <div class="warn">
                                 <img src="./images/warn.png" width="12px">
                                 <span>this is not a recommended  way to access your wallet. Entering your private key on
@@ -404,7 +615,7 @@
                                 <img ng-click="privateKeyUnlockFail = false" style="padding:10px;float:right;cursor: pointer" src="./images/close.png" width="13px">
                             </div>
                         </div>
-                        <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
+                        <div class="contact-note">
                             {{doc.callUs}}<br> {{doc.email}}
                         </div>
                     </div>
@@ -454,7 +665,7 @@
                             <div class="btn-unlock" style="margin-top: 48px" ng-click='enterPwd()'>
                                 {{doc.dnk}}</div>
                         </div>
-                        <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
+                        <div class="contact-note">
                             {{doc.callUs}}<br> {{doc.email}}
                         </div>
                     </div>

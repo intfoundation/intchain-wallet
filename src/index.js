@@ -321,7 +321,7 @@ let createToken = async(amount, limit, price, name, symbol, secret) => {
 }
 
 
-let transferTokenTo = async(tokenid, to, amount, limit, price, secret) => {
+let transferTokenTo = async(tokenid, to, amount, limit, price, secret, data) => {
     assert(tokenid, 'tokenid is required.');
     assert(to, 'to is required.');
     assert(amount, 'amount is required.');
@@ -342,6 +342,9 @@ let transferTokenTo = async(tokenid, to, amount, limit, price, secret) => {
     tx.limit = new BigNumber(limit);
     tx.price = new BigNumber(price).multipliedBy(Math.pow(10, 18));
     tx.input = { tokenid, to, amount: newAmount };
+    if (data) {
+        tx.input.data = data
+    }
     tx.nonce = nonce + 1;
     tx.sign(secret);
 
@@ -368,7 +371,6 @@ let transferTokenTo = async(tokenid, to, amount, limit, price, secret) => {
         hash: tx.m_hash
     }
 }
-
 
 let unmortgage = async(amount, limit, price, secret) => {
     assert(amount, 'amount is required.');

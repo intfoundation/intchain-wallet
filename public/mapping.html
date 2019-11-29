@@ -22,7 +22,7 @@
     <script type="text/javascript" src="./js/page/mapping.js"></script>
     <!-- <script type="text/javascript" src="./js/page/int.js"></script> -->
     <script type="text/javascript" src="./js/page/wal.js"></script>
-    <style>
+    <!-- <style>
         .main {
             padding: 50px 0 0 165px;
         }
@@ -109,6 +109,181 @@
             margin-top: 36px;
             color: rgba(153, 153, 153, 1);
             font-size: 12px;
+            text-align: left;
+            font-family: PingFangSC-Regular;
+        }
+        
+        .in-box {
+            display: inline-block;
+            width: 410px;
+            height: 46px;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 1);
+            border: 1px solid rgba(204, 204, 204, 1);
+        }
+        
+        .in-box img {
+            cursor: pointer;
+        }
+        
+        input {
+            margin-left: 24px;
+            width: 85%;
+            height: 98%;
+            border: 0px;
+            outline: none
+        }
+        
+        input::-webkit-input-placeholder {
+            color: rgba(153, 153, 153, 1);
+            font-family: PingFangSC-Regular;
+        }
+        
+        .btn-dis {
+            font-family: PingFangSC-Regular;
+            margin-top: 36px;
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            background-color: rgba(204, 204, 204, 1);
+            text-align: center;
+            line-height: 50px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 1);
+            cursor: not-allowed;
+        }
+        
+        .btn-unlock {
+            margin-top: 36px;
+            width: 240px;
+            height: 50px;
+            border-radius: 4px;
+            background-color: #cd222d;
+            text-align: center;
+            line-height: 50px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 1);
+            cursor: pointer;
+        }
+        
+        .msg {
+            margin-top: 25px;
+            width: 300px;
+            height: 32px;
+            opacity: 0.8;
+            border-radius: 4px;
+            background-color: rgba(215, 49, 111, 1);
+            line-height: 32px;
+            padding-left: 13px;
+            color: rgba(255, 255, 255, 1);
+            font-size: 12px;
+        }
+        
+        .item-box {
+            display: inline-block;
+            color: rgba(51, 51, 51, 1);
+            font-size: 16px;
+            font-family: PingFangSC-Medium;
+            margin-top: 24px;
+            font-weight: bold;
+        }
+        
+        .mp-warn {
+            width: 865px;
+            color: #cd222d;
+            font-size: 15px;
+            background-color: rgba(253, 221, 155, 0.5);
+            border: 1px solid;
+            padding: 8px
+        }
+    </style> -->
+    <style>
+        /* .main {
+            padding: 50px 0 0 165px;
+        } */
+        
+        .out {
+            height: 14px;
+            width: 14px;
+            border: 1px solid rgba(60, 49, 215, 1);
+            border-radius: 8px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .in {
+            height: 8px;
+            width: 8px;
+            background-color: rgba(60, 49, 215, 1);
+            border-radius: 5px;
+            margin: 3px;
+            display: inline-block;
+        }
+        
+        .inac {
+            height: 14px;
+            width: 14px;
+            border: 1px solid rgba(204, 204, 204, 1);
+            border-radius: 8px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        
+        .ch-item {
+            display: inline;
+        }
+        
+        .ch-item span {
+            margin-left: 8px;
+        }
+        
+        .pri {
+            margin-left: 50px;
+        }
+        
+        .ch {
+            margin-top: 18px;
+            color: rgba(51, 51, 51, 1);
+            font-size: 20px;
+            font-family: PingFangSC-Medium;
+        }
+        
+        .se {
+            margin-top: 36px;
+            color: rgba(51, 51, 51, 1);
+            font-size: 24px;
+            font-family: PingFangSC-Medium;
+        }
+        
+        .warn {
+            margin-top: 20px;
+            width: 852px;
+            color: rgba(215, 49, 111, 1);
+            font-size: 12px;
+            font-family: PingFangSC-Regular;
+        }
+        
+        .ch-file {
+            margin-top: 16px;
+            width: 240px;
+        }
+        
+        .is .lt1 {
+            width: 412px;
+            height: 50px;
+            border-radius: 4px;
+            border: 1px solid rgba(60, 49, 215, 1);
+            line-height: 50px;
+            cursor: pointer;
+            color: rgba(60, 49, 215, 1);
+            font-family: PingFangSC-Medium;
+            text-align: center;
+        }
+        
+        .middle {
+            margin-top: 36px;
+            color: rgba(102, 102, 102, 1);
+            font-size: 14px;
             text-align: left;
             font-family: PingFangSC-Regular;
         }
@@ -375,7 +550,7 @@
                         <div ng-click="toMapping()" ng-show="pass" class="btn-unlock" style="margin-top: 48px">
                             {{doc.mapping}}
                         </div>
-                        <div style="margin-top:10px;font-family: PingFangSC-Regular;font-size: 14px;   color: rgba(102, 102, 102, 1);">
+                        <div class="contact-note">
                             {{doc.callUs}}<br> {{doc.email}}
                         </div>
                     </div>

@@ -61103,7 +61103,7 @@ const { encrypt, decrypt } = require('./crypt/crypt')
 const { ValueTransaction } = require('./core/value_chain/transaction')
 const BigNumber = require('bignumber.js')
 const { addressFromSecretKey, addressFromPublicKey, isValidAddress } = require('./core/address')
-    //const core_1 = require("./core");
+    //const core_1 = require("./core"); 
 const { BufferWriter } = require('./core/lib/writer')
 const { encodeAddressAndNonce } = require('./core/serializable')
 const assert = require('assert');
@@ -61421,7 +61421,7 @@ let createToken = async(amount, limit, price, name, symbol, secret) => {
 }
 
 
-let transferTokenTo = async(tokenid, to, amount, limit, price, secret) => {
+let transferTokenTo = async(tokenid, to, amount, limit, price, secret, data) => {
     assert(tokenid, 'tokenid is required.');
     assert(to, 'to is required.');
     assert(amount, 'amount is required.');
@@ -61442,6 +61442,9 @@ let transferTokenTo = async(tokenid, to, amount, limit, price, secret) => {
     tx.limit = new BigNumber(limit);
     tx.price = new BigNumber(price).multipliedBy(Math.pow(10, 18));
     tx.input = { tokenid, to, amount: newAmount };
+    if (data) {
+        tx.input.data = data
+    }
     tx.nonce = nonce + 1;
     tx.sign(secret);
 

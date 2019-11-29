@@ -1,4 +1,4 @@
-.container {
+/* .container {
     width: 100%;
     height: 100%;
     min-width: 1200px;
@@ -33,7 +33,6 @@
     height: 100%;
     display: inline-block;
     vertical-align: top;
-    /* width: 1400px; */
 }
 
 .tabbar-box .tab-item {
@@ -48,22 +47,6 @@
     line-height: 30px
 }
 
-
-/* .tabbar-box .tab-item:nth-child(1) {
-    width: 101px;
-}
-
-.tabbar-box .tab-item:nth-child(2) {
-    width: 143px;
-}
-
-.tabbar-box .tab-item:nth-child(3) {
-    width: 74px;
-}
-
-.tabbar-box .tab-item:nth-child(4) {
-    width: 110px;
-} */
 
 .tabbar-box .tab-item:nth-child(5) {
     width: 60px;
@@ -189,6 +172,225 @@ a {
 }
 
 #lan {
-    /* float: right; */
     width: 150px;
+} */
+
+body {
+    margin: 0;
+}
+
+.container {
+    width: 100%;
+    /* height: 100%; */
+    min-height: 100%;
+    min-width: 1200px;
+    background-color: #f5f7fa;
+}
+
+.header-box {
+    width: 100%;
+    height: 80px;
+    -moz-box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.35);
+    box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.35);
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.header-con {
+    height: 100%;
+    width: 1020px;
+    max-width: 100%;
+    margin: 0px auto;
+}
+
+.logo {
+    height: 100%;
+    display: inline-block;
+}
+
+.logo img {
+    padding-top: 3px;
+}
+
+.tabbar-box {
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+    /* width: 1400px; */
+}
+
+.tabbar-box .tab-item {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 35px;
+    font-size: 15px;
+    font-family: PingFangSC-Medium;
+    color: rgba(102, 102, 102, 1);
+    padding-top: 25px;
+    cursor: pointer;
+    line-height: 30px
+}
+
+
+/* .tabbar-box .tab-item:nth-child(1) {
+    width: 101px;
+}
+
+.tabbar-box .tab-item:nth-child(2) {
+    width: 143px;
+}
+
+.tabbar-box .tab-item:nth-child(3) {
+    width: 74px;
+}
+
+.tabbar-box .tab-item:nth-child(4) {
+    width: 110px;
+} */
+
+.tabbar-box .tab-item:nth-child(5) {
+    width: 60px;
+}
+
+.tabbar-box .tab-item:nth-child(6) {
+    width: 65px;
+}
+
+.tabbar-box .active {
+    color: #cd222d;
+}
+
+.tabbar-box .active span {
+    border-bottom: 2px solid #cd222d;
+}
+
+.tabbar-box .active1 {
+    color: #cd222d;
+}
+
+.tabbar-box .active1 span {
+    border-bottom: 2px solid #cd222d;
+}
+
+.content {
+    width: 1000px;
+    /* min-height: 80%; */
+    padding-bottom: 50px;
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.5);
+    margin: 0 auto;
+    margin-top: 60px;
+    border-radius: 4px;
+}
+
+.btn {
+    margin-top: 30px;
+    width: 240px;
+    height: 50px;
+    border-radius: 4px;
+    background-color: #cd222d;
+    color: rgba(255, 255, 255, 1);
+    text-align: center;
+    cursor: pointer;
+    line-height: 50px;
+    font-size: 16px;
+    font-family: PingFangSC-Medium;
+}
+
+.foot {
+    margin-top: 48px;
+    color: rgba(102, 102, 102, 1);
+    /* background-color: rgba(249, 249, 249, 1); */
+    font-size: 12px;
+    width: 100%;
+    text-align: center;
+    font-family: PingFangSC-Regular;
+    padding-bottom: 40px;
+}
+
+#vote {
+    position: relative;
+}
+
+#token {
+    position: relative;
+}
+
+.voteTab {
+    background-color: rgba(255, 255, 255, 1);
+    margin-left: -10px;
+    margin-top: 25px;
+    color: rgba(102, 102, 102, 1);
+    width: 110px;
+    /* height: 160px; */
+    box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.5);
+}
+
+.voteTab-item {
+    height: 40px;
+    line-height: 40px;
+}
+
+.voteTab-item:hover {
+    background-color: #cd222d;
+}
+
+.voteTab-item a {
+    padding: 0px 0px 10px 10px;
+    display: inline-block;
+    width: 100%;
+}
+
+.voteTab-item a:hover {
+    color: rgba(255, 255, 255, 1)
+}
+
+.con-top {
+    height: 50px;
+    border-bottom: 1px solid rgba(204, 204, 204, 1);
+    padding-top: 28px;
+    color: rgba(102, 102, 102, 1);
+    font-size: 20px;
+    font-family: PingFangSC-Medium;
+    padding-left: 56px;
+    box-sizing: content-box;
+}
+
+.con-top span {
+    margin-left: 13px;
+}
+
+a {
+    text-decoration: none;
+    color: rgba(102, 102, 102, 1)
+}
+
+.title {
+    color: rgba(102, 102, 102, 1);
+    font-size: 18px;
+    font-family: PingFangSC-Medium;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.lable {
+    margin-bottom: 8px;
+    color: rgba(102, 102, 102, 1);
+}
+
+#lan {
+    /* float: right; */
+    width: 100px;
+}
+
+.main {
+    padding-top: 40px;
+    padding-left: 60px;
+}
+
+.contact-note {
+    margin-top: 10px;
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: rgba(102, 102, 102, 1);
+    padding-top: 20px;
 }
