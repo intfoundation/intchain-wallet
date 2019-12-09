@@ -20,6 +20,7 @@ app.controller('voteController', function($scope) {
     $scope.createLimit;
     $scope.price;
 
+    $scope.token = []
 
 
     $scope.address = ""
@@ -77,6 +78,23 @@ app.controller('voteController', function($scope) {
         })
     }
 
+    $scope.getToken = () => {
+        var wal = require("wal");
+        wal.getToken($scope.address).then(function(data) {
+            if (typeof data === 'string') {
+                data = JSON.parse(data)
+            }
+            if (data.error) {
+                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
+                return;
+            }
+            for (let i in data.data.tokenList) {
+                data.data.tokenList[i].balance = modal.numformat(data.data.tokenList[i].balance, true)
+            }
+            $scope.token = data.data.tokenList;
+            $scope.$apply();
+        });
+    }
 
     $scope.getTransferLimit = function() {
         var wal = require("wal");
@@ -114,7 +132,10 @@ app.controller('voteController', function($scope) {
             $scope.transferPass = false
         }
     })
-
+    $scope.chooseTokenid = function(t) {
+        $scope.tokenid = t.tokenid
+        $scope.viewToken = false;
+    }
 
 
     $scope.$watch('tokenid', function(val) {
@@ -132,6 +153,7 @@ app.controller('voteController', function($scope) {
                 if ($scope.tokenBalance == null) {
                     $scope.balance = 0;
                 }
+                $scope.$apply();
             })
         }
     })
@@ -313,6 +335,7 @@ app.controller('voteController', function($scope) {
                 $scope.keyStoreUnlockFail = false;
                 $scope.getbalance();
                 $scope.getPrice();
+                $scope.getToken();
                 $scope.$apply();
             })
             // }
@@ -346,6 +369,7 @@ app.controller('voteController', function($scope) {
         } else {
             $scope.getbalance()
             $scope.getPrice()
+            $scope.getToken();
             $scope.step = 2;
         }
         $scope.$apply();
