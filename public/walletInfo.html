@@ -408,8 +408,8 @@
         }
         
         .token-box {
-            width: 410px;
-            max-height: 200px;
+            width: 416px;
+            max-height: 800px;
             border: 1px solid rgba(204, 204, 204, 1);
             border-top: 0px;
             overflow-y: scroll;
@@ -648,10 +648,13 @@
                                 </div>
                                 <div class="token-box" ng-show='viewToken'>
                                     <div ng-show='token.length' ng-repeat='t in token' class="token-item">
+                                        <img ng-show="t.logoUrl" ng-src="{{t.logoUrl}}" height="25px" alt="" style="margin:8px 0 0 20px">
+                                        <img ng-show="!t.logoUrl" src="./images/token-logo.png" height="25px" alt="" style="margin:8px 0 0 20px">
+                                        <div style="display: inline-block;vertical-align: top;margin-top: 3px;">
 
-                                        <span>{{t.coin}} </span> <br/>
-                                        <span>{{t.balance}}</span>
-
+                                            <span style="font-size: 12px;">{{t.coin}}</span>
+                                        </div>
+                                        <div style="font-size: 12px;margin-left:23px">{{t.symbol}}:{{t.balance}}</div>
                                     </div>
                                 </div>
                             </div>
