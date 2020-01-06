@@ -61102,7 +61102,7 @@ const { createKeyPair } = require('./crypt/account')
 const { encrypt, decrypt } = require('./crypt/crypt')
 const { ValueTransaction } = require('./core/value_chain/transaction')
 const BigNumber = require('bignumber.js')
-const { addressFromSecretKey, addressFromPublicKey, isValidAddress } = require('./core/address')
+const { addressFromSecretKey, addressFromPublicKey, publicKeyFromSecretKey, sign, verify, isValidAddress } = require('./core/address')
     //const core_1 = require("./core"); 
 const { BufferWriter } = require('./core/lib/writer')
 const { encodeAddressAndNonce } = require('./core/serializable')
@@ -61472,7 +61472,6 @@ let transferTokenTo = async(tokenid, to, amount, limit, price, secret, data) => 
     }
 }
 
-
 let unmortgage = async(amount, limit, price, secret) => {
     assert(amount, 'amount is required.');
     assert(limit, 'fee is required.');
@@ -61640,7 +61639,8 @@ let transfer = async(amount, limit, price, to, secret, data) => {
     }
     let render = writer.render();
 
-    let encodeRender = rlp.encode(render)
+    let encodeRender = rlp.encode(render);
+
     let renderStr = encodeRender.toString('hex')
     return {
         info: {
@@ -61656,7 +61656,6 @@ let transfer = async(amount, limit, price, to, secret, data) => {
         hash: tx.m_hash
     }
 }
-
 
 let burnIntOnEth = async(options) => {
     let url = getMydataUrl + options.decimalAmount + "/" + options.fromAddress
@@ -61687,9 +61686,21 @@ let queryBalance = async(address) => {
     let result = await http.sendGet(url);
     return JSON.parse(result);
 }
-let sendSignedTransaction = async renderStr => {
-    let result = await http.sendPost({ renderStr: renderStr }, host, port, transferUrl)
+let sendSignedTransaction = async(renderStr, type, themeUrl, blessing, address, num, amount) => {
+    let result = await http.sendPost({ renderStr: renderStr, type: type, themeUrl, blessing, address, num, amount }, host, port, transferUrl)
     return result
+}
+
+
+//transfer = async(amount, limit, price, to, secret, data)
+let signTimeStamp = (str, secret) => {
+    let signature = sign(str, secret)
+    let publicKey = publicKeyFromSecretKey(secret)
+    return {
+        str,
+        signature: signature.toString('hex'),
+        publicKey: publicKey.toString('hex'),
+    }
 }
 
 let getToken = async address => {
@@ -61743,7 +61754,8 @@ module.exports = {
     rewardHistory,
     rfdVote,
     queryProposalRfd,
-    getRfd2
+    getRfd2,
+    signTimeStamp
 }
 }).call(this,require("buffer").Buffer)
 },{"./cfg":436,"./core/address":437,"./core/lib/writer":445,"./core/serializable":446,"./core/value_chain/transaction":447,"./crypt/account":448,"./crypt/crypt":449,"./mapping":455,"assert":15,"bignumber.js":194,"buffer":51,"rlp":344,"web3":419}]},{},["wal"]);

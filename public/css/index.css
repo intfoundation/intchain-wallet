@@ -247,11 +247,16 @@ body {
     width: 110px;
 } */
 
-.tabbar-box .tab-item:nth-child(5) {
+
+/* .tabbar-box .tab-item:nth-child(5) {
     width: 60px;
+} */
+
+.tabbar-box .tab-item:nth-child(4) {
+    width: 55px;
 }
 
-.tabbar-box .tab-item:nth-child(6) {
+.tabbar-box .tab-item:nth-child(5) {
     width: 65px;
 }
 
