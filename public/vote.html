@@ -852,7 +852,7 @@
                                             <i-Option value="2">{{doc.notInvolved}}</i-Option>
                                         </i-Select>
                                         <div style="text-align: center;height:80px;line-height: 150px" v-if="!showProposalRfdList.length">{{doc.noData}}</div>
-                                        <div style="margin-left: 50px;width:1025px" v-for="r in showProposalRfdList.slice((this.pageNo1 - 1) * this.pageSize1, this.pageSize1 * this.pageNo1)">
+                                        <div style="margin-left: 50px;width:850px" v-for="r in showProposalRfdList.slice((this.pageNo1 - 1) * this.pageSize1, this.pageSize1 * this.pageNo1)">
                                             <p class="r-hash">hash: {{r.hash}}</p>
                                             <p class="r-title" :class="{thover:!!r.webUrl}" v-on:click.stop="toWebUrl(r,$event)">{{r.title}}</p>
                                             <div class="r-icon">
