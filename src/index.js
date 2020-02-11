@@ -586,13 +586,11 @@ let queryBalance = async(address) => {
     let result = await http.sendGet(url);
     return JSON.parse(result);
 }
-let sendSignedTransaction = async(renderStr, type, themeUrl, blessing, address, num, amount) => {
-    let result = await http.sendPost({ renderStr: renderStr, type: type, themeUrl, blessing, address, num, amount }, host, port, transferUrl)
+let sendSignedTransaction = async(renderStr, type, themeUrl, blessing, address, num, amount, symbol, tokenid, logoUrl) => {
+    let result = await http.sendPost({ renderStr: renderStr, type: type, themeUrl, blessing, address, num, amount, symbol, tokenid, logoUrl }, host, port, transferUrl)
     return result
 }
 
-
-//transfer = async(amount, limit, price, to, secret, data)
 let signTimeStamp = (str, secret) => {
     let signature = sign(str, secret)
     let publicKey = publicKeyFromSecretKey(secret)
