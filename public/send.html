@@ -379,6 +379,38 @@
             font-weight: normal;
             font-size: 14px;
         }
+        
+        .down {
+            height: 25px;
+            padding-top: 10px;
+        }
+        
+        .token-box {
+            width: 416px;
+            max-height: 200px;
+            border: 1px solid rgba(204, 204, 204, 1);
+            border-top: 1px solid rgba(204, 204, 204, 1);
+            overflow-y: scroll;
+            position: absolute;
+            z-index: 100px;
+            background-color: rgba(255, 255, 255, 1);
+            margin-left: -1px;
+        }
+        
+        .token-item {
+            height: 40px;
+            line-height: 40px;
+            color: rgba(51, 51, 51, 1);
+            font-size: 12px;
+        }
+        
+        .token-item:hover {
+            background-color: rgba(205, 34, 45, 0.1);
+        }
+        
+        .token-item span {
+            margin-left: 20px;
+        }
     </style>
 
     <body ng-app="myApp">
@@ -408,11 +440,31 @@
                                 <a href="./mapping.html?lan={{lan}}">{{doc.mapping}}</a>                      
                             </span>
                         </div> -->
-                        <div class="tab-item active">
+                        <!-- <div class="tab-item active">
                             <span>
                                     {{doc.sendInt}}
                       </span>
 
+                        </div> -->
+                        <div id="send" ng-mouseenter="sendTabView = true" ng-mouseleave="sendTabView = false" class="tab-item active">
+                            <span>
+                                <!-- <a href="javascript:;">{{doc.send}} </a> -->
+                                {{doc.send}}
+                                <img  src="./images/voteac.jpg" height="11px"  alt="">
+                            </span>
+                            <br>
+                            <div class="sendTab" ng-show="sendTabView">
+                                <div class="sendTab-item">
+                                    <a href="javascript:;" ng-click="action='sendInt'">
+                                        {{doc.sendInt}} 
+                                    </a>
+                                </div> <br>
+                                <div class="sendTab-item">
+                                    <a href="javascript:;" ng-click="action='sendToken'">
+                                        {{doc.sendToken}} 
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item">
                             <span>
@@ -501,7 +553,7 @@
             </div>
             <div class="content">
                 <div class="con-top">
-                    <img style="margin-bottom:-3px" src="./images/send.png" alt=""><span> {{doc.sendInt}}</span>
+                    <img style="margin-bottom:-3px" src="./images/send.png" alt=""><span> {{title}}</span>
                 </div>
                 <div class="main">
                     <div ng-show="step==1">
@@ -569,7 +621,7 @@
                             {{doc.callUs}}<br> {{doc.email}}
                         </div>
                     </div>
-                    <div ng-show="step==2">
+                    <div ng-show="action=='sendInt' &&step==2">
                         <div class="item-box">
                             <div class="lable"> {{doc.fd}} </div>
                             <div class="in-box">
@@ -609,6 +661,103 @@
                         </div>
                         <div class="btn-dis" style="margin-top: 48px" ng-show="!pass"> {{doc.gt}}</div>
                         <div class="btn-unlock" style="margin-top: 48px" ng-click="send()" ng-show="pass">
+                            {{doc.gt}}
+                        </div>
+                        <div class="contact-note">
+                            {{doc.callUs}}<br> {{doc.email}}
+                        </div>
+                    </div>
+                    <div ng-show="action=='sendToken' && step == 2">
+                        <div class="item-box">
+                            <div class="lable"> {{doc.fd}} </div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" type="text" readonly ng-model="address">
+                            </div>
+                        </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">{{doc.balance}}</div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" type="text" readonly ng-model="balance">
+                            </div>
+                        </div>
+
+                        <div class="item-box">
+                            <div class="lable">Tokenid</div>
+                            <div class="in-box" style="cursor:pointer" ng-mouseenter="viewToken = true" ng-mouseleave="viewToken = false">
+                                <input type="text" readonly ng-model="tokenid" style="cursor:pointer">
+                                <div style="display:inline-block;height:100%;vertical-align: top">
+                                    <img ng-show='!viewToken' src="./images/down.png" class="down">
+                                    <img ng-show='viewToken' src="./images/up.png" class="down">
+                                </div>
+                                <div class="token-box" ng-show='viewToken'>
+                                    <div ng-show='token.length' ng-repeat='t in token' class="token-item" ng-click="chooseTokenid(t)">
+                                        <img ng-show="t.logoUrl" ng-src="{{t.logoUrl}}" height="25px" alt="" style="margin:8px 0 0 5px">
+                                        <img ng-show="!t.logoUrl" src="./images/token-logo.png" height="25px" alt="" style="margin:8px 0 0 5px">
+                                        <div style="display: inline-block;vertical-align: top;margin-top: 3px;">
+                                            <span>({{t.symbol}})</span>
+                                            <span>{{t.coin}} </span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--                         
+                        <div class="item-box"> 
+                            <div class="lable"> Tokenid</div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" placeholder="Tokenid" type="text" ng-model="tokenid">
+                            </div>
+                        </div>
+                         <div class="item-box">
+                            <div class="lable"> Tokenid</div>
+                            <div class="in-box">
+                                <select ng-model="tokenid" style="width:100%;height:100%;border:0px;background-color:#fff">
+                                         <div ng-show='token.length' ng-repeat='t in token' class="token-item">
+
+                                                <span>{{t.coin}} </span> <br/>
+                                                <span>{{t.balance}}</span>
+        
+                                            </div>
+                                    <option ng-model="t.coin" ng-repeat='t in token' >
+                                        <img src="https://explorer.intchain.io/app/road.jpg" alt="">
+                                        {{t.coin}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div> -->
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">{{doc.tokenBalance}}</div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" placeholder="{{doc.tokenBalance}}" type="text" readonly ng-model="tokenBalance">
+                            </div>
+                        </div>
+                        <div class="item-box">
+                            <div class="lable"> {{doc.td}} </div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder=" {{doc.td}} " ng-model="tokenToAddress">
+                            </div>
+                        </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable"> {{doc.am}} </div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.am}}" ng-model="transferTokenAmount">
+                            </div>
+                        </div>
+                        <div class="item-box">
+                            <div class="lable">Gas Limit</div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="Gas Limit" ng-model="transferTokenLimit">
+                            </div>
+                        </div>
+                        <div class="item-box" style="margin-left: 50px">
+                            <div class="lable">Gas Price</div>
+                            <div class="in-box">
+                                <input ng-keyup="enterEvent($event)" type="text" placeholder="Gas Price (INT)" ng-model="price">
+                            </div>
+                        </div>
+                        <div class="btn-dis" style="margin-top: 48px" ng-show="!transferPass"> {{doc.gt}}</div>
+                        <div class="btn-unlock" style="margin-top: 48px" ng-click="transferTokenTo()" ng-show="transferPass">
                             {{doc.gt}}
                         </div>
                         <div class="contact-note">

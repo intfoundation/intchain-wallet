@@ -378,11 +378,30 @@
                                 <a href="./mapping.html?lan={{lan}}">{{doc.mapping}}</a>                       
                        </span>
                         </div> -->
-                        <div class="tab-item">
+                        <!-- <div class="tab-item">
                             <span>
                        <a href="./send.html?lan={{lan}}"> {{doc.sendInt}}</a>
                       </span>
 
+                        </div> -->
+                        <div id="send" ng-mouseenter="sendTabView = true" ng-mouseleave="sendTabView = false" class="tab-item">
+                            <span>
+                                <a href="javascript:;">{{doc.send}} </a>
+                                <img  src="./images/voteunac.png" alt="">
+                            </span>
+                            <br>
+                            <div class="sendTab" ng-show="sendTabView">
+                                <div class="sendTab-item">
+                                    <a href="./send.html?action=sendInt&lan={{lan}}">
+                                        {{doc.sendInt}} 
+                                    </a>
+                                </div> <br>
+                                <div class="sendTab-item">
+                                    <a href="./send.html?action=sendToken&lan={{lan}}">
+                                        {{doc.sendToken}} 
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                         <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item active1">
                             <span>

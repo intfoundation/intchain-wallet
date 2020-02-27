@@ -10,23 +10,29 @@ app.controller('sendintController', function($scope) {
     $scope.privateKeyUnlockFail = false
     $scope.privateKeyView = false
     $scope.pass = false
+    $scope.action = new modal.UrlSearch().action
         //钱包信息相关
+    $scope.token = []
     $scope.privateKey = ""
     $scope.address = ""
     $scope.balance = 0;
     $scope.toAddress;
+    $scope.tokenToAddress;
     $scope.amount;
+    $scope.transferTokenAmount;
     $scope.limit = 40000;
+    $scope.transferTokenLimit
     $scope.price = 0.0000002;
     $scope.keystorestr = ""
     $scope.ap = ""
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
-    document.title = $scope.doc.sendInt + ' | INT Chain';
+    document.title = $scope.doc[$scope.action] + ' | INT Chain';
     $scope.changelan = function(a) {
         $scope.doc = lan[a]
         $scope.lan = a
-        document.title = $scope.doc.sendInt + ' | INT Chain';
+        document.title = $scope.doc[$scope.action] + ' | INT Chain';
+        $scope.title = $scope.doc[$scope.action]
         if (!$scope.balance || !$scope.limit || !$scope.price) {
             return
         }
@@ -34,6 +40,12 @@ app.controller('sendintController', function($scope) {
 
         $scope.amount = $scope.doc.maxAmount + new wal.BigNumber($scope.balance).minus(new wal.BigNumber($scope.limit).multipliedBy($scope.price).toString()).toString()
     }
+    $scope.$watch('action', function(val) {
+        document.title = $scope.doc[$scope.action] + ' | INT Chain';
+
+        $scope.title = $scope.doc[val]
+
+    })
     $scope.sendAll = function() {
         var wal = require("wal");
         if (!$scope.balance || !$scope.limit || !$scope.price) {
@@ -55,6 +67,107 @@ app.controller('sendintController', function($scope) {
         $scope.ap = $scope.doc.maxAmount + new wal.BigNumber(v.b).minus(new wal.BigNumber(v.l).multipliedBy(v.p).toString()).toString()
 
     })
+    $scope.$watch('{toAddress:tokenToAddress,amount:transferTokenAmount,limit:transferTokenLimit,price:price,tokenid:tokenid}', function(v) {
+        if (v.toAddress && v.amount && v.limit && v.price && v.tokenid) {
+            $scope.transferPass = true
+        } else {
+            $scope.transferPass = false
+        }
+    })
+    $scope.chooseTokenid = function(t) {
+        $scope.tokenid = t.tokenid
+        $scope.viewToken = false;
+    }
+    $scope.getTransferTokenLimit = function() {
+        var wal = require("wal");
+        wal.getLimit('transferTokenTo', JSON.stringify({ tokenid: $scope.tokenid, to: $scope.tokenToAddress, amount: $scope.transferTokenAmount })).then(function(data) {
+            if (typeof data === 'string') {
+                data = JSON.parse(data)
+            }
+            if (data.err) {
+                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
+                return;
+            }
+            $scope.transferTokenLimit = data.limit
+            $scope.$apply();
+        })
+    }
+    $scope.$watch('{t:tokenid,ta:tokenToAddress,a:transferTokenAmount}', function(v) {
+        if (v.t && v.ta && !isNaN(v.a) && v.a > 0) {
+            $scope.getTransferTokenLimit()
+        }
+    })
+    $scope.$watch('tokenid', function(val) {
+        var wal = require("wal");
+        if (wal.isValidAddress(val)) {
+            wal.getTokenBalance($scope.tokenid, $scope.address).then(function(data) {
+                if (typeof data === 'string') {
+                    data = JSON.parse(data)
+                }
+                if (data.err) {
+                    modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
+                    return;
+                }
+                $scope.tokenBalance = modal.numformat(data.balance)
+                if ($scope.tokenBalance == null) {
+                    $scope.balance = 0;
+                }
+                $scope.$apply();
+            })
+        }
+    })
+    $scope.transferTokenTo = function() {
+        var wal = require("wal");
+
+        if (!wal.isValidAddress($scope.tokenid)) {
+            modal.error({ msg: $scope.doc.tnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
+            return
+        }
+
+        if (!wal.isValidAddress($scope.tokenToAddress)) {
+            modal.error({ msg: $scope.doc.tanv, title: $scope.doc.notice, okText: $scope.doc.confirm })
+            return
+        }
+        if (isNaN($scope.transferTokenAmount) || $scope.transferTokenAmount < 1 / Math.pow(10, 18)) {
+            modal.error({ msg: $scope.doc.anv, title: $scope.doc.notice, okText: $scope.doc.confirm })
+            return
+        }
+        if (+$scope.transferTokenAmount > +$scope.tokenBalance) {
+            modal.error({ msg: $scope.doc.amltb, title: $scope.doc.notice, okText: $scope.doc.confirm })
+            return
+        }
+        if (isNaN($scope.transferTokenLimit) || $scope.transferTokenLimit <= 0) {
+            modal.error({ msg: $scope.doc.lnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
+            return
+        }
+        if (isNaN($scope.price) || $scope.price <= 0) {
+            modal.error({ msg: $scope.doc.pnv, title: $scope.doc.notice, okText: $scope.doc.confirm })
+            return
+        }
+        //tokenid, to, amount, limit, price, secret
+        wal.transferTokenTo($scope.tokenid, $scope.tokenToAddress, $scope.transferTokenAmount, $scope.transferTokenLimit, $scope.price, $scope.privateKey)
+            .then(function(res) {
+                if (res.err) {
+                    modal.error({ msg: res.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
+                    return;
+                }
+
+                modal.showInfo(res.info, $scope.doc, function() {
+                    wal.sendSignedTransaction(res.renderStr).then(function(r) {
+                        if (typeof r === 'string') {
+                            r = JSON.parse(r)
+                        }
+                        if (r.err) {
+                            modal.error({ msg: r.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
+                        } else {
+                            modal.burnSuccess({ doc: $scope.doc, msg: 'https://explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
+                            $scope.timeGetBalance()
+                        }
+                    })
+                })
+            })
+    }
+
     $scope.$watch('password', function(newValue, oldValue) {
         if ($scope.password.length >= 9) {
             $scope.unlockDisabled = false
@@ -103,7 +216,23 @@ app.controller('sendintController', function($scope) {
             util.alert('Please select wallet file');
         }
     };
-
+    $scope.getToken = () => {
+        var wal = require("wal");
+        wal.getToken($scope.address).then(function(data) {
+            if (typeof data === 'string') {
+                data = JSON.parse(data)
+            }
+            if (data.error) {
+                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
+                return;
+            }
+            for (let i in data.data.tokenList) {
+                data.data.tokenList[i].balance = modal.numformat(data.data.tokenList[i].balance, true)
+            }
+            $scope.token = data.data.tokenList;
+            $scope.$apply();
+        });
+    }
     $scope.keyStoreUnlock = function() {
         // var file = $scope.file;
         // var reader = new FileReader();
@@ -128,6 +257,7 @@ app.controller('sendintController', function($scope) {
                 $scope.privateKey = data;
                 $scope.keyStoreUnlockFail = false;
                 $scope.getbalance();
+                $scope.getToken();
                 $scope.getPrice();
                 $scope.$apply();
             })
@@ -176,6 +306,7 @@ app.controller('sendintController', function($scope) {
             $scope.privateKeyUnlockFail = true
         } else {
             $scope.getbalance()
+            $scope.getToken();
             $scope.getPrice()
             $scope.step = 2;
         }
