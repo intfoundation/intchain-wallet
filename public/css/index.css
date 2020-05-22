@@ -116,7 +116,8 @@ input {
 } */
 
 .tabbar-box .active {
-    color: #d31515;
+    /* color: #d31515; */
+    font-weight: 700;
 }
 
 .tabbar-box .active span {
@@ -124,7 +125,8 @@ input {
 }
 
 .tabbar-box .active1 {
-    color: #d31515;
+    /* color: #d31515; */
+    font-weight: 700;
 }
 
 .tabbar-box .active1 span {
