@@ -2,9 +2,9 @@
 
 <head>
     <meta charset="utf-8">
-    <title>New Wallet | INT Chain</title>
+    <title>Wallet | INT</title>
     <link rel="stylesheet" href="./css/index.css" />
-    <link rel="icon" href="./images/intlogo.png" type="image/x-icon" />
+    <link rel="icon" href="./images/int-logo.png" type="image/x-icon" />
     <script src="./js/plugins/jquery/jquery-3.3.1.min.js"></script>
     <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.0.0/polyfill.js"></script> -->
     <link href="./js/plugins/layer/skin/default/layer.css" rel="stylesheet">
@@ -30,7 +30,7 @@
     <script type="text/javascript" src="./js/page/wal.js"></script>
     <!-- <style>
         .title {
-            color: rgba(102, 102, 102, 1);
+            color: #222;
             font-size: 34px;
             font-family: PingFangSC-Medium;
             width: 100%;
@@ -83,7 +83,7 @@
         }
         
         .pwdtip {
-            color: rgba(102, 102, 102, 1);
+            color: #222;
             font-size: 14px;
             font-family: PingFangSC-Regular;
             margin-left: 16px;
@@ -96,19 +96,19 @@
         .down {
             margin-top: 20px;
             width: 240px;
-            height: 50px;
+            height: 48px;
             border-radius: 4px;
             border: 1px solid #cd222d;
             text-align: center;
-            line-height: 50px;
-            color: rgba(102, 102, 102, 1);
+            line-height: 48px;
+            color: #222;
             font-size: 16px;
             cursor: pointer;
         }
         
         .warning {
             font-size: 16px;
-            color: rgba(102, 102, 102, 1);
+            color: #222;
             margin-top: 32px;
         }
         
@@ -129,11 +129,11 @@
         
         .continue {
             width: 240px;
-            height: 50px;
+            height: 48px;
             border-radius: 4px;
             background-color: #cd222d;
             text-align: center;
-            line-height: 50px;
+            line-height: 48px;
             color: rgba(255, 255, 255, 1);
             font-size: 16px;
             margin-top: 36px;
@@ -151,7 +151,7 @@
             border-radius: 4px;
             background-color: rgba(247, 247, 247, 1);
             border: 1px solid rgba(204, 204, 204, 1);
-            color: rgba(102, 102, 102, 1);
+            color: #222;
             font-size: 16px;
             font-family: PingFangSC-Regular;
             padding: 16px 24px;
@@ -173,7 +173,7 @@
             margin-bottom: 24px;
             width: 410px;
             height: 46px;
-            border-radius: 4px;
+            /* border-radius: 4px; */
             background-color: rgba(255, 255, 255, 1);
             border: 1px solid rgba(204, 204, 204, 1);
         }
@@ -197,13 +197,13 @@
         
         .warn {
             margin-top: 6px;
-            color: #cd222d;
+            /* color: #cd222d; */
             font-size: 12px;
             font-family: PingFangSC-Regular;
         }
         
         .pwdtip {
-            color: rgba(102, 102, 102, 1);
+            color: #222;
             font-size: 14px;
             font-family: PingFangSC-Regular;
             margin-left: 16px;
@@ -214,21 +214,22 @@
         }
         
         .down {
+            font-family: PingFangSC-Regular;
             margin-top: 20px;
             width: 240px;
-            height: 50px;
+            height: 48px;
             border-radius: 4px;
             border: 1px solid #cd222d;
             text-align: center;
-            line-height: 50px;
-            color: rgba(102, 102, 102, 1);
-            font-size: 16px;
+            line-height: 48px;
+            color: #222;
+            font-size: 14px;
             cursor: pointer;
         }
         
         .warning {
-            font-size: 16px;
-            color: rgba(102, 102, 102, 1);
+            font-size: 14px;
+            color: #222;
             margin-top: 32px;
         }
         
@@ -249,13 +250,13 @@
         
         .continue {
             width: 240px;
-            height: 50px;
+            height: 48px;
             border-radius: 4px;
             background-color: #cd222d;
             text-align: center;
-            line-height: 50px;
+            line-height: 48px;
             color: rgba(255, 255, 255, 1);
-            font-size: 16px;
+            font-size: 14px;
             margin-top: 36px;
             cursor: pointer;
         }
@@ -271,14 +272,15 @@
             border-radius: 4px;
             background-color: rgba(247, 247, 247, 1);
             border: 1px solid rgba(204, 204, 204, 1);
-            color: rgba(102, 102, 102, 1);
-            font-size: 16px;
+            color: #222;
+            font-size: 14px;
             font-family: PingFangSC-Regular;
             padding: 16px 24px;
         }
         
         .warn-tip {
-            margin-bottom: -1px
+            margin-bottom: -1px;
+            display: none;
         }
     </style>
 
@@ -288,7 +290,7 @@
             <div class="header-box">
                 <div class="header-con">
                     <div class="logo">
-                        <img src="./images/intlogo.png" width="72px" height="72px">
+                        <img src="./images/int-logo.png" width="72px" height="72px">
                     </div>
                     <div class="tabbar-box">
                         <div class="tab-item active">
@@ -312,7 +314,7 @@
                         <div id="send" ng-mouseenter="sendTabView = true" ng-mouseleave="sendTabView = false" class="tab-item">
                             <span>
                                 <a href="javascript:;">{{doc.send}} </a>
-                                <img  src="./images/voteunac.png" alt="">
+                                <span class="triangle"></span>
                             </span>
                             <br>
                             <div class="sendTab" ng-show="sendTabView">
@@ -332,8 +334,8 @@
 
                         <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item">
                             <span>
-                                    <a href="javascript:;" >{{doc.vote}} </a>
-                                     <img  src="./images/voteunac.png" alt="">
+                                    <a href="javascript:;" >{{doc.mortgage}} </a>
+                                     <span class="triangle"></span>
                             </span>
                             <div></div>
                             <div class="voteTab" ng-show="voteTabView">
@@ -363,7 +365,7 @@
                         <div id="token" ng-mouseenter="tokenView = true" ng-mouseleave="tokenView = false" class="tab-item">
                             <span>
                                         <a href="javascript:;" >Token </a>
-                                         <img  src="./images/voteunac.png" alt="">
+                                         <span class="triangle"></span>
                                 </span>
                             <div></div>
                             <div class="voteTab" ng-show="tokenView">
@@ -392,7 +394,7 @@
                         <div id="lan" ng-mouseenter="lanView = true" ng-mouseleave="lanView = false" class="tab-item">
                             <span>
                                     <a href="javascript:;" >{{doc.language}} </a>
-                                     <img  src="./images/voteunac.png" alt="">
+                                     <span class="triangle"></span>
                             </span>
                             <div></div>
                             <div class="voteTab" ng-show="lanView">
@@ -414,16 +416,16 @@
                     </div>
                 </div>
             </div>
+            <div class="title-section">
+                <div class="site-title title-underline">INT Web Wallet</div>
+            </div>
             <div class="content">
-                <div class="con-top">
-                    <img style="margin-bottom:-1px" src="./images/wallet.png" alt=""><span> {{doc.newWallet}} </span>
-                </div>
                 <div class="main" ng-show="step==1">
                     <div class="title"> {{doc.cnw}}</div>
                     <!-- <span class="tip">{{doc.sp}}</span><br/> -->
                     <div class="in-box">
-                        <input ng-keyup="enterEvent($event)" ng-show="!pwdView" type="password" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="{{doc.ep}}">
-                        <input ng-keyup="enterEvent($event)" ng-show="pwdView" type="text" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="{{doc.ep}}">
+                        <input ng-keyup="enterEvent($event)" ng-show="!pwdView" type="password" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="{{doc.ep2}}">
+                        <input ng-keyup="enterEvent($event)" ng-show="pwdView" type="text" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="{{doc.ep2}}">
                         <img ng-click="pwdView=!pwdView" ng-show="pwdView" src="./images/eyeopen.png">
                         <img ng-click="pwdView=!pwdView" ng-show="!pwdView" src="./images/eyeclose.png">
                     </div>
@@ -446,12 +448,12 @@
                         <img class="warn-tip" src="./images/warn.png" alt="" height="12px">
                         <span>{{doc.noSpace}}</span>
                     </div>
-                    <div class="warn">
+                    <!-- <div class="warn">
                         <img class="warn-tip" src="./images/warn.png" alt="" height="12px">
                         <span>{{doc.noShare}}</span>
-                    </div>
+                    </div> -->
                     <div class="btn" ng-click="create()">
-                        {{doc.cnw}}
+                        {{doc.cnw2}}
                     </div>
                     <div class="contact-note">
                         {{doc.callUs}}<br> {{doc.email}}
@@ -509,7 +511,7 @@
                 </div> -->
             </div>
             <div class="foot">
-                Copyright © 2018 INT
+                Copyright © 2019 - 2020 INT
             </div>
         </div>
     </body>

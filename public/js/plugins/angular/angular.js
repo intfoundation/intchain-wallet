@@ -4360,7 +4360,7 @@ function $AnchorScrollProvider() {
 
          .fixed-header {
            background-color: rgba(0, 0, 0, 0.2);
-           height: 50px;
+           height: 48px;
            position: fixed;
            top: 0; left: 0; right: 0;
          }

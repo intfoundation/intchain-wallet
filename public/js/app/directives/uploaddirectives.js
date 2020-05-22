@@ -87,7 +87,7 @@ app.directive('fileUploader', function($http) {
             ' </div>' +
             ' <div class="lt2" style="display:none"><a href="javascript:void(0)"><input type="file">浏览</a></div>' +
             '</div>' +
-            '<textarea placeholder="{{doc.eKeyStore}}" ng-model="keystorestr" style="margin-top:40px;border: 1px solid rgba(204, 204, 204, 1);border-radius:4px" rows="10" cols="58"></textarea>' +
+            '<textarea placeholder="{{doc.eKeyStore}}" ng-model="keystorestr" style="margin-top:40px;border: 1px solid rgba(204, 204, 204, 1);" rows="10" cols="58"></textarea>' +
             '<div  style="display:block;width: 800px;height: 79px"><div class="mi middle">' +
             '   {{doc.isSelected}}</div>' +
             '   <div class="in-box">' +

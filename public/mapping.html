@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Get Test Coin| INT Chain</title>
     <link rel="stylesheet" href="./css/index.css" />
-    <link rel="icon" href="./images/intlogo.png" type="image/x-icon" />
+    <link rel="icon" href="./images/int-logo.png" type="image/x-icon" />
     <script src="./js/plugins/jquery/jquery-3.3.1.min.js"></script>
     <link href="./js/plugins/layer/skin/default/layer.css" rel="stylesheet">
     <script src="./js/plugins/layer/layer.js"></script>
@@ -95,10 +95,10 @@
         
         .is .lt1 {
             width: 412px;
-            height: 50px;
+            height: 48px;
             border-radius: 4px;
             border: 1px solid rgba(60, 49, 215, 1);
-            line-height: 50px;
+            line-height: 48px;
             cursor: pointer;
             color: rgba(60, 49, 215, 1);
             font-family: PingFangSC-Medium;
@@ -143,11 +143,11 @@
             font-family: PingFangSC-Regular;
             margin-top: 36px;
             width: 240px;
-            height: 50px;
+            height: 48px;
             border-radius: 4px;
             background-color: rgba(204, 204, 204, 1);
             text-align: center;
-            line-height: 50px;
+            line-height: 48px;
             font-size: 16px;
             color: rgba(255, 255, 255, 1);
             cursor: not-allowed;
@@ -156,11 +156,11 @@
         .btn-unlock {
             margin-top: 36px;
             width: 240px;
-            height: 50px;
+            height: 48px;
             border-radius: 4px;
             background-color: #cd222d;
             text-align: center;
-            line-height: 50px;
+            line-height: 48px;
             font-size: 16px;
             color: rgba(255, 255, 255, 1);
             cursor: pointer;
@@ -235,6 +235,8 @@
         
         .ch-item span {
             margin-left: 8px;
+            position: relative;
+            top: -2px;
         }
         
         .pri {
@@ -244,7 +246,7 @@
         .ch {
             margin-top: 18px;
             color: rgba(51, 51, 51, 1);
-            font-size: 20px;
+            font-size: 14px;
             font-family: PingFangSC-Medium;
         }
         
@@ -258,7 +260,7 @@
         .warn {
             margin-top: 20px;
             width: 852px;
-            color: rgba(215, 49, 111, 1);
+            /* color: rgba(215, 49, 111, 1); */
             font-size: 12px;
             font-family: PingFangSC-Regular;
         }
@@ -269,20 +271,20 @@
         }
         
         .is .lt1 {
-            width: 412px;
-            height: 50px;
+            /* width: 412px; */
+            height: 48px;
             border-radius: 4px;
             border: 1px solid rgba(60, 49, 215, 1);
-            line-height: 50px;
+            line-height: 48px;
             cursor: pointer;
             color: rgba(60, 49, 215, 1);
-            font-family: PingFangSC-Medium;
+            font-family: PingFangSC-Regular;
             text-align: center;
         }
         
         .middle {
             margin-top: 36px;
-            color: rgba(102, 102, 102, 1);
+            color: #222;
             font-size: 14px;
             text-align: left;
             font-family: PingFangSC-Regular;
@@ -292,7 +294,7 @@
             display: inline-block;
             width: 410px;
             height: 46px;
-            border-radius: 4px;
+            /* border-radius: 4px; */
             background-color: rgba(255, 255, 255, 1);
             border: 1px solid rgba(204, 204, 204, 1);
         }
@@ -318,12 +320,12 @@
             font-family: PingFangSC-Regular;
             margin-top: 36px;
             width: 240px;
-            height: 50px;
+            height: 48px;
             border-radius: 4px;
             background-color: rgba(204, 204, 204, 1);
             text-align: center;
-            line-height: 50px;
-            font-size: 16px;
+            line-height: 48px;
+            font-size: 14px;
             color: rgba(255, 255, 255, 1);
             cursor: not-allowed;
         }
@@ -331,12 +333,12 @@
         .btn-unlock {
             margin-top: 36px;
             width: 240px;
-            height: 50px;
+            height: 48px;
             border-radius: 4px;
             background-color: #cd222d;
             text-align: center;
-            line-height: 50px;
-            font-size: 16px;
+            line-height: 48px;
+            font-size: 14px;
             color: rgba(255, 255, 255, 1);
             cursor: pointer;
         }
@@ -357,7 +359,7 @@
         .item-box {
             display: inline-block;
             color: rgba(51, 51, 51, 1);
-            font-size: 16px;
+            font-size: 14px;
             font-family: PingFangSC-Medium;
             margin-top: 24px;
             font-weight: bold;
@@ -378,7 +380,7 @@
             <div class="header-box">
                 <div class="header-con">
                     <div class="logo">
-                        <img src="./images/intlogo.png" width="72px" height="72px">
+                        <img src="./images/int-logo.png" width="72px" height="72px">
                     </div>
                     <div class="tabbar-box">
                         <div class="tab-item ">
@@ -409,7 +411,7 @@
                         <div id="send" ng-mouseenter="sendTabView = true" ng-mouseleave="sendTabView = false" class="tab-item">
                             <span>
                                 <a href="javascript:;">{{doc.send}} </a>
-                                <img  src="./images/voteunac.png" alt="">
+                                <span class="triangle"></span>
                             </span>
                             <br>
                             <div class="sendTab" ng-show="sendTabView">
@@ -427,8 +429,8 @@
                         </div>
                         <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item">
                             <span>
-                                    <a href="javascript:;" >{{doc.vote}}</a>
-                                <img  src="./images/voteunac.png" alt="">
+                                    <a href="javascript:;" >{{doc.mortgage}}</a>
+                                <span class="triangle"></span>
                                 </span>
                             <div class="b-line"></div>
                             <div class="voteTab" ng-show="voteTabView">
@@ -458,7 +460,7 @@
                         <div id="token" ng-mouseenter="tokenView = true" ng-mouseleave="tokenView = false" class="tab-item">
                             <span>
                                             <a href="javascript:;" >Token </a>
-                                             <img  src="./images/voteunac.png" alt="">
+                                             <span class="triangle"></span>
                                     </span>
                             <div></div>
                             <div class="voteTab" ng-show="tokenView">
@@ -486,7 +488,7 @@
                         <div id="lan" ng-mouseenter="lanView = true" ng-mouseleave="lanView = false" class="tab-item">
                             <span>
                                         <a href="javascript:;" >{{doc.language}} </a>
-                                         <img  src="./images/voteunac.png" alt="">
+                                         <span class="triangle"></span>
                                 </span>
                             <div></div>
                             <div class="voteTab" ng-show="lanView">
@@ -577,7 +579,7 @@
                 </div>
             </div>
             <div class="foot">
-                Copyright © 2018 INT
+                Copyright © 2019 - 2020 INT
             </div>
         </div>
     </body>

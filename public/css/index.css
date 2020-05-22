@@ -1,5 +1,11 @@
 body {
     margin: 0;
+    font-family: PingFangSC-Regular;
+    -webkit-font-smoothing: antialiased;
+}
+
+input {
+    font-size: 12px;
 }
 
 .container {
@@ -7,15 +13,16 @@ body {
     /* height: 100%; */
     min-height: 100%;
     min-width: 1200px;
-    background-color: #f5f7fa;
+    background-color: #f9f9f9;
+    position: relative;
 }
 
 .header-box {
     width: 100%;
-    height: 80px;
+    height: 68px;
     -moz-box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.35);
     box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.35);
-    background-color: rgba(255, 255, 255, 1);
+    background-color: #171921;
 }
 
 .header-con {
@@ -25,19 +32,28 @@ body {
     margin: 0px auto;
 }
 
+.in-box.tint {
+    background: #f8f8f8;
+}
+.in-box.tint input {
+    background: #f8f8f8;
+}
+
 .logo {
     height: 100%;
     display: inline-block;
 }
 
 .logo img {
-    padding-top: 3px;
+    height: 68px;
 }
 
 .tabbar-box {
     height: 100%;
     display: inline-block;
     vertical-align: top;
+    position: relative;
+    z-index: 1000;
     /* width: 1400px; */
 }
 
@@ -45,12 +61,21 @@ body {
     display: inline-block;
     vertical-align: top;
     margin-left: 35px;
-    font-size: 15px;
-    font-family: PingFangSC-Medium;
-    color: rgba(102, 102, 102, 1);
-    padding-top: 25px;
+    font-size: 14px;
+    font-family: PingFangSC-Regular;
+    color: #fff;
+    padding-top: 18px;
     cursor: pointer;
     line-height: 30px
+}
+
+.tabbar-box .tab-item a {
+    color: #fff;
+    font-weight: 400;
+}
+
+.tabbar-box .tab-item div {
+    background-color: #171921;
 }
 
 
@@ -78,11 +103,11 @@ body {
 }
 
 .tabbar-box .tab-item:nth-child(4) {
-    width: 60px;
+    width: 64px;
 }
 
 .tabbar-box .tab-item:nth-child(5) {
-    width: 65px;
+    width: 70px;
 }
 
 
@@ -91,19 +116,58 @@ body {
 } */
 
 .tabbar-box .active {
-    color: #cd222d;
+    color: #d31515;
 }
 
 .tabbar-box .active span {
-    border-bottom: 2px solid #cd222d;
+    /* border-bottom: 2px solid #d31515; */
 }
 
 .tabbar-box .active1 {
-    color: #cd222d;
+    color: #d31515;
 }
 
 .tabbar-box .active1 span {
-    border-bottom: 2px solid #cd222d;
+    /* border-bottom: 2px solid #d31515; */
+}
+
+.triangle {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-width: 7px 7px 0;
+    border-style: solid;
+    border-color: #ffffff transparent transparent;
+    margin-left: 4px;
+    margin-top: -2px;
+    vertical-align: middle;
+}
+
+.title-section {
+    width: 1000px;
+    margin: 0 auto;
+    font-size: 30px;
+    color: #222;
+    font-family: PingFangSC-Medium;
+    font-weight: 700;
+    padding: 30px 0 40px;
+}
+
+.title-underline {
+    display: inline-block;
+    position: relative;
+    padding-bottom: 8px;
+}
+
+.title-underline::after {
+    content: '';
+    display: block;
+    width: 120px;
+    height: 2px;
+    background: #d31515;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
 .content {
@@ -111,29 +175,30 @@ body {
     /* min-height: 80%; */
     padding-bottom: 50px;
     background-color: rgba(255, 255, 255, 1);
-    box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.5);
+    border: 1px solid #ddd;
     margin: 0 auto;
-    margin-top: 60px;
-    border-radius: 4px;
+    /* margin-top: 60px; */
+    /* border-radius: 4px; */
 }
 
 .btn {
     margin-top: 30px;
     width: 240px;
-    height: 50px;
+    height: 48px;
     border-radius: 4px;
-    background-color: #cd222d;
+    background-color: #d31515;
     color: rgba(255, 255, 255, 1);
     text-align: center;
     cursor: pointer;
-    line-height: 50px;
-    font-size: 16px;
-    font-family: PingFangSC-Medium;
+    line-height: 48px;
+    font-size: 14px;
+    font-family: PingFangSC-Regular;
 }
 
 .foot {
-    margin-top: 48px;
-    color: rgba(102, 102, 102, 1);
+    margin-top: 30px;
+    /* height: 80px; */
+    color: #222;
     /* background-color: rgba(249, 249, 249, 1); */
     font-size: 12px;
     width: 100%;
@@ -157,8 +222,8 @@ body {
 .sendTab {
     background-color: rgba(255, 255, 255, 1);
     margin-left: -10px;
-    margin-top: 25px;
-    color: rgba(102, 102, 102, 1);
+    margin-top: 20px;
+    color: #222;
     box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.5);
     white-space: nowrap;
     display: inline-block;
@@ -173,7 +238,7 @@ body {
 }
 
 .sendTab-item:hover {
-    background-color: #cd222d;
+    background-color: #d31515;
 }
 
 .sendTab-item a {
@@ -188,8 +253,8 @@ body {
 .voteTab {
     background-color: rgba(255, 255, 255, 1);
     margin-left: -10px;
-    margin-top: 25px;
-    color: rgba(102, 102, 102, 1);
+    margin-top: 20px;
+    color: #222;
     width: 110px;
     /* height: 160px; */
     box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.5);
@@ -201,7 +266,7 @@ body {
 }
 
 .voteTab-item:hover {
-    background-color: #cd222d;
+    background-color: #d31515;
 }
 
 .voteTab-item a {
@@ -215,10 +280,10 @@ body {
 }
 
 .con-top {
-    height: 50px;
+    height: 44px;
     border-bottom: 1px solid rgba(204, 204, 204, 1);
-    padding-top: 28px;
-    color: rgba(102, 102, 102, 1);
+    padding-top: 20px;
+    color: #222;
     font-size: 20px;
     font-family: PingFangSC-Medium;
     padding-left: 56px;
@@ -226,17 +291,21 @@ body {
 }
 
 .con-top span {
-    margin-left: 13px;
+    /* margin-left: 13px; */
 }
 
 a {
     text-decoration: none;
-    color: rgba(102, 102, 102, 1)
+    color: #222
+}
+
+.link-label {
+    cursor: pointer;
 }
 
 .title {
-    color: rgba(102, 102, 102, 1);
-    font-size: 18px;
+    color: #222;
+    font-size: 16px;
     font-family: PingFangSC-Medium;
     width: 100%;
     margin-bottom: 30px;
@@ -244,7 +313,7 @@ a {
 
 .lable {
     margin-bottom: 8px;
-    color: rgba(102, 102, 102, 1);
+    color: #222;
 }
 
 #lan {
@@ -261,6 +330,6 @@ a {
     margin-top: 10px;
     font-family: PingFangSC-Regular;
     font-size: 12px;
-    color: rgba(102, 102, 102, 1);
+    color: #222;
     padding-top: 20px;
 }
