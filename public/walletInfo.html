@@ -544,12 +544,11 @@
                         </div>
 
 
-                        <div class="tab-item">
+                        <!-- <div class="tab-item">
                             <span>
-                                    <!-- <a href="./help.html?lan={{lan}}">{{doc.help}}</a>    -->
                                     <a target="_blank" href="./images/help{{lan}}.pdf">{{doc.help}}</a>                    
                                 </span>
-                        </div>
+                        </div> -->
 
                         <div id="lan" ng-mouseenter="lanView = true" ng-mouseleave="lanView = false" class="tab-item">
                             <span>
@@ -646,25 +645,25 @@
                     <div ng-show="step==2">
                         <div class="item-box">
                             <div class="lable">{{doc.address}}</div>
-                            <div class="in-box">
+                            <div class="in-box tint">
                                 <input type="text" readonly ng-model="address">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
                             <div class="lable">{{doc.privateKey}}</div>
-                            <div class="in-box">
+                            <div class="in-box tint">
                                 <input type="text" readonly ng-model="privateKey">
                             </div>
                         </div>
                         <div class="item-box">
                             <div class="lable"> {{doc.votes}}</div>
-                            <div class="in-box">
+                            <div class="in-box tint">
                                 <input type="text" readonly ng-model="vote">
                             </div>
                         </div>
                         <div class="item-box" style="margin-left: 50px">
                             <div class="lable">{{doc.balance}}</div>
-                            <div class="in-box" style="cursor:pointer" ng-mouseenter="viewToken = true" ng-mouseleave="viewToken = false">
+                            <div class="in-box tint" style="cursor:pointer" ng-mouseenter="viewToken = true" ng-mouseleave="viewToken = false">
                                 <input type="text" readonly ng-model="balance" style="cursor:pointer">
                                 <div style="display:inline-block;height:100%;vertical-align: top">
                                     <img ng-show='!viewToken' src="./images/down.png" class="down">

@@ -50,8 +50,8 @@ modal.nodeList = function(obj, cal) {
     let nodes = obj.nodes;
     let div = document.createElement("div");
     div.setAttribute('id', 'modal')
-    let dom = '<div style="position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">' +
-        '<div style="width: 700px;margin: 200px auto;z-index: 101px;border-radius: 4px">' +
+    let dom = '<div style="font-family:PingFangSC-Regular;position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100;background-color:rgba(0,0,0,0.3)">' +
+        '<div style="width: 700px;margin: 200px auto;z-index: 101;border-radius: 4px">' +
         '<div style="color:rgba(51,51,51,1);font-size:20px; width: 100%;height: 76px;line-height:' +
         '76px;background-color:' +
         'rgba(244,248,255,1);border-bottom: 1px solid #d7d7d7">' +
@@ -93,11 +93,11 @@ modal.error = function(obj, cal) {
     div.setAttribute('id', 'modal')
     let dom = `<div
         style="
-        position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">
+        font-family:PingFangSC-Regular;position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100;background-color:rgba(0,0,0,0.3)">
     <div
             style="margin:300px auto;
-            background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 10px 15px;z-index: 101px;border-radius: 4px">
-            <span style="font-size: 18px;color: #303133">${title}</span>
+            background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 10px 15px;z-index: 101;border-radius: 4px">
+            <span style="font-size: 18px;font-weight:700;color: #303133">${title}</span>
             <div style="margin-top:20px;font-size: 14px;color: #606266" >
                 <img style="display: inline-block;vertical-align: top" height="20"
                      src="./images/error.png"
@@ -108,7 +108,7 @@ modal.error = function(obj, cal) {
             </div>
 
             <div    onclick="Ok()"
-                    style="padding:0 10px;margin-top: 20px;cursor: pointer;
+                    style="padding:4px 20px;margin-top: 20px;cursor: pointer;font-size:14px;
                     float: right;text-align:center;line-height:30px;border-radius:3px;background-color:#409eff;color:rgba(255, 255,255, 1)"
                     >
 					${okText}
@@ -132,11 +132,11 @@ modal.success = function(obj, cal) {
     div.setAttribute('id', 'modal')
     let dom = `<div
         style="
-        position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">
+        font-family:PingFangSC-Regular;position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100;background-color:rgba(0,0,0,0.3)">
     <div
             style="margin:300px auto;
-            background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 10px 15px;z-index: 101px;border-radius: 4px">
-            <span style="font-size: 18px;color: #303133">${title}</span>
+            background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 30px 40px;z-index: 101;border-radius: 4px">
+            <span style="font-size: 18px;font-weight:700;color: #303133">${title}</span>
             <div style="margin-top:20px;font-size: 14px;color: #606266" >
             	         <img style="display: inline-block;vertical-align: top" height="20"
                      src="./images/success.png"
@@ -150,7 +150,7 @@ modal.success = function(obj, cal) {
             </div>
 
             <div    onclick="Ok()"
-                    style="padding:0 10px;margin-top: 20px;cursor: pointer;
+                    style="padding:4px 20px;margin-top: 20px;cursor: pointer;font-size:14px;
                     float: right;text-align:center;line-height:30px;border-radius:3px;background-color:#409eff;color:rgba(255, 255,255, 1)"
                     >
 					${okText}
@@ -171,24 +171,24 @@ modal.burnSuccess = function(obj, cal) {
     div.setAttribute('id', 'modal')
     let dom = `<div
         style="
-        position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">
+        font-family:PingFangSC-Regular;position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100;background-color:rgba(0,0,0,0.3)">
     <div
             style="margin:300px auto;
-            background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 10px 15px;z-index: 101px;border-radius: 4px">
-            <span style="font-size: 18px;color: #303133">${title}</span>
+            background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 30px 40px;z-index: 101;border-radius: 4px">
+            <span style="font-size: 18px;font-weight:700;color: #303133">${title}</span>
             <div style="margin-top:20px;font-size: 14px;color: #606266" >
             	         <img style="display: inline-block;vertical-align: top" height="20"
                      src="./images/success.png"
                      alt="">  	   
                 <span style="margin-left:10px;width:380px;display:inline-block;vertical-align: top">
-                Operation success, click the URL below to view the results.<br>
+                Transaction successful. Click on the URL below to view the results.<br>
 	                <span onClick="toEth(this)" style="word-wrap:break-word;cursor: pointer;">
                     ${msg}
 					</span>                
                 </span>
             </div>
             <div    onclick="Ok()"
-                    style="padding:0 10px;margin-top: 20px;cursor: pointer;
+                    style="padding:4px 20px;margin-top: 20px;cursor: pointer;font-size:14px;
                     float: right;text-align:center;line-height:30px;border-radius:3px;background-color:#409eff;color:rgba(255, 255,255, 1)"
                     >
 					${okText}
@@ -208,10 +208,10 @@ modal.prompt = function(cal) {
     div.setAttribute('id', 'modal')
     let dom = `
     <div style="
-    position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100px;background-color:rgba(0,0,0,0.3)">
+    font-family:PingFangSC-Regular;position:fixed;left:0px;top:0px;width: 100%;height: 100%;z-index: 100;background-color:rgba(0,0,0,0.3)">
         <div style="margin:300px auto;
-    background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 10px 15px;z-index: 101px;border-radius: 4px">
-            <span style="font-size: 18px;color: #303133">Please Enter Password</span>
+    background-color:rgba(255, 255, 255, 1);width: 420px;vertical-align: middle;padding: 30px 40px;z-index: 101;border-radius: 4px">
+            <span style="font-size: 18px;font-weight:700;color: #303133">Please enter password</span>
             <div style="margin-top:20px;font-size: 14px;color: #606266">
                 <div class="in-box">
                     <input id='unViewPwd' onpropertychange="pwdChange(this.value)" oninput="pwdChange(this.value)" type="password"  placeholder="Enter your wallet password">
