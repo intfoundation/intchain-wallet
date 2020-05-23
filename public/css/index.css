@@ -74,6 +74,10 @@ input {
     font-weight: 400;
 }
 
+.tabbar-box .tab-item a:hover {
+    color: #e73737;
+}
+
 .tabbar-box .tab-item div {
     background-color: #171921;
 }
@@ -116,8 +120,7 @@ input {
 } */
 
 .tabbar-box .active {
-    /* color: #d31515; */
-    font-weight: 700;
+    color: #e73737;
 }
 
 .tabbar-box .active span {
@@ -125,8 +128,7 @@ input {
 }
 
 .tabbar-box .active1 {
-    /* color: #d31515; */
-    font-weight: 700;
+    color: #e73737;
 }
 
 .tabbar-box .active1 span {
@@ -226,7 +228,7 @@ input {
     margin-left: -10px;
     margin-top: 20px;
     color: #222;
-    box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.5);
+    /* box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.5); */
     white-space: nowrap;
     display: inline-block;
 }
@@ -240,7 +242,7 @@ input {
 }
 
 .sendTab-item:hover {
-    background-color: #d31515;
+    background-color: #e73737;
 }
 
 .sendTab-item a {
@@ -249,7 +251,7 @@ input {
 }
 
 .sendTab-item a:hover {
-    color: rgba(255, 255, 255, 1)
+    color: #e73737
 }
 
 .voteTab {
@@ -259,7 +261,7 @@ input {
     color: #222;
     width: 110px;
     /* height: 160px; */
-    box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.5);
+    /* box-shadow: 0px 6px 10px 0px rgba(204, 204, 204, 0.5); */
 }
 
 .voteTab-item {
@@ -268,7 +270,7 @@ input {
 }
 
 .voteTab-item:hover {
-    background-color: #d31515;
+    background-color: #e73737;
 }
 
 .voteTab-item a {
@@ -278,7 +280,7 @@ input {
 }
 
 .voteTab-item a:hover {
-    color: rgba(255, 255, 255, 1)
+    color: #e73737;
 }
 
 .con-top {
