@@ -164,7 +164,7 @@ app.controller('mappingController', function($scope, $http) {
                 modal.error({ msg: r.message, title: $scope.doc.notice, okText: $scope.doc.confirm })
             } else {
                 // modal.burnSuccess({ msg: r.hash })
-                modal.burnSuccess({ doc: $scope.doc, msg: 'https://test.explorer.intchain.io/#/blockchain/txdetail?hash=' + r.hash })
+                modal.burnSuccess({ doc: $scope.doc, msg: 'https://test.explorer.intchain.io/blockchain/txdetail?hash=' + r.hash })
 
             }
         })
