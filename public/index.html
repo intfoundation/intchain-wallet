@@ -36,18 +36,18 @@
             width: 100%;
             margin-top: 50px;
         }
-        
+
         .con-main {
             margin-left: 278px;
             margin-top: 50px;
         }
-        
+
         .tip {
             color: #cd222d;
             font-size: 20px;
             font-family: PingFangSC-Regular;
         }
-        
+
         .in-box {
             display: inline-block;
             margin-top: 24px;
@@ -57,11 +57,11 @@
             background-color: rgba(255, 255, 255, 1);
             border: 1px solid rgba(204, 204, 204, 1);
         }
-        
+
         .in-box img {
             cursor: pointer;
         }
-        
+
         input {
             margin-left: 24px;
             width: 85%;
@@ -69,30 +69,30 @@
             border: 0px;
             outline: none
         }
-        
+
         input::-webkit-input-placeholder {
             color: rgba(153, 153, 153, 1);
             font-family: PingFangSC-Regular;
         }
-        
+
         .warn {
             margin-top: 6px;
             color: #cd222d;
             font-size: 12px;
             font-family: PingFangSC-Regular;
         }
-        
+
         .pwdtip {
             color: #222;
             font-size: 14px;
             font-family: PingFangSC-Regular;
             margin-left: 16px;
         }
-        
+
         .step2 {
             margin-left: 165px;
         }
-        
+
         .down {
             margin-top: 20px;
             width: 240px;
@@ -105,17 +105,17 @@
             font-size: 16px;
             cursor: pointer;
         }
-        
+
         .warning {
             font-size: 16px;
             color: #222;
             margin-top: 32px;
         }
-        
+
         .warning .warn-item {
             margin-top: 12px;
         }
-        
+
         .dot {
             display: inline-block;
             width: 6px;
@@ -126,7 +126,7 @@
             margin-bottom: 3.5px;
             margin-right: 12px;
         }
-        
+
         .continue {
             width: 240px;
             height: 48px;
@@ -139,11 +139,11 @@
             margin-top: 36px;
             cursor: pointer;
         }
-        
+
         .step3 {
             margin-left: 165px;
         }
-        
+
         .privateKey {
             margin-top: 20px;
             width: 800px;
@@ -156,7 +156,7 @@
             font-family: PingFangSC-Regular;
             padding: 16px 24px;
         }
-        
+
         .warn-tip {
             margin-bottom: -1px
         }
@@ -167,7 +167,7 @@
             font-size: 20px;
             font-family: PingFangSC-Regular;
         }
-        
+
         .in-box {
             display: inline-block;
             margin-bottom: 24px;
@@ -177,11 +177,11 @@
             background-color: rgba(255, 255, 255, 1);
             border: 1px solid rgba(204, 204, 204, 1);
         }
-        
+
         .in-box img {
             cursor: pointer;
         }
-        
+
         input {
             margin-left: 24px;
             width: 85%;
@@ -189,30 +189,30 @@
             border: 0px;
             outline: none
         }
-        
+
         input::-webkit-input-placeholder {
             color: rgba(153, 153, 153, 1);
             font-family: PingFangSC-Regular;
         }
-        
+
         .warn {
             margin-top: 6px;
             /* color: #cd222d; */
             font-size: 12px;
             font-family: PingFangSC-Regular;
         }
-        
+
         .pwdtip {
             color: #222;
             font-size: 14px;
             font-family: PingFangSC-Regular;
             margin-left: 16px;
         }
-        
+
         .step2 {
             margin-left: 165px;
         }
-        
+
         .down {
             font-family: PingFangSC-Regular;
             margin-top: 20px;
@@ -226,17 +226,17 @@
             font-size: 14px;
             cursor: pointer;
         }
-        
+
         .warning {
             font-size: 14px;
             color: #222;
             margin-top: 32px;
         }
-        
+
         .warning .warn-item {
             margin-top: 12px;
         }
-        
+
         .dot {
             display: inline-block;
             width: 6px;
@@ -247,7 +247,7 @@
             margin-bottom: 3.5px;
             margin-right: 12px;
         }
-        
+
         .continue {
             width: 240px;
             height: 48px;
@@ -260,11 +260,11 @@
             margin-top: 36px;
             cursor: pointer;
         }
-        
+
         .step3 {
             margin-left: 165px;
         }
-        
+
         .privateKey {
             margin-top: 20px;
             width: 800px;
@@ -277,7 +277,7 @@
             font-family: PingFangSC-Regular;
             padding: 16px 24px;
         }
-        
+
         .warn-tip {
             margin-bottom: -1px;
             display: none;
@@ -295,7 +295,7 @@
                     <div class="tabbar-box">
                         <div class="tab-item active">
                             <span>
-                                    {{doc.newWallet}}                  
+                                    {{doc.newWallet}}
                             </span>
                             <!-- <div class="b-line"></div> -->
                         </div>
@@ -305,12 +305,12 @@
                              </span>
                             <div></div>
                         </div>
-                        <!-- <div class="tab-item">
+                         <div class="tab-item">
                             <span>
-                                    <a href="./mapping.html?lan={{lan}}">{{doc.mapping}} </a>  
+                                    <a href="./mineMapping.html?lan={{lan}}">{{doc.mineMapping}} </a>
                                 </span>
                             <div></div>
-                        </div> -->
+                        </div>
                         <div id="send" ng-mouseenter="sendTabView = true" ng-mouseleave="sendTabView = false" class="tab-item">
                             <span>
                                 <span>{{doc.send}}</span>
@@ -320,12 +320,12 @@
                             <div class="sendTab" ng-show="sendTabView">
                                 <div class="sendTab-item">
                                     <a href="./send.html?action=sendInt&lan={{lan}}">
-                                        {{doc.sendInt}} 
+                                        {{doc.sendInt}}
                                     </a>
                                 </div> <br>
                                 <div class="sendTab-item">
                                     <a href="./send.html?action=sendToken&lan={{lan}}">
-                                        {{doc.sendToken}} 
+                                        {{doc.sendToken}}
                                     </a>
                                 </div>
                             </div>
@@ -341,22 +341,22 @@
                             <div class="voteTab" ng-show="voteTabView">
                                 <div class="voteTab-item">
                                     <a href="./vote.html?action=Mortgage&lan={{lan}}">
-                                        {{doc.mortgage}} 
+                                        {{doc.mortgage}}
                                     </a>
                                 </div>
                                 <div class="voteTab-item">
                                     <a href="./vote.html?action=Vote&lan={{lan}}">
-                                        {{doc.vote}} 
+                                        {{doc.vote}}
                                     </a>
                                 </div>
                                 <div class="voteTab-item">
                                     <a href="./vote.html?action=Unmortgage&lan={{lan}}">
-                                        {{doc.unmortgage}} 
+                                        {{doc.unmortgage}}
                                     </a>
                                 </div>
                                 <div class="voteTab-item">
                                     <a href="./vote.html?action=Referendum&lan={{lan}}">
-                                                    {{doc.referendum}} 
+                                                    {{doc.referendum}}
                                         </a>
                                 </div>
                             </div>
@@ -371,12 +371,12 @@
                             <div class="voteTab" ng-show="tokenView">
                                 <div class="voteTab-item">
                                     <a href="./token.html?action=create&lan={{lan}}">
-                                            {{doc.create}} 
+                                            {{doc.create}}
                                         </a>
                                 </div>
                                 <div class="voteTab-item">
                                     <a href="./token.html?action=transfer&lan={{lan}}">
-                                            {{doc.transfer}} 
+                                            {{doc.transfer}}
                                         </a>
                                 </div>
                             </div>
@@ -385,7 +385,7 @@
 
                         <!-- <div class="tab-item">
                             <span>
-                                <a target="_blank" href="./images/help{{lan}}.pdf">{{doc.help}}</a>                     
+                                <a target="_blank" href="./images/help{{lan}}.pdf">{{doc.help}}</a>
                             </span>
                         </div> -->
 

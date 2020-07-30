@@ -3,7 +3,7 @@ const { encrypt, decrypt } = require('./crypt/crypt')
 const { ValueTransaction } = require('./core/value_chain/transaction')
 const BigNumber = require('bignumber.js')
 const { addressFromSecretKey, addressFromPublicKey, publicKeyFromSecretKey, sign, verify, isValidAddress } = require('./core/address')
-    //const core_1 = require("./core"); 
+    //const core_1 = require("./core");
 const { BufferWriter } = require('./core/lib/writer')
 const { encodeAddressAndNonce } = require('./core/serializable')
 const assert = require('assert');
@@ -621,6 +621,10 @@ let getRfd2 = async() => {
     return JSON.parse(result);
 }
 
+const mineMapping = require('./minemapping');
+const INT4Account = mineMapping.INT4Account;
+const queryInt4Balance = mineMapping.queryInt4Balance;
+
 module.exports = {
     getBalance,
     transferArr,
@@ -653,5 +657,7 @@ module.exports = {
     rfdVote,
     queryProposalRfd,
     getRfd2,
-    signTimeStamp
+    signTimeStamp,
+    INT4Account,
+    queryInt4Balance,
 }
