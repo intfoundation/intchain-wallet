@@ -174,7 +174,7 @@ app.controller('mineMappingController', function($scope, $http) {
     $scope.enterEvent = function(e) {
         var keycode = window.event ? e.keyCode : e.which;
         if (keycode == 13 && $scope.pass) {
-            $scope.toMapping();
+            $scope.toMineMapping();
         }
     }
     $scope.toMineMapping = function() {
