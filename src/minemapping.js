@@ -1,9 +1,13 @@
+const {
+    mineMappingUrl
+} = require('./cfg');
+
 const int4 = require('int4.js');
 
 const INT4Account = int4.account;
 const RPC = int4.rpc;
 
-const INT4URL = "https://129.226.134.100:8555/testnet";
+const INT4URL = mineMappingUrl;
 const send = RPC(INT4URL);
 
 const queryInt4Balance = async function(address) {

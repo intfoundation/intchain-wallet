@@ -73994,6 +73994,7 @@ let development = {
     getTestCoinUrl: "http://localhost:3001/wallet/getTestCoin",
     getProposalRfdUrl: "http://localhost:3001/wallet/queryProposalRfd",
     getRfd2Url: "http://localhost:3001/wallet/queryrfd2",
+    mineMappingUrl: "http://129.226.134.100:8555/testnet",
     http: httpUtil,
     host: 'localhost',
     port: 3001,
@@ -74023,6 +74024,7 @@ let production = {
     getTestCoinUrl: "https://explorer.intchain.io/api/wallet/getTestCoin",
     getProposalRfdUrl: "https://explorer.intchain.io/api/wallet/queryProposalRfd",
     getRfd2Url: "https://explorer.intchain.io/api/wallet/queryrfd2",
+    mineMappingUrl: "https://explorer.intchain.io/mine/testnet",
     host: 'explorer.intchain.io',
     port: "",
     transferUrl: '/api/wallet/transfer',
@@ -74036,6 +74038,7 @@ let cfg = pro ? production : development
 
 
 module.exports = cfg;
+
 },{"./env":331,"./httputils":332}],315:[function(require,module,exports){
 (function (Buffer){
 "use strict";
@@ -77485,12 +77488,16 @@ module.exports.getSerializedTx = getSerializedTx;
 //module.exports.queryEthIntBalance = queryEthIntBalance;
 }).call(this,require("buffer").Buffer)
 },{"./cfg":314,"assert":349,"bignumber.js":19,"buffer":385,"ethereumjs-tx":93,"rlp":217,"web3":296}],334:[function(require,module,exports){
+const {
+    mineMappingUrl
+} = require('./cfg');
+
 const int4 = require('int4.js');
 
 const INT4Account = int4.account;
 const RPC = int4.rpc;
 
-const INT4URL = "https://129.226.134.100:8555/testnet";
+const INT4URL = mineMappingUrl;
 const send = RPC(INT4URL);
 
 const queryInt4Balance = async function(address) {
@@ -77508,7 +77515,7 @@ module.exports = {
     queryInt4Balance
 }
 
-},{"int4.js":168}],335:[function(require,module,exports){
+},{"./cfg":314,"int4.js":168}],335:[function(require,module,exports){
 arguments[4][4][0].apply(exports,arguments)
 },{"./asn1/api":336,"./asn1/base":338,"./asn1/constants":342,"./asn1/decoders":344,"./asn1/encoders":347,"bn.js":354,"dup":4}],336:[function(require,module,exports){
 arguments[4][5][0].apply(exports,arguments)
