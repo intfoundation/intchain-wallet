@@ -67,7 +67,7 @@ var lan = {
 
         int3PrivateKey: "INT 3.0 Wallet Private Key",
         int3Address: "INT 3.0 Wallet Address",
-        int3Balance: "INT 3.0 Balance",
+        int3Balance: "INT 3.0 Balance(Contains Votes)",
         int4PrivateKey: "INT 4.0 Wallet Private Key",
         int4Address: "INT 4.0 Wallet Address",
         int4Balance: "INT 4.0 Balance",
@@ -217,7 +217,7 @@ var lan = {
 
         int3PrivateKey: "INT 3.0 私钥",
         int3Address: "INT 3.0 地址",
-        int3Balance: "INT 3.0 余额",
+        int3Balance: "INT 3.0 余额(包含票数)",
         int4PrivateKey: "INT 4.0 私钥",
         int4Address: "INT 4.0 地址",
         int4Balance: "INT 4.0 余额",

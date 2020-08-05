@@ -4,7 +4,7 @@ app.controller('mineMappingController', function($scope, $http) {
     $scope.tokenView = false;
     $scope.model = {
         fromAddress: '',
-        toAddress: '',
+        toAddress: 'INT1EaterAddressDontSendAssetToJaVL3u',
         amount: '0',
         price: '',
         fromAddressPrivateKey: '',
@@ -12,8 +12,9 @@ app.controller('mineMappingController', function($scope, $http) {
         mynonce: '',
         gasLimit: 100000
     };
-    $scope.int3Balance = '';
-    $scope.int4Balance = '';
+    $scope.totalBalance = 0;
+    $scope.int3Balance = 0;
+    $scope.int4Balance = 0;
     // $scope.int3Address = '';
     $scope.int4Address = '';
     // $scope.int3PrivateKey = '';
@@ -39,14 +40,29 @@ app.controller('mineMappingController', function($scope, $http) {
             $scope.model.fromAddressPrivateKey = value.substr(2);
         }
 
+        if (value === '') {
+            $scope.int3Balance = 0;
+            $scope.model.fromAddress = '';
+        }
+
         if (value.length === 64) {
             var wal = require("wal");
             $scope.model.fromAddress = wal.addressFromPrivateKey(value);
-            $scope.model.toAddress = wal.addressFromPrivateKey(value);
+            // $scope.model.toAddress = wal.addressFromPrivateKey(value);
             $scope.queryInt3Balance();
+            $scope.queryInt3Votes();
         }
     })
     $scope.$watch('int4PrivateKey', function(value) {
+        if (value.indexOf("0x") !== 0 && value.length === 64) {
+            $scope.int4PrivateKey = "0x" + value
+        }
+
+        if (value === '') {
+            $scope.int4Balance = 0;
+            $scope.int4Address = '';
+        }
+
         if (value.length === 66) {
             var wal = require("wal");
             $scope.int4Address = wal.INT4Account.fromPrivate(value).address;
@@ -72,20 +88,37 @@ app.controller('mineMappingController', function($scope, $http) {
             }
 
             console.log("int3 balance",data.balance);
-            $scope.int3Balance = modal.numformat(data.balance);
+            $scope.int3Balance += +modal.numformat(data.balance);
+            if ($scope.int3Balance == null) {
+                $scope.int3Balance = 0;
+            }
+            $scope.$apply();
+        });
+    };
+
+    $scope.queryInt3Votes = function() {
+        let wal = require("wal");
+        if (!wal.isValidAddress($scope.model.fromAddress)) {
+            return
+        }
+        wal.getVotes($scope.model.fromAddress).then(function(data) {
+            if (typeof data === 'string') {
+                data = JSON.parse(data)
+            }
+            if (data.err) {
+                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm });
+                return;
+            }
+
+            console.log("int3 votes",data.stake);
+            $scope.int3Balance += +modal.numformat(data.stake);
             if ($scope.int3Balance == null) {
                 $scope.int3Balance = 0;
             }
 
-            $scope.model.mydata = {
-                type: "INT Titans Mine Mapping",
-                amount: $scope.int3Balance,
-                receiveAddress: $scope.int4Address
-            };
-
             $scope.$apply();
         });
-    };
+    }
 
     $scope.queryInt4Balance = function() {
         let wal = require("wal");
@@ -180,6 +213,13 @@ app.controller('mineMappingController', function($scope, $http) {
             })
             return;
         }
+
+        $scope.model.mydata = {
+            type: "INTTitansMineMapping",
+            amount: $scope.int3Balance,
+            int3Address: $scope.model.fromAddress,
+            int4Address: $scope.int4Address
+        };
 
         // amount, limit, price, to, secret, data
         wal.transfer($scope.model.amount, $scope.model.gasLimit, $scope.model.price, $scope.model.toAddress, $scope.model.fromAddressPrivateKey, $scope.model.mydata)
