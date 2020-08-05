@@ -27,8 +27,8 @@ app.controller('mineMappingController', function($scope, $http) {
         $scope.lan = a;
         document.title = $scope.doc.mineMapping + ' | INT Chain';
     }
-    $scope.$watch('{f:model.fromAddress,t:model.toAddress,g:model.price,p:model.fromAddressPrivateKey,l:model.gasLimit,b:int3Balance}', function(v) {
-        if (v.f && v.t && v.g && v.p && v.l && v.b) {
+    $scope.$watch('{f:model.fromAddress,t:model.toAddress,g:model.price,p:model.fromAddressPrivateKey,l:model.gasLimit,b:int3Balance,a:int4Address}', function(v) {
+        if (v.f && v.t && v.g && v.p && v.l && v.b && v.a) {
             $scope.pass = true
         } else {
             $scope.pass = false
