@@ -57,16 +57,16 @@ async function getSerializedTx(options) {
             return;
         }
         let info = {
-                "ETH wallet address": options.fromAddress,
-                "INT wallet address": options.toAddress,
-                "Gas price": options.decimalGas,
-                "Gas limit": gasLimit,
-                "Fee": new BigNumber(gasLimit).multipliedBy(options.decimalGas).toString() + "ETH",
-                "Method": "burn(uint256)",
-                "Nonce": options.mynonce,
-                "Amount": options.decimalAmount + " INT",
-            }
-            //let currnonce = await web3.eth.getTransactionCount(fromAddress);
+            "ETH wallet address": options.fromAddress,
+            "INT wallet address": options.toAddress,
+            "Gas price": options.decimalGas,
+            "Gas limit": gasLimit,
+            "Fee": new BigNumber(gasLimit).multipliedBy(options.decimalGas).toString() + "ETH",
+            "Method": "burn(uint256)",
+            "Nonce": options.mynonce,
+            "Amount": options.decimalAmount + " INT",
+        }
+        //let currnonce = await web3.eth.getTransactionCount(fromAddress);
 
         //let mynonce = Web3.utils.toHex(currnonce);
         let mygasPrice = Web3.utils.toHex(gasPrice);
@@ -196,3 +196,47 @@ function isEthPrivateKey(privateKey) {
 
 module.exports.getSerializedTx = getSerializedTx;
 //module.exports.queryEthIntBalance = queryEthIntBalance;
+let web3 = new Web3()
+function transferToken(params) {
+    let data = web3.eth.abi.encodeParameters(['address', 'uint256'], [params.toAddress, new BigNumber(Math.round(params.amount * Math.pow(10, 18)))]);
+    data = data.substr(2)
+    var rawTx = {
+        nonce: Web3.utils.toHex(params.nonce),
+        gasPrice: Web3.utils.toHex(params.gasPrice),
+        gasLimit: Web3.utils.toHex('100000'),
+        to: params.toAddress,
+        value: '0x0',
+        data: '0xa9059cbb' + data
+    };
+
+    var tx = new Tx(rawTx);
+    const privateKey = new Buffer(params.ethPrivateKey, 'hex');
+    tx.sign(privateKey);
+    var serializedTx = tx.serialize();
+    var serializedTxHex = '0x' + serializedTx.toString('hex')
+
+
+    let mappingData = {
+        type: "INT_ETHtoINT",
+        intAddress: params.intAddress,
+        num: params.amount,
+        //fromAddress: params.fromAddress
+    }
+
+    var transferRawTx = {
+        nonce: Web3.utils.toHex(parseInt(params.nonce) + 1),
+        gasPrice: Web3.utils.toHex(params.gasPrice),
+        gasLimit: Web3.utils.toHex('100000'),
+        to: params.toAddress,
+        value: '0x00',
+        data: JSON.stringify(mappingData)
+    }
+    var transferTx = new Tx(transferRawTx)
+    transferTx.sign(privateKey)
+    var transferSerializedTx = transferTx.serialize()
+    var transferSerializedTxHex = '0x' + transferSerializedTx.toString('hex')
+
+
+    return { serializedTxHex, transferSerializedTxHex }
+}
+module.exports.transferToken = transferToken;

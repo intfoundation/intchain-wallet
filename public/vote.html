@@ -487,6 +487,7 @@
             padding: 14px 30px;
             border: 1px solid #ddd;
         }
+
         /* .voteTab {
             margin-top: 25px;
         } */
@@ -502,6 +503,7 @@
         .in-box.tint {
             background: #f8f8f8;
         }
+
         .in-box.tint input {
             background: #f8f8f8;
         }
@@ -514,680 +516,692 @@
     <script src="https://unpkg.com/iview/dist/locale/en-US.js"></script>
     <script src="https://unpkg.com/iview/dist/locale/zh-CN.js"></script>
 
-    <body ng-app="myApp">
-        <div class="container" ng-controller="voteController">
-            <div ng-show="!step" style="width: 100%;height: 100%"></div>
-            <div class="header-box">
-                <div class="header-con">
-                    <div class="logo">
-                        <img src="./images/int-logo-title.png" width="144px" height="72px">
+<body ng-app="myApp">
+    <div class="container" ng-controller="voteController">
+        <div ng-show="!step" style="width: 100%;height: 100%"></div>
+        <div class="header-box">
+            <div class="header-con">
+                <div class="logo">
+                    <img src="./images/int-logo-title.png" width="144px" height="72px">
+                </div>
+                <div class="tabbar-box">
+                    <div class="tab-item ">
+                        <span>
+                            <a href="./index.html?lan={{lan}}">{{doc.newWallet}}</a>
+                        </span>
+
                     </div>
-                    <div class="tabbar-box">
-                        <div class="tab-item ">
-                            <span>
-                                <a href="./index.html?lan={{lan}}">{{doc.newWallet}}</a>
-                      </span>
+                    <div class="tab-item">
+                        <span>
+                            <a href="./walletInfo.html?lan={{lan}}"> {{doc.viewWllet}}</a>
+                        </span>
 
-                        </div>
-                        <div class="tab-item">
-                            <span>
-                                <a href="./walletInfo.html?lan={{lan}}"> {{doc.viewWllet}}</a>
-                      </span>
+                    </div>
+                    <div class="tab-item">
+                        <span>
+                            <a href="./mineMapping.html?lan={{lan}}">{{doc.mineMapping}}</a>
+                        </span>
 
-                        </div>
-                         <div class="tab-item">
-                            <span>
-                                <a href="./mineMapping.html?lan={{lan}}">{{doc.mineMapping}}</a>
-                       </span>
-
-                        </div>
-                        <!-- <div class="tab-item">
+                    </div>
+                    <!-- <div class="tab-item">
                             <span>
                        <a href="./send.html?lan={{lan}}"> {{doc.sendInt}}</a>
                       </span>
 
                         </div> -->
-                        <div id="send" ng-mouseenter="sendTabView = true" ng-mouseleave="sendTabView = false" class="tab-item">
-                            <span>
-                                <span>{{doc.send}}</span>
-                                <span class="triangle"></span>
-                            </span>
-                            <br>
-                            <div class="sendTab" ng-show="sendTabView">
-                                <div class="sendTab-item">
-                                    <a href="./send.html?action=sendInt&lan={{lan}}">
-                                        {{doc.sendInt}}
-                                    </a>
-                                </div> <br>
-                                <div class="sendTab-item">
-                                    <a href="./send.html?action=sendToken&lan={{lan}}">
-                                        {{doc.sendToken}}
-                                    </a>
-                                </div>
+                    <div id="send" ng-mouseenter="sendTabView = true" ng-mouseleave="sendTabView = false"
+                        class="tab-item">
+                        <span>
+                            <span>{{doc.send}}</span>
+                            <span class="triangle"></span>
+                        </span>
+                        <br>
+                        <div class="sendTab" ng-show="sendTabView">
+                            <div class="sendTab-item">
+                                <a href="./send.html?action=sendInt&lan={{lan}}">
+                                    {{doc.sendInt}}
+                                </a>
+                            </div> <br>
+                            <div class="sendTab-item">
+                                <a href="./send.html?action=sendToken&lan={{lan}}">
+                                    {{doc.sendToken}}
+                                </a>
                             </div>
                         </div>
-                        <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item active">
-                            <span>
+                    </div>
+                    <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false"
+                        class="tab-item active">
+                        <span>
+                            {{doc.mortgage}}
+                            <span class="triangle"></span>
+                        </span>
+                        <div class="b-line" style="margin-left:5px"></div>
+                        <div class="voteTab" ng-show="voteTabView">
+                            <div class="voteTab-item">
+                                <a href="javascript:;" ng-click="action='Mortgage'">
                                     {{doc.mortgage}}
-                                    <span class="triangle"></span>
-                            </span>
-                            <div class="b-line" style="margin-left:5px"></div>
-                            <div class="voteTab" ng-show="voteTabView">
-                                <div class="voteTab-item">
-                                    <a href="javascript:;" ng-click="action='Mortgage'">
-                                            {{doc.mortgage}}
                                 </a>
-                                </div>
-                                <div class="voteTab-item">
-                                    <a href="javascript:;" ng-click="action='Vote'">
-                                            {{doc.vote}}
+                            </div>
+                            <div class="voteTab-item">
+                                <a href="javascript:;" ng-click="action='Vote'">
+                                    {{doc.vote}}
                                 </a>
-                                </div>
-                                <div class="voteTab-item">
-                                    <a href="javascript:;" ng-click="action='Unmortgage'">
-                                            {{doc.unmortgage}}
+                            </div>
+                            <div class="voteTab-item">
+                                <a href="javascript:;" ng-click="action='Unmortgage'">
+                                    {{doc.unmortgage}}
                                 </a>
-                                </div>
-                                <div class="voteTab-item">
-                                    <a href="javascript:;" ng-click="action='Referendum'">
-                                                {{doc.referendum}}
-                                    </a>
-                                </div>
+                            </div>
+                            <div class="voteTab-item">
+                                <a href="javascript:;" ng-click="action='Referendum'">
+                                    {{doc.referendum}}
+                                </a>
                             </div>
                         </div>
+                    </div>
 
 
-                        <div id="token" ng-mouseenter="tokenView = true" ng-mouseleave="tokenView = false" class="tab-item">
-                            <span>
-                                            <span>Token</span>
-                                             <span class="triangle"></span>
-                                    </span>
-                            <div></div>
-                            <div class="voteTab" ng-show="tokenView">
-                                <div class="voteTab-item">
-                                    <a href="./token.html?action=create&lan={{lan}}">
-                                                {{doc.create}}
-                                            </a>
-                                </div>
-                                <div class="voteTab-item">
-                                    <a href="./token.html?action=transfer&lan={{lan}}">
-                                                {{doc.transfer}}
-                                            </a>
-                                </div>
+                    <div id="token" ng-mouseenter="tokenView = true" ng-mouseleave="tokenView = false" class="tab-item">
+                        <span>
+                            <span>Token</span>
+                            <span class="triangle"></span>
+                        </span>
+                        <div></div>
+                        <div class="voteTab" ng-show="tokenView">
+                            <div class="voteTab-item">
+                                <a href="./token.html?action=create&lan={{lan}}">
+                                    {{doc.create}}
+                                </a>
+                            </div>
+                            <div class="voteTab-item">
+                                <a href="./token.html?action=transfer&lan={{lan}}">
+                                    {{doc.transfer}}
+                                </a>
                             </div>
                         </div>
-                        <!-- <div class="tab-item">
+                    </div>
+
+                    <div class="tab-item">
+                        <span>
+                            <a href="./exchange.html?lan={{lan}}">DEFI</a>
+                        </span>
+                        <div></div>
+                    </div>
+                    <!-- <div class="tab-item">
                             <span>
                                     <a target="_blank" href="./images/help{{lan}}.pdf">{{doc.help}}</a>
                                 </span>
                         </div> -->
 
-                        <div id="lan" ng-mouseenter="lanView = true" ng-mouseleave="lanView = false" class="tab-item">
-                            <span>
-                                        <span>{{doc.language}}</span>
-                                         <span class="triangle"></span>
-                                </span>
-                            <div></div>
-                            <div class="voteTab" ng-show="lanView">
-                                <div class="voteTab-item" ng-click="changelan('en')">
-                                    <a href="javascript:;">
-                                            English
-                                        </a>
-                                </div>
-                                <div class="voteTab-item" ng-click="changelan('zh')">
-                                    <a href="javascript:;">
-                                            中文
-                                        </a>
-                                </div>
+                    <div id="lan" ng-mouseenter="lanView = true" ng-mouseleave="lanView = false" class="tab-item">
+                        <span>
+                            <span>{{doc.language}}</span>
+                            <span class="triangle"></span>
+                        </span>
+                        <div></div>
+                        <div class="voteTab" ng-show="lanView">
+                            <div class="voteTab-item" ng-click="changelan('en')">
+                                <a href="javascript:;">
+                                    English
+                                </a>
+                            </div>
+                            <div class="voteTab-item" ng-click="changelan('zh')">
+                                <a href="javascript:;">
+                                    中文
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="title-section">
-                <div class="site-title title-underline">{{title}}</div>
-            </div>
-            <div class="content">
-                <div class="main">
-                    <div ng-show="step==1">
-                        <div class="title">{{doc.access}}</div>
-                        <div class="ch">
-                            <div class="ch-item">
-                                <div ng-show="ch=='keyStore'" class="out">
-                                    <div class="in"></div>
-                                </div>
-                                <div ng-show="ch=='privateKey'" ng-click="ch='keyStore';unlockDisabled = true" class="inac"></div>
-                                <span ng-click="ch='keyStore';unlockDisabled = true" class="link-label">Keystore</span>
-                            </div>
-                            <div class="ch-item pri">
-                                <div ng-show="ch=='privateKey'" class="out">
-                                    <div class="in"></div>
-                                </div>
-                                <div ng-show="ch=='keyStore'" ng-click="ch='privateKey';unlockDisabled = true" class="inac"></div>
-                                <span ng-click="ch='privateKey';unlockDisabled = true" class="link-label">{{doc.privateKey}}</span>
-                            </div>
-                        </div>
-                        <div ng-show="ch=='keyStore'">
-                            <!-- <div class="se">{{doc.selectStore}}</div> -->
-                            <!-- <div class="warn">
-                                <img src="./images/warn.png" width="12px">
-                                <span>this is not a recommended  way to access your wallet. Entering your private key on
-                            a website dangerous. If our website is compromised or you accidentally visit a
-                            different website, your funds will be stolen</span>
-                            </div> -->
-                            <div file-uploader password="password" doc="doc" file="file" keystorestr="keystorestr" class="ch-file">
-                            </div>
-                            <div class="btn-dis" ng-show="unlockDisabled">{{doc.unlock}}</div>
-                            <div class="btn-unlock" ng-click="unlock()" ng-show="!unlockDisabled">{{doc.unlock}}</div>
-                            <div class="msg" ng-show="keyStoreUnlockFail">
-                                <img src="./images/msg.png" width="14px" style="float:left;padding-top:9px">
-                                <span style="padding-left: 14.5px">{{doc.passError}}</span>
-                                <img ng-click="keyStoreUnlockFail = false" style="padding:10px;float:right;cursor: pointer" src="./images/close.png" width="13px">
-                            </div>
-                        </div>
-                        <div ng-show="ch=='privateKey'">
-                            <div class="se">{{doc.ePri}}</div>
-                            <!-- <div class="warn">
-                                <img src="./images/warn.png" width="12px">
-                                <span>this is not a recommended  way to access your wallet. Entering your private key on
-                            a website dangerous. If our website is compromised or you accidentally visit a
-                            different website, your funds will be stolen</span>
-                            </div> -->
-
-                            <div style="height: 16px"></div>
-                            <div class="in-box">
-                                <input ng-keyup="enterUnlock($event)" ng-show="!privateKeyView" type="password" ng-model="privateKey" ng-change="unlockDisabled = false " placeholder="{{doc.enPriKey}}">
-                                <input ng-keyup="enterUnlock($event)" ng-show="privateKeyView" type="text" ng-model="privateKey" placeholder="{{doc.enPriKey}}">
-                                <img ng-click="privateKeyView=!privateKeyView" ng-show="privateKeyView" src="./images/eyeopen.png">
-                                <img ng-click="privateKeyView=!privateKeyView" ng-show="!privateKeyView" src="./images/eyeclose.png">
-                            </div>
-                            <div class="btn-dis" ng-show="unlockDisabled">{{doc.unlock}}</div>
-                            <div class="btn-unlock" ng-click="unlock()" ng-show="!unlockDisabled">{{doc.unlock}}</div>
-                            <div class="msg" ng-show="privateKeyUnlockFail">
-                                <img src="./images/msg.png" width="14px" style="float:left;padding-top:9px">
-                                <span style="padding-left: 14.5px">{{doc.validPrivateKey}}</span>
-                                <img ng-click="keyStoreUnlockFail = false" style="padding:10px;float:right;cursor: pointer" src="./images/close.png" width="13px">
-                            </div>
-                        </div>
-                        <div class="contact-note">
-                            {{doc.callUs}}<br> {{doc.email}}
-                        </div>
-                    </div>
-                    <div ng-show="action=='Vote'&&step==2">
-                        <div class="item-box">
-                            <div class="lable">{{doc.votes}}</div>
-                            <div class="in-box tint">
-                                <input ng-keyup="enterVote($event)" type="text" readonly ng-model="vote">
-                            </div>
-                        </div>
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">{{doc.balance}}</div>
-                            <div class="in-box tint">
-                                <input ng-keyup="enterVote($event)" type="text" readonly ng-model="balance">
-                            </div>
-                        </div>
-                        <div class="item-box">
-                            <div class="lable">{{doc.search}}</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterVote($event)" type="text" ng-model="searchStr">
-                            </div>
-                        </div>
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="voted-reward" style="margin-top: 48px" ng-click="showRecord()">
-                                <a style="text-decoration:underline" href=" javascript:; ">{{doc.votedAndRecord}}</a>
-                            </div>
-                        </div>
-                        <div class="node-box ">
-                            <div class="node-item " ng-repeat="n in nodes " ng-class="{ 'nodeName':!n.teamName}" ng-click="chooseNodes($index) " ng-if="n.node.indexOf(searchStr)>=0||n.teamName.indexOf(searchStr)>=0">
-                                <img ng-show="n.ch" class="icon" src="./images/choose.png" alt="" width="18" height="18">
-                                <div ng-show="!n.ch" class="no-ch"></div>
-                                <div class="node">
-                                    <span ng-show="!n.webUrl" style="line-height: 14px;color: #333;font-weight:700">{{n.teamName}} </span>
-                                    <a style="line-height: 14px;text-decoration:underline;color: #2d8cf0;font-weight:700" ng-show="n.webUrl" href="{{n.webUrl}}" target="_blank">{{n.teamName}}</a>
-                                    <div>{{n.node}}</div>
-                                </div>
-                                <div class="vote"><span style="color: #2d8cf0">{{n.num}}</span> {{doc.stakes}}</div>
-                            </div>
-                        </div>
-                        <div class="item-box">
-                            <div class="lable">Gas Limit</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterVote($event)" type="text" placeholder="Gas Limit" ng-model="voteLimit">
-                            </div>
-                        </div>
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">Gas Price</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterVote($event)" type="text" placeholder="Gas Price" ng-model="votePrice">
-                            </div>
-                        </div>
-                        <div>
-                            <span style="display:inline-block;margin-left: 570px;width: 40px">{{chNum}}/20</span>
-                            <div style="display: inline-block;margin-left: 25px">
-                                <div class="btn-dis" style="margin-top: 48px" ng-show="!votePass">{{doc.mortgage}}</div>
-                                <div class="btn-unlock" style="margin-top: 48px" ng-click="Vote()" ng-show="votePass">
-                                    {{doc.vote}}</div>
-                            </div>
-                        </div>
-                        <div class="contact-note">
-                            {{doc.callUs}}<br> {{doc.email}}
-                        </div>
-                    </div>
-                    <div ng-show="action=='Mortgage' && step == 2">
-                        <div class="item-box">
-                            <div class="lable">{{doc.votes}}</div>
-                            <div class="in-box tint">
-                                <input ng-keyup="enterMorgage($event)" type="text" readonly ng-model="vote">
-                            </div>
-                        </div>
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">{{doc.balance}}</div>
-                            <div class="in-box tint">
-                                <input ng-keyup="enterMorgage($event)" type="text" readonly ng-model="balance">
-                            </div>
-                        </div>
-                        <div class="item-box">
-                            <div class="lable">{{doc.am}}</div>
-                            <div class="in-box">
-                                <input ng-blur="getLimit('mortgage',morgageAmount)" ng-keyup="enterMorgage($event)" type="text" ng-model="morgageAmount" placeholder="{{doc.am}}">
-                            </div>
-                        </div>
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">Gas Limit</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterMorgage($event)" type="text" ng-model="morgageLimit" placeholder=" Gas Limit">
-                            </div>
-                        </div>
-                        <div class="item-box">
-                            <div class="lable">Gas Price</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterMorgage($event)" ng-keyup="enterEvent($event)" type="text" ng-model="morgagePrice" placeholder="Gas Price">
-                            </div>
-                        </div>
-
-                        <div class="btn-dis" style="margin-top: 48px" ng-show="!morgagePass">{{doc.mortgage}}</div>
-                        <div class="btn-unlock" style="margin-top: 48px" ng-click="Morgage()" ng-show="morgagePass">{{doc.mortgage}}</div>
-                        <div class="contact-note">
-                            {{doc.callUs}}<br> {{doc.email}}
-                        </div>
-                    </div>
-                    <div ng-show="action=='Unmortgage' && step == 2">
-                        <div class="item-box">
-                            <div class="lable">{{doc.votes}}</div>
-                            <div class="in-box tint">
-                                <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" readonly ng-model="vote">
-                            </div>
-                        </div>
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">{{doc.balance}}</div>
-                            <div class="in-box tint">
-                                <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" readonly ng-model="balance">
-                            </div>
-                        </div>
-                        <div class="item-box">
-                            <div class="lable">{{doc.am}}</div>
-                            <div class="in-box">
-                                <input ng-blur="getLimit('unmortgage',unmorgageAmount)" ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" ng-model="unmorgageAmount" placeholder="{{doc.am}}">
-                            </div>
-                        </div>
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">Gas Limit</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" ng-model="unmorgageLimit" placeholder="Gas Limit">
-                            </div>
-                        </div>
-                        <div class="item-box">
-                            <div class="lable">Gas Price</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" ng-model="unmorgagePrice" placeholder="Gas Price">
-                            </div>
-                        </div>
-                        <div class="btn-dis" style="margin-top: 48px" ng-show="!unmorgagePass">{{doc.unmortgage}}</div>
-                        <div class="btn-unlock" style="margin-top: 48px" ng-click="Unmorgage()" ng-show="unmorgagePass">{{doc.unmortgage}}</div>
-                        <div class="contact-note">
-                            {{doc.callUs}}<br> {{doc.email}}
-                        </div>
-                    </div>
-                    <div ng-show="action=='Referendum' && step == 2">
-                        <div id="myApp">
-                            <Tabs type="card">
-                                <Tab-Pane :label="doc.proposal">
-                                    <div class="tab1">
-                                        <div class="item-box" style="margin-left: 30px">
-                                            <div class="lable">{{doc.votes}}</div>
-                                            <div class="in-box tint">
-                                                <input id="rfdStake" ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" readonly ng-model="vote">
-                                            </div>
-                                        </div>
-
-                                        <div class="item-box" style="margin-left: 30px">
-                                            <div class="lable">{{doc.balance}}</div>
-                                            <div class="in-box tint">
-                                                <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" readonly ng-model="balance">
-                                            </div>
-                                        </div>
-
-                                        <div class="item-box" style="margin-left: 30px">
-                                            <div class="lable">{{doc.search}}</div>
-                                            <div class="in-box">
-                                                <input v-model="search">
-                                            </div>
-                                        </div>
-
-                                        <divider></divider>
-                                        <i-Select v-model="involved" style="width:200px;margin-left: 30px">
-                                            <i-Option value="0">{{doc.all}}</i-Option>
-                                            <i-Option value="1">{{doc.alreadyInvolved}}</i-Option>
-                                            <i-Option value="2">{{doc.notInvolved}}</i-Option>
-                                        </i-Select>
-                                        <div style="text-align: center;height:80px;line-height: 150px" v-if="!showProposalRfdList.length">{{doc.noData}}</div>
-                                        <div style="margin-left: 50px;width:850px" v-for="r in showProposalRfdList.slice((this.pageNo1 - 1) * this.pageSize1, this.pageSize1 * this.pageNo1)">
-                                            <p class="r-hash">hash: {{r.hash}}</p>
-                                            <p class="r-title" :class="{thover:!!r.webUrl}" v-on:click.stop="toWebUrl(r,$event)">{{r.title}}</p>
-                                            <div class="r-icon">
-                                                <div style="float: left">
-                                                    <Icon type="md-thumbs-up" color="#2CC868" size="20"></Icon>
-                                                    <span style="color:#2CC868 ">{{doc.agree}}</span>
-                                                    <span>{{r.Agree.stake}}INT（{{r.Agree.address?r.Agree.address.split(',').length:0}} {{doc.voters}}）</span>
-                                                </div>
-                                                <div style="float: right">
-                                                    <Icon type="md-thumbs-down" color="#EE9221" size="20"></Icon>
-                                                    <span style="color:#EE9221 ">{{doc.disagree}}</span>
-                                                    <span>{{r.Disagree.stake}}INT（{{r.Disagree.address?r.Disagree.address.split(',').length:0}} {{doc.voters}}）</span>
-                                                </div>
-                                            </div>
-                                            <div class="ivu-progress ivu-progress-normal" style="width: 100%;">
-                                                <div class="ivu-progress-outer">
-                                                    <div class="ivu-progress-inner">
-                                                        <div v-bind:style="{width:getTotalWidth(r)}" class="ivu-progress-bg">
-                                                            <span v-if="r.Agree.stake==0&&r.Disagree.stake==0" style="color:#222;margin-left: 10px ">0%</span>
-                                                            <span v-if="r.Disagree.stake!=0" style="margin-right: 5px"> {{r.Disagree.stake=='0'||(r.Disagree.stake/(r.Agree.stake+r.Disagree.stake)*100).toFixed(0)=='0'?'':(r.Disagree.stake/(r.Agree.stake+r.Disagree.stake)*100).toFixed(0)+'%'}}
-                                                            </span>
-                                                        </div>
-                                                        <div v-bind:style="{width:getAgreeWidth(r)}" class="ivu-progress-success-bg">
-                                                            <span v-if="r.Agree.stake!=0" style="margin-left: 5px">
-                                                                    {{r.Agree.stake=='0'||(r.Agree.stake/(r.Agree.stake+r.Disagree.stake)*100).toFixed(0)=='0'?'':(r.Agree.stake/(r.Agree.stake+r.Disagree.stake)*100).toFixed(0)+'%'}}
-                                                            </span>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div style="margin-top:10px">
-                                                <div class="r-time">
-                                                    <span>{{doc.endTime}} {{moment(r.end).format("YYYY-MM-DD HH:mm:ss")}}</span>
-                                                </div>
-                                                <div style="float: right">
-                                                    <Radio-Group v-model="r.votedId" style="margin-right:50px">
-                                                        <Radio :disabled="moment().valueOf()> moment(r.end).valueOf()" style="margin-right:20px" class="r-item" :label="r.Agree.optId">{{doc.agreee}}</Radio>
-                                                        <Radio :disabled="moment().valueOf()> moment(r.end).valueOf()" class="r-item" :label="r.Disagree.optId">{{doc.disagree}}</Radio>
-                                                    </Radio-Group>
-                                                    <i-Button class="rfd_vote" type="primary" shape="circle" @click="rfdVote(r)" :disabled="r.votedId == ''|| moment().valueOf()> moment(r.end).valueOf()">{{doc.mortgage}}</i-Button>
-                                                </div>
-                                            </div>
-                                            <div style="height:30px;width:10px"></div>
-                                            <divider></divider>
-                                        </div>
-                                        <div style="float:right ;margin: 10px 50px 0 0;clear:both">
-                                            <Page :total="showProposalRfdList.length" :page-size="pageSize1" @on-change="hanlePageNoChange1" />
-                                        </div>
-                                    </div>
-                                </Tab-Pane>
-                                <Tab-Pane :label="doc.oc">
-                                    <div class="tab1">
-                                        <div class="item-box" style="margin-left: 50px">
-                                            <div class="lable">{{doc.votes}}</div>
-                                            <div class="in-box">
-                                                <input id="rfdStake" ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" readonly ng-model="vote">
-                                            </div>
-                                        </div>
-
-                                        <div class="item-box" style="margin-left: 50px">
-                                            <div class="lable">{{doc.balance}}</div>
-                                            <div class="in-box">
-                                                <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" readonly ng-model="balance">
-                                            </div>
-                                        </div>
-
-                                        <div class="item-box" style="margin-left: 50px">
-                                            <div class="lable">{{doc.search}}</div>
-                                            <div class="in-box">
-                                                <input v-model="search2">
-                                            </div>
-                                        </div>
-
-                                        <divider></divider>
-                                        <i-Select v-model="involved2" style="width:200px;margin-left: 50px">
-                                            <i-Option value="0">{{doc.all}}</i-Option>
-                                            <i-Option value="1">{{doc.alreadyInvolved}}</i-Option>
-                                            <i-Option value="2">{{doc.notInvolved}}</i-Option>
-                                        </i-Select>
-                                        <div style="text-align: center;height:80px;line-height: 150px" v-if="!showRfd2.length">{{doc.noData}}</div>
-                                        <div style="margin-left: 50px;width:870px" v-for="r in showRfd2.slice((pageNo2 - 1) * pageSize2, pageSize2 * pageNo2)">
-                                            <p v-if="new Date() > new Date(r.end)" style="color: rgba(102,102,102,0.5)" class="r-hash">hash: {{r.hash}}<span style="float: right">{{doc.endTime}} {{moment(r.end).format("YYYY-MM-DD HH:mm:ss")}}</span> </p>
-                                            <p v-else class="r-hash">hash: {{r.hash}}<span style="float: right">{{doc.endTime}} {{moment(r.end).format("YYYY-MM-DD HH:mm:ss")}}</span> </p>
-                                            <p v-if="new Date() > new Date(r.end)" style="color: rgba(51,51,51,0.5)" class="r-title" @click="isShowOpts(r)">{{r.title}} <a style="color: #2d8cf0" v-show="!!r.webUrl" v-on:click.stop="toWebUrl(r, 'viewAll',$event)" href="javascript:;">{{doc.viewAll}}</a> </p>
-                                            <p v-else class="r-title" @click="isShowOpts(r)">{{r.title}} <a style="color: #2d8cf0" v-show="!!r.webUrl" v-on:click.stop="toWebUrl(r, 'viewAll',$event)" href="javascript:;">{{doc.viewAll}}</a> </p>
-                                            <div class="options2" v-bind:class="{showOpts:!!r.showOpts}">
-                                                <Checkbox-Group v-model="r.votedId">
-                                                    <div v-for="opt in r.options" class="rfdoptions">
-                                                        <Checkbox :disabled="moment().valueOf() > moment(r.end).valueOf()" :label="opt.optId">
-                                                            <span class="r-item">{{opt.name}}
-                                                                <a style="color: #2d8cf0" v-show="!!opt.webUrl" v-on:click.stop="toWebUrl(opt,$event)" href="javascript:;">{{doc.view}}</a>
-                                                            </span>
-                                                        </Checkbox>
-                                                        <br/>
-                                                    </div>
-                                                </Checkbox-Group>
-                                                <i-Button style="float: right;margin-top:20px;margin-right:50px" class="rfd_vote" type="primary" shape="circle" @click="rfdVote(r,'Checkbox')" :disabled="r.votedId.length==0|| moment().valueOf() > moment(r.end).valueOf()">{{doc.mortgage}}</i-Button>
-                                            </div>
-                                            <div style="height:15px;width:10px"></div>
-                                            <divider></divider>
-                                        </div>
-                                        <div style="float:right ;margin: 10px 50px 0 0;clear:both">
-                                            <Page :total="showRfd2.length" :page-size="pageSize2" @on-change="hanlePageNoChange2" />
-                                        </div>
-                                    </div>
-                                </Tab-Pane>
-                            </Tabs>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="foot">
-                Copyright © 2019 - 2020 INT
             </div>
         </div>
+        <div class="title-section">
+            <div class="site-title title-underline">{{title}}</div>
+        </div>
+        <div class="content">
+            <div class="main">
+                <div ng-show="step==1">
+                    <div class="title">{{doc.access}}</div>
+                    <div class="ch">
+                        <div class="ch-item">
+                            <div ng-show="ch=='keyStore'" class="out">
+                                <div class="in"></div>
+                            </div>
+                            <div ng-show="ch=='privateKey'" ng-click="ch='keyStore';unlockDisabled = true" class="inac">
+                            </div>
+                            <span ng-click="ch='keyStore';unlockDisabled = true" class="link-label">Keystore</span>
+                        </div>
+                        <div class="ch-item pri">
+                            <div ng-show="ch=='privateKey'" class="out">
+                                <div class="in"></div>
+                            </div>
+                            <div ng-show="ch=='keyStore'" ng-click="ch='privateKey';unlockDisabled = true" class="inac">
+                            </div>
+                            <span ng-click="ch='privateKey';unlockDisabled = true"
+                                class="link-label">{{doc.privateKey}}</span>
+                        </div>
+                    </div>
+                    <div ng-show="ch=='keyStore'">
+                        <!-- <div class="se">{{doc.selectStore}}</div> -->
+                        <!-- <div class="warn">
+                                <img src="./images/warn.png" width="12px">
+                                <span>this is not a recommended  way to access your wallet. Entering your private key on
+                            a website dangerous. If our website is compromised or you accidentally visit a
+                            different website, your funds will be stolen</span>
+                            </div> -->
+                        <div file-uploader password="password" doc="doc" file="file" keystorestr="keystorestr"
+                            class="ch-file">
+                        </div>
+                        <div class="btn-dis" ng-show="unlockDisabled">{{doc.unlock}}</div>
+                        <div class="btn-unlock" ng-click="unlock()" ng-show="!unlockDisabled">{{doc.unlock}}</div>
+                        <div class="msg" ng-show="keyStoreUnlockFail">
+                            <img src="./images/msg.png" width="14px" style="float:left;padding-top:9px">
+                            <span style="padding-left: 14.5px">{{doc.passError}}</span>
+                            <img ng-click="keyStoreUnlockFail = false" style="padding:10px;float:right;cursor: pointer"
+                                src="./images/close.png" width="13px">
+                        </div>
+                    </div>
+                    <div ng-show="ch=='privateKey'">
+                        <div class="se">{{doc.ePri}}</div>
+                        <!-- <div class="warn">
+                                <img src="./images/warn.png" width="12px">
+                                <span>this is not a recommended  way to access your wallet. Entering your private key on
+                            a website dangerous. If our website is compromised or you accidentally visit a
+                            different website, your funds will be stolen</span>
+                            </div> -->
 
-    </body>
+                        <div style="height: 16px"></div>
+                        <div class="in-box">
+                            <input ng-keyup="enterUnlock($event)" ng-show="!privateKeyView" type="password"
+                                ng-model="privateKey" ng-change="unlockDisabled = false "
+                                placeholder="{{doc.enPriKey}}">
+                            <input ng-keyup="enterUnlock($event)" ng-show="privateKeyView" type="text"
+                                ng-model="privateKey" placeholder="{{doc.enPriKey}}">
+                            <img ng-click="privateKeyView=!privateKeyView" ng-show="privateKeyView"
+                                src="./images/eyeopen.png">
+                            <img ng-click="privateKeyView=!privateKeyView" ng-show="!privateKeyView"
+                                src="./images/eyeclose.png">
+                        </div>
+                        <div class="btn-dis" ng-show="unlockDisabled">{{doc.unlock}}</div>
+                        <div class="btn-unlock" ng-click="unlock()" ng-show="!unlockDisabled">{{doc.unlock}}</div>
+                        <div class="msg" ng-show="privateKeyUnlockFail">
+                            <img src="./images/msg.png" width="14px" style="float:left;padding-top:9px">
+                            <span style="padding-left: 14.5px">{{doc.validPrivateKey}}</span>
+                            <img ng-click="keyStoreUnlockFail = false" style="padding:10px;float:right;cursor: pointer"
+                                src="./images/close.png" width="13px">
+                        </div>
+                    </div>
+                    <div class="contact-note">
+                        {{doc.callUs}}<br> {{doc.email}}
+                    </div>
+                </div>
+                <div ng-show="action=='Vote'&&step==2">
+                    <div class="item-box">
+                        <div class="lable">{{doc.votes}}</div>
+                        <div class="in-box tint">
+                            <input ng-keyup="enterVote($event)" type="text" readonly ng-model="vote">
+                        </div>
+                    </div>
+                    <div class="item-box" style="margin-left: 50px">
+                        <div class="lable">{{doc.balance}}</div>
+                        <div class="in-box tint">
+                            <input ng-keyup="enterVote($event)" type="text" readonly ng-model="balance">
+                        </div>
+                    </div>
+                    <div class="item-box">
+                        <div class="lable">{{doc.search}}</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterVote($event)" type="text" ng-model="searchStr">
+                        </div>
+                    </div>
+                    <div class="item-box" style="margin-left: 50px">
+                        <div class="voted-reward" style="margin-top: 48px" ng-click="showRecord()">
+                            <a style="text-decoration:underline" href=" javascript:; ">{{doc.votedAndRecord}}</a>
+                        </div>
+                    </div>
+                    <div class="node-box ">
+                        <div class="node-item " ng-repeat="n in nodes " ng-class="{ 'nodeName':!n.teamName}"
+                            ng-click="chooseNodes($index) "
+                            ng-if="n.node.indexOf(searchStr)>=0||n.teamName.indexOf(searchStr)>=0">
+                            <img ng-show="n.ch" class="icon" src="./images/choose.png" alt="" width="18" height="18">
+                            <div ng-show="!n.ch" class="no-ch"></div>
+                            <div class="node">
+                                <span ng-show="!n.webUrl"
+                                    style="line-height: 14px;color: #333;font-weight:700">{{n.teamName}} </span>
+                                <a style="line-height: 14px;text-decoration:underline;color: #2d8cf0;font-weight:700"
+                                    ng-show="n.webUrl" href="{{n.webUrl}}" target="_blank">{{n.teamName}}</a>
+                                <div>{{n.node}}</div>
+                            </div>
+                            <div class="vote"><span style="color: #2d8cf0">{{n.num}}</span> {{doc.stakes}}</div>
+                        </div>
+                    </div>
+                    <div class="item-box">
+                        <div class="lable">Gas Limit</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterVote($event)" type="text" placeholder="Gas Limit"
+                                ng-model="voteLimit">
+                        </div>
+                    </div>
+                    <div class="item-box" style="margin-left: 50px">
+                        <div class="lable">Gas Price</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterVote($event)" type="text" placeholder="Gas Price"
+                                ng-model="votePrice">
+                        </div>
+                    </div>
+                    <div>
+                        <span style="display:inline-block;margin-left: 570px;width: 40px">{{chNum}}/20</span>
+                        <div style="display: inline-block;margin-left: 25px">
+                            <div class="btn-dis" style="margin-top: 48px" ng-show="!votePass">{{doc.mortgage}}</div>
+                            <div class="btn-unlock" style="margin-top: 48px" ng-click="Vote()" ng-show="votePass">
+                                {{doc.vote}}</div>
+                        </div>
+                    </div>
+                    <div class="contact-note">
+                        {{doc.callUs}}<br> {{doc.email}}
+                    </div>
+                </div>
+                <div ng-show="action=='Mortgage' && step == 2">
+                    <div class="item-box">
+                        <div class="lable">{{doc.votes}}</div>
+                        <div class="in-box tint">
+                            <input ng-keyup="enterMorgage($event)" type="text" readonly ng-model="vote">
+                        </div>
+                    </div>
+                    <div class="item-box" style="margin-left: 50px">
+                        <div class="lable">{{doc.balance}}</div>
+                        <div class="in-box tint">
+                            <input ng-keyup="enterMorgage($event)" type="text" readonly ng-model="balance">
+                        </div>
+                    </div>
+                    <div class="item-box">
+                        <div class="lable">{{doc.am}}</div>
+                        <div class="in-box">
+                            <input ng-blur="getLimit('mortgage',morgageAmount)" ng-keyup="enterMorgage($event)"
+                                type="text" ng-model="morgageAmount" placeholder="{{doc.am}}">
+                        </div>
+                    </div>
+                    <div class="item-box" style="margin-left: 50px">
+                        <div class="lable">Gas Limit</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterMorgage($event)" type="text" ng-model="morgageLimit"
+                                placeholder=" Gas Limit">
+                        </div>
+                    </div>
+                    <div class="item-box">
+                        <div class="lable">Gas Price</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterMorgage($event)" ng-keyup="enterEvent($event)" type="text"
+                                ng-model="morgagePrice" placeholder="Gas Price">
+                        </div>
+                    </div>
 
-    <script>
-        let currentLan = new modal.UrlSearch().lan || 'en'
+                    <div class="btn-dis" style="margin-top: 48px" ng-show="!morgagePass">{{doc.mortgage}}</div>
+                    <div class="btn-unlock" style="margin-top: 48px" ng-click="Morgage()" ng-show="morgagePass">
+                        {{doc.mortgage}}</div>
+                    <div class="contact-note">
+                        {{doc.callUs}}<br> {{doc.email}}
+                    </div>
+                </div>
+                <div ng-show="action=='Unmortgage' && step == 2">
+                    <div class="item-box">
+                        <div class="lable">{{doc.votes}}</div>
+                        <div class="in-box tint">
+                            <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" readonly
+                                ng-model="vote">
+                        </div>
+                    </div>
+                    <div class="item-box" style="margin-left: 50px">
+                        <div class="lable">{{doc.balance}}</div>
+                        <div class="in-box tint">
+                            <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text" readonly
+                                ng-model="balance">
+                        </div>
+                    </div>
+                    <div class="item-box">
+                        <div class="lable">{{doc.am}}</div>
+                        <div class="in-box">
+                            <input ng-blur="getLimit('unmortgage',unmorgageAmount)" ng-keyup="enterUnmorgage($event)"
+                                ng-keyup="enterEvent($event)" type="text" ng-model="unmorgageAmount"
+                                placeholder="{{doc.am}}">
+                        </div>
+                    </div>
+                    <div class="item-box" style="margin-left: 50px">
+                        <div class="lable">Gas Limit</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text"
+                                ng-model="unmorgageLimit" placeholder="Gas Limit">
+                        </div>
+                    </div>
+                    <div class="item-box">
+                        <div class="lable">Gas Price</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)" type="text"
+                                ng-model="unmorgagePrice" placeholder="Gas Price">
+                        </div>
+                    </div>
+                    <div class="btn-dis" style="margin-top: 48px" ng-show="!unmorgagePass">{{doc.unmortgage}}</div>
+                    <div class="btn-unlock" style="margin-top: 48px" ng-click="Unmorgage()" ng-show="unmorgagePass">
+                        {{doc.unmortgage}}</div>
+                    <div class="contact-note">
+                        {{doc.callUs}}<br> {{doc.email}}
+                    </div>
+                </div>
+                <div ng-show="action=='Referendum' && step == 2">
+                    <div id="myApp">
+                        <Tabs type="card">
+                            <Tab-Pane :label="doc.proposal">
+                                <div class="tab1">
+                                    <div class="item-box" style="margin-left: 30px">
+                                        <div class="lable">{{doc.votes}}</div>
+                                        <div class="in-box tint">
+                                            <input id="rfdStake" ng-keyup="enterUnmorgage($event)"
+                                                ng-keyup="enterEvent($event)" type="text" readonly ng-model="vote">
+                                        </div>
+                                    </div>
 
-        let myVue = new Vue({
-            el: '#myApp',
-            data: {
-                d: true,
-                doc: lan[currentLan],
-                search: "",
-                involved: "0",
-                search2: "",
-                involved2: "0",
-                ProposalRfdList: [],
-                showProposalRfdList: [],
-                rfd2: [],
-                showRfd2: [],
-                address: '',
-                price: '',
-                privateKey: '',
-                moment,
-                pageNo1: 1,
-                pageSize1: 50,
-                pageNo2: 1,
-                pageSize2: 50,
-                price: 0,
-            },
-            created() {
-                this.queryProposalRfd();
-                this.getRfd2();
-            },
-            methods: {
-                toWebUrl(opt, str, e) {
-                    if (str == 'viewAll') {
-                        let arr = [];
-                        for (let rfd of this.showRfd2) {
-                            if (opt.id === rfd.id) {
-                                rfd.showOpts = true
-                            }
-                            arr.push(rfd)
-                        }
-                        this.showRfd2 = [...arr]
-                    }
-                    if (!opt.webUrl) {
-                        return;
-                    }
-                    if (opt.webUrl) {
-                        window.open(opt.webUrl)
-                    }
-                    e.stopPropagation()
-                },
-                isShowOpts(r) {
+                                    <div class="item-box" style="margin-left: 30px">
+                                        <div class="lable">{{doc.balance}}</div>
+                                        <div class="in-box tint">
+                                            <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)"
+                                                type="text" readonly ng-model="balance">
+                                        </div>
+                                    </div>
+
+                                    <div class="item-box" style="margin-left: 30px">
+                                        <div class="lable">{{doc.search}}</div>
+                                        <div class="in-box">
+                                            <input v-model="search">
+                                        </div>
+                                    </div>
+
+                                    <divider></divider>
+                                    <i-Select v-model="involved" style="width:200px;margin-left: 30px">
+                                        <i-Option value="0">{{doc.all}}</i-Option>
+                                        <i-Option value="1">{{doc.alreadyInvolved}}</i-Option>
+                                        <i-Option value="2">{{doc.notInvolved}}</i-Option>
+                                    </i-Select>
+                                    <div style="text-align: center;height:80px;line-height: 150px"
+                                        v-if="!showProposalRfdList.length">{{doc.noData}}</div>
+                                    <div style="margin-left: 50px;width:850px"
+                                        v-for="r in showProposalRfdList.slice((this.pageNo1 - 1) * this.pageSize1, this.pageSize1 * this.pageNo1)">
+                                        <p class="r-hash">hash: {{r.hash}}</p>
+                                        <p class="r-title" :class="{thover:!!r.webUrl}"
+                                            v-on:click.stop="toWebUrl(r,$event)">{{r.title}}</p>
+                                        <div class="r-icon">
+                                            <div style="float: left">
+                                                <Icon type="md-thumbs-up" color="#2CC868" size="20"></Icon>
+                                                <span style="color:#2CC868 ">{{doc.agree}}</span>
+                                                <span>{{r.Agree.stake}}INT（{{r.Agree.address?r.Agree.address.split(',').length:0}}
+                                                    {{doc.voters}}）</span>
+                                            </div>
+                                            <div style="float: right">
+                                                <Icon type="md-thumbs-down" color="#EE9221" size="20"></Icon>
+                                                <span style="color:#EE9221 ">{{doc.disagree}}</span>
+                                                <span>{{r.Disagree.stake}}INT（{{r.Disagree.address?r.Disagree.address.split(',').length:0}}
+                                                    {{doc.voters}}）</span>
+                                            </div>
+                                        </div>
+                                        <div class="ivu-progress ivu-progress-normal" style="width: 100%;">
+                                            <div class="ivu-progress-outer">
+                                                <div class="ivu-progress-inner">
+                                                    <div v-bind:style="{width:getTotalWidth(r)}"
+                                                        class="ivu-progress-bg">
+                                                        <span v-if="r.Agree.stake==0&&r.Disagree.stake==0"
+                                                            style="color:#222;margin-left: 10px ">0%</span>
+                                                        <span v-if="r.Disagree.stake!=0" style="margin-right: 5px">
+                                                            {{r.Disagree.stake=='0'||(r.Disagree.stake/(r.Agree.stake+r.Disagree.stake)*100).toFixed(0)=='0'?'':(r.Disagree.stake/(r.Agree.stake+r.Disagree.stake)*100).toFixed(0)+'%'}}
+                                                        </span>
+                                                    </div>
+                                                    <div v-bind:style="{width:getAgreeWidth(r)}"
+                                                        class="ivu-progress-success-bg">
+                                                        <span v-if="r.Agree.stake!=0" style="margin-left: 5px">
+                                                            {{r.Agree.stake=='0'||(r.Agree.stake/(r.Agree.stake+r.Disagree.stake)*100).toFixed(0)=='0'?'':(r.Agree.stake/(r.Agree.stake+r.Disagree.stake)*100).toFixed(0)+'%'}}
+                                                        </span>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="margin-top:10px">
+                                            <div class="r-time">
+                                                <span>{{doc.endTime}}
+                                                    {{moment(r.end).format("YYYY-MM-DD HH:mm:ss")}}</span>
+                                            </div>
+                                            <div style="float: right">
+                                                <Radio-Group v-model="r.votedId" style="margin-right:50px">
+                                                    <Radio :disabled="moment().valueOf()> moment(r.end).valueOf()"
+                                                        style="margin-right:20px" class="r-item" :label="r.Agree.optId">
+                                                        {{doc.agreee}}</Radio>
+                                                    <Radio :disabled="moment().valueOf()> moment(r.end).valueOf()"
+                                                        class="r-item" :label="r.Disagree.optId">{{doc.disagree}}
+                                                    </Radio>
+                                                </Radio-Group>
+                                                <i-Button class="rfd_vote" type="primary" shape="circle"
+                                                    @click="rfdVote(r)"
+                                                    :disabled="r.votedId == ''|| moment().valueOf()> moment(r.end).valueOf()">
+                                                    {{doc.mortgage}}</i-Button>
+                                            </div>
+                                        </div>
+                                        <div style="height:30px;width:10px"></div>
+                                        <divider></divider>
+                                    </div>
+                                    <div style="float:right ;margin: 10px 50px 0 0;clear:both">
+                                        <Page :total="showProposalRfdList.length" :page-size="pageSize1"
+                                            @on-change="hanlePageNoChange1" />
+                                    </div>
+                                </div>
+                            </Tab-Pane>
+                            <Tab-Pane :label="doc.oc">
+                                <div class="tab1">
+                                    <div class="item-box" style="margin-left: 50px">
+                                        <div class="lable">{{doc.votes}}</div>
+                                        <div class="in-box">
+                                            <input id="rfdStake" ng-keyup="enterUnmorgage($event)"
+                                                ng-keyup="enterEvent($event)" type="text" readonly ng-model="vote">
+                                        </div>
+                                    </div>
+
+                                    <div class="item-box" style="margin-left: 50px">
+                                        <div class="lable">{{doc.balance}}</div>
+                                        <div class="in-box">
+                                            <input ng-keyup="enterUnmorgage($event)" ng-keyup="enterEvent($event)"
+                                                type="text" readonly ng-model="balance">
+                                        </div>
+                                    </div>
+
+                                    <div class="item-box" style="margin-left: 50px">
+                                        <div class="lable">{{doc.search}}</div>
+                                        <div class="in-box">
+                                            <input v-model="search2">
+                                        </div>
+                                    </div>
+
+                                    <divider></divider>
+                                    <i-Select v-model="involved2" style="width:200px;margin-left: 50px">
+                                        <i-Option value="0">{{doc.all}}</i-Option>
+                                        <i-Option value="1">{{doc.alreadyInvolved}}</i-Option>
+                                        <i-Option value="2">{{doc.notInvolved}}</i-Option>
+                                    </i-Select>
+                                    <div style="text-align: center;height:80px;line-height: 150px"
+                                        v-if="!showRfd2.length">{{doc.noData}}</div>
+                                    <div style="margin-left: 50px;width:870px"
+                                        v-for="r in showRfd2.slice((pageNo2 - 1) * pageSize2, pageSize2 * pageNo2)">
+                                        <p v-if="new Date() > new Date(r.end)" style="color: rgba(102,102,102,0.5)"
+                                            class="r-hash">hash: {{r.hash}}<span style="float: right">{{doc.endTime}}
+                                                {{moment(r.end).format("YYYY-MM-DD HH:mm:ss")}}</span> </p>
+                                        <p v-else class="r-hash">hash: {{r.hash}}<span
+                                                style="float: right">{{doc.endTime}}
+                                                {{moment(r.end).format("YYYY-MM-DD HH:mm:ss")}}</span> </p>
+                                        <p v-if="new Date() > new Date(r.end)" style="color: rgba(51,51,51,0.5)"
+                                            class="r-title" @click="isShowOpts(r)">{{r.title}} <a style="color: #2d8cf0"
+                                                v-show="!!r.webUrl" v-on:click.stop="toWebUrl(r, 'viewAll',$event)"
+                                                href="javascript:;">{{doc.viewAll}}</a> </p>
+                                        <p v-else class="r-title" @click="isShowOpts(r)">{{r.title}} <a
+                                                style="color: #2d8cf0" v-show="!!r.webUrl"
+                                                v-on:click.stop="toWebUrl(r, 'viewAll',$event)"
+                                                href="javascript:;">{{doc.viewAll}}</a> </p>
+                                        <div class="options2" v-bind:class="{showOpts:!!r.showOpts}">
+                                            <Checkbox-Group v-model="r.votedId">
+                                                <div v-for="opt in r.options" class="rfdoptions">
+                                                    <Checkbox :disabled="moment().valueOf() > moment(r.end).valueOf()"
+                                                        :label="opt.optId">
+                                                        <span class="r-item">{{opt.name}}
+                                                            <a style="color: #2d8cf0" v-show="!!opt.webUrl"
+                                                                v-on:click.stop="toWebUrl(opt,$event)"
+                                                                href="javascript:;">{{doc.view}}</a>
+                                                        </span>
+                                                    </Checkbox>
+                                                    <br />
+                                                </div>
+                                            </Checkbox-Group>
+                                            <i-Button style="float: right;margin-top:20px;margin-right:50px"
+                                                class="rfd_vote" type="primary" shape="circle"
+                                                @click="rfdVote(r,'Checkbox')"
+                                                :disabled="r.votedId.length==0|| moment().valueOf() > moment(r.end).valueOf()">
+                                                {{doc.mortgage}}</i-Button>
+                                        </div>
+                                        <div style="height:15px;width:10px"></div>
+                                        <divider></divider>
+                                    </div>
+                                    <div style="float:right ;margin: 10px 50px 0 0;clear:both">
+                                        <Page :total="showRfd2.length" :page-size="pageSize2"
+                                            @on-change="hanlePageNoChange2" />
+                                    </div>
+                                </div>
+                            </Tab-Pane>
+                        </Tabs>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="foot">
+            Copyright © 2019 - 2020 INT
+        </div>
+    </div>
+
+</body>
+
+<script>
+    let currentLan = new modal.UrlSearch().lan || 'en'
+
+    let myVue = new Vue({
+        el: '#myApp',
+        data: {
+            d: true,
+            doc: lan[currentLan],
+            search: "",
+            involved: "0",
+            search2: "",
+            involved2: "0",
+            ProposalRfdList: [],
+            showProposalRfdList: [],
+            rfd2: [],
+            showRfd2: [],
+            address: '',
+            price: '',
+            privateKey: '',
+            moment,
+            pageNo1: 1,
+            pageSize1: 50,
+            pageNo2: 1,
+            pageSize2: 50,
+            price: 0,
+        },
+        created() {
+            this.queryProposalRfd();
+            this.getRfd2();
+        },
+        methods: {
+            toWebUrl(opt, str, e) {
+                if (str == 'viewAll') {
                     let arr = [];
                     for (let rfd of this.showRfd2) {
-                        if (r.id === rfd.id) {
-                            rfd.showOpts = !rfd.showOpts
+                        if (opt.id === rfd.id) {
+                            rfd.showOpts = true
                         }
                         arr.push(rfd)
                     }
                     this.showRfd2 = [...arr]
-                },
-                rfdVote(r, type) {
-                    let vm = this;
-                    if (document.getElementById('rfdStake').value == 0) {
-                        modal.error({
-                            msg: this.doc.mf,
-                            title: this.doc.notice,
-                            okText: this.doc.confirm
-                        })
-                        return
-                    }
-                    let votedId;
-                    if (type) {
-                        votedId = [...r.votedId]
-                    } else {
-                        votedId = [r.votedId]
-                    }
-                    var wal = require("wal");
-                    wal.rfdVote(this.price, this.privateKey, r.id, votedId).then(
-                        function(res) {
-                            if (res.err) {
-                                modal.error({
-                                    msg: res.err,
-                                    title: vm.doc.notice,
-                                    okText: vm.doc.confirm
-                                })
-                            } else {
-                                modal.showInfo(res.info, vm.doc, function() {
-                                    wal.sendSignedTransaction(res.renderStr).then(function(r) {
-                                        if (typeof r === 'string') {
-                                            r = JSON.parse(r)
-                                        }
-                                        if (r.err) {
-                                            modal.error({
-                                                msg: r.err,
-                                                title: vm.doc.notice,
-                                                okText: vm.doc.confirm
-                                            })
-                                        } else {
-                                            // modal.success({ msg: r.hash })
-                                            modal.burnSuccess({
-                                                doc: vm.doc,
-                                                msg: 'https://explorer.intchain.io/blockchain/txdetail?hash=' + r.hash
-                                            })
-                                        }
-                                    })
-                                })
-                            }
-                        }
-                    )
-                },
-                hanlePageNoChange1(val) {
-                    this.pageNo1 = val;
-                },
-                hanlePageNoChange2(val) {
-                    this.pageNo2 = val;
-                },
-                queryProposalRfd() {
-                    var wal = require("wal");
-                    wal.queryProposalRfd().then(res => {
-                        for (let r of res.data) {
-                            r.votedId = '';
-                            if (r.Disagree.address && r.Disagree.address.indexOf(this.address) > -1) {
-                                r.votedId = r.Disagree.optId;
-                            }
-                            if (r.Agree.address && r.Agree.address.indexOf(this.address) > -1) {
-                                r.votedId = r.Agree.optId;
-                            }
-
-                        }
-                        this.ProposalRfdList = [...res.data];
-                        this.showProposalRfdList = [...res.data];
-
-                    })
-                },
-                getRfd2() {
-                    var wal = require("wal");
-                    wal.getRfd2().then(res => {
-                        for (let r of res.data) {
-                            r.votedId = [];
-                            for (let o of r.options) {
-                                if (o.address && o.address.indexOf(this.address) > -1) {
-                                    r.votedId.push(o.optId);
-                                }
-                            }
-                        }
-                        this.rfd2 = [...res.data];
-                        this.showRfd2 = [...res.data];
-
-                    })
-                },
-                getTotalWidth(r) {
-
-                    if (!r.Agree.stake && !r.Disagree.stake) {
-                        return '0px';
-                    }
-                    let current = Date.now();
-                    let begin = new Date(r.begin).getTime();
-                    let end = new Date(r.end).getTime();
-                    let result = (current - begin) / (end - begin) > 1 ? 1 : (current - begin) / (end - begin);
-
-                    return result * 1025 + "px"
-
-                },
-                getAgreeWidth(r) {
-                    if (!r.Agree.stake) {
-                        return '0px';
-                    }
-                    let current = Date.now();
-                    let begin = new Date(r.begin).getTime();
-                    let end = new Date(r.end).getTime();
-                    let result = (current - begin) / (end - begin) > 1 ? 1 : (current - begin) / (end - begin);
-                    let agreeRate = r.Agree.stake / (r.Agree.stake + r.Disagree.stake);
-
-                    return result * agreeRate * 1025 + "px"
-                },
-
-
-                changeLan(val) {
-                    this.doc = lan[val];
-                },
-                show: function() {
-                    this.visible = true;
                 }
+                if (!opt.webUrl) {
+                    return;
+                }
+                if (opt.webUrl) {
+                    window.open(opt.webUrl)
+                }
+                e.stopPropagation()
             },
-            watch: {
-                address(val) {
-                    for (let r of this.ProposalRfdList) {
+            isShowOpts(r) {
+                let arr = [];
+                for (let rfd of this.showRfd2) {
+                    if (r.id === rfd.id) {
+                        rfd.showOpts = !rfd.showOpts
+                    }
+                    arr.push(rfd)
+                }
+                this.showRfd2 = [...arr]
+            },
+            rfdVote(r, type) {
+                let vm = this;
+                if (document.getElementById('rfdStake').value == 0) {
+                    modal.error({
+                        msg: this.doc.mf,
+                        title: this.doc.notice,
+                        okText: this.doc.confirm
+                    })
+                    return
+                }
+                let votedId;
+                if (type) {
+                    votedId = [...r.votedId]
+                } else {
+                    votedId = [r.votedId]
+                }
+                var wal = require("wal");
+                wal.rfdVote(this.price, this.privateKey, r.id, votedId).then(
+                    function (res) {
+                        if (res.err) {
+                            modal.error({
+                                msg: res.err,
+                                title: vm.doc.notice,
+                                okText: vm.doc.confirm
+                            })
+                        } else {
+                            modal.showInfo(res.info, vm.doc, function () {
+                                wal.sendSignedTransaction(res.renderStr).then(function (r) {
+                                    if (typeof r === 'string') {
+                                        r = JSON.parse(r)
+                                    }
+                                    if (r.err) {
+                                        modal.error({
+                                            msg: r.err,
+                                            title: vm.doc.notice,
+                                            okText: vm.doc.confirm
+                                        })
+                                    } else {
+                                        // modal.success({ msg: r.hash })
+                                        modal.burnSuccess({
+                                            doc: vm.doc,
+                                            msg: 'https://explorer.intchain.io/blockchain/txdetail?hash=' + r.hash
+                                        })
+                                    }
+                                })
+                            })
+                        }
+                    }
+                )
+            },
+            hanlePageNoChange1(val) {
+                this.pageNo1 = val;
+            },
+            hanlePageNoChange2(val) {
+                this.pageNo2 = val;
+            },
+            queryProposalRfd() {
+                var wal = require("wal");
+                wal.queryProposalRfd().then(res => {
+                    for (let r of res.data) {
                         r.votedId = '';
                         if (r.Disagree.address && r.Disagree.address.indexOf(this.address) > -1) {
                             r.votedId = r.Disagree.optId;
@@ -1197,272 +1211,340 @@
                         }
 
                     }
-                    this.showProposalRfdList = [...this.ProposalRfdList];
-                    for (let r of this.rfd2) {
+                    this.ProposalRfdList = [...res.data];
+                    this.showProposalRfdList = [...res.data];
+
+                })
+            },
+            getRfd2() {
+                var wal = require("wal");
+                wal.getRfd2().then(res => {
+                    for (let r of res.data) {
                         r.votedId = [];
                         for (let o of r.options) {
                             if (o.address && o.address.indexOf(this.address) > -1) {
                                 r.votedId.push(o.optId);
                             }
                         }
+                    }
+                    this.rfd2 = [...res.data];
+                    this.showRfd2 = [...res.data];
 
-                    }
-                    this.showRfd2 = [...this.rfd2];
-                },
-                search(val) {
-                    let arr = [];
-                    for (let r of this.ProposalRfdList) {
-                        let flag = true
-                        if (this.involved == "1") {
-                            flag = !!r.votedId
-                        }
-                        if (this.involved == "2") {
-                            flag = !r.votedId
-                        }
-                        if (r.title.indexOf(val) > -1 && flag) {
-                            arr.push(r)
-                        }
-                    }
-                    this.showProposalRfdList = [...arr]
-                },
-                involved(val) {
-                    let arr = [];
-                    for (let r of this.ProposalRfdList) {
-                        let flag = true
-                        if (val == "1") {
-                            flag = !!r.votedId
-                        }
-                        if (val == "2") {
-                            flag = !r.votedId
-                        }
-                        if (r.title.indexOf(this.search) > -1 && flag) {
-                            arr.push(r)
-                        }
-                    }
-                    //this.showProposalRfdList = [];
-                    this.showProposalRfdList = [...arr]
-                    console.log(this.showProposalRfdList)
+                })
+            },
+            getTotalWidth(r) {
 
-                },
-                search2(val) {
-                    let arr = [];
-                    for (let r of this.rfd2) {
-                        let flag = true
-                        if (this.involved == "1") {
-                            flag = r.votedId.length > 0
-                        }
-                        if (this.involved == "2") {
-                            flag = r.votedId.length == 0
-                        }
-                        if (r.title.indexOf(val) > -1 && flag) {
-                            arr.push(r)
-                        }
-                    }
-                    this.showRfd2 = [...arr]
-                },
-                involved2(val) {
-                    let arr = [];
-                    for (let r of this.rfd2) {
-                        let flag = true
-                        if (val == "1") {
-                            flag = r.votedId.length > 0
-                        }
-                        if (val == "2") {
-                            flag = r.votedId.length == 0
-                        }
-                        if (r.title.indexOf(this.search2) > -1 && flag) {
-                            arr.push(r)
-                        }
-                    }
-                    this.showRfd2 = [...arr]
-                    console.log(this.showRfd2)
+                if (!r.Agree.stake && !r.Disagree.stake) {
+                    return '0px';
                 }
+                let current = Date.now();
+                let begin = new Date(r.begin).getTime();
+                let end = new Date(r.end).getTime();
+                let result = (current - begin) / (end - begin) > 1 ? 1 : (current - begin) / (end - begin);
+
+                return result * 1025 + "px"
+
+            },
+            getAgreeWidth(r) {
+                if (!r.Agree.stake) {
+                    return '0px';
+                }
+                let current = Date.now();
+                let begin = new Date(r.begin).getTime();
+                let end = new Date(r.end).getTime();
+                let result = (current - begin) / (end - begin) > 1 ? 1 : (current - begin) / (end - begin);
+                let agreeRate = r.Agree.stake / (r.Agree.stake + r.Disagree.stake);
+
+                return result * agreeRate * 1025 + "px"
+            },
+
+
+            changeLan(val) {
+                this.doc = lan[val];
+            },
+            show: function () {
+                this.visible = true;
             }
-        })
-    </script>
-    <style>
-        #myApp {
-            margin-left: -37px;
-            width: 950px;
-        }
+        },
+        watch: {
+            address(val) {
+                for (let r of this.ProposalRfdList) {
+                    r.votedId = '';
+                    if (r.Disagree.address && r.Disagree.address.indexOf(this.address) > -1) {
+                        r.votedId = r.Disagree.optId;
+                    }
+                    if (r.Agree.address && r.Agree.address.indexOf(this.address) > -1) {
+                        r.votedId = r.Agree.optId;
+                    }
 
-        .ivu-tabs-bar {
-            margin-bottom: 0px;
-        }
+                }
+                this.showProposalRfdList = [...this.ProposalRfdList];
+                for (let r of this.rfd2) {
+                    r.votedId = [];
+                    for (let o of r.options) {
+                        if (o.address && o.address.indexOf(this.address) > -1) {
+                            r.votedId.push(o.optId);
+                        }
+                    }
 
-        .tab1 {
-            width: 100%;
-            height: auto;
-            border-left: 1px solid #dcdee2;
-            border-right: 1px solid #dcdee2;
-            border-bottom: 1px solid #dcdee2;
-            padding-bottom: 70px;
-        }
+                }
+                this.showRfd2 = [...this.rfd2];
+            },
+            search(val) {
+                let arr = [];
+                for (let r of this.ProposalRfdList) {
+                    let flag = true
+                    if (this.involved == "1") {
+                        flag = !!r.votedId
+                    }
+                    if (this.involved == "2") {
+                        flag = !r.votedId
+                    }
+                    if (r.title.indexOf(val) > -1 && flag) {
+                        arr.push(r)
+                    }
+                }
+                this.showProposalRfdList = [...arr]
+            },
+            involved(val) {
+                let arr = [];
+                for (let r of this.ProposalRfdList) {
+                    let flag = true
+                    if (val == "1") {
+                        flag = !!r.votedId
+                    }
+                    if (val == "2") {
+                        flag = !r.votedId
+                    }
+                    if (r.title.indexOf(this.search) > -1 && flag) {
+                        arr.push(r)
+                    }
+                }
+                //this.showProposalRfdList = [];
+                this.showProposalRfdList = [...arr]
+                console.log(this.showProposalRfdList)
 
-        input {
-            margin-left: 24px;
-            width: 85%;
-            height: 98%;
-            border: 0px;
-            outline: none;
-            -webkit-appearance: textfield;
-            background-color: white;
-            -webkit-rtl-ordering: logical;
-            cursor: text;
-            padding: 1px;
-            text-rendering: auto;
-            color: initial;
-            letter-spacing: normal;
-            word-spacing: normal;
-            text-transform: none;
-            text-indent: 0px;
-            text-shadow: none;
-            display: inline-block;
-            text-align: start;
-            font: 400 11px system-ui;
+            },
+            search2(val) {
+                let arr = [];
+                for (let r of this.rfd2) {
+                    let flag = true
+                    if (this.involved == "1") {
+                        flag = r.votedId.length > 0
+                    }
+                    if (this.involved == "2") {
+                        flag = r.votedId.length == 0
+                    }
+                    if (r.title.indexOf(val) > -1 && flag) {
+                        arr.push(r)
+                    }
+                }
+                this.showRfd2 = [...arr]
+            },
+            involved2(val) {
+                let arr = [];
+                for (let r of this.rfd2) {
+                    let flag = true
+                    if (val == "1") {
+                        flag = r.votedId.length > 0
+                    }
+                    if (val == "2") {
+                        flag = r.votedId.length == 0
+                    }
+                    if (r.title.indexOf(this.search2) > -1 && flag) {
+                        arr.push(r)
+                    }
+                }
+                this.showRfd2 = [...arr]
+                console.log(this.showRfd2)
+            }
         }
+    })
+</script>
+<style>
+    #myApp {
+        margin-left: -37px;
+        width: 950px;
+    }
 
-        .r-hash {
-            margin-top: 40px;
-            color: #222;
-            font-size: 14px;
-            font-family: SourceHanSansCN-Normal;
-        }
+    .ivu-tabs-bar {
+        margin-bottom: 0px;
+    }
 
-        .r-title {
-            margin-top: 5px;
-            color: rgba(51, 51, 51, 1);
-            font-size: 18px;
-            font-family: SourceHanSansCN-Medium;
-            cursor: pointer;
-        }
+    .tab1 {
+        width: 100%;
+        height: auto;
+        border-left: 1px solid #dcdee2;
+        border-right: 1px solid #dcdee2;
+        border-bottom: 1px solid #dcdee2;
+        padding-bottom: 70px;
+    }
 
-        .r-icon {
-            height: auto;
-            width: 100%;
-            margin-top: 5px;
-            color: #222;
-            font-size: 18px;
-            font-family: SourceHanSansCN-Medium;
-        }
+    input {
+        margin-left: 24px;
+        width: 85%;
+        height: 98%;
+        border: 0px;
+        outline: none;
+        -webkit-appearance: textfield;
+        background-color: white;
+        -webkit-rtl-ordering: logical;
+        cursor: text;
+        padding: 1px;
+        text-rendering: auto;
+        color: initial;
+        letter-spacing: normal;
+        word-spacing: normal;
+        text-transform: none;
+        text-indent: 0px;
+        text-shadow: none;
+        display: inline-block;
+        text-align: start;
+        font: 400 11px system-ui;
+    }
 
-        .ivu-progress-bg {
-            width: 90%;
-            height: 16px;
-            background-color: #EE9221;
-            color: #FFFFFF;
-            font-size: 14px;
-            text-align: right;
-            line-height: 16px;
-        }
+    .r-hash {
+        margin-top: 40px;
+        color: #222;
+        font-size: 14px;
+        font-family: SourceHanSansCN-Normal;
+    }
 
-        .ivu-progress-success-bg {
-            width: 30%;
-            height: 16px;
-            color: #FFFFFF;
-            font-size: 14px;
-            text-align: left;
-            line-height: 16px;
-        }
+    .r-title {
+        margin-top: 5px;
+        color: rgba(51, 51, 51, 1);
+        font-size: 18px;
+        font-family: SourceHanSansCN-Medium;
+        cursor: pointer;
+    }
 
-        .r-time {
-            float: left;
-            color: #222;
-            font-size: 14px;
-            font-family: SourceHanSansCN-Medium;
-        }
+    .r-icon {
+        height: auto;
+        width: 100%;
+        margin-top: 5px;
+        color: #222;
+        font-size: 18px;
+        font-family: SourceHanSansCN-Medium;
+    }
 
-        .r-item {
-            color: rgba(51, 51, 51, 1);
-            font-size: 14px;
-            font-family: SourceHanSansCN-Normal;
-            display: inline-block;
-            vertical-align: top;
-            max-width: 818px;
-        }
+    .ivu-progress-bg {
+        width: 90%;
+        height: 16px;
+        background-color: #EE9221;
+        color: #FFFFFF;
+        font-size: 14px;
+        text-align: right;
+        line-height: 16px;
+    }
 
-        .ivu-radio-inner:after {
-            background-color: #E56770;
-        }
+    .ivu-progress-success-bg {
+        width: 30%;
+        height: 16px;
+        color: #FFFFFF;
+        font-size: 14px;
+        text-align: left;
+        line-height: 16px;
+    }
 
-        .ivu-radio-checked .ivu-radio-inner {
-            border-color: #E56770;
-        }
+    .r-time {
+        float: left;
+        color: #222;
+        font-size: 14px;
+        font-family: SourceHanSansCN-Medium;
+    }
 
-        .ivu-radio-checked .ivu-radio-inner:hover {
-            border-color: #E56770;
-        }
+    .r-item {
+        color: rgba(51, 51, 51, 1);
+        font-size: 14px;
+        font-family: SourceHanSansCN-Normal;
+        display: inline-block;
+        vertical-align: top;
+        max-width: 818px;
+    }
 
-        .ivu-btn-primary {
-            background-color: #E56770;
-            border-color: #E56770;
-        }
+    .ivu-radio-inner:after {
+        background-color: #E56770;
+    }
 
-        .ivu-btn-primary:hover {
-            background-color: #E56770;
-            border-color: #E56770;
-        }
+    .ivu-radio-checked .ivu-radio-inner {
+        border-color: #E56770;
+    }
 
-        li a .ivu-icon {
-            margin-top: 8px;
-        }
+    .ivu-radio-checked .ivu-radio-inner:hover {
+        border-color: #E56770;
+    }
 
-        .ivu-icon ::after:hover {
-            margin-top: 5px;
-        }
+    .ivu-btn-primary {
+        background-color: #E56770;
+        border-color: #E56770;
+    }
 
-        .ivu-page-item-jump-next,
-        .ivu-page-item-jump-prev {
-            padding-top: 9px;
-        }
+    .ivu-btn-primary:hover {
+        background-color: #E56770;
+        border-color: #E56770;
+    }
 
-        .ivu-page-item-jump-next:after,
-        .ivu-page-item-jump-prev:after {
-            margin-top: -9px;
-        }
+    li a .ivu-icon {
+        margin-top: 8px;
+    }
 
-        .options2 {
-            height: 0px;
-            width: 100%;
-            overflow: hidden;
-            transition: height 1s;
-            -webkit-transition: height 1s;
-        }
-        /* .options2:hover {
+    .ivu-icon ::after:hover {
+        margin-top: 5px;
+    }
+
+    .ivu-page-item-jump-next,
+    .ivu-page-item-jump-prev {
+        padding-top: 9px;
+    }
+
+    .ivu-page-item-jump-next:after,
+    .ivu-page-item-jump-prev:after {
+        margin-top: -9px;
+    }
+
+    .options2 {
+        height: 0px;
+        width: 100%;
+        overflow: hidden;
+        transition: height 1s;
+        -webkit-transition: height 1s;
+    }
+
+    /* .options2:hover {
             height: 100px;
         } */
 
-        .showOpts {
-            height: auto;
-        }
+    .showOpts {
+        height: auto;
+    }
 
-        .rfdoptions {
-            margin-top: 10px;
-            margin-left: 20px;
-        }
+    .rfdoptions {
+        margin-top: 10px;
+        margin-left: 20px;
+    }
 
-        .ivu-checkbox-inner {
-            display: inline-block;
-            vertical-align: top
-        }
+    .ivu-checkbox-inner {
+        display: inline-block;
+        vertical-align: top
+    }
 
-        .ivu-checkbox-checked .ivu-checkbox-inner {
-            border-color: #E56770;
-            background-color: #E56770;
-        }
+    .ivu-checkbox-checked .ivu-checkbox-inner {
+        border-color: #E56770;
+        background-color: #E56770;
+    }
 
-        .ivu-checkbox-group {
-            max-height: 400px;
-            overflow-y: scroll;
-        }
+    .ivu-checkbox-group {
+        max-height: 400px;
+        overflow-y: scroll;
+    }
 
-        a {
-            color: #222;
-        }
+    a {
+        color: #222;
+    }
 
-        .thover:hover {
-            color: rgb(45, 140, 240);
-        }
-    </style>
+    .thover:hover {
+        color: rgb(45, 140, 240);
+    }
+</style>
 
 </html>

@@ -19,7 +19,7 @@
     <script type="text/javascript" src="./js/app/ngapp.js"></script>
     <script type="text/javascript" src="./js/app/directives/uploaddirectives.js"></script>
     <script type="text/javascript" src="./js/page/common.js"></script>
-    <script type="text/javascript" src="./js/page/minemapping.js"></script>
+    <script type="text/javascript" src="./js/page/exchange.js"></script>
     <!-- <script type="text/javascript" src="./js/page/int.js"></script> -->
     <script type="text/javascript" src="./js/page/wal.js"></script>
     <style>
@@ -198,14 +198,25 @@
             border: 1px solid;
             padding: 8px
         }
+
+        .title-underline::after {
+            width: 180px !important;
+        }
+
+        .cross-select {
+            width: 100%;
+            height: 100%;
+            border: none;
+
+        }
     </style>
 
 <body ng-app="myApp">
-    <div class="container" ng-controller="mineMappingController">
+    <div class="container" ng-controller="exchangeController">
         <div class="header-box">
             <div class="header-con">
                 <div class="logo">
-                    <img src="./images/int-logo-title.png" width="144px" height="72px">
+                    <img src="./images/int-logo.png" width="72px" height="72px">
                 </div>
                 <div class="tabbar-box">
                     <div class="tab-item ">
@@ -221,7 +232,7 @@
                         </span>
                         <div></div>
                     </div>
-                    <div class="tab-item active">
+                    <div class="tab-item">
                         <span>
                             {{doc.mineMapping}}
                         </span>
@@ -303,10 +314,9 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="tab-item">
+                    <div class="tab-item active">
                         <span>
-                            <a href="./exchange.html?lan={{lan}}">DEFI</a>
+                            DEFI
                         </span>
                         <div></div>
                     </div>
@@ -343,54 +353,91 @@
             </div>
         </div>
         <div class="title-section">
-            <div class="site-title title-underline">{{doc.mineMapping}}</div>
+            <div class="site-title title-underline">{{doc.crossChainAssetExchange}}</div>
         </div>
         <div class="content">
-            <!--                <div class="con-top">-->
-            <!--                    <img style="margin-bottom:-4px" src="./images/mapping.png" alt=""><span> {{doc.mineMapping}}</span>-->
-            <!--                </div>-->
             <div class="main">
-                <!--                    <p class="mp-warn">-->
-                <!--                        {{doc.mappingWarn}}-->
-                <!--                    </p>-->
                 <div>
                     <div class="item-box">
-                        <div class="lable">{{doc.int3PrivateKey}}</div>
+                        <div class="lable">{{doc.fromCoin}}</div>
                         <div class="in-box">
-                            <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.int3PrivateKey}}"
-                                ng-model="model.fromAddressPrivateKey">
+                            <select ng-show="direction=='INT->ETH'" ng-model="fromCoin" class="cross-select" disabled>
+                                <option value="INT">INT</option>
+                            </select>
+                            <select ng-show="direction=='ETH->INT'" ng-model="fromCoin" class="cross-select" disabled>
+                                <option value="INT_ETH">INT_ETH</option>
+                            </select>
+                        </div>
+                    </div>
+                    <img ng-click="exchangeDirection()" src="./images/exchange.png" alt=""
+                        style="margin-left:15px;height:15px; cursor: pointer;">
+
+                    <div class="item-box" style="margin-left: 15px">
+                        <div class="lable">{{doc.toCoin}}</div>
+
+                        <div class="in-box">
+                            <select ng-show="direction=='INT->ETH'" ng-model="toCoin" class="cross-select" disabled>
+                                <option value="INT_ETH">INT_ETH</option>
+                            </select>
+                            <select ng-show="direction=='ETH->INT'" ng-model="toCoin" class="cross-select" disabled>
+                                <option value="INT">INT</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div ng-show="direction=='INT->ETH'" class="item-box">
+                        <div class="lable"> {{doc.intPrivateKey}}</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterEvent($event)" type="text" ng-blur="queryBalance()"
+                                placeholder="{{doc.intPrivateKey}}" ng-model="intPrivateKey">
+                        </div>
+                    </div>
+                    <div ng-show="direction=='ETH->INT'" class="item-box">
+                        <div class="lable"> {{doc.ethPrivateKey}}</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterEvent($event)" type="text" ng-blur="queryBalance()"
+                                placeholder="{{doc.ethPrivateKey}}" ng-model="ethPrivateKey">
                         </div>
                     </div>
 
                     <div class="item-box" style="margin-left: 50px">
-                        <div class="lable">{{doc.int4PrivateKey}}</div>
+                        <div class="lable">{{doc.balance}}</div>
                         <div class="in-box">
-                            <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.int4PrivateKey}}"
-                                ng-model="int4PrivateKey">
+                            <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.balance}}"
+                                ng-model="balance">
                         </div>
                     </div>
 
-                    <div class="item-box">
-                        <div class="lable"> {{doc.int3Address}}</div>
+                    <div ng-show="direction=='INT->ETH'" class="item-box">
+                        <div class="lable"> {{doc.ethAdress}}</div>
                         <div class="in-box">
-                            <input ng-keyup="enterEvent($event)" readonly type="text" ng-blur="queryBalance()"
-                                placeholder="{{doc.int3Address}}" ng-model="model.fromAddress">
+                            <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.ethAdress}}"
+                                ng-model="toAddress">
+                        </div>
+                    </div>
+                    <div ng-show="direction=='ETH->INT'" class="item-box">
+                        <div class="lable">{{doc.intAddress}}</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.intAddress}}"
+                                ng-model="toAddress">
                         </div>
                     </div>
                     <div class="item-box" style="margin-left: 50px">
-                        <div class="lable">{{doc.int4Address}}</div>
+                        <div class="lable">{{doc.exchangeAmount}}</div>
                         <div class="in-box">
-                            <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.int4Address}}"
-                                ng-model="int4Address">
+                            <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.exchangeAmount}}"
+                                ng-model="exchangeAmount">
                         </div>
                     </div>
-                    <div class="item-box">
+
+                    <!-- <div class="item-box">
                         <div class="lable">{{doc.int3Balance}}</div>
                         <div class="in-box">
                             <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.int3Balance}}"
                                 ng-model="int3Balance">
                         </div>
                     </div>
+
                     <div class="item-box" style="margin-left: 50px">
                         <div class="lable">{{doc.int4Balance}}</div>
                         <div class="in-box">
@@ -411,10 +458,10 @@
                             <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="Gas Limit"
                                 ng-model="model.gasLimit">
                         </div>
-                    </div>
-                    <div class="btn-dis" style="margin-top: 48px" ng-show="!pass">{{doc.mineMapping}}</div>
-                    <div ng-click="toMineMapping()" ng-show="pass" class="btn-unlock" style="margin-top: 48px">
-                        {{doc.mineMapping}}
+                    </div> -->
+                    <div class="btn-dis" style="margin-top: 48px" ng-show="!pass">{{doc.exchange}}</div>
+                    <div ng-click="toExchange()" ng-show="pass" class="btn-unlock" style="margin-top: 48px">
+                        {{doc.exchange}}
                     </div>
                     <div class="contact-note">
                         {{doc.callUs}}<br> {{doc.email}}

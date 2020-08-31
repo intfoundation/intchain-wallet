@@ -76,6 +76,7 @@ var lan = {
         int4PriKeyNotValid: "INT 4.0 wallet private key is not valid",
         int4AddressNotValid: "INT 4.0 wallet address is not valid",
         int3BalanceNotEnough: "INT 3.0 balance not enough",
+        balanceNotEnough: 'balance not enough',
 
         confirm: "Confirm",
         cancel: "Cancel",
@@ -146,7 +147,15 @@ var lan = {
         oc: "Opinion collection",
         alreadyInvolved: "Already involved",
         notInvolved: "Not involved",
-        endTime: "End time"
+        endTime: "End time",
+
+        crossChainAssetExchange: 'Cross-chain Asset Swap',
+        fromCoin: 'From',
+        toCoin: 'To',
+        exchangeAmount: 'Amount',
+        exchange: 'Swap',
+        exchangeAmountNotValid: 'Amount Invalid',
+        exchangeAmountCanNotGtBalance: 'Insufficient balance'
     },
 
     zh: {
@@ -226,7 +235,7 @@ var lan = {
         int4PriKeyNotValid: "INT 4.0 私钥无效",
         int4AddressNotValid: "INT 4.0 地址无效",
         int3BalanceNotEnough: "INT 3.0 余额不足",
-
+        balanceNotEnough: '余额不足',
         confirm: "确定",
         cancel: "取消",
         notice: "提示",
@@ -295,6 +304,15 @@ var lan = {
         oc: "意见征集型",
         alreadyInvolved: "已参与",
         notInvolved: "未参与",
-        endTime: "结束时间"
+        endTime: "结束时间",
+
+        crossChainAssetExchange: '跨链资产兑换',
+        fromCoin: '兑换币种',
+        toCoin: '目标币种',
+        exchangeAmount: '兑换数量',
+        exchange: '兑换',
+        exchangeAmountNotValid: '兑换金额无效',
+        exchangeAmountCanNotGtBalance: '兑换金额不可大于余额'
     }
 }
+

@@ -284,235 +284,247 @@
         }
     </style>
 
-    <body ng-app="myApp">
-        <div class="container" ng-controller="mainController">
-            <div ng-show="!step" style="width: 100%;height: 100%"></div>
-            <div class="header-box">
-                <div class="header-con">
-                    <div class="logo">
-                        <img src="./images/int-logo-title.png" width="144px" height="72px">
+<body ng-app="myApp">
+    <div class="container" ng-controller="mainController">
+        <div ng-show="!step" style="width: 100%;height: 100%"></div>
+        <div class="header-box">
+            <div class="header-con">
+                <div class="logo">
+                    <img src="./images/int-logo-title.png" width="144px" height="72px">
+                </div>
+                <div class="tabbar-box">
+                    <div class="tab-item active">
+                        <span>
+                            {{doc.newWallet}}
+                        </span>
+                        <!-- <div class="b-line"></div> -->
                     </div>
-                    <div class="tabbar-box">
-                        <div class="tab-item active">
-                            <span>
-                                    {{doc.newWallet}}
-                            </span>
-                            <!-- <div class="b-line"></div> -->
-                        </div>
-                        <div class="tab-item">
-                            <span>
-                                <a href="./walletInfo.html?lan={{lan}}"> {{doc.viewWllet}} </a>
-                             </span>
-                            <div></div>
-                        </div>
-                         <div class="tab-item">
-                            <span>
-                                    <a href="./mineMapping.html?lan={{lan}}">{{doc.mineMapping}} </a>
-                                </span>
-                            <div></div>
-                        </div>
-                        <div id="send" ng-mouseenter="sendTabView = true" ng-mouseleave="sendTabView = false" class="tab-item">
-                            <span>
-                                <span>{{doc.send}}</span>
-                                <span class="triangle"></span>
-                            </span>
-                            <br>
-                            <div class="sendTab" ng-show="sendTabView">
-                                <div class="sendTab-item">
-                                    <a href="./send.html?action=sendInt&lan={{lan}}">
-                                        {{doc.sendInt}}
-                                    </a>
-                                </div> <br>
-                                <div class="sendTab-item">
-                                    <a href="./send.html?action=sendToken&lan={{lan}}">
-                                        {{doc.sendToken}}
-                                    </a>
-                                </div>
+                    <div class="tab-item">
+                        <span>
+                            <a href="./walletInfo.html?lan={{lan}}"> {{doc.viewWllet}} </a>
+                        </span>
+                        <div></div>
+                    </div>
+                    <div class="tab-item">
+                        <span>
+                            <a href="./mineMapping.html?lan={{lan}}">{{doc.mineMapping}} </a>
+                        </span>
+                        <div></div>
+                    </div>
+                    <div id="send" ng-mouseenter="sendTabView = true" ng-mouseleave="sendTabView = false"
+                        class="tab-item">
+                        <span>
+                            <span>{{doc.send}}</span>
+                            <span class="triangle"></span>
+                        </span>
+                        <br>
+                        <div class="sendTab" ng-show="sendTabView">
+                            <div class="sendTab-item">
+                                <a href="./send.html?action=sendInt&lan={{lan}}">
+                                    {{doc.sendInt}}
+                                </a>
+                            </div> <br>
+                            <div class="sendTab-item">
+                                <a href="./send.html?action=sendToken&lan={{lan}}">
+                                    {{doc.sendToken}}
+                                </a>
                             </div>
                         </div>
+                    </div>
 
 
-                        <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item">
-                            <span>
-                                    <span>{{doc.mortgage}}</span>
-                                     <span class="triangle"></span>
-                            </span>
-                            <div></div>
-                            <div class="voteTab" ng-show="voteTabView">
-                                <div class="voteTab-item">
-                                    <a href="./vote.html?action=Mortgage&lan={{lan}}">
-                                        {{doc.mortgage}}
-                                    </a>
-                                </div>
-                                <div class="voteTab-item">
-                                    <a href="./vote.html?action=Vote&lan={{lan}}">
-                                        {{doc.vote}}
-                                    </a>
-                                </div>
-                                <div class="voteTab-item">
-                                    <a href="./vote.html?action=Unmortgage&lan={{lan}}">
-                                        {{doc.unmortgage}}
-                                    </a>
-                                </div>
-                                <div class="voteTab-item">
-                                    <a href="./vote.html?action=Referendum&lan={{lan}}">
-                                                    {{doc.referendum}}
-                                        </a>
-                                </div>
+                    <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false"
+                        class="tab-item">
+                        <span>
+                            <span>{{doc.mortgage}}</span>
+                            <span class="triangle"></span>
+                        </span>
+                        <div></div>
+                        <div class="voteTab" ng-show="voteTabView">
+                            <div class="voteTab-item">
+                                <a href="./vote.html?action=Mortgage&lan={{lan}}">
+                                    {{doc.mortgage}}
+                                </a>
+                            </div>
+                            <div class="voteTab-item">
+                                <a href="./vote.html?action=Vote&lan={{lan}}">
+                                    {{doc.vote}}
+                                </a>
+                            </div>
+                            <div class="voteTab-item">
+                                <a href="./vote.html?action=Unmortgage&lan={{lan}}">
+                                    {{doc.unmortgage}}
+                                </a>
+                            </div>
+                            <div class="voteTab-item">
+                                <a href="./vote.html?action=Referendum&lan={{lan}}">
+                                    {{doc.referendum}}
+                                </a>
                             </div>
                         </div>
+                    </div>
 
-                        <div id="token" ng-mouseenter="tokenView = true" ng-mouseleave="tokenView = false" class="tab-item">
-                            <span>
-                                        <span>Token</span>
-                                         <span class="triangle"></span>
-                                </span>
-                            <div></div>
-                            <div class="voteTab" ng-show="tokenView">
-                                <div class="voteTab-item">
-                                    <a href="./token.html?action=create&lan={{lan}}">
-                                            {{doc.create}}
-                                        </a>
-                                </div>
-                                <div class="voteTab-item">
-                                    <a href="./token.html?action=transfer&lan={{lan}}">
-                                            {{doc.transfer}}
-                                        </a>
-                                </div>
+                    <div id="token" ng-mouseenter="tokenView = true" ng-mouseleave="tokenView = false" class="tab-item">
+                        <span>
+                            <span>Token</span>
+                            <span class="triangle"></span>
+                        </span>
+                        <div></div>
+                        <div class="voteTab" ng-show="tokenView">
+                            <div class="voteTab-item">
+                                <a href="./token.html?action=create&lan={{lan}}">
+                                    {{doc.create}}
+                                </a>
+                            </div>
+                            <div class="voteTab-item">
+                                <a href="./token.html?action=transfer&lan={{lan}}">
+                                    {{doc.transfer}}
+                                </a>
                             </div>
                         </div>
+                    </div>
+                    <div class="tab-item">
+                        <span>
+                            <a href="./exchange.html?lan={{lan}}">DEFI</a>
+                        </span>
+                        <div></div>
+                    </div>
 
 
-                        <!-- <div class="tab-item">
+                    <!-- <div class="tab-item">
                             <span>
                                 <a target="_blank" href="./images/help{{lan}}.pdf">{{doc.help}}</a>
                             </span>
                         </div> -->
 
 
-                        <div id="lan" ng-mouseenter="lanView = true" ng-mouseleave="lanView = false" class="tab-item">
-                            <span>
-                                    <span>{{doc.language}}</span>
-                                     <span class="triangle"></span>
-                            </span>
-                            <div></div>
-                            <div class="voteTab" ng-show="lanView">
-                                <div class="voteTab-item" ng-click="changelan('en')">
-                                    <a href="javascript:;">
-                                        English
-                                    </a>
-                                </div>
-                                <div class="voteTab-item" ng-click="changelan('zh')">
-                                    <a href="javascript:;">
-                                        中文
-                                    </a>
-                                </div>
+                    <div id="lan" ng-mouseenter="lanView = true" ng-mouseleave="lanView = false" class="tab-item">
+                        <span>
+                            <span>{{doc.language}}</span>
+                            <span class="triangle"></span>
+                        </span>
+                        <div></div>
+                        <div class="voteTab" ng-show="lanView">
+                            <div class="voteTab-item" ng-click="changelan('en')">
+                                <a href="javascript:;">
+                                    English
+                                </a>
+                            </div>
+                            <div class="voteTab-item" ng-click="changelan('zh')">
+                                <a href="javascript:;">
+                                    中文
+                                </a>
                             </div>
                         </div>
-
-
-
                     </div>
+
+
+
                 </div>
             </div>
-            <div class="title-section">
-                <div class="site-title title-underline">INT Web Wallet</div>
-            </div>
-            <div class="content">
-                <div class="main" ng-show="step==1">
-                    <div class="title"> {{doc.cnw}}</div>
-                    <!-- <span class="tip">{{doc.sp}}</span><br/> -->
-                    <div class="in-box">
-                        <input ng-keyup="enterEvent($event)" ng-show="!pwdView" type="password" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="{{doc.ep2}}">
-                        <input ng-keyup="enterEvent($event)" ng-show="pwdView" type="text" ng-change="pwdChange()" ng-blur="pwdBlur()" ng-model="password" placeholder="{{doc.ep2}}">
-                        <img ng-click="pwdView=!pwdView" ng-show="pwdView" src="./images/eyeopen.png">
-                        <img ng-click="pwdView=!pwdView" ng-show="!pwdView" src="./images/eyeclose.png">
-                    </div>
-                    <span ng-show="pwdTip" class="pwdtip">{{doc.nine}}</span>
-                    <br/>
-                    <div class="in-box">
-                        <input ng-keyup="enterEvent($event)" ng-show="!rePwdView" type="password" ng-change="rePwdChange()" ng-blur="rePwdBlur()" ng-model="password2" placeholder="{{doc.epa}}">
-                        <input ng-keyup="enterEvent($event)" ng-show="rePwdView" type="text" ng-change="rePwdChange()" ng-blur="rePwdBlur()" ng-model="password2" placeholder="{{doc.epa}}">
+        </div>
+        <div class="title-section">
+            <div class="site-title title-underline">INT Web Wallet</div>
+        </div>
+        <div class="content">
+            <div class="main" ng-show="step==1">
+                <div class="title"> {{doc.cnw}}</div>
+                <!-- <span class="tip">{{doc.sp}}</span><br/> -->
+                <div class="in-box">
+                    <input ng-keyup="enterEvent($event)" ng-show="!pwdView" type="password" ng-change="pwdChange()"
+                        ng-blur="pwdBlur()" ng-model="password" placeholder="{{doc.ep2}}">
+                    <input ng-keyup="enterEvent($event)" ng-show="pwdView" type="text" ng-change="pwdChange()"
+                        ng-blur="pwdBlur()" ng-model="password" placeholder="{{doc.ep2}}">
+                    <img ng-click="pwdView=!pwdView" ng-show="pwdView" src="./images/eyeopen.png">
+                    <img ng-click="pwdView=!pwdView" ng-show="!pwdView" src="./images/eyeclose.png">
+                </div>
+                <span ng-show="pwdTip" class="pwdtip">{{doc.nine}}</span>
+                <br />
+                <div class="in-box">
+                    <input ng-keyup="enterEvent($event)" ng-show="!rePwdView" type="password" ng-change="rePwdChange()"
+                        ng-blur="rePwdBlur()" ng-model="password2" placeholder="{{doc.epa}}">
+                    <input ng-keyup="enterEvent($event)" ng-show="rePwdView" type="text" ng-change="rePwdChange()"
+                        ng-blur="rePwdBlur()" ng-model="password2" placeholder="{{doc.epa}}">
 
-                        <img ng-click="rePwdView=!rePwdView" ng-show="rePwdView" src="./images/eyeopen.png">
-                        <img ng-click="rePwdView=!rePwdView" ng-show="!rePwdView" src="./images/eyeclose.png">
-                    </div>
-                    <span ng-show="rePwdTip" class="pwdtip">{{doc.noMatch}}</span>
-                    <div style="height:15px;width:2px"></div>
-                    <div class="warn">
-                        <img class="warn-tip" src="./images/warn.png" alt="" height="12px">
-                        <span>{{doc.sp}}</span>
-                    </div>
-                    <div class="warn">
-                        <img class="warn-tip" src="./images/warn.png" alt="" height="12px">
-                        <span>{{doc.noSpace}}</span>
-                    </div>
-                    <!-- <div class="warn">
+                    <img ng-click="rePwdView=!rePwdView" ng-show="rePwdView" src="./images/eyeopen.png">
+                    <img ng-click="rePwdView=!rePwdView" ng-show="!rePwdView" src="./images/eyeclose.png">
+                </div>
+                <span ng-show="rePwdTip" class="pwdtip">{{doc.noMatch}}</span>
+                <div style="height:15px;width:2px"></div>
+                <div class="warn">
+                    <img class="warn-tip" src="./images/warn.png" alt="" height="12px">
+                    <span>{{doc.sp}}</span>
+                </div>
+                <div class="warn">
+                    <img class="warn-tip" src="./images/warn.png" alt="" height="12px">
+                    <span>{{doc.noSpace}}</span>
+                </div>
+                <!-- <div class="warn">
                         <img class="warn-tip" src="./images/warn.png" alt="" height="12px">
                         <span>{{doc.noShare}}</span>
                     </div> -->
-                    <div class="btn" ng-click="create()">
-                        {{doc.cnw2}}
+                <div class="btn" ng-click="create()">
+                    {{doc.cnw2}}
+                </div>
+                <div class="contact-note">
+                    {{doc.callUs}}<br> {{doc.email}}
+                </div>
+            </div>
+            <div class="main" ng-show="step==2">
+                <div class="title">{{doc.saveKey}}</div>
+                <div class="down" ng-click="downFile()">{{doc.download}}</div>
+                <div class="warning">
+                    <div>
+                        <div class="dot"></div>
+                        <span> {{doc.notLose}}</span>
                     </div>
-                    <div class="contact-note">
-                        {{doc.callUs}}<br> {{doc.email}}
+                    <div class="warn-item">
+                        <div class="dot"></div>
+                        <span> {{doc.notShare}}</span>
+                    </div>
+                    <div class="warn-item">
+                        <div class="dot"></div>
+                        <span> {{doc.backup}}</span>
                     </div>
                 </div>
-                <div class="main" ng-show="step==2">
-                    <div class="title">{{doc.saveKey}}</div>
-                    <div class="down" ng-click="downFile()">{{doc.download}}</div>
-                    <div class="warning">
-                        <div>
-                            <div class="dot"></div>
-                            <span> {{doc.notLose}}</span>
-                        </div>
-                        <div class="warn-item">
-                            <div class="dot"></div>
-                            <span> {{doc.notShare}}</span>
-                        </div>
-                        <div class="warn-item">
-                            <div class="dot"></div>
-                            <span> {{doc.backup}}</span>
-                        </div>
+                <div class="continue" ng-click="step = 3">
+                    {{doc.goahead}}
+                </div>
+                <div class="contact-note">
+                    {{doc.callUs}}<br> {{doc.email}}
+                </div>
+            </div>
+            <div class="main" ng-show="step==3">
+                <div class="title">{{doc.savePri}}</div>
+                <div class="privateKey">
+                    <span class="pri">{{privateKey}}</span>
+                </div>
+                <div class="warning">
+                    <div>
+                        <div class="dot"></div>
+                        <span> {{doc.notLose}}</span>
                     </div>
-                    <div class="continue" ng-click="step = 3">
-                        {{doc.goahead}}
+                    <div class="warn-item">
+                        <div class="dot"></div>
+                        <span> {{doc.notShare}}</span>
                     </div>
-                    <div class="contact-note">
-                        {{doc.callUs}}<br> {{doc.email}}
+                    <div class="warn-item">
+                        <div class="dot"></div>
+                        <span> {{doc.backup}}</span>
                     </div>
                 </div>
-                <div class="main" ng-show="step==3">
-                    <div class="title">{{doc.savePri}}</div>
-                    <div class="privateKey">
-                        <span class="pri">{{privateKey}}</span>
-                    </div>
-                    <div class="warning">
-                        <div>
-                            <div class="dot"></div>
-                            <span> {{doc.notLose}}</span>
-                        </div>
-                        <div class="warn-item">
-                            <div class="dot"></div>
-                            <span> {{doc.notShare}}</span>
-                        </div>
-                        <div class="warn-item">
-                            <div class="dot"></div>
-                            <span> {{doc.backup}}</span>
-                        </div>
-                    </div>
-                    <div class="contact-note">
-                        {{doc.callUs}}<br> {{doc.email}}
-                    </div>
+                <div class="contact-note">
+                    {{doc.callUs}}<br> {{doc.email}}
                 </div>
-                <!-- <div style="position:absolute;left:0;bottom:60px;width: 100%;text-align: center;font-family: PingFangSC-Regular;color: rgba(173, 165, 165, 0.99);">
+            </div>
+            <!-- <div style="position:absolute;left:0;bottom:60px;width: 100%;text-align: center;font-family: PingFangSC-Regular;color: rgba(173, 165, 165, 0.99);">
                     Any question？Please contact us.<br> Official email address:intwallet@intchain.io
                 </div> -->
-            </div>
-            <div class="foot">
-                Copyright © 2019 - 2020 INT
-            </div>
         </div>
-    </body>
+        <div class="foot">
+            Copyright © 2019 - 2020 INT
+        </div>
+    </div>
+</body>
 
 </html>

@@ -3,7 +3,7 @@ const { encrypt, decrypt } = require('./crypt/crypt')
 const { ValueTransaction } = require('./core/value_chain/transaction')
 const BigNumber = require('bignumber.js')
 const { addressFromSecretKey, addressFromPublicKey, publicKeyFromSecretKey, sign, verify, isValidAddress } = require('./core/address')
-    //const core_1 = require("./core");
+//const core_1 = require("./core");
 const { BufferWriter } = require('./core/lib/writer')
 const { encodeAddressAndNonce } = require('./core/serializable')
 const assert = require('assert');
@@ -35,7 +35,7 @@ const {
 } = require('./cfg')
 
 const Mapping = require("./mapping");
-let getPrice = async() => {
+let getPrice = async () => {
     let result = await http.sendGet(getPriceUrl);
     return result;
 }
@@ -46,12 +46,12 @@ let getTestCoin = async address => {
     return result;
 }
 
-let getTokenBalance = async(tokenid, address) => {
+let getTokenBalance = async (tokenid, address) => {
     let url = getTokenBalanceUrl + tokenid + '/' + address
     let result = await http.sendGet(url);
     return result;
 }
-let getLimit = async(method, input) => {
+let getLimit = async (method, input) => {
     let url = getLimitUrl + '/' + method + '/' + input
     let result = await http.sendGet(url);
     return result;
@@ -64,7 +64,7 @@ let makeWalletAccount = pwd => {
     let address = addr;
     let privateKey = secret.toString('hex')
     let json = encrypt(privateKey, pwd)
-        //let privatekey2 = decrypt(json, pwd)
+    //let privatekey2 = decrypt(json, pwd)
     json.address = address;
     return { json, privateKey };
 }
@@ -139,7 +139,7 @@ let getVotes = async address => {
     return result;
 }
 
-let getNodes = async() => {
+let getNodes = async () => {
     let nodes = await http.sendGet(getCandiesUrl);
     if (typeof nodes == 'string') {
         nodes = JSON.parse(nodes)
@@ -180,7 +180,7 @@ let getNodes = async() => {
     }
     return data;
 }
-let vote = async(candidates, limit, price, secret) => {
+let vote = async (candidates, limit, price, secret) => {
     assert(candidates, 'candidates is required.');
     assert(limit, 'fee is required.');
     assert(price, 'price is required.');
@@ -225,7 +225,7 @@ let vote = async(candidates, limit, price, secret) => {
     //return mortgageResult
 }
 
-let mortgage = async(amount, limit, price, secret) => {
+let mortgage = async (amount, limit, price, secret) => {
     assert(amount, 'amount is required.');
     assert(limit, 'fee is required.');
     assert(price, 'price is required.');
@@ -271,7 +271,7 @@ let mortgage = async(amount, limit, price, secret) => {
     //let mortgageResult = await http.sendPost({ renderStr: renderStr }, host, port, transferUrl)
     //return mortgageResult
 }
-let createToken = async(amount, limit, price, name, symbol, secret) => {
+let createToken = async (amount, limit, price, name, symbol, secret) => {
     assert(amount, 'amount is required');
     assert(limit, 'limit is required');
     assert(price, 'price is required');
@@ -321,7 +321,7 @@ let createToken = async(amount, limit, price, name, symbol, secret) => {
 }
 
 
-let transferTokenTo = async(tokenid, to, amount, limit, price, secret, data) => {
+let transferTokenTo = async (tokenid, to, amount, limit, price, secret, data) => {
     assert(tokenid, 'tokenid is required.');
     assert(to, 'to is required.');
     assert(amount, 'amount is required.');
@@ -372,7 +372,7 @@ let transferTokenTo = async(tokenid, to, amount, limit, price, secret, data) => 
     }
 }
 
-let unmortgage = async(amount, limit, price, secret) => {
+let unmortgage = async (amount, limit, price, secret) => {
     assert(amount, 'amount is required.');
     assert(limit, 'fee is required.');
     assert(price, 'price is required.');
@@ -419,7 +419,7 @@ let unmortgage = async(amount, limit, price, secret) => {
     //return mortgageResult
 }
 
-let rfdVote = async(price, secret, rfdId, optId) => {
+let rfdVote = async (price, secret, rfdId, optId) => {
     assert(price, 'price is required.');
     assert(secret, 'secret is required.');
     assert(rfdId, 'rfdId is required.');
@@ -471,7 +471,7 @@ let rfdVote = async(price, secret, rfdId, optId) => {
 }
 
 
-let transferArr = async(num, amount, limit, price, to, secret) => {
+let transferArr = async (num, amount, limit, price, to, secret) => {
     let address = addressFromSecretKey(secret)
     let url = getNonceUrl + address;
     let result = await http.sendGet(url);
@@ -507,7 +507,7 @@ let transferArr = async(num, amount, limit, price, to, secret) => {
 
 }
 
-let transfer = async(amount, limit, price, to, secret, data) => {
+let transfer = async (amount, limit, price, to, secret, data) => {
     assert(amount, 'amount is required.');
     assert(limit, 'limit is required.');
     assert(price, 'price is required.');
@@ -557,7 +557,7 @@ let transfer = async(amount, limit, price, to, secret, data) => {
     }
 }
 
-let burnIntOnEth = async(options) => {
+let burnIntOnEth = async (options) => {
     let url = getMydataUrl + options.decimalAmount + "/" + options.fromAddress
     let result = await http.sendGet(url);
     let parseResult = JSON.parse(result);
@@ -581,12 +581,19 @@ let sendBurn = async data => {
     let result = await http.sendPost(data, host, port, burnIntOnEthUrl);
     return JSON.parse(result);
 }
-let queryBalance = async(address) => {
+
+let intOnEthToInt = async params => {
+    let data = await Mapping.transferToken(params)
+    let result = await http.sendPost(data, host, port, burnIntOnEthUrl);
+    return JSON.parse(result);
+}
+
+let queryBalance = async (address) => {
     let url = queryIntOnEthUrl + address;
     let result = await http.sendGet(url);
     return JSON.parse(result);
 }
-let sendSignedTransaction = async(renderStr, type, themeUrl, blessing, address, num, amount, symbol, tokenid, logoUrl) => {
+let sendSignedTransaction = async (renderStr, type, themeUrl, blessing, address, num, amount, symbol, tokenid, logoUrl) => {
     let result = await http.sendPost({ renderStr: renderStr, type: type, themeUrl, blessing, address, num, amount, symbol, tokenid, logoUrl }, host, port, transferUrl)
     return result
 }
@@ -612,11 +619,11 @@ let ethPrivateKeyToAccount = privateKey => {
     return account.address
 }
 
-let queryProposalRfd = async() => {
+let queryProposalRfd = async () => {
     let result = await http.sendGet(getProposalRfdUrl);
     return JSON.parse(result);
 }
-let getRfd2 = async() => {
+let getRfd2 = async () => {
     let result = await http.sendGet(getRfd2Url);
     return JSON.parse(result);
 }
@@ -660,4 +667,6 @@ module.exports = {
     signTimeStamp,
     INT4Account,
     queryInt4Balance,
+    isEthAddress: web3.utils.isAddress,
+    intOnEthToInt
 }

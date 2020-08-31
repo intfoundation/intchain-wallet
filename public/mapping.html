@@ -201,7 +201,7 @@
         /* .main {
             padding: 50px 0 0 165px;
         } */
-        
+
         .out {
             height: 14px;
             width: 14px;
@@ -210,7 +210,7 @@
             display: inline-block;
             cursor: pointer;
         }
-        
+
         .in {
             height: 8px;
             width: 8px;
@@ -219,7 +219,7 @@
             margin: 3px;
             display: inline-block;
         }
-        
+
         .inac {
             height: 14px;
             width: 14px;
@@ -228,35 +228,35 @@
             display: inline-block;
             cursor: pointer;
         }
-        
+
         .ch-item {
             display: inline;
         }
-        
+
         .ch-item span {
             margin-left: 8px;
             position: relative;
             top: -2px;
         }
-        
+
         .pri {
             margin-left: 50px;
         }
-        
+
         .ch {
             margin-top: 18px;
             color: rgba(51, 51, 51, 1);
             font-size: 14px;
             font-family: PingFangSC-Medium;
         }
-        
+
         .se {
             margin-top: 36px;
             color: rgba(51, 51, 51, 1);
             font-size: 24px;
             font-family: PingFangSC-Medium;
         }
-        
+
         .warn {
             margin-top: 20px;
             width: 852px;
@@ -264,12 +264,12 @@
             font-size: 12px;
             font-family: PingFangSC-Regular;
         }
-        
+
         .ch-file {
             margin-top: 16px;
             width: 240px;
         }
-        
+
         .is .lt1 {
             /* width: 412px; */
             height: 48px;
@@ -281,7 +281,7 @@
             font-family: PingFangSC-Regular;
             text-align: center;
         }
-        
+
         .middle {
             margin-top: 36px;
             color: #222;
@@ -289,7 +289,7 @@
             text-align: left;
             font-family: PingFangSC-Regular;
         }
-        
+
         .in-box {
             display: inline-block;
             width: 410px;
@@ -298,11 +298,11 @@
             background-color: rgba(255, 255, 255, 1);
             border: 1px solid rgba(204, 204, 204, 1);
         }
-        
+
         .in-box img {
             cursor: pointer;
         }
-        
+
         input {
             margin-left: 24px;
             width: 85%;
@@ -310,12 +310,12 @@
             border: 0px;
             outline: none
         }
-        
+
         input::-webkit-input-placeholder {
             color: rgba(153, 153, 153, 1);
             font-family: PingFangSC-Regular;
         }
-        
+
         .btn-dis {
             font-family: PingFangSC-Regular;
             margin-top: 36px;
@@ -329,7 +329,7 @@
             color: rgba(255, 255, 255, 1);
             cursor: not-allowed;
         }
-        
+
         .btn-unlock {
             margin-top: 36px;
             width: 240px;
@@ -342,7 +342,7 @@
             color: rgba(255, 255, 255, 1);
             cursor: pointer;
         }
-        
+
         .msg {
             margin-top: 25px;
             width: 300px;
@@ -355,7 +355,7 @@
             color: rgba(255, 255, 255, 1);
             font-size: 12px;
         }
-        
+
         .item-box {
             display: inline-block;
             color: rgba(51, 51, 51, 1);
@@ -364,7 +364,7 @@
             margin-top: 24px;
             font-weight: bold;
         }
-        
+
         .mp-warn {
             width: 865px;
             color: #cd222d;
@@ -375,212 +375,229 @@
         }
     </style>
 
-    <body ng-app="myApp">
-        <div class="container" ng-controller="mappingController">
-            <div class="header-box">
-                <div class="header-con">
-                    <div class="logo">
-                        <img src="./images/int-logo-title.png" width="144px" height="72px">
+<body ng-app="myApp">
+    <div class="container" ng-controller="mappingController">
+        <div class="header-box">
+            <div class="header-con">
+                <div class="logo">
+                    <img src="./images/int-logo-title.png" width="144px" height="72px">
+                </div>
+                <div class="tabbar-box">
+                    <div class="tab-item ">
+                        <span>
+                            <a href="./index.html?lan={{lan}}">{{doc.newWallet}}</a>
+                        </span>
+                        <div class="b-line"></div>
                     </div>
-                    <div class="tabbar-box">
-                        <div class="tab-item ">
-                            <span>
-                      <a href="./index.html?lan={{lan}}">{{doc.newWallet}}</a>
-                      </span>
-                            <div class="b-line"></div>
-                        </div>
-                        <div class="tab-item">
-                            <span>
-                                <a href="./walletInfo.html?lan={{lan}}">  {{doc.viewWllet}}</a>
-                     
-                      </span>
-                            <div></div>
-                        </div>
-                        <div class="tab-item active">
-                            <span>
-                                    {{doc.mapping}}
-                       </span>
+                    <div class="tab-item">
+                        <span>
+                            <a href="./walletInfo.html?lan={{lan}}"> {{doc.viewWllet}}</a>
 
-                        </div>
-                        <!-- <div class="tab-item">
+                        </span>
+                        <div></div>
+                    </div>
+                    <div class="tab-item active">
+                        <span>
+                            {{doc.mapping}}
+                        </span>
+
+                    </div>
+                    <!-- <div class="tab-item">
                             <span>
                                 <a href="./send.html?lan={{lan}}">{{doc.sendInt}}</a>
                       </span>
                             <div class="b-line"></div>
                         </div> -->
-                        <div id="send" ng-mouseenter="sendTabView = true" ng-mouseleave="sendTabView = false" class="tab-item">
-                            <span>
-                                <span>{{doc.send}}</span>
-                                <span class="triangle"></span>
-                            </span>
-                            <br>
-                            <div class="sendTab" ng-show="sendTabView">
-                                <div class="sendTab-item">
-                                    <a href="./send.html?action=sendInt&lan={{lan}}">
-                                        {{doc.sendInt}} 
-                                    </a>
-                                </div> <br>
-                                <div class="sendTab-item">
-                                    <a href="./send.html?action=sendToken&lan={{lan}}">
-                                        {{doc.sendToken}} 
-                                    </a>
-                                </div>
+                    <div id="send" ng-mouseenter="sendTabView = true" ng-mouseleave="sendTabView = false"
+                        class="tab-item">
+                        <span>
+                            <span>{{doc.send}}</span>
+                            <span class="triangle"></span>
+                        </span>
+                        <br>
+                        <div class="sendTab" ng-show="sendTabView">
+                            <div class="sendTab-item">
+                                <a href="./send.html?action=sendInt&lan={{lan}}">
+                                    {{doc.sendInt}}
+                                </a>
+                            </div> <br>
+                            <div class="sendTab-item">
+                                <a href="./send.html?action=sendToken&lan={{lan}}">
+                                    {{doc.sendToken}}
+                                </a>
                             </div>
                         </div>
-                        <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false" class="tab-item">
-                            <span>
-                                    <span>{{doc.mortgage}}</span>
-                                <span class="triangle"></span>
-                                </span>
-                            <div class="b-line"></div>
-                            <div class="voteTab" ng-show="voteTabView">
-                                <div class="voteTab-item">
-                                    <a href="./vote.html?action=Mortgage&lan={{lan}}">
-                                        {{doc.mortgage}} 
-                            </a>
-                                </div>
-                                <div class="voteTab-item">
-                                    <a href="./vote.html?action=Vote&lan={{lan}}">
-                                        {{doc.vote}}
-                                    </a>
-                                </div>
-                                <div class="voteTab-item">
-                                    <a href="./vote.html?action=Unmortgage&lan={{lan}}">
-                                        {{doc.unmortgage}} 
-                                    </a>
-                                </div>
-                                <div class="voteTab-item">
-                                    <a href="./vote.html?action=Referendum&lan={{lan}}">
-                                                        {{doc.referendum}} 
-                                            </a>
-                                </div>
+                    </div>
+                    <div id="vote" ng-mouseenter="voteTabView = true" ng-mouseleave="voteTabView = false"
+                        class="tab-item">
+                        <span>
+                            <span>{{doc.mortgage}}</span>
+                            <span class="triangle"></span>
+                        </span>
+                        <div class="b-line"></div>
+                        <div class="voteTab" ng-show="voteTabView">
+                            <div class="voteTab-item">
+                                <a href="./vote.html?action=Mortgage&lan={{lan}}">
+                                    {{doc.mortgage}}
+                                </a>
+                            </div>
+                            <div class="voteTab-item">
+                                <a href="./vote.html?action=Vote&lan={{lan}}">
+                                    {{doc.vote}}
+                                </a>
+                            </div>
+                            <div class="voteTab-item">
+                                <a href="./vote.html?action=Unmortgage&lan={{lan}}">
+                                    {{doc.unmortgage}}
+                                </a>
+                            </div>
+                            <div class="voteTab-item">
+                                <a href="./vote.html?action=Referendum&lan={{lan}}">
+                                    {{doc.referendum}}
+                                </a>
                             </div>
                         </div>
+                    </div>
 
-                        <div id="token" ng-mouseenter="tokenView = true" ng-mouseleave="tokenView = false" class="tab-item">
-                            <span>
-                                            <span>Token</span>
-                                             <span class="triangle"></span>
-                                    </span>
-                            <div></div>
-                            <div class="voteTab" ng-show="tokenView">
-                                <div class="voteTab-item">
-                                    <a href="./token.html?action=create&lan={{lan}}">
-                                                {{doc.create}} 
-                                            </a>
-                                </div>
-                                <div class="voteTab-item">
-                                    <a href="./token.html?action=transfer&lan={{lan}}">
-                                                {{doc.transfer}} 
-                                            </a>
-                                </div>
+                    <div id="token" ng-mouseenter="tokenView = true" ng-mouseleave="tokenView = false" class="tab-item">
+                        <span>
+                            <span>Token</span>
+                            <span class="triangle"></span>
+                        </span>
+                        <div></div>
+                        <div class="voteTab" ng-show="tokenView">
+                            <div class="voteTab-item">
+                                <a href="./token.html?action=create&lan={{lan}}">
+                                    {{doc.create}}
+                                </a>
+                            </div>
+                            <div class="voteTab-item">
+                                <a href="./token.html?action=transfer&lan={{lan}}">
+                                    {{doc.transfer}}
+                                </a>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="tab-item">
+                        <span>
+                            <a href="./exchange.html?lan={{lan}}">DEFI</a>
+                        </span>
+                        <div></div>
+                    </div>
 
 
-                        <!-- <div class="tab-item">
+                    <!-- <div class="tab-item">
                             <span>                
                                     <a target="_blank" href="./images/help{{lan}}.pdf">{{doc.help}}</a> 
                                 </span>
                         </div> -->
 
-                        <div id="lan" ng-mouseenter="lanView = true" ng-mouseleave="lanView = false" class="tab-item">
-                            <span>
-                                        <span>{{doc.language}}</span>
-                                         <span class="triangle"></span>
-                                </span>
-                            <div></div>
-                            <div class="voteTab" ng-show="lanView">
-                                <div class="voteTab-item" ng-click="changelan('en')">
-                                    <a href="javascript:;">
-                                            English
-                                        </a>
-                                </div>
-                                <div class="voteTab-item" ng-click="changelan('zh')">
-                                    <a href="javascript:;">
-                                            中文
-                                        </a>
-                                </div>
+                    <div id="lan" ng-mouseenter="lanView = true" ng-mouseleave="lanView = false" class="tab-item">
+                        <span>
+                            <span>{{doc.language}}</span>
+                            <span class="triangle"></span>
+                        </span>
+                        <div></div>
+                        <div class="voteTab" ng-show="lanView">
+                            <div class="voteTab-item" ng-click="changelan('en')">
+                                <a href="javascript:;">
+                                    English
+                                </a>
                             </div>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-            <div class="content">
-                <div class="con-top">
-                    <img style="margin-bottom:-4px" src="./images/mapping.png" alt=""><span> {{doc.mapping}}</span>
-                </div>
-                <div class="main">
-                    <p class="mp-warn">
-                        {{doc.mappingWarn}}
-                    </p>
-                    <div>
-                        <div class="item-box">
-                            <div class="lable">{{doc.ethPrivateKey}}</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.ethPrivateKey}}" ng-model="model.fromAddressPrivateKey">
+                            <div class="voteTab-item" ng-click="changelan('zh')">
+                                <a href="javascript:;">
+                                    中文
+                                </a>
                             </div>
-                        </div>
-
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">{{doc.intPrivateKey}}</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.intPrivateKey}}" ng-model="intPrivateKey">
-                            </div>
-                        </div>
-
-                        <div class="item-box">
-                            <div class="lable"> {{doc.ethAdress}}</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterEvent($event)" readonly type="text" ng-blur="queryBalance()" placeholder="{{doc.ethAdress}}" ng-model="model.fromAddress">
-                            </div>
-                        </div>
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">{{doc.intAddress}}</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.intAddress}}" ng-model="model.toAddress">
-                            </div>
-                        </div>
-                        <div class="item-box">
-                            <div class="lable">{{doc.ethBalance}}</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.ethBalance}}" ng-model="ethBalance">
-                            </div>
-                        </div>
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">{{doc.intBalance}}</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.intBalance}}" ng-model="model.decimalAmount">
-                            </div>
-                        </div>
-                        <div class="item-box">
-                            <div class="lable">Gas Price</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterEvent($event)" type="text" placeholder="Gas Price" ng-model="model.decimalGas">
-                            </div>
-                        </div>
-                        <div class="item-box" style="margin-left: 50px">
-                            <div class="lable">Gas Limit</div>
-                            <div class="in-box">
-                                <input ng-keyup="enterEvent($event)" type="text" placeholder="Gas Limit" ng-model="model.gasLimit">
-                            </div>
-                        </div>
-                        <div class="btn-dis" style="margin-top: 48px" ng-show="!pass">{{doc.mapping}}</div>
-                        <div ng-click="toMapping()" ng-show="pass" class="btn-unlock" style="margin-top: 48px">
-                            {{doc.mapping}}
-                        </div>
-                        <div class="contact-note">
-                            {{doc.callUs}}<br> {{doc.email}}
                         </div>
                     </div>
+
+
                 </div>
-            </div>
-            <div class="foot">
-                Copyright © 2019 - 2020 INT
             </div>
         </div>
-    </body>
+        <div class="content">
+            <div class="con-top">
+                <img style="margin-bottom:-4px" src="./images/mapping.png" alt=""><span> {{doc.mapping}}</span>
+            </div>
+            <div class="main">
+                <p class="mp-warn">
+                    {{doc.mappingWarn}}
+                </p>
+                <div>
+                    <div class="item-box">
+                        <div class="lable">{{doc.ethPrivateKey}}</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.ethPrivateKey}}"
+                                ng-model="model.fromAddressPrivateKey">
+                        </div>
+                    </div>
+
+                    <div class="item-box" style="margin-left: 50px">
+                        <div class="lable">{{doc.intPrivateKey}}</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.intPrivateKey}}"
+                                ng-model="intPrivateKey">
+                        </div>
+                    </div>
+
+                    <div class="item-box">
+                        <div class="lable"> {{doc.ethAdress}}</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterEvent($event)" readonly type="text" ng-blur="queryBalance()"
+                                placeholder="{{doc.ethAdress}}" ng-model="model.fromAddress">
+                        </div>
+                    </div>
+                    <div class="item-box" style="margin-left: 50px">
+                        <div class="lable">{{doc.intAddress}}</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.intAddress}}"
+                                ng-model="model.toAddress">
+                        </div>
+                    </div>
+                    <div class="item-box">
+                        <div class="lable">{{doc.ethBalance}}</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.ethBalance}}"
+                                ng-model="ethBalance">
+                        </div>
+                    </div>
+                    <div class="item-box" style="margin-left: 50px">
+                        <div class="lable">{{doc.intBalance}}</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.intBalance}}"
+                                ng-model="model.decimalAmount">
+                        </div>
+                    </div>
+                    <div class="item-box">
+                        <div class="lable">Gas Price</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterEvent($event)" type="text" placeholder="Gas Price"
+                                ng-model="model.decimalGas">
+                        </div>
+                    </div>
+                    <div class="item-box" style="margin-left: 50px">
+                        <div class="lable">Gas Limit</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterEvent($event)" type="text" placeholder="Gas Limit"
+                                ng-model="model.gasLimit">
+                        </div>
+                    </div>
+                    <div class="btn-dis" style="margin-top: 48px" ng-show="!pass">{{doc.mapping}}</div>
+                    <div ng-click="toMapping()" ng-show="pass" class="btn-unlock" style="margin-top: 48px">
+                        {{doc.mapping}}
+                    </div>
+                    <div class="contact-note">
+                        {{doc.callUs}}<br> {{doc.email}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="foot">
+            Copyright © 2019 - 2020 INT
+        </div>
+    </div>
+</body>
 
 </html>
