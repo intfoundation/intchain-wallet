@@ -180,6 +180,7 @@ app.controller('exchangeController', function ($scope, $http) {
             privateKey = privateKey.substr(2);
         }
         wal.transfer($scope.exchangeAmount, 100000, 0.0000002, 'INT1HzJLY8Z4uwTgYvPY2sjvQnf8JKzRSfdwF', privateKey, data)
+
             .then(function (res) {
                 if (res.err) {
                     modal.error({ msg: res.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
