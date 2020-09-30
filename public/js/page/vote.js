@@ -1,4 +1,4 @@
-app.controller('voteController', function($scope) {
+app.controller('voteController', function ($scope) {
     $scope.url = "/wallet/unlock";
     $scope.file = null;
     $scope.step = 1;
@@ -11,7 +11,7 @@ app.controller('voteController', function($scope) {
     $scope.privateKeyView = false
     $scope.votePass = false
     $scope.action = new modal.UrlSearch().action
-        //钱包信息相关
+    //钱包信息相关
     $scope.privateKey = ""
     $scope.address = ""
     $scope.balance = 0;
@@ -38,7 +38,7 @@ app.controller('voteController', function($scope) {
     $scope.lan = new modal.UrlSearch().lan || 'en'
     $scope.doc = lan[$scope.lan]
     document.title = $scope.doc[$scope.action.toLocaleLowerCase()] + ' | INT Chain';
-    $scope.changelan = function(a) {
+    $scope.changelan = function (a) {
         myVue.changeLan(a)
         $scope.doc = lan[a]
         $scope.lan = a
@@ -46,51 +46,51 @@ app.controller('voteController', function($scope) {
         document.title = $scope.doc[$scope.action.toLocaleLowerCase()] + ' | INT Chain';
     }
 
-    $scope.$watch('action', function(val) {
+    $scope.$watch('action', function (val) {
         document.title = $scope.doc[$scope.action.toLocaleLowerCase()] + ' | INT Chain';
         $scope.title = $scope.doc[val.toLocaleLowerCase()]
 
     })
-    $scope.$watch('password', function(newValue, oldValue) {
+    $scope.$watch('password', function (newValue, oldValue) {
         if ($scope.password.length >= 9) {
             $scope.unlockDisabled = false
         } else {
             $scope.unlockDisabled = true
         }
     });
-    $scope.$watch('{chNum:chNum,voteLimit:voteLimit,votePrice:votePrice}', function(v) {
+    $scope.$watch('{chNum:chNum,voteLimit:voteLimit,votePrice:votePrice}', function (v) {
         if (v.chNum && v.voteLimit && v.votePrice) {
             $scope.votePass = true
         } else {
             $scope.votePass = false
         }
     })
-    $scope.$watch('{morgageAmount:morgageAmount,morgageLimit:morgageLimit,morgagePrice:morgagePrice}', function(v) {
+    $scope.$watch('{morgageAmount:morgageAmount,morgageLimit:morgageLimit,morgagePrice:morgagePrice}', function (v) {
         if (v.morgageAmount && v.morgageLimit && v.morgagePrice) {
             $scope.morgagePass = true
         } else {
             $scope.morgagePass = false
         }
     })
-    $scope.$watch('{unmorgageAmount:unmorgageAmount,unmorgageLimit:unmorgageLimit,unmorgagePrice:unmorgagePrice}', function(v) {
+    $scope.$watch('{unmorgageAmount:unmorgageAmount,unmorgageLimit:unmorgageLimit,unmorgagePrice:unmorgagePrice}', function (v) {
         if (v.unmorgageAmount && v.unmorgageLimit && v.unmorgagePrice) {
             $scope.unmorgagePass = true
         } else {
             $scope.unmorgagePass = false
         }
     })
-    $scope.showRecord = function() {
+    $scope.showRecord = function () {
         window.open("./reward.html?address=" + $scope.address + "&lan=" + $scope.lan)
-            // if ($scope.vote == 0) {
-            //     $scope.voteRecord.candidates = [];
-            // }
-            // modal.nodeList({
-            //     okText: $scope.doc.confirm,
-            //     time: $scope.voteRecord.time,
-            //     nodes: $scope.voteRecord.candidates
-            // }, $scope.doc)
+        // if ($scope.vote == 0) {
+        //     $scope.voteRecord.candidates = [];
+        // }
+        // modal.nodeList({
+        //     okText: $scope.doc.confirm,
+        //     time: $scope.voteRecord.time,
+        //     nodes: $scope.voteRecord.candidates
+        // }, $scope.doc)
     }
-    $scope.chooseNodes = function(index) {
+    $scope.chooseNodes = function (index) {
         let chNum = 0
         if ($scope.chNum >= 20 && !$scope.nodes[index].ch) {
             modal.error({ msg: $scope.doc.m20, title: $scope.doc.notice, okText: $scope.doc.confirm })
@@ -103,13 +103,13 @@ app.controller('voteController', function($scope) {
         $scope.chNum = chNum;
         $scope.getLimit('vote')
     }
-    $scope.enterUnlock = function(e) {
+    $scope.enterUnlock = function (e) {
         var keycode = window.event ? e.keyCode : e.which;
         if (keycode == 13 && !$scope.unlockDisabled) {
             $scope.unlock();
         }
     }
-    $scope.unlock = function() {
+    $scope.unlock = function () {
         if ($scope.ch === "keyStore") {
             $scope.keyStoreUnlock()
         }
@@ -117,7 +117,7 @@ app.controller('voteController', function($scope) {
             $scope.privateKeyUnlock()
         }
     }
-    $scope.keyStoreUnlock = function() {
+    $scope.keyStoreUnlock = function () {
         // var file = $scope.file;
         // var reader = new FileReader();
         // reader.onload = function() {
@@ -131,29 +131,30 @@ app.controller('voteController', function($scope) {
             return;
         }
         var wal = require("wal");
-        wal.decodeFromOption(filedata, $scope.password).then(function(data) {
-                if (data == "error") {
-                    $scope.keyStoreUnlockFail = true
-                    $scope.$apply();
-                    return;
-                }
-                $scope.address = filedata.address;
-                myVue.address = filedata.address
-                $scope.privateKey = data;
-                myVue.privateKey = data;
-                $scope.keyStoreUnlockFail = false;
-                $scope.step = 2;
-                $scope.getbalance();
-                $scope.getVotes();
-                //$scope.getPrice();
-                //$scope.getVoteRecord();
+        wal.decodeFromOption(filedata, $scope.password).then(function (data) {
+            if (data == "error") {
+                $scope.keyStoreUnlockFail = true
                 $scope.$apply();
-            })
-            // }
-            // reader.readAsText(file);
+                return;
+            }
+            $scope.address = filedata.address;
+            myVue.address = filedata.address
+            $scope.privateKey = data;
+            myVue.privateKey = data;
+            $scope.keyStoreUnlockFail = false;
+            $scope.step = 2;
+            $scope.getbalance();
+            $scope.getVotes();
+            $scope.getVoteResult();
+            //$scope.getPrice();
+            //$scope.getVoteRecord();
+            $scope.$apply();
+        })
+        // }
+        // reader.readAsText(file);
 
     };
-    $scope.getLimit = function(method, input) {
+    $scope.getLimit = function (method, input) {
         if (method == 'vote') {
             let candies = [];
             for (let n of $scope.nodes) {
@@ -171,7 +172,7 @@ app.controller('voteController', function($scope) {
             return
         }
         var wal = require("wal");
-        wal.getLimit(method, input).then(function(data) {
+        wal.getLimit(method, input).then(function (data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -190,9 +191,9 @@ app.controller('voteController', function($scope) {
         })
     }
 
-    $scope.getPrice = function() {
+    $scope.getPrice = function () {
         var wal = require("wal");
-        wal.getPrice().then(function(data) {
+        wal.getPrice().then(function (data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -208,7 +209,7 @@ app.controller('voteController', function($scope) {
         })
     }
     $scope.getPrice();
-    $scope.privateKeyUnlock = function() {
+    $scope.privateKeyUnlock = function () {
         if ($scope.privateKey.length != 64) {
             $scope.privateKeyUnlockFail = true
             return
@@ -222,15 +223,16 @@ app.controller('voteController', function($scope) {
             myVue.privateKey = $scope.privateKey;
             $scope.getbalance()
             $scope.getVotes();
+            $scope.getVoteResult();
             //$scope.getPrice()
             //$scope.getVoteRecord()
             $scope.step = 2;
         }
         $scope.$apply();
     }
-    $scope.getVoteRecord = function() {
+    $scope.getVoteRecord = function () {
         var wal = require("wal");
-        wal.voteRecord($scope.address).then(function(data) {
+        wal.voteRecord($scope.address).then(function (data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -243,14 +245,14 @@ app.controller('voteController', function($scope) {
             $scope.$apply();
         });
     }
-    $scope.timeGetVoteRecord = function() {
+    $scope.timeGetVoteRecord = function () {
         var wal = require("wal");
-        wal.voteRecord($scope.address).then(function(data) {
+        wal.voteRecord($scope.address).then(function (data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
             if ($scope.voteRecord.time == data.time) {
-                setTimeout(function() {
+                setTimeout(function () {
                     $scope.timeGetVoteRecord()
                 }, 300)
             } else {
@@ -259,9 +261,9 @@ app.controller('voteController', function($scope) {
             }
         });
     }
-    $scope.getbalance = function() {
+    $scope.getbalance = function () {
         var wal = require("wal");
-        wal.getBalance($scope.address).then(function(data) {
+        wal.getBalance($scope.address).then(function (data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -280,14 +282,14 @@ app.controller('voteController', function($scope) {
             $scope.$apply();
         });
     };
-    $scope.timeGetBalance = function() {
+    $scope.timeGetBalance = function () {
         var wal = require("wal");
-        wal.getBalance($scope.address).then(function(data) {
+        wal.getBalance($scope.address).then(function (data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
             if ($scope.balance == modal.numformat(data.balance)) {
-                setTimeout(function() {
+                setTimeout(function () {
                     $scope.timeGetBalance()
                 }, 300)
             } else {
@@ -296,9 +298,9 @@ app.controller('voteController', function($scope) {
             }
         });
     }
-    $scope.getNodes = function() {
+    $scope.getNodes = function () {
         var wal = require("wal");
-        wal.getNodes().then(function(nodes) {
+        wal.getNodes().then(function (nodes) {
             $scope.nodes = nodes.sort(modal.sortNum);
             for (let n of $scope.nodes) {
                 n.num = modal.numformat(n.num)
@@ -308,9 +310,9 @@ app.controller('voteController', function($scope) {
         })
     }
     $scope.getNodes();
-    $scope.timeGetNodes = function() {
+    $scope.timeGetNodes = function () {
         var wal = require("wal");
-        wal.getNodes().then(function(nodes) {
+        wal.getNodes().then(function (nodes) {
             let flag = false;
             for (let n of $scope.nodes) {
                 for (let node of nodes) {
@@ -323,15 +325,15 @@ app.controller('voteController', function($scope) {
                 }
             }
             if (!flag) {
-                setTimeout(function() {
+                setTimeout(function () {
                     $scope.timeGetNodes()
                 }, 1000)
             }
         })
     }
-    $scope.getVotes = function() {
+    $scope.getVotes = function () {
         var wal = require("wal");
-        wal.getVotes($scope.address).then(function(data) {
+        wal.getVotes($scope.address).then(function (data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -343,14 +345,35 @@ app.controller('voteController', function($scope) {
             $scope.$apply()
         });
     }
-    $scope.timeGetVote = function() {
+    $scope.getVoteResult = function () {
         var wal = require("wal");
-        wal.getVotes($scope.address).then(function(data) {
+        wal.getVoteResult($scope.address).then(function (data) {
+            if (typeof data === 'string') {
+                data = JSON.parse(data)
+            }
+            if (data.err) {
+                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
+                return;
+            }
+            for (let n of $scope.nodes) {
+                for (let d of data) {
+                    if (n.node == d) {
+                        n.ch = true
+                    }
+                }
+            }
+            $scope.chNum = data.length;
+            $scope.$apply()
+        });
+    }
+    $scope.timeGetVote = function () {
+        var wal = require("wal");
+        wal.getVotes($scope.address).then(function (data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
             if ($scope.vote == modal.numformat(data.stake)) {
-                setTimeout(function() {
+                setTimeout(function () {
                     $scope.timeGetVote()
                 }, 1000)
             } else {
@@ -359,15 +382,15 @@ app.controller('voteController', function($scope) {
             }
         });
     }
-    $scope.enterVote = function(e) {
+    $scope.enterVote = function (e) {
         var keycode = window.event ? e.keyCode : e.which;
         if (keycode == 13 && $scope.votePass) {
             $scope.Vote();
         }
     }
-    $scope.Vote = function() {
+    $scope.Vote = function () {
         if (+$scope.vote <= 0) {
-            modal.error({ msg: $scope.doc.mf, title: $scope.doc.notice, okText: $scope.doc.confirm }, function() {
+            modal.error({ msg: $scope.doc.mf, title: $scope.doc.notice, okText: $scope.doc.confirm }, function () {
                 $scope.action = 'Mortgage'
                 $scope.$apply();
             })
@@ -389,12 +412,12 @@ app.controller('voteController', function($scope) {
         }
         var wal = require("wal");
         wal.vote(candies, $scope.voteLimit, $scope.votePrice, $scope.privateKey).then(
-            function(res) {
+            function (res) {
                 if (res.err) {
                     modal.error({ msg: res.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 } else {
-                    modal.showInfo(res.info, $scope.doc, function() {
-                        wal.sendSignedTransaction(res.renderStr).then(function(r) {
+                    modal.showInfo(res.info, $scope.doc, function () {
+                        wal.sendSignedTransaction(res.renderStr).then(function (r) {
                             if (typeof r === 'string') {
                                 r = JSON.parse(r)
                             }
@@ -414,13 +437,13 @@ app.controller('voteController', function($scope) {
         )
     }
 
-    $scope.enterMorgage = function(e) {
+    $scope.enterMorgage = function (e) {
         var keycode = window.event ? e.keyCode : e.which;
         if (keycode == 13 && $scope.morgagePass) {
             $scope.Morgage();
         }
     }
-    $scope.Morgage = function() {
+    $scope.Morgage = function () {
         if (isNaN($scope.morgageAmount) || +$scope.morgageAmount <= 0) {
             modal.error({ msg: $scope.doc.anv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
@@ -441,12 +464,12 @@ app.controller('voteController', function($scope) {
         }
         var wal = require("wal");
         wal.mortgage($scope.morgageAmount, $scope.morgageLimit, $scope.morgagePrice, $scope.privateKey).then(
-            function(res) {
+            function (res) {
                 if (res.err) {
                     modal.error({ msg: res.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 } else {
-                    modal.showInfo(res.info, $scope.doc, function() {
-                        wal.sendSignedTransaction(res.renderStr).then(function(r) {
+                    modal.showInfo(res.info, $scope.doc, function () {
+                        wal.sendSignedTransaction(res.renderStr).then(function (r) {
                             if (typeof r === 'string') {
                                 r = JSON.parse(r)
                             }
@@ -465,13 +488,13 @@ app.controller('voteController', function($scope) {
             }
         )
     }
-    $scope.enterUnmorgage = function(e) {
+    $scope.enterUnmorgage = function (e) {
         var keycode = window.event ? e.keyCode : e.which;
         if (keycode == 13 && $scope.unmorgagePass) {
             $scope.Unmorgage();
         }
     }
-    $scope.Unmorgage = function() {
+    $scope.Unmorgage = function () {
         if (isNaN($scope.unmorgageAmount) || +$scope.unmorgageAmount <= 0 || +$scope.unmorgageAmount > +$scope.vote) {
             modal.error({ msg: $scope.doc.anv, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return
@@ -487,12 +510,12 @@ app.controller('voteController', function($scope) {
 
         var wal = require("wal");
         wal.unmortgage($scope.unmorgageAmount, $scope.unmorgageLimit, $scope.unmorgagePrice, $scope.privateKey).then(
-            function(res) {
+            function (res) {
                 if (res.err) {
                     modal.error({ msg: res.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
                 } else {
-                    modal.showInfo(res.info, $scope.doc, function() {
-                        wal.sendSignedTransaction(res.renderStr).then(function(r) {
+                    modal.showInfo(res.info, $scope.doc, function () {
+                        wal.sendSignedTransaction(res.renderStr).then(function (r) {
                             if (typeof r === 'string') {
                                 r = JSON.parse(r)
                             }

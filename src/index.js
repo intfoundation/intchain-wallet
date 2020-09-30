@@ -31,7 +31,8 @@ const {
     getTestCoinUrl,
     rewardHistoryUrl,
     getProposalRfdUrl,
-    getRfd2Url
+    getRfd2Url,
+    getVoteResultUrl
 } = require('./cfg')
 
 const Mapping = require("./mapping");
@@ -56,6 +57,13 @@ let getLimit = async (method, input) => {
     let result = await http.sendGet(url);
     return result;
 }
+
+let getVoteResult = async (address) => {
+    let url = getVoteResultUrl + address
+    let result = await http.sendGet(url);
+    return result;
+}
+
 
 let makeWalletAccount = pwd => {
     assert(pwd, 'pwd must not empty');
@@ -668,5 +676,6 @@ module.exports = {
     INT4Account,
     queryInt4Balance,
     isEthAddress: web3.utils.isAddress,
-    intOnEthToInt
+    intOnEthToInt,
+    getVoteResult
 }
