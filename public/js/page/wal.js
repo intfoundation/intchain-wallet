@@ -99151,7 +99151,7 @@ function transferToken(params) {
         gasPrice: Web3.utils.toHex(params.gasPrice),
         gasLimit: Web3.utils.toHex('100000'),
         to: '0xbe038a2fdfec62cf1bed852f141a43005035edcc',
-        value: '0x0',
+        value: '0x00',
         data: '0xa9059cbb' + data
     };
 
