@@ -158,6 +158,10 @@ app.controller('exchangeController', function ($scope, $http) {
             modal.error({ msg: $scope.doc.ethAddressNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return;
         }
+        if (+$scope.exchangeAmount < 500) {
+            modal.error({ msg: $scope.doc.exchangeAmountMustMoreThan, title: $scope.doc.notice, okText: $scope.doc.confirm })
+            return;
+        }
         if (!$scope.exchangeAmount || isNaN($scope.exchangeAmount) || $scope.exchangeAmount < 0) {
             modal.error({ msg: $scope.doc.exchangeAmountNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return;

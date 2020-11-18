@@ -155,7 +155,8 @@ var lan = {
         exchangeAmount: 'Amount',
         exchange: 'Swap',
         exchangeAmountNotValid: 'Amount Invalid',
-        exchangeAmountCanNotGtBalance: 'Insufficient balance'
+        exchangeAmountCanNotGtBalance: 'Insufficient balance',
+        exchangeAmountMustMoreThan: 'The exchange quantity cannot be less than 500 INT'
     },
 
     zh: {
@@ -312,7 +313,8 @@ var lan = {
         exchangeAmount: '兑换数量',
         exchange: '兑换',
         exchangeAmountNotValid: '兑换金额无效',
-        exchangeAmountCanNotGtBalance: '兑换金额不可大于余额'
+        exchangeAmountCanNotGtBalance: '兑换金额不可大于余额',
+        exchangeAmountMustMoreThan: '兑换数量不可少于500INT'
     }
 }
 
