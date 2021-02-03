@@ -227,6 +227,10 @@ input {
     position: relative;
 }
 
+#defi {
+    position: relative;
+}
+
 .sendTab {
     background-color: rgba(255, 255, 255, 1);
     margin-left: -10px;
