@@ -62,6 +62,8 @@ var lan = {
 
         ethAdress: "ETH Wallet Address",
         ethPrivateKey: "ETH Wallet Private Key",
+        hecoAdress: "HECO Wallet Address",
+        hecoPrivateKey: "HECO Wallet Private Key",
         intPrivateKey: "INT Wallet Private Key",
         intAddress: "INT Wallet Address",
 
@@ -156,7 +158,10 @@ var lan = {
         exchange: 'Swap',
         exchangeAmountNotValid: 'Amount Invalid',
         exchangeAmountCanNotGtBalance: 'Insufficient balance',
-        exchangeAmountMustMoreThan: 'The exchange quantity cannot be less than 500 INT'
+        exchangeAmountMustMoreThan: 'The exchange quantity cannot be less than 500 INT',
+
+        intETH: 'INT and ETH',
+        intHECO: 'INT and HECO',
     },
 
     zh: {
@@ -222,6 +227,8 @@ var lan = {
 
         ethAdress: "ETH地址",
         ethPrivateKey: "ETH私钥",
+        hecoAdress: "HECO地址",
+        hecoPrivateKey: "HECO私钥",
         intPrivateKey: "INT私钥",
         intAddress: "INT地址",
 
@@ -314,7 +321,11 @@ var lan = {
         exchange: '兑换',
         exchangeAmountNotValid: '兑换金额无效',
         exchangeAmountCanNotGtBalance: '兑换金额不可大于余额',
-        exchangeAmountMustMoreThan: '兑换数量不可少于500INT'
+        exchangeAmountMustMoreThan: '兑换数量不可少于500INT',
+
+        intETH: 'INT and ETH',
+        intHECO: 'INT and HECO',
+
     }
 }
 

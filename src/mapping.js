@@ -204,7 +204,7 @@ function transferToken(params) {
         nonce: Web3.utils.toHex(params.nonce),
         gasPrice: Web3.utils.toHex(params.gasPrice),
         gasLimit: Web3.utils.toHex('100000'),
-        to: '0xbe038a2fdfec62cf1bed852f141a43005035edcc',
+        to: params.fromCoin === 'INT_ETH' ? '0xbe038a2fdfec62cf1bed852f141a43005035edcc' : '0x4f4e14baae95d962399597c4c250afe0a4352794',
         value: '0x00',
         data: '0xa9059cbb' + data
     };
@@ -217,7 +217,7 @@ function transferToken(params) {
 
 
     let mappingData = {
-        type: "INT_ETHtoINT",
+        type: `${params.fromCoin}toINT`,
         intAddress: params.intAddress,
         num: params.amount,
         //fromAddress: params.fromAddress
@@ -237,6 +237,6 @@ function transferToken(params) {
     var transferSerializedTxHex = '0x' + transferSerializedTx.toString('hex')
 
 
-    return { serializedTxHex, transferSerializedTxHex }
+    return { serializedTxHex, transferSerializedTxHex, fromCoin: params.fromCoin }
 }
 module.exports.transferToken = transferToken;

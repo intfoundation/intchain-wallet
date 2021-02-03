@@ -19,184 +19,9 @@
     <script type="text/javascript" src="./js/app/ngapp.js"></script>
     <script type="text/javascript" src="./js/app/directives/uploaddirectives.js"></script>
     <script type="text/javascript" src="./js/page/common.js"></script>
-    <script type="text/javascript" src="./js/page/mapping.js"></script>
+    <script type="text/javascript" src="./js/page/hecoexchange.js"></script>
     <!-- <script type="text/javascript" src="./js/page/int.js"></script> -->
     <script type="text/javascript" src="./js/page/wal.js"></script>
-    <!-- <style>
-        .main {
-            padding: 50px 0 0 165px;
-        }
-
-        .out {
-            height: 14px;
-            width: 14px;
-            border: 1px solid rgba(60, 49, 215, 1);
-            border-radius: 8px;
-            display: inline-block;
-            cursor: pointer;
-        }
-
-        .in {
-            height: 8px;
-            width: 8px;
-            background-color: rgba(60, 49, 215, 1);
-            border-radius: 5px;
-            margin: 3px;
-            display: inline-block;
-        }
-
-        .inac {
-            height: 14px;
-            width: 14px;
-            border: 1px solid rgba(204, 204, 204, 1);
-            border-radius: 8px;
-            display: inline-block;
-            cursor: pointer;
-        }
-
-        .ch-item {
-            display: inline;
-        }
-
-        .ch-item span {
-            margin-left: 8px;
-        }
-
-        .pri {
-            margin-left: 50px;
-        }
-
-        .ch {
-            margin-top: 18px;
-            color: rgba(51, 51, 51, 1);
-            font-size: 20px;
-            font-family: PingFangSC-Medium;
-        }
-
-        .se {
-            margin-top: 36px;
-            color: rgba(51, 51, 51, 1);
-            font-size: 24px;
-            font-family: PingFangSC-Medium;
-        }
-
-        .warn {
-            margin-top: 20px;
-            width: 852px;
-            color: rgba(215, 49, 111, 1);
-            font-size: 12px;
-            font-family: PingFangSC-Regular;
-        }
-
-        .ch-file {
-            margin-top: 16px;
-            width: 240px;
-        }
-
-        .is .lt1 {
-            width: 412px;
-            height: 48px;
-            border-radius: 4px;
-            border: 1px solid rgba(60, 49, 215, 1);
-            line-height: 48px;
-            cursor: pointer;
-            color: rgba(60, 49, 215, 1);
-            font-family: PingFangSC-Medium;
-            text-align: center;
-        }
-
-        .middle {
-            margin-top: 36px;
-            color: rgba(153, 153, 153, 1);
-            font-size: 12px;
-            text-align: left;
-            font-family: PingFangSC-Regular;
-        }
-
-        .in-box {
-            display: inline-block;
-            width: 410px;
-            height: 46px;
-            border-radius: 4px;
-            background-color: rgba(255, 255, 255, 1);
-            border: 1px solid rgba(204, 204, 204, 1);
-        }
-
-        .in-box img {
-            cursor: pointer;
-        }
-
-        input {
-            margin-left: 24px;
-            width: 85%;
-            height: 98%;
-            border: 0px;
-            outline: none
-        }
-
-        input::-webkit-input-placeholder {
-            color: rgba(153, 153, 153, 1);
-            font-family: PingFangSC-Regular;
-        }
-
-        .btn-dis {
-            font-family: PingFangSC-Regular;
-            margin-top: 36px;
-            width: 240px;
-            height: 48px;
-            border-radius: 4px;
-            background-color: rgba(204, 204, 204, 1);
-            text-align: center;
-            line-height: 48px;
-            font-size: 16px;
-            color: rgba(255, 255, 255, 1);
-            cursor: not-allowed;
-        }
-
-        .btn-unlock {
-            margin-top: 36px;
-            width: 240px;
-            height: 48px;
-            border-radius: 4px;
-            background-color: #cd222d;
-            text-align: center;
-            line-height: 48px;
-            font-size: 16px;
-            color: rgba(255, 255, 255, 1);
-            cursor: pointer;
-        }
-
-        .msg {
-            margin-top: 25px;
-            width: 300px;
-            height: 32px;
-            opacity: 0.8;
-            border-radius: 4px;
-            background-color: rgba(215, 49, 111, 1);
-            line-height: 32px;
-            padding-left: 13px;
-            color: rgba(255, 255, 255, 1);
-            font-size: 12px;
-        }
-
-        .item-box {
-            display: inline-block;
-            color: rgba(51, 51, 51, 1);
-            font-size: 16px;
-            font-family: PingFangSC-Medium;
-            margin-top: 24px;
-            font-weight: bold;
-        }
-
-        .mp-warn {
-            width: 865px;
-            color: #cd222d;
-            font-size: 15px;
-            background-color: rgba(253, 221, 155, 0.5);
-            border: 1px solid;
-            padding: 8px
-        }
-    </style> -->
     <style>
         /* .main {
             padding: 50px 0 0 165px;
@@ -373,14 +198,25 @@
             border: 1px solid;
             padding: 8px
         }
+
+        .title-underline::after {
+            width: 180px !important;
+        }
+
+        .cross-select {
+            width: 400px;
+            height: 100%;
+            border: none;
+            padding-left: 20px;
+        }
     </style>
 
 <body ng-app="myApp">
-    <div class="container" ng-controller="mappingController">
+    <div class="container" ng-controller="exchangeController">
         <div class="header-box">
             <div class="header-con">
                 <div class="logo">
-                    <img src="./images/int-logo-title.png" width="144px" height="72px">
+                    <img src="./images/int-logo.png" width="72px" height="72px">
                 </div>
                 <div class="tabbar-box">
                     <div class="tab-item ">
@@ -396,9 +232,9 @@
                         </span>
                         <div></div>
                     </div>
-                    <div class="tab-item active">
+                    <div class="tab-item">
                         <span>
-                            {{doc.mapping}}
+                            {{doc.mineMapping}}
                         </span>
 
                     </div>
@@ -478,7 +314,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div id="defi" ng-mouseenter="defiView = true" ng-mouseleave="defiView = false" class="tab-item">
                         <span>
                             <span>DeFi</span>
@@ -530,76 +365,116 @@
                 </div>
             </div>
         </div>
+        <div class="title-section">
+            <div class="site-title title-underline">{{doc.crossChainAssetExchange}}</div>
+        </div>
         <div class="content">
-            <div class="con-top">
-                <img style="margin-bottom:-4px" src="./images/mapping.png" alt=""><span> {{doc.mapping}}</span>
-            </div>
             <div class="main">
-                <p class="mp-warn">
-                    {{doc.mappingWarn}}
-                </p>
                 <div>
                     <div class="item-box">
-                        <div class="lable">{{doc.ethPrivateKey}}</div>
+                        <div class="lable">{{doc.fromCoin}}</div>
                         <div class="in-box">
-                            <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.ethPrivateKey}}"
-                                ng-model="model.fromAddressPrivateKey">
+                            <select ng-show="direction=='INT->HECO'" ng-model="fromCoin" class="cross-select" disabled>
+                                <option value="INT">INT</option>
+                            </select>
+                            <select ng-show="direction=='HECO->INT'" ng-model="fromCoin" class="cross-select" disabled>
+                                <option value="INT_HECO">INT_HECO</option>
+                            </select>
+                        </div>
+                    </div>
+                    <img ng-click="exchangeDirection()" src="./images/exchange.png" alt=""
+                        style="margin-left:15px;height:15px; cursor: pointer;">
+
+                    <div class="item-box" style="margin-left: 15px">
+                        <div class="lable">{{doc.toCoin}}</div>
+
+                        <div class="in-box">
+                            <select ng-show="direction=='INT->HECO'" ng-model="toCoin" class="cross-select" disabled>
+                                <option value="INT_HECO">INT_HECO</option>
+                            </select>
+                            <select ng-show="direction=='HECO->INT'" ng-model="toCoin" class="cross-select" disabled>
+                                <option value="INT">INT</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div ng-show="direction=='INT->HECO'" class="item-box">
+                        <div class="lable"> {{doc.intPrivateKey}}</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterEvent($event)" type="text" ng-blur="queryBalance()"
+                                placeholder="{{doc.intPrivateKey}}" ng-model="intPrivateKey">
+                        </div>
+                    </div>
+                    <div ng-show="direction=='HECO->INT'" class="item-box">
+                        <div class="lable"> {{doc.hecoPrivateKey}}</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterEvent($event)" type="text" ng-blur="queryBalance()"
+                                placeholder="{{doc.hecoPrivateKey}}" ng-model="ethPrivateKey">
                         </div>
                     </div>
 
                     <div class="item-box" style="margin-left: 50px">
-                        <div class="lable">{{doc.intPrivateKey}}</div>
+                        <div class="lable">{{doc.balance}}</div>
                         <div class="in-box">
-                            <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.intPrivateKey}}"
-                                ng-model="intPrivateKey">
+                            <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.balance}}"
+                                ng-model="balance">
                         </div>
                     </div>
 
-                    <div class="item-box">
-                        <div class="lable"> {{doc.ethAdress}}</div>
+                    <div ng-show="direction=='INT->HECO'" class="item-box">
+                        <div class="lable"> {{doc.hecoAdress}}</div>
                         <div class="in-box">
-                            <input ng-keyup="enterEvent($event)" readonly type="text" ng-blur="queryBalance()"
-                                placeholder="{{doc.ethAdress}}" ng-model="model.fromAddress">
+                            <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.hecoAdress}}"
+                                ng-model="toAddress">
                         </div>
                     </div>
-                    <div class="item-box" style="margin-left: 50px">
+                    <div ng-show="direction=='HECO->INT'" class="item-box">
                         <div class="lable">{{doc.intAddress}}</div>
                         <div class="in-box">
-                            <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.intAddress}}"
-                                ng-model="model.toAddress">
-                        </div>
-                    </div>
-                    <div class="item-box">
-                        <div class="lable">{{doc.ethBalance}}</div>
-                        <div class="in-box">
-                            <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.ethBalance}}"
-                                ng-model="ethBalance">
+                            <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.intAddress}}"
+                                ng-model="toAddress">
                         </div>
                     </div>
                     <div class="item-box" style="margin-left: 50px">
-                        <div class="lable">{{doc.intBalance}}</div>
+                        <div class="lable">{{doc.exchangeAmount}}</div>
                         <div class="in-box">
-                            <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.intBalance}}"
-                                ng-model="model.decimalAmount">
+                            <input ng-keyup="enterEvent($event)" type="text" placeholder="{{doc.exchangeAmount}}"
+                                ng-model="exchangeAmount">
+                        </div>
+                    </div>
+
+                    <!-- <div class="item-box">
+                        <div class="lable">{{doc.int3Balance}}</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.int3Balance}}"
+                                ng-model="int3Balance">
+                        </div>
+                    </div>
+
+                    <div class="item-box" style="margin-left: 50px">
+                        <div class="lable">{{doc.int4Balance}}</div>
+                        <div class="in-box">
+                            <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="{{doc.int4Balance}}"
+                                ng-model="int4Balance">
                         </div>
                     </div>
                     <div class="item-box">
                         <div class="lable">Gas Price</div>
                         <div class="in-box">
-                            <input ng-keyup="enterEvent($event)" type="text" placeholder="Gas Price"
-                                ng-model="model.decimalGas">
+                            <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="Gas Price"
+                                ng-model="model.price">
                         </div>
                     </div>
                     <div class="item-box" style="margin-left: 50px">
                         <div class="lable">Gas Limit</div>
                         <div class="in-box">
-                            <input ng-keyup="enterEvent($event)" type="text" placeholder="Gas Limit"
+                            <input ng-keyup="enterEvent($event)" readonly type="text" placeholder="Gas Limit"
                                 ng-model="model.gasLimit">
                         </div>
-                    </div>
-                    <div class="btn-dis" style="margin-top: 48px" ng-show="!pass">{{doc.mapping}}</div>
-                    <div ng-click="toMapping()" ng-show="pass" class="btn-unlock" style="margin-top: 48px">
-                        {{doc.mapping}}
+                    </div> -->
+                    <div class="btn-dis" style="margin-top: 48px" ng-show="!pass">{{doc.exchange}}</div>
+                    <div ng-click="toExchange()" ng-show="pass" class="btn-unlock" style="margin-top: 48px">
+                        {{doc.exchange}}
                     </div>
                     <div class="contact-note">
                         {{doc.callUs}}<br> {{doc.email}}

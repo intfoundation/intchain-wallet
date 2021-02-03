@@ -596,8 +596,9 @@ let intOnEthToInt = async params => {
     return JSON.parse(result);
 }
 
-let queryBalance = async (address) => {
+let queryBalance = async (address, type) => {
     let url = queryIntOnEthUrl + address;
+    url = type ? `${url}/${type}` : url;
     let result = await http.sendGet(url);
     return JSON.parse(result);
 }

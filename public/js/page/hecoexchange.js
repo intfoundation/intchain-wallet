@@ -1,10 +1,10 @@
 app.controller('exchangeController', function ($scope, $http) {
     $scope.pass = true
-    $scope.direction = 'INT->ETH';
+    $scope.direction = 'INT->HECO';
     $scope.fromCoin = 'INT';
-    $scope.toCoin = 'INT_ETH';
+    $scope.toCoin = 'INT_HECO';
     $scope.exchangeDirection = function () {
-        $scope.direction = $scope.direction == 'INT->ETH' ? 'ETH->INT' : 'INT->ETH';
+        $scope.direction = $scope.direction == 'INT->HECO' ? 'HECO->INT' : 'INT->HECO';
         let coin = $scope.fromCoin;
         $scope.fromCoin = $scope.toCoin;
         $scope.toCoin = coin;
@@ -31,7 +31,7 @@ app.controller('exchangeController', function ($scope, $http) {
     })
 
     $scope.$watch('intPrivateKey', function (value) {
-        if ($scope.direction == 'INT->ETH' && $scope.fromCoin == 'INT' && $scope.toCoin == 'INT_ETH') {
+        if ($scope.direction == 'INT->HECO' && $scope.fromCoin == 'INT' && $scope.toCoin == 'INT_HECO') {
             let intPrivateKey = value
             if (value.indexOf("0x") === 0) {
                 intPrivateKey = value.substr(2);
@@ -45,7 +45,7 @@ app.controller('exchangeController', function ($scope, $http) {
     })
 
     $scope.$watch('ethPrivateKey', function (value) {
-        if ($scope.direction == 'ETH->INT' && $scope.fromCoin == 'INT_ETH' && $scope.toCoin == 'INT') {
+        if ($scope.direction == 'HECO->INT' && $scope.fromCoin == 'INT_HECO' && $scope.toCoin == 'INT') {
             let ethPrivateKey = value;
             if (value.indexOf("0x") === 0) {
                 ethPrivateKey = value.substr(2);
@@ -60,7 +60,7 @@ app.controller('exchangeController', function ($scope, $http) {
 
     $scope.queryINTonETHBalance = function (ethAddress) {
         var wal = require("wal");
-        wal.queryBalance(ethAddress, 'eth').then(function (data) {
+        wal.queryBalance(ethAddress, 'heco').then(function (data) {
             if (typeof data === 'string') {
                 data = JSON.parse(data)
             }
@@ -102,9 +102,9 @@ app.controller('exchangeController', function ($scope, $http) {
         });
     };
     $scope.toExchange = function () {
-        if ($scope.direction == 'INT->ETH' && $scope.fromCoin == 'INT' && $scope.toCoin == 'INT_ETH') {
+        if ($scope.direction == 'INT->HECO' && $scope.fromCoin == 'INT' && $scope.toCoin == 'INT_HECO') {
             $scope.INTToINT_ETH()
-        } else if ($scope.direction == 'ETH->INT' && $scope.fromCoin == 'INT_ETH' && $scope.toCoin == 'INT') {
+        } else if ($scope.direction == 'HECO->INT' && $scope.fromCoin == 'INT_HECO' && $scope.toCoin == 'INT') {
             $scope.INT_ETHtoINT()
         }
     }
@@ -123,7 +123,7 @@ app.controller('exchangeController', function ($scope, $http) {
             return;
         }
         if (+$scope.ethBalance < +(($scope.ethGasPrice * 100000 * 2) / Math.pow(10, 18))) {
-            modal.error({ msg: 'ETH' + $scope.doc.balanceNotEnough, title: $scope.doc.notice, okText: $scope.doc.confirm })
+            modal.error({ msg: 'HECO' + $scope.doc.balanceNotEnough, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return;
         }
         let privateKey = $scope.ethPrivateKey;
@@ -138,7 +138,7 @@ app.controller('exchangeController', function ($scope, $http) {
             amount: $scope.exchangeAmount,
             ethPrivateKey: privateKey,
             intAddress: $scope.toAddress,
-            fromCoin: 'INT_ETH'
+            fromCoin: 'INT_HECO'
         }).then(function (r) {
             if (typeof r === 'string') {
                 r = JSON.parse(r)
@@ -146,7 +146,7 @@ app.controller('exchangeController', function ($scope, $http) {
             if (r.err) {
                 modal.error({ msg: r.err, title: $scope.doc.notice, okText: $scope.doc.confirm })
             } else {
-                modal.burnSuccess({ doc: $scope.doc, msg: 'https://etherscan.io/tx/' + r.hash })
+                modal.burnSuccess({ doc: $scope.doc, msg: 'https://scan.hecochain.com/tx/' + r.hash })
                 $scope.ethNonce = 2 + +$scope.ethNonce
                 //$scope.timeGetBalance()
             }
@@ -159,10 +159,10 @@ app.controller('exchangeController', function ($scope, $http) {
             modal.error({ msg: $scope.doc.ethAddressNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return;
         }
-        if (+$scope.exchangeAmount < 500) {
-            modal.error({ msg: $scope.doc.exchangeAmountMustMoreThan, title: $scope.doc.notice, okText: $scope.doc.confirm })
-            return;
-        }
+        // if (+$scope.exchangeAmount < 500) {
+        //     modal.error({ msg: $scope.doc.exchangeAmountMustMoreThan, title: $scope.doc.notice, okText: $scope.doc.confirm })
+        //     return;
+        // }
         if (!$scope.exchangeAmount || isNaN($scope.exchangeAmount) || $scope.exchangeAmount < 0) {
             modal.error({ msg: $scope.doc.exchangeAmountNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm })
             return;
@@ -177,7 +177,7 @@ app.controller('exchangeController', function ($scope, $http) {
         }
         let data = {
             type: 'exchange',
-            toCoin: 'INT_ETH',
+            toCoin: 'INT_HECO',
             toAddress: $scope.toAddress
         }
         let privateKey = $scope.intPrivateKey;
@@ -322,7 +322,7 @@ app.controller('exchangeController', function ($scope, $http) {
         }
         if ($scope.model.decimalGas * $scope.model.gasLimit * 2 > $scope.ethBalance) {
             let num = new wal.BigNumber($scope.model.decimalGas).multipliedBy($scope.model.gasLimit).multipliedBy(2).toString()
-            modal.error({ msg: $scope.doc.ethNotEnough + num + ' ETH', title: $scope.doc.notice, okText: $scope.doc.confirm })
+            modal.error({ msg: $scope.doc.ethNotEnough + num + ' HT', title: $scope.doc.notice, okText: $scope.doc.confirm })
             return;
         }
         let obj = { ...$scope.model }
