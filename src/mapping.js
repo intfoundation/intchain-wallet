@@ -205,7 +205,7 @@ function transferToken(params) {
         gasPrice: Web3.utils.toHex(params.gasPrice),
         gasLimit: Web3.utils.toHex('100000'),
         to: params.fromCoin === 'INT_ETH' ? '0xbe038a2fdfec62cf1bed852f141a43005035edcc' : '0x4f4e14baae95d962399597c4c250afe0a4352794',
-        value: '0x00',
+        value: '0x0',
         data: '0xa9059cbb' + data
     };
 

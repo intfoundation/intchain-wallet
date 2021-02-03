@@ -114,10 +114,6 @@ input {
     width: 70px;
 }
 
-.tabbar-box .tab-item:nth-child(7) {
-    width: 52px;
-}
-
 
 /* .tabbar-box .tab-item:nth-child(6) {
     width: 65px;
@@ -224,10 +220,6 @@ input {
 }
 
 #token {
-    position: relative;
-}
-
-#defi {
     position: relative;
 }
 
