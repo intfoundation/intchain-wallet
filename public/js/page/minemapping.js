@@ -122,10 +122,6 @@ app.controller('mineMappingController', function($scope, $http) {
 
     $scope.queryInt4Balance = function() {
         let wal = require("wal");
-        if (!wal.INT4Account.isValidAddress($scope.int4Address)) {
-            return
-        }
-
         wal.queryInt4Balance($scope.int4Address).then( function(data) {
             if (data.error) {
                 modal.error({ msg: data.error, title: $scope.doc.notice, okText: $scope.doc.confirm });
