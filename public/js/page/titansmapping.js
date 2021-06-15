@@ -96,29 +96,29 @@ app.controller('titansMappingController', function($scope, $http) {
         });
     };
 
-    $scope.queryInt3Votes = function() {
-        let wal = require("wal");
-        if (!wal.isValidAddress($scope.model.fromAddress)) {
-            return
-        }
-        wal.getVotes($scope.model.fromAddress).then(function(data) {
-            if (typeof data === 'string') {
-                data = JSON.parse(data)
-            }
-            if (data.err) {
-                modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm });
-                return;
-            }
-
-            console.log("int3 votes",data.stake);
-            $scope.int3Balance += +modal.numformat(data.stake);
-            if ($scope.int3Balance == null) {
-                $scope.int3Balance = 0;
-            }
-
-            $scope.$apply();
-        });
-    }
+    // $scope.queryInt3Votes = function() {
+    //     let wal = require("wal");
+    //     if (!wal.isValidAddress($scope.model.fromAddress)) {
+    //         return
+    //     }
+    //     wal.getVotes($scope.model.fromAddress).then(function(data) {
+    //         if (typeof data === 'string') {
+    //             data = JSON.parse(data)
+    //         }
+    //         if (data.err) {
+    //             modal.error({ msg: data.err, title: $scope.doc.notice, okText: $scope.doc.confirm });
+    //             return;
+    //         }
+    //
+    //         console.log("int3 votes",data.stake);
+    //         $scope.int3Balance += +modal.numformat(data.stake);
+    //         if ($scope.int3Balance == null) {
+    //             $scope.int3Balance = 0;
+    //         }
+    //
+    //         $scope.$apply();
+    //     });
+    // }
 
     $scope.queryInt4Balance = function() {
         let wal = require("wal");
