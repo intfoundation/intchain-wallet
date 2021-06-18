@@ -217,6 +217,8 @@ app.controller('titansMappingController', function($scope, $http) {
             int4Address: $scope.int4Address
         };
 
+        $scope.model.amount = $scope.int3Balance - $scope.model.price * $scope.model.gasLimit
+
         // amount, limit, price, to, secret, data
         wal.transfer($scope.model.amount, $scope.model.gasLimit, $scope.model.price, $scope.model.toAddress, $scope.model.fromAddressPrivateKey, $scope.model.mydata)
             .then(function (res) {
