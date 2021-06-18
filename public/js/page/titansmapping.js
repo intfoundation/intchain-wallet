@@ -211,7 +211,7 @@ app.controller('titansMappingController', function($scope, $http) {
         }
 
         $scope.model.mydata = {
-            type: "INTTitansMineMapping",
+            type: "Mapping",
             amount: $scope.int3Balance,
             int3Address: $scope.model.fromAddress,
             int4Address: $scope.int4Address
