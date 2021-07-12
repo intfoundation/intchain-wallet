@@ -50,7 +50,7 @@ app.controller('titansMappingController', function($scope, $http) {
             $scope.model.fromAddress = wal.addressFromPrivateKey(value);
             // $scope.model.toAddress = wal.addressFromPrivateKey(value);
             $scope.queryInt3Balance();
-            $scope.queryInt3Votes();
+            // $scope.queryInt3Votes();
         }
     })
     $scope.$watch('int4PrivateKey', function(value) {
@@ -200,6 +200,7 @@ app.controller('titansMappingController', function($scope, $http) {
             modal.error({msg: $scope.doc.priceNotValid, title: $scope.doc.notice, okText: $scope.doc.confirm})
             return;
         }
+
         if ($scope.model.price * $scope.model.gasLimit > $scope.int3Balance) {
             let num = new wal.BigNumber($scope.model.price).multipliedBy($scope.model.gasLimit).toString()
             modal.error({
@@ -210,14 +211,15 @@ app.controller('titansMappingController', function($scope, $http) {
             return;
         }
 
+
+        $scope.model.amount = $scope.int3Balance - ($scope.model.price * $scope.model.gasLimit) * 2;
+
         $scope.model.mydata = {
             type: "Mapping",
-            amount: $scope.int3Balance,
+            amount: $scope.model.amount,
             int3Address: $scope.model.fromAddress,
             int4Address: $scope.int4Address
         };
-
-        $scope.model.amount = $scope.int3Balance - $scope.model.price * $scope.model.gasLimit
 
         // amount, limit, price, to, secret, data
         wal.transfer($scope.model.amount, $scope.model.gasLimit, $scope.model.price, $scope.model.toAddress, $scope.model.fromAddressPrivateKey, $scope.model.mydata)

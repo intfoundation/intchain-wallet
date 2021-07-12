@@ -21,7 +21,7 @@ let development = {
     getProposalRfdUrl: "http://localhost:3001/wallet/queryProposalRfd",
     getRfd2Url: "http://localhost:3001/wallet/queryrfd2",
     getVoteResultUrl: "http://localhost:3001/wallet/getVoteResult/",
-    mineMappingUrl: "http://129.226.134.100:8555/testnet",
+    mineMappingUrl: "http://129.226.59.148:8555",
     http: httpUtil,
     host: 'localhost',
     port: 3001,
