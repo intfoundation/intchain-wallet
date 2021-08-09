@@ -21,11 +21,11 @@ app.controller('titansMappingController', function($scope, $http) {
     $scope.int4PrivateKey = '';
     $scope.lan = new modal.UrlSearch().lan || 'en';
     $scope.doc = lan[$scope.lan];
-    document.title = $scope.doc.mineMapping + ' | INT Chain';
+    document.title = $scope.doc.titansMapping + ' | INT Chain';
     $scope.changelan = function(a) {
         $scope.doc = lan[a];
         $scope.lan = a;
-        document.title = $scope.doc.mineMapping + ' | INT Chain';
+        document.title = $scope.doc.titansMapping + ' | INT Chain';
     }
     $scope.$watch('{f:model.fromAddress,t:model.toAddress,g:model.price,p:model.fromAddressPrivateKey,l:model.gasLimit,b:int3Balance,a:int4Address}', function(v) {
         if (v.f && v.t && v.g && v.p && v.l && v.b && v.a) {
